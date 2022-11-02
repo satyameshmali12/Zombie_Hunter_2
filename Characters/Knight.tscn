@@ -112,15 +112,14 @@ animations = [ {
 radius = 29.0
 height = 102.0
 
-[node name="Knight" type="KinematicBody2D"]
-motion/sync_to_physics = true
+[node name="Area2D" type="Area2D"]
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 position = Vector2( 167, 211 )
 scale = Vector2( 0.16, 0.22 )
 frames = SubResource( 1 )
 animation = "Walk"
-frame = 3
+frame = 6
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
