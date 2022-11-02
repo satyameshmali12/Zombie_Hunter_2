@@ -136,7 +136,7 @@ animations = [ {
 "frames": [ ExtResource( 43 ), ExtResource( 44 ), ExtResource( 42 ), ExtResource( 46 ), ExtResource( 49 ), ExtResource( 48 ), ExtResource( 40 ), ExtResource( 45 ), ExtResource( 41 ), ExtResource( 47 ) ],
 "loop": true,
 "name": "Idle",
-"speed": 13.0
+"speed": 15.0
 }, {
 "frames": [ ExtResource( 50 ), ExtResource( 59 ), ExtResource( 55 ), ExtResource( 51 ), ExtResource( 57 ), ExtResource( 58 ), ExtResource( 52 ), ExtResource( 53 ), ExtResource( 54 ), ExtResource( 56 ) ],
 "loop": true,
@@ -175,18 +175,22 @@ height = 84.0
 
 [node name="Ninja" type="RigidBody2D"]
 mode = 2
-mass = 0.612245
+mass = 0.816326
 script = ExtResource( 110 )
 
-[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+[node name="Movements" type="AnimatedSprite" parent="."]
 position = Vector2( 367, 266 )
 scale = Vector2( 0.225746, 0.321717 )
 frames = SubResource( 1 )
-animation = "Jump"
+animation = "Idle"
+frame = 7
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 372, 267 )
 shape = SubResource( 2 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2( 387, 298 )
+position = Vector2( 508, 90 )
+offset = Vector2( 0, -34 )
+current = true
+smoothing_enabled = true
