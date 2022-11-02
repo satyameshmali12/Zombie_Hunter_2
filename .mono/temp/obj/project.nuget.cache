@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "pPiulIZ9C4gt+tI3Vakrp0I/q5TiBXBvKZb0rFetGBDMl8v6F3DfOGsjRbcQMFjeFowzmZoIksNM0h3JoGQUpQ==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\hp\\OneDrive\\Desktop\\Zombie Hunter 2\\Zombie_Hunter_2.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\hp\\.nuget\\packages\\microsoft.netframework.referenceassemblies\\1.0.2\\microsoft.netframework.referenceassemblies.1.0.2.nupkg.sha512",
+    "C:\\Users\\hp\\.nuget\\packages\\microsoft.netframework.referenceassemblies.net472\\1.0.2\\microsoft.netframework.referenceassemblies.net472.1.0.2.nupkg.sha512"
+  ],
+  "logs": []
+}
