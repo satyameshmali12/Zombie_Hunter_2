@@ -112,7 +112,7 @@ animations = [ {
 radius = 29.0
 height = 102.0
 
-[node name="Area2D" type="Area2D"]
+[node name="Knight" type="RigidBody2D"]
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 position = Vector2( 167, 211 )
