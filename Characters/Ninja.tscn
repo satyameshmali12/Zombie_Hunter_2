@@ -1,4 +1,4 @@
-[gd_scene load_steps=113 format=2]
+[gd_scene load_steps=115 format=2]
 
 [ext_resource path="res://assets/images/ninja/attack/Attack__009.png" type="Texture" id=1]
 [ext_resource path="res://assets/images/ninja/attack/Attack__000.png" type="Texture" id=2]
@@ -110,6 +110,12 @@
 [ext_resource path="res://assets/images/ninja/throw/Throw__003.png" type="Texture" id=108]
 [ext_resource path="res://assets/images/ninja/throw/Throw__009.png" type="Texture" id=109]
 [ext_resource path="res://Character_Scripts/Ninja.cs" type="Script" id=110]
+[ext_resource path="res://Weapons_And_Animation/scenes/Kunai.tscn" type="PackedScene" id=111]
+
+[sub_resource type="PhysicsMaterial" id=3]
+friction = 0.2
+rough = true
+bounce = 0.1
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -171,11 +177,15 @@ animations = [ {
 
 [sub_resource type="CapsuleShape2D" id=2]
 radius = 35.0
-height = 84.0
+height = 80.0
 
 [node name="Ninja" type="RigidBody2D"]
 mode = 2
 mass = 0.816326
+physics_material_override = SubResource( 3 )
+gravity_scale = 30.0
+contacts_reported = 10
+contact_monitor = true
 script = ExtResource( 110 )
 
 [node name="Movements" type="AnimatedSprite" parent="."]
@@ -183,14 +193,47 @@ position = Vector2( 367, 266 )
 scale = Vector2( 0.225746, 0.321717 )
 frames = SubResource( 1 )
 animation = "Idle"
-frame = 7
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 372, 267 )
+position = Vector2( 367, 264 )
 shape = SubResource( 2 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2( 508, 90 )
+position = Vector2( 383, 181 )
 offset = Vector2( 0, -34 )
 current = true
 smoothing_enabled = true
+
+[node name="Rays" type="Node2D" parent="."]
+
+[node name="Jump_Ray_1" type="RayCast2D" parent="Rays"]
+position = Vector2( 368, 305 )
+cast_to = Vector2( 2, 50 )
+collide_with_areas = true
+
+[node name="Jump_Ray_2" type="RayCast2D" parent="Rays"]
+position = Vector2( 372, 306 )
+cast_to = Vector2( 29, 37 )
+
+[node name="Jump_Ray_3" type="RayCast2D" parent="Rays"]
+position = Vector2( 367, 305 )
+cast_to = Vector2( -35, 38 )
+
+[node name="Jump_Ray_4" type="RayCast2D" parent="Rays"]
+position = Vector2( 372, 305 )
+cast_to = Vector2( 36, 23 )
+collide_with_areas = true
+
+[node name="Jump_Ray_5" type="RayCast2D" parent="Rays"]
+position = Vector2( 367, 306 )
+cast_to = Vector2( -39, 22 )
+collide_with_areas = true
+
+[node name="Kunai" parent="." instance=ExtResource( 111 )]
+visible = false
+position = Vector2( -488, -152 )
+
+[node name="Height_Checker" type="RayCast2D" parent="."]
+position = Vector2( 372, 306 )
+enabled = true
+cast_to = Vector2( -4, 398 )

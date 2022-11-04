@@ -114,6 +114,12 @@ radius = 29.0
 height = 102.0
 
 [node name="Knight" type="RigidBody2D"]
+position = Vector2( 78, 62 )
+mode = 2
+mass = 0.816326
+gravity_scale = 30.0
+contacts_reported = 10
+contact_monitor = true
 script = ExtResource( 70 )
 
 [node name="Movements" type="AnimatedSprite" parent="."]
@@ -126,3 +132,21 @@ frame = 6
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 162, 210 )
 shape = SubResource( 2 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2( 213, 142 )
+
+[node name="Rays" type="Node2D" parent="."]
+
+[node name="Jump_Ray_1" type="RayCast2D" parent="Rays"]
+position = Vector2( 159, 254 )
+cast_to = Vector2( 1, 44 )
+collide_with_areas = true
+
+[node name="Jump_Ray_2" type="RayCast2D" parent="Rays"]
+position = Vector2( 161, 256 )
+cast_to = Vector2( 23, 28 )
+
+[node name="Jump_Ray_3" type="RayCast2D" parent="Rays"]
+position = Vector2( 158, 255 )
+cast_to = Vector2( -29, 30 )
