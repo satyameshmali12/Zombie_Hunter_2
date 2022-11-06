@@ -5,6 +5,7 @@
 
 using Godot;
 using System;
+using System.Collections;
 
 
 public class Ninja : Basic_Character
@@ -13,7 +14,7 @@ public class Ninja : Basic_Character
 	int no_of_coll=0;
 
 	// Is_Movement_Busy is_busy;
-	bool is_busy;
+	// bool is_busy;
 
 	[Export]
 	int slide_speed_increment=200;
@@ -21,14 +22,12 @@ public class Ninja : Basic_Character
 	Kunai kunai; // this is the throw weapon of the player
 
 	
-
+	
 	bool is_gliding;
 
 	// int default_gravity;
 
-	string[] available_moves = new string[3]{"jump_attack","attack","jump_throw"};
-	int[] available_moves_damage = new int[4]{10,10,10,10};
-	int [] available_moves_consumption = new int[4]{10,10,10,10};
+	// int[] available_moves_damage = new int[10]{0,0,0,2,0,0,5,0,0,10};
 
 
 
@@ -45,8 +44,13 @@ public class Ninja : Basic_Character
 		kunai = GetNode("Kunai") as Kunai;
 		kunai.SetAsToplevel(true);
 		kunai.Visible = false;
+		
 
 		// default_gravity = advanced_gravity;
+		//  (){"attack","climb","death","glide","idle","jump","jump_attack","run","slide","throw"}
+		available_moves = new ArrayList(){"attack","climb","death","glide","idle","jump","jump_attack","run","slide","throw"};
+		// available_moves_damage = new int[10]{0,0,0,2,0,0,5,0,0,10};
+		available_moves_consumption = new int[10]{0,0,0,2,0,0,5,0,0,10};
 
 		
 		
@@ -59,16 +63,17 @@ public class Ninja : Basic_Character
 		custom_process(delta);
 		
 		// jump attack move of the ninja
-		if(Input.IsActionJustReleased("Jump_Attack") && !is_on_ground){
+		if(Input.IsActionJustReleased("Jump_Attack") && !is_on_ground && can_perfrom_move("Jump_Attack")){
 			is_busy = true;
 			animations.Animation = "Jump_Attack";
 			advanced_gravity = default_gravity; 
-
 		}
 
 		else if(animations.Animation=="Jump_Attack" && is_on_ground){
 			is_busy = false;
 		}
+
+		set_animation_idle("Jump_Attack");
 
 		// for the sliding of the player
 		if(Input.IsActionPressed("Slide") && is_on_ground){
@@ -86,8 +91,7 @@ public class Ninja : Basic_Character
 		// to throw the kunai
 		if(Input.IsActionJustPressed("T") || animations.Animation=="Throw"){
 
-
-			if(!is_gliding){
+			if(!is_gliding && can_perfrom_move("Throw",animations.Animation!="Throw")){
 
 				var throw_frame_count = animations.Frame;
 				var throw_total_frame = animations.Frames.GetFrameCount("Throw");
@@ -117,12 +121,9 @@ public class Ninja : Basic_Character
 			}
 
 			is_gliding = false;
-			// advanced_gravity = default_gravity;
-			// is_busy = false;
 		}
 
-		// GD.Print(!height_checker.IsColliding());
-		if(!is_gliding && !height_checker.IsColliding() && !is_on_ground){
+		if(!is_gliding && !height_checker.IsColliding() && !is_on_ground && can_perfrom_move("Glide")){
 			is_gliding = true;
 			is_busy = true;
 			animations.Animation = "Glide";
@@ -141,10 +142,8 @@ public class Ninja : Basic_Character
 			animations.Animation = "Attack";
 			is_busy = true;
 		}
-		else if(animations.Animation=="Attack" && animations.Frame==animations.Frames.GetFrameCount("Attack")-1){
-			animations.Animation="Idle";
-			is_busy = false;
-		}
+
+		set_animation_idle("Attack");
 
 		// setting the moving speed to zero if the the player is attacking
 		if(animations.Animation=="Attack"){
@@ -152,13 +151,12 @@ public class Ninja : Basic_Character
 		}
 
 		LinearVelocity = moving_speed;
-
+		
 	}
 
 	public override void collided_with_body(Node body)
 	{
 		base.collided_with_body(body);
-
 		Global_Variables_F_A_T new_node = (Global_Variables_F_A_T)body;
 
 		if(new_node._node_type=="player"){

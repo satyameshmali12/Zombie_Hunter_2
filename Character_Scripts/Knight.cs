@@ -4,7 +4,8 @@ using System;
 public class Knight : Basic_Character
 {
 
-	bool is_busy;
+	// bool is_busy;
+	
 	[Export]
 	public int slide_speed_increment;
 

@@ -157,3 +157,8 @@ margin_bottom = -256.0
 
 [node name="Camera" parent="." instance=ExtResource( 72 )]
 position = Vector2( 162, -6 )
+
+[node name="Height_Checker" type="RayCast2D" parent="."]
+position = Vector2( 156, 256 )
+enabled = true
+cast_to = Vector2( -4, 398 )
