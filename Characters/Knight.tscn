@@ -1,4 +1,4 @@
-[gd_scene load_steps=73 format=2]
+[gd_scene load_steps=75 format=2]
 
 [ext_resource path="res://assets/images/knight/idle/Idle (3).png" type="Texture" id=1]
 [ext_resource path="res://assets/images/knight/idle/Idle (8).png" type="Texture" id=2]
@@ -70,6 +70,8 @@
 [ext_resource path="res://assets/images/knight/walk/Walk (6).png" type="Texture" id=68]
 [ext_resource path="res://assets/images/knight/walk/Walk (10).png" type="Texture" id=69]
 [ext_resource path="res://Character_Scripts/Knight.cs" type="Script" id=70]
+[ext_resource path="res://Weapons_And_Animation/components/scenes/Health_Bar.tscn" type="PackedScene" id=71]
+[ext_resource path="res://Weapons_And_Animation/components/scenes/Camera.tscn" type="PackedScene" id=72]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -95,7 +97,7 @@ animations = [ {
 }, {
 "frames": [ ExtResource( 40 ), ExtResource( 41 ), ExtResource( 42 ), ExtResource( 43 ), ExtResource( 44 ), ExtResource( 45 ), ExtResource( 47 ), ExtResource( 49 ), ExtResource( 48 ), ExtResource( 46 ) ],
 "loop": true,
-"name": "Jump_Atttack",
+"name": "Jump_Attack",
 "speed": 15.0
 }, {
 "frames": [ ExtResource( 53 ), ExtResource( 55 ), ExtResource( 57 ), ExtResource( 52 ), ExtResource( 56 ), ExtResource( 54 ), ExtResource( 58 ), ExtResource( 51 ), ExtResource( 59 ), ExtResource( 50 ) ],
@@ -110,11 +112,11 @@ animations = [ {
 } ]
 
 [sub_resource type="CapsuleShape2D" id=2]
-radius = 29.0
-height = 102.0
+radius = 31.0
+height = 82.0
 
 [node name="Knight" type="RigidBody2D"]
-position = Vector2( 78, 62 )
+position = Vector2( 292, 256 )
 mode = 2
 mass = 0.816326
 gravity_scale = 30.0
@@ -127,26 +129,31 @@ position = Vector2( 167, 211 )
 scale = Vector2( 0.16, 0.22 )
 frames = SubResource( 1 )
 animation = "Idle"
-frame = 6
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 162, 210 )
+position = Vector2( 158, 210 )
 shape = SubResource( 2 )
-
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2( 213, 142 )
 
 [node name="Rays" type="Node2D" parent="."]
 
 [node name="Jump_Ray_1" type="RayCast2D" parent="Rays"]
 position = Vector2( 159, 254 )
-cast_to = Vector2( 1, 44 )
+cast_to = Vector2( 3, 36 )
 collide_with_areas = true
 
 [node name="Jump_Ray_2" type="RayCast2D" parent="Rays"]
 position = Vector2( 161, 256 )
-cast_to = Vector2( 23, 28 )
+cast_to = Vector2( 17, 34 )
 
 [node name="Jump_Ray_3" type="RayCast2D" parent="Rays"]
 position = Vector2( 158, 255 )
-cast_to = Vector2( -29, 30 )
+cast_to = Vector2( -20, 35 )
+
+[node name="Health_Bar" parent="." instance=ExtResource( 71 )]
+margin_left = -348.0
+margin_top = -296.0
+margin_right = -108.0
+margin_bottom = -256.0
+
+[node name="Camera" parent="." instance=ExtResource( 72 )]
+position = Vector2( 162, -6 )

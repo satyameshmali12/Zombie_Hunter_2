@@ -7,7 +7,7 @@ public class Kunai : Area2D,Global_Variables_F_A_T
 	public string _node_type{get;set;}
 
 	[Export]
-	int Kunai_Move_Speed=40;
+	int Kunai_Move_Speed=20;
 
 
 	[Export]

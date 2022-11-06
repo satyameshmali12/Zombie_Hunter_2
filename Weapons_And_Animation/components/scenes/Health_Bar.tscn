@@ -1,0 +1,11 @@
+[gd_scene format=2]
+
+[node name="Health_Bar" type="ProgressBar"]
+modulate = Color( 0.909804, 0.133333, 0.133333, 1 )
+self_modulate = Color( 0.94902, 0.0156863, 0.0156863, 1 )
+margin_left = 384.0
+margin_top = 252.0
+margin_right = 624.0
+margin_bottom = 292.0
+value = 100.0
+rounded = true

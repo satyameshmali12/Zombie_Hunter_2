@@ -20,11 +20,15 @@ public class Ninja : Basic_Character
 
 	Kunai kunai; // this is the throw weapon of the player
 
-	RayCast2D height_checker;
+	
 
 	bool is_gliding;
 
-	int default_gravity;
+	// int default_gravity;
+
+	string[] available_moves = new string[3]{"jump_attack","attack","jump_throw"};
+	int[] available_moves_damage = new int[4]{10,10,10,10};
+	int [] available_moves_consumption = new int[4]{10,10,10,10};
 
 
 
@@ -34,7 +38,6 @@ public class Ninja : Basic_Character
 
 		is_busy = false;
 
-		height_checker = GetNode<RayCast2D>("Height_Checker");
 
 		is_gliding = false;
 
@@ -43,7 +46,7 @@ public class Ninja : Basic_Character
 		kunai.SetAsToplevel(true);
 		kunai.Visible = false;
 
-		default_gravity = advanced_gravity;
+		// default_gravity = advanced_gravity;
 
 		
 		
@@ -59,6 +62,8 @@ public class Ninja : Basic_Character
 		if(Input.IsActionJustReleased("Jump_Attack") && !is_on_ground){
 			is_busy = true;
 			animations.Animation = "Jump_Attack";
+			advanced_gravity = default_gravity; 
+
 		}
 
 		else if(animations.Animation=="Jump_Attack" && is_on_ground){
@@ -81,7 +86,6 @@ public class Ninja : Basic_Character
 		// to throw the kunai
 		if(Input.IsActionJustPressed("T") || animations.Animation=="Throw"){
 
-			is_gliding = false;
 
 			if(!is_gliding){
 
@@ -111,7 +115,12 @@ public class Ninja : Basic_Character
 					}
 				}
 			}
+
+			is_gliding = false;
+			// advanced_gravity = default_gravity;
+			// is_busy = false;
 		}
+
 		// GD.Print(!height_checker.IsColliding());
 		if(!is_gliding && !height_checker.IsColliding() && !is_on_ground){
 			is_gliding = true;
@@ -120,7 +129,7 @@ public class Ninja : Basic_Character
 			advanced_gravity = 50;
 		}
 
-		else if(is_gliding && is_on_ground){
+		else if(is_gliding && is_on_ground || !is_gliding && advanced_gravity!=default_gravity){
 			GD.Print("hey there setting to ",is_gliding);
 			is_gliding = false;
 			is_busy = false;
@@ -128,6 +137,19 @@ public class Ninja : Basic_Character
 		}
 
 
+		if(Input.IsActionPressed("F") && !is_busy && animations.Animation!="Jump_Attack" && animations.Animation!="Attack"){
+			animations.Animation = "Attack";
+			is_busy = true;
+		}
+		else if(animations.Animation=="Attack" && animations.Frame==animations.Frames.GetFrameCount("Attack")-1){
+			animations.Animation="Idle";
+			is_busy = false;
+		}
+
+		// setting the moving speed to zero if the the player is attacking
+		if(animations.Animation=="Attack"){
+			moving_speed = new Vector2(0,moving_speed.y);  
+		}
 
 		LinearVelocity = moving_speed;
 

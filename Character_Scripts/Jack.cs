@@ -1,20 +1,26 @@
 using Godot;
 using System;
 
-public class Jack : RigidBody2D,Global_Variables_F_A_T
+public class Jack : Basic_Character
 {
-	public string _node_type{get;set;}
+	// public string _node_type{get;set;}
 
 
 	public override void _Ready()
 	{
+		custom_constructor(1000,10000);
 		_node_type = "player";
 
 	}
 
-	
 	public override void _Process(float delta)
 	{
+
+		custom_process(delta);
+
+		LinearVelocity = moving_speed;
+
+
 		
 	}
 }
