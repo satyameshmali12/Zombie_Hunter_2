@@ -1,0 +1,203 @@
+[gd_scene load_steps=90 format=2]
+
+[ext_resource path="res://assets/images/Robot/Run/Run (2).png" type="Texture" id=1]
+[ext_resource path="res://assets/images/Robot/Run/Run (4).png" type="Texture" id=2]
+[ext_resource path="res://assets/images/Robot/Run/Run (5).png" type="Texture" id=3]
+[ext_resource path="res://assets/images/Robot/Run/Run (1).png" type="Texture" id=4]
+[ext_resource path="res://assets/images/Robot/Run/Run (3).png" type="Texture" id=5]
+[ext_resource path="res://assets/images/Robot/Run/Run (8).png" type="Texture" id=6]
+[ext_resource path="res://assets/images/Robot/Run/Run (6).png" type="Texture" id=7]
+[ext_resource path="res://assets/images/Robot/Run/Run (7).png" type="Texture" id=8]
+[ext_resource path="res://assets/images/Robot/Death/Dead (7).png" type="Texture" id=9]
+[ext_resource path="res://assets/images/Robot/Death/Dead (4).png" type="Texture" id=10]
+[ext_resource path="res://assets/images/Robot/Death/Dead (10).png" type="Texture" id=11]
+[ext_resource path="res://assets/images/Robot/Death/Dead (9).png" type="Texture" id=12]
+[ext_resource path="res://assets/images/Robot/Death/Dead (8).png" type="Texture" id=13]
+[ext_resource path="res://assets/images/Robot/Death/Dead (5).png" type="Texture" id=14]
+[ext_resource path="res://assets/images/Robot/Death/Dead (3).png" type="Texture" id=15]
+[ext_resource path="res://assets/images/Robot/Death/Dead (6).png" type="Texture" id=16]
+[ext_resource path="res://assets/images/Robot/Death/Dead (1).png" type="Texture" id=17]
+[ext_resource path="res://assets/images/Robot/Death/Dead (2).png" type="Texture" id=18]
+[ext_resource path="res://assets/images/Robot/Idle/Idle (1).png" type="Texture" id=19]
+[ext_resource path="res://assets/images/Robot/Idle/Idle (3).png" type="Texture" id=20]
+[ext_resource path="res://assets/images/Robot/Idle/Idle (5).png" type="Texture" id=21]
+[ext_resource path="res://assets/images/Robot/Idle/Idle (7).png" type="Texture" id=22]
+[ext_resource path="res://assets/images/Robot/Idle/Idle (4).png" type="Texture" id=23]
+[ext_resource path="res://assets/images/Robot/Idle/Idle (6).png" type="Texture" id=24]
+[ext_resource path="res://assets/images/Robot/Idle/Idle (8).png" type="Texture" id=25]
+[ext_resource path="res://assets/images/Robot/Idle/Idle (2).png" type="Texture" id=26]
+[ext_resource path="res://assets/images/Robot/Idle/Idle (10).png" type="Texture" id=27]
+[ext_resource path="res://assets/images/Robot/Idle/Idle (9).png" type="Texture" id=28]
+[ext_resource path="res://assets/images/Robot/JumpMelee/JumpMelee (5).png" type="Texture" id=29]
+[ext_resource path="res://assets/images/Robot/JumpMelee/JumpMelee (4).png" type="Texture" id=30]
+[ext_resource path="res://assets/images/Robot/JumpMelee/JumpMelee (6).png" type="Texture" id=31]
+[ext_resource path="res://assets/images/Robot/JumpMelee/JumpMelee (3).png" type="Texture" id=32]
+[ext_resource path="res://assets/images/Robot/JumpMelee/JumpMelee (7).png" type="Texture" id=33]
+[ext_resource path="res://assets/images/Robot/JumpMelee/JumpMelee (8).png" type="Texture" id=34]
+[ext_resource path="res://assets/images/Robot/Jump/Jump (4).png" type="Texture" id=35]
+[ext_resource path="res://assets/images/Robot/Jump/Jump (7).png" type="Texture" id=36]
+[ext_resource path="res://assets/images/Robot/Jump/Jump (3).png" type="Texture" id=37]
+[ext_resource path="res://assets/images/Robot/Jump/Jump (1).png" type="Texture" id=38]
+[ext_resource path="res://assets/images/Robot/Jump/Jump (2).png" type="Texture" id=39]
+[ext_resource path="res://assets/images/Robot/Jump/Jump (10).png" type="Texture" id=40]
+[ext_resource path="res://assets/images/Robot/JumpMelee/JumpMelee (1).png" type="Texture" id=41]
+[ext_resource path="res://assets/images/Robot/JumpMelee/JumpMelee (2).png" type="Texture" id=42]
+[ext_resource path="res://assets/images/Robot/Jump/Jump (5).png" type="Texture" id=43]
+[ext_resource path="res://assets/images/Robot/Jump/Jump (6).png" type="Texture" id=44]
+[ext_resource path="res://assets/images/Robot/Jump/Jump (8).png" type="Texture" id=45]
+[ext_resource path="res://assets/images/Robot/Jump/Jump (9).png" type="Texture" id=46]
+[ext_resource path="res://assets/images/Robot/JumpShoot/JumpShoot (2).png" type="Texture" id=47]
+[ext_resource path="res://assets/images/Robot/JumpShoot/JumpShoot (4).png" type="Texture" id=48]
+[ext_resource path="res://assets/images/Robot/JumpShoot/JumpShoot (3).png" type="Texture" id=49]
+[ext_resource path="res://assets/images/Robot/JumpShoot/JumpShoot (5).png" type="Texture" id=50]
+[ext_resource path="res://assets/images/Robot/JumpShoot/JumpShoot (1).png" type="Texture" id=51]
+[ext_resource path="res://assets/images/Robot/Melee/Melee (5).png" type="Texture" id=52]
+[ext_resource path="res://assets/images/Robot/Melee/Melee (6).png" type="Texture" id=53]
+[ext_resource path="res://assets/images/Robot/Melee/Melee (1).png" type="Texture" id=54]
+[ext_resource path="res://assets/images/Robot/Melee/Melee (8).png" type="Texture" id=55]
+[ext_resource path="res://assets/images/Robot/Melee/Melee (3).png" type="Texture" id=56]
+[ext_resource path="res://assets/images/Robot/Melee/Melee (7).png" type="Texture" id=57]
+[ext_resource path="res://assets/images/Robot/Melee/Melee (2).png" type="Texture" id=58]
+[ext_resource path="res://assets/images/Robot/Melee/Melee (4).png" type="Texture" id=59]
+[ext_resource path="res://assets/images/Robot/Run_Shoot/RunShoot (6).png" type="Texture" id=60]
+[ext_resource path="res://assets/images/Robot/Run_Shoot/RunShoot (4).png" type="Texture" id=61]
+[ext_resource path="res://assets/images/Robot/Run_Shoot/RunShoot (9).png" type="Texture" id=62]
+[ext_resource path="res://assets/images/Robot/Run_Shoot/RunShoot (2).png" type="Texture" id=63]
+[ext_resource path="res://assets/images/Robot/Run_Shoot/RunShoot (5).png" type="Texture" id=64]
+[ext_resource path="res://assets/images/Robot/Run_Shoot/RunShoot (3).png" type="Texture" id=65]
+[ext_resource path="res://assets/images/Robot/Run_Shoot/RunShoot (8).png" type="Texture" id=66]
+[ext_resource path="res://assets/images/Robot/Run_Shoot/RunShoot (1).png" type="Texture" id=67]
+[ext_resource path="res://assets/images/Robot/Run_Shoot/RunShoot (7).png" type="Texture" id=68]
+[ext_resource path="res://assets/images/Robot/Shoot/Shoot (1).png" type="Texture" id=69]
+[ext_resource path="res://assets/images/Robot/Shoot/Shoot (2).png" type="Texture" id=70]
+[ext_resource path="res://assets/images/Robot/Shoot/Shoot (3).png" type="Texture" id=71]
+[ext_resource path="res://assets/images/Robot/Shoot/Shoot (4).png" type="Texture" id=72]
+[ext_resource path="res://assets/images/Robot/Slide/Slide (10).png" type="Texture" id=73]
+[ext_resource path="res://assets/images/Robot/Slide/Slide (9).png" type="Texture" id=74]
+[ext_resource path="res://assets/images/Robot/Slide/Slide (7).png" type="Texture" id=75]
+[ext_resource path="res://assets/images/Robot/Slide/Slide (6).png" type="Texture" id=76]
+[ext_resource path="res://assets/images/Robot/Slide/Slide (8).png" type="Texture" id=77]
+[ext_resource path="res://assets/images/Robot/Slide/Slide (5).png" type="Texture" id=78]
+[ext_resource path="res://assets/images/Robot/Slide/Slide (4).png" type="Texture" id=79]
+[ext_resource path="res://assets/images/Robot/Slide/Slide (2).png" type="Texture" id=80]
+[ext_resource path="res://assets/images/Robot/Slide/Slide (3).png" type="Texture" id=81]
+[ext_resource path="res://assets/images/Robot/Slide/Slide (1).png" type="Texture" id=82]
+[ext_resource path="res://Weapons_And_Animation/components/scenes/Camera.tscn" type="PackedScene" id=83]
+[ext_resource path="res://Weapons_And_Animation/components/scenes/Game_Gui.tscn" type="PackedScene" id=84]
+[ext_resource path="res://Character_Scripts/Robot.cs" type="Script" id=85]
+[ext_resource path="res://Weapons_And_Animation/scenes/Behind_Shader.tscn" type="PackedScene" id=86]
+
+[sub_resource type="PhysicsMaterial" id=3]
+friction = 0.2
+rough = true
+bounce = 0.1
+
+[sub_resource type="SpriteFrames" id=2]
+animations = [ {
+"frames": [ ExtResource( 14 ), ExtResource( 16 ), ExtResource( 11 ), ExtResource( 12 ), ExtResource( 13 ), ExtResource( 17 ), ExtResource( 18 ), ExtResource( 10 ), ExtResource( 15 ), ExtResource( 9 ) ],
+"loop": true,
+"name": "Death",
+"speed": 15.0
+}, {
+"frames": [ ExtResource( 19 ), ExtResource( 26 ), ExtResource( 27 ), ExtResource( 21 ), ExtResource( 24 ), ExtResource( 23 ), ExtResource( 20 ), ExtResource( 22 ), ExtResource( 25 ), ExtResource( 28 ) ],
+"loop": true,
+"name": "Idle",
+"speed": 15.0
+}, {
+"frames": [ ExtResource( 37 ), ExtResource( 40 ), ExtResource( 36 ), ExtResource( 46 ), ExtResource( 45 ), ExtResource( 44 ), ExtResource( 43 ), ExtResource( 35 ), ExtResource( 38 ), ExtResource( 39 ) ],
+"loop": true,
+"name": "Jump",
+"speed": 10.0
+}, {
+"frames": [ ExtResource( 41 ), ExtResource( 31 ), ExtResource( 34 ), ExtResource( 33 ), ExtResource( 30 ), ExtResource( 29 ), ExtResource( 32 ), ExtResource( 42 ) ],
+"loop": true,
+"name": "Jump_Melee",
+"speed": 12.0
+}, {
+"frames": [ ExtResource( 49 ), ExtResource( 50 ), ExtResource( 48 ), ExtResource( 51 ), ExtResource( 47 ) ],
+"loop": true,
+"name": "Jump_Shoot",
+"speed": 12.0
+}, {
+"frames": [ ExtResource( 52 ), ExtResource( 53 ), ExtResource( 57 ), ExtResource( 54 ), ExtResource( 59 ), ExtResource( 56 ), ExtResource( 58 ), ExtResource( 55 ) ],
+"loop": true,
+"name": "Melee",
+"speed": 15.0
+}, {
+"frames": [ ExtResource( 4 ), ExtResource( 7 ), ExtResource( 6 ), ExtResource( 8 ), ExtResource( 3 ), ExtResource( 1 ), ExtResource( 5 ), ExtResource( 2 ) ],
+"loop": true,
+"name": "Run",
+"speed": 16.0
+}, {
+"frames": [ ExtResource( 67 ), ExtResource( 68 ), ExtResource( 64 ), ExtResource( 61 ), ExtResource( 63 ), ExtResource( 65 ), ExtResource( 60 ), ExtResource( 66 ), ExtResource( 62 ) ],
+"loop": true,
+"name": "Run_Shoot",
+"speed": 11.0
+}, {
+"frames": [ ExtResource( 69 ), ExtResource( 71 ), ExtResource( 70 ), ExtResource( 72 ) ],
+"loop": true,
+"name": "Shoot",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 82 ), ExtResource( 74 ), ExtResource( 77 ), ExtResource( 80 ), ExtResource( 75 ), ExtResource( 81 ), ExtResource( 79 ), ExtResource( 78 ), ExtResource( 76 ), ExtResource( 73 ) ],
+"loop": true,
+"name": "Slide",
+"speed": 15.0
+} ]
+
+[sub_resource type="CapsuleShape2D" id=4]
+radius = 49.0
+height = 50.0
+
+[node name="Robot" type="RigidBody2D"]
+position = Vector2( 137, 210 )
+mode = 2
+mass = 0.816326
+physics_material_override = SubResource( 3 )
+gravity_scale = 30.0
+contacts_reported = 10
+contact_monitor = true
+script = ExtResource( 85 )
+
+[node name="Movements" type="AnimatedSprite" parent="."]
+position = Vector2( 370, 269 )
+scale = Vector2( 0.210002, 0.299489 )
+z_index = 1
+frames = SubResource( 2 )
+animation = "Idle"
+
+[node name="Camera" parent="." instance=ExtResource( 83 )]
+position = Vector2( 389, 50 )
+
+[node name="Game_Gui" parent="." instance=ExtResource( 84 )]
+position = Vector2( -114, -293 )
+
+[node name="Height_Checker" type="RayCast2D" parent="."]
+position = Vector2( 368, 305 )
+enabled = true
+cast_to = Vector2( 6, 233 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 367, 264 )
+z_index = 1
+shape = SubResource( 4 )
+
+[node name="Rays" type="Node2D" parent="."]
+
+[node name="Jump_Ray_1" type="RayCast2D" parent="Rays"]
+position = Vector2( 368, 305 )
+cast_to = Vector2( 2, 50 )
+collide_with_areas = true
+
+[node name="Jump_Ray_2" type="RayCast2D" parent="Rays"]
+position = Vector2( 372, 306 )
+cast_to = Vector2( 29, 37 )
+
+[node name="Jump_Ray_3" type="RayCast2D" parent="Rays"]
+position = Vector2( 367, 305 )
+cast_to = Vector2( -35, 38 )
+
+[node name="Behind_Shader" parent="." instance=ExtResource( 86 )]
+position = Vector2( -145, -41 )
+
+[node name="Bullet_Timer" type="Timer" parent="."]

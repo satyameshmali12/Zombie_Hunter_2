@@ -22,14 +22,17 @@ public class Basic_Character : RigidBody2D, Global_Variables_F_A_T
     // [Export]
     public string _node_type { get; set; }
 
-	public bool is_busy;
+    public bool is_busy;
+    public string basic_attack_name;
 
     public int power_available;
 
     [Export]
-    public int power_increment_wait_time=5;
+    public int power_increment_wait_time = 5;
     [Export]
-    public int power_increment = 10;
+    public int power_increment = 4;
+    [Export]
+    public int slide_speed_increment = 200;
 
 
 
@@ -60,42 +63,47 @@ public class Basic_Character : RigidBody2D, Global_Variables_F_A_T
     public Vector2 moving_speed;
 
 
-    public List<RayCast2D> collider_rays;
+    public List<RayCast2D> collider_rays; // this will help us know whether the player is on ground or not.
 
     public bool basic_animation_changing_condition;
 
-
-    int health;
-
+    int health; // health of the player
 
     // getting the components 
-    ProgressBar health_bar;
+    ProgressBar health_bar, power_bar;
 
 
 
     // to check the height of the player from the ground
     public RayCast2D height_checker;
-    public Timer One_Second_Timer,Power_Enhancer_Timer;
+    public Timer One_Second_Timer, Power_Enhancer_Timer;
     public bool is_to_give_fall_damage;  // it will help us to determine whether to give the fall damage but also to play the animation at the time of the fall damage
     public int no_of_seconds;  // to check for how much time the player was in the sky it will help us to manage the intensity of the fall damage
 
-    
 
-	public ArrayList available_moves;
-	// int[] available_moves_damage = new int[10]{0,0,0,2,0,0,5,0,0,10};
-	public int [] available_moves_consumption;
 
-    
+    public ArrayList available_moves;
+    public int[] available_moves_damage;
+    public int[] available_moves_consumption;
 
-    public void custom_constructor(int speed, int jump_intensity, int health = 100)
+
+    public Direction moving_direction;
+
+
+
+    public void custom_constructor(int speed, int jump_intensity, int health = 100, string basic_attack_name = "Attack")
     {
 
 
         _node_type = "player";
+        this.basic_attack_name = basic_attack_name;
+
+        var game_gui = GetNode<Node2D>("Game_Gui");
 
         default_gravity = advanced_gravity;
 
         power_available = 100;
+        power_bar = game_gui.GetNode<ProgressBar>("Power_Bar");
 
         Basic_Movements = new ArrayList() { "Idle", "Run", "Walk", "Jump", "Dead" };
 
@@ -144,32 +152,25 @@ public class Basic_Character : RigidBody2D, Global_Variables_F_A_T
         this.ContactsReported = 10;
 
 
-        health_bar = GetNode<ProgressBar>("Health_Bar");
+        health_bar = game_gui.GetNode<ProgressBar>("Health_Bar");
         health_bar.Value = 100;
 
 
         height_checker = GetNode<RayCast2D>("Height_Checker");
 
 
-        #region Making the Timer which will be called after every one second
-        One_Second_Timer = new Timer();
-        One_Second_Timer.WaitTime = 1;
-        this.AddChild(One_Second_Timer);
-        One_Second_Timer.Stop();
-        One_Second_Timer.Connect("timeout", this, "One_Second_Timer_Out");
+        #region Making the Timer which will be called after every one second and a second timer for Increasing the power
+        One_Second_Timer = this.create_timer(1, "One_Second_Timer_Out");
+
+        Power_Enhancer_Timer = this.create_timer(power_increment_wait_time, "Increase_Power");
+        Power_Enhancer_Timer.Start();
         #endregion
 
 
-        Power_Enhancer_Timer = new Timer();
-        Power_Enhancer_Timer.WaitTime = power_increment_wait_time;
-        this.AddChild(Power_Enhancer_Timer);
-        Power_Enhancer_Timer.Stop();
-        Power_Enhancer_Timer.Connect("timeout", this, "Increase_Power");
-
-
-
-
         this.Connect("body_entered", this, "collided_with_body");
+
+
+        moving_direction = Direction.Right;
 
     }
 
@@ -183,7 +184,6 @@ public class Basic_Character : RigidBody2D, Global_Variables_F_A_T
         if (Input.IsActionPressed("move_left"))
         {
             moving_speed.x = -speed;
-            // One_Second_Timer.Start();
         }
 
         else if (Input.IsActionPressed("move_right"))
@@ -209,7 +209,6 @@ public class Basic_Character : RigidBody2D, Global_Variables_F_A_T
             {
                 is_on_ground = false;
             }
-
         }
 
         if (moving_speed.x != 0)
@@ -235,6 +234,44 @@ public class Basic_Character : RigidBody2D, Global_Variables_F_A_T
         }
 
 
+        // performing the slide movement
+        // it is not a basic movement
+        // a character may or may not have the slide movement
+        if (Input.IsActionPressed("Slide") && is_on_ground && available_moves.Contains("Slide".ToLower()))
+        {
+            is_busy = true;
+            animations.Animation = "Slide";
+            var speed_x = moving_speed.x;
+            moving_speed.x = (speed_x < 0) ? speed_x - slide_speed_increment : speed_x + slide_speed_increment;
+        }
+        else
+        {
+            if (animations.Animation == "Slide")
+            {
+                animations.Animation = "Idle";
+                is_busy = false;
+            }
+        }
+
+
+        // performing the basic attack
+        if (available_moves.Contains(basic_attack_name.ToLower()))
+        {
+            if (Input.IsActionPressed("F") && !is_busy && animations.Animation != "Jump_Attack" && animations.Animation != basic_attack_name)
+            {
+                animations.Animation = basic_attack_name;
+                is_busy = true;
+            }
+
+            set_animation_idle(basic_attack_name);
+
+            // setting the moving speed to zero if the the player is attacking
+            if (animations.Animation == basic_attack_name)
+            {
+                moving_speed = new Vector2(0, moving_speed.y);
+            }
+        }
+
         #region Giving the fall damage to the player
 
         if (!height_checker.IsColliding())
@@ -247,7 +284,7 @@ public class Basic_Character : RigidBody2D, Global_Variables_F_A_T
         }
         else if (!One_Second_Timer.IsStopped() && is_on_ground)
         {
-            health = (no_of_seconds >= 1) ? health - (5 + no_of_seconds) : health;
+            health = (no_of_seconds > 1) ? health - (5 + no_of_seconds) : health;
             One_Second_Timer.Stop();
             no_of_seconds = 0;
         }
@@ -260,6 +297,10 @@ public class Basic_Character : RigidBody2D, Global_Variables_F_A_T
         moving_speed.y += advanced_gravity;
 
         health_bar.Value = health;
+        power_bar.Value = power_available;
+
+
+        moving_direction = (animations.FlipH) ? Direction.Left : Direction.Right;
     }
 
 
@@ -274,13 +315,9 @@ public class Basic_Character : RigidBody2D, Global_Variables_F_A_T
         return health;
     }
 
-
-
-
     // giving the fall damage to the player
     public virtual void One_Second_Timer_Out()
     {
-
         // checking whether the player is gliding or not as in the case of the ninja
         if (advanced_gravity == default_gravity)
         {
@@ -289,9 +326,19 @@ public class Basic_Character : RigidBody2D, Global_Variables_F_A_T
 
     }
 
-    public virtual void Increase_Power(){
-        power_available+=power_increment;
+    public virtual void Increase_Power()
+    {
+        if (power_available + power_increment <= 100)
+        {
+            power_available += power_increment;
+        }
+        else
+        {
+            power_available += (100 - power_available);
+        }
     }
+
+
 
 
     // this method will  be inherited by the respective child classes of its 
@@ -299,10 +346,16 @@ public class Basic_Character : RigidBody2D, Global_Variables_F_A_T
     public virtual void collided_with_body(Node body)
     {
 
+
+
     }
 
-    public void set_animation_idle(string animation_name,int decrement_count=1){
-        if(animations.Animation==animation_name && animations.Frame==animations.Frames.GetFrameCount(animation_name)-decrement_count){
+
+
+    public void set_animation_idle(string animation_name, int decrement_count = 1)
+    {
+        if (animations.Animation == animation_name && animations.Frame == animations.Frames.GetFrameCount(animation_name) - decrement_count)
+        {
             is_busy = false;
             animations.Animation = "Idle";
         }
@@ -310,19 +363,45 @@ public class Basic_Character : RigidBody2D, Global_Variables_F_A_T
 
     // this method will help us to dedut the power of the player
     // power is required to perform the major attack e.g jump_attack to through a weapon on some other movement or power's
-    public bool can_perfrom_move(string move_name,bool is_to_deduct=true){
+    public bool can_perform_move(string move_name, bool is_to_deduct = true)
+    {
         var num = available_moves.IndexOf(move_name.ToLower());
         var power_required = available_moves_consumption[num];
-        if(power_available-power_required>=0){
-            GD.Print("power requried is",power_required);
-            power_available-=(is_to_deduct)?power_required:0;
-            GD.Print(power_available);
+        if (power_available - power_required >= 0)
+        {
+            power_available -= (is_to_deduct) ? power_required : 0;
             return true;
-        } 
-        else{
+        }
+        else
+        {
             return false;
         }
     }
 
+    // to create get a new timer
+    public Timer create_timer(int wait_time, string signal_func_name)
+    {
+        var new_timer = new Timer();
+        new_timer.WaitTime = 1;
+        this.AddChild(new_timer);
+        new_timer.Stop();
+        new_timer.Connect("timeout", this, signal_func_name);
+        return new_timer;
+    }
 
+    public void set_gravity_default()
+    {
+        advanced_gravity = default_gravity;
+    }
+
+    public void perform_move(string move_name)
+    {
+        if (available_moves.Contains(move_name.ToLower()))
+        {
+            is_busy = true;
+            animations.Animation = move_name;
+        }
+
+    }
 }
+

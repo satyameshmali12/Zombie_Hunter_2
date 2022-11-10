@@ -111,8 +111,8 @@
 [ext_resource path="res://assets/images/ninja/throw/Throw__009.png" type="Texture" id=109]
 [ext_resource path="res://Character_Scripts/Ninja.cs" type="Script" id=110]
 [ext_resource path="res://Weapons_And_Animation/scenes/Kunai.tscn" type="PackedScene" id=111]
-[ext_resource path="res://Weapons_And_Animation/components/scenes/Health_Bar.tscn" type="PackedScene" id=112]
 [ext_resource path="res://Weapons_And_Animation/components/scenes/Camera.tscn" type="PackedScene" id=113]
+[ext_resource path="res://Weapons_And_Animation/components/scenes/Game_Gui.tscn" type="PackedScene" id=115]
 
 [sub_resource type="PhysicsMaterial" id=3]
 friction = 0.2
@@ -230,7 +230,6 @@ cast_to = Vector2( -39, 22 )
 collide_with_areas = true
 
 [node name="Kunai" parent="." instance=ExtResource( 111 )]
-visible = false
 position = Vector2( -488, -152 )
 
 [node name="Height_Checker" type="RayCast2D" parent="."]
@@ -238,10 +237,5 @@ position = Vector2( 372, 306 )
 enabled = true
 cast_to = Vector2( -4, 398 )
 
-[node name="Power_Timer" type="Timer" parent="."]
-
-[node name="Health_Bar" parent="." instance=ExtResource( 112 )]
-margin_left = -146.0
-margin_top = -152.0
-margin_right = 94.0
-margin_bottom = -112.0
+[node name="Game_Gui" parent="." instance=ExtResource( 115 )]
+position = Vector2( -152, -178 )

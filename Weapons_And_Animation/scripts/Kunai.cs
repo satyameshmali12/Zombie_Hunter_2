@@ -39,6 +39,8 @@ public class Kunai : Area2D,Global_Variables_F_A_T
 		Global_Variables_F_A_T collided_body = (Global_Variables_F_A_T)body;
 		if(collided_body._node_type=="block"){
 			this.Visible = false;
+			TileSet tile = (TileSet)collided_body;
+			GD.Print("hey I am the queuefree one..!!");
 		}
 		else{
 			no_of_collision++;
