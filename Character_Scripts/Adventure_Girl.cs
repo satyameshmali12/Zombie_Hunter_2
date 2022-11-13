@@ -2,7 +2,7 @@ using Godot;
 using System;
 using System.Collections;
 
-public class Adventure_Girl : Basic_Character
+public class Adventure_Girl : Basic_Player
 {
     public override void _Ready()
     {

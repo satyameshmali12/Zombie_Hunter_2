@@ -2,7 +2,7 @@ using Godot;
 using System;
 using System.Collections;
 
-public class Knight : Basic_Character
+public class Knight : Basic_Player
 {
 
 	// bool is_busy;

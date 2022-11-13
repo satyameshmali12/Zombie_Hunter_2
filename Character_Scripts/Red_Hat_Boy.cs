@@ -2,7 +2,7 @@ using Godot;
 using System;
 using System.Collections;
 
-public class Red_Hat_Boy : Basic_Character
+public class Red_Hat_Boy : Basic_Player
 {
     public override void _Ready()
     {

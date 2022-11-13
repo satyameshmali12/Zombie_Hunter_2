@@ -8,7 +8,7 @@ using System;
 using System.Collections;
 
 
-public class Ninja : Basic_Character
+public class Ninja : Basic_Player
 {
 
     int no_of_coll = 0;

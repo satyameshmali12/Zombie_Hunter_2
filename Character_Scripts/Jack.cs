@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public class Jack : Basic_Character
+public class Jack : Basic_Player
 {
 	// public string _node_type{get;set;}
 

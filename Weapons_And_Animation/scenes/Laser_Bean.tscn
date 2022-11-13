@@ -1,0 +1,80 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://Weapons_And_Animation/scripts/Laser_Bean.cs" type="Script" id=1]
+
+[sub_resource type="Curve" id=4]
+min_value = -360.0
+max_value = 360.0
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, -172.751 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=5]
+curve = SubResource( 4 )
+
+[sub_resource type="Gradient" id=6]
+offsets = PoolRealArray( 0.160714, 0.345238, 0.994048, 1 )
+colors = PoolColorArray( 0.180124, 0.973796, 0.034235, 1, 0.082296, 0.063901, 0.652541, 1, 0.949195, 0.0259545, 0.48023, 1, 1, 1, 1, 1 )
+
+[sub_resource type="GradientTexture" id=7]
+gradient = SubResource( 6 )
+
+[sub_resource type="Curve" id=2]
+_data = [ Vector2( 0.0209424, 0.228377 ), 0.0, 0.0, 0, 0, Vector2( 0.335079, 0.385541 ), -1.77495, -1.77495, 0, 0, Vector2( 0.78534, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0.849177 ), 1.09665, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=3]
+curve = SubResource( 2 )
+
+[sub_resource type="ParticlesMaterial" id=1]
+flag_disable_z = true
+spread = 5.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 70.0
+initial_velocity_random = 0.2
+angular_velocity = 100.0
+angular_velocity_curve = SubResource( 5 )
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+angle = 1.0
+scale = 20.0
+scale_curve = SubResource( 3 )
+color_ramp = SubResource( 7 )
+
+[node name="Laser_Bean" type="Node2D"]
+position = Vector2( -106, -61 )
+script = ExtResource( 1 )
+
+[node name="Bean_Animation" type="Particles2D" parent="."]
+position = Vector2( 519, 322 )
+scale = Vector2( 1.00348, 1.01485 )
+emitting = false
+amount = 800
+lifetime = 7.0
+one_shot = true
+speed_scale = 3.0
+process_material = SubResource( 1 )
+
+[node name="Collision_Rays" type="Node2D" parent="."]
+
+[node name="Collision_Ray_1" type="RayCast2D" parent="Collision_Rays"]
+position = Vector2( 520, 324 )
+cast_to = Vector2( 470, 38 )
+collide_with_areas = true
+
+[node name="Collision_Ray_2" type="RayCast2D" parent="Collision_Rays"]
+position = Vector2( 519, 324 )
+cast_to = Vector2( 468, 11 )
+collide_with_areas = true
+
+[node name="Collision_Ray_3" type="RayCast2D" parent="Collision_Rays"]
+position = Vector2( 519, 320 )
+cast_to = Vector2( 467, -34 )
+collide_with_areas = true
+
+[node name="Collision_Ray_4" type="RayCast2D" parent="Collision_Rays"]
+position = Vector2( 520, 323 )
+cast_to = Vector2( 479, -1 )
+collide_with_areas = true
+
+[node name="Testing_Ray" type="RayCast2D" parent="."]
+position = Vector2( 521, 490 )
+enabled = true
+cast_to = Vector2( 479, -2 )

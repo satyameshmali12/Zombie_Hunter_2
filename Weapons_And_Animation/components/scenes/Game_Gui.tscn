@@ -26,32 +26,32 @@ color = Color( 0, 0.00392157, 1, 1 )
 [node name="Game_Gui" type="Node2D"]
 
 [node name="Health_Bar" parent="." instance=ExtResource( 1 )]
-margin_left = 41.0
-margin_top = 44.0
-margin_right = 264.0
-margin_bottom = 68.0
+margin_left = -107.0
+margin_top = 0.0
+margin_right = 116.0
+margin_bottom = 24.0
 
 [node name="Power_Bar" parent="." instance=ExtResource( 3 )]
-margin_left = 743.0
-margin_top = 43.0
-margin_right = 966.0
-margin_bottom = 68.0
+margin_left = 916.0
+margin_top = 0.0
+margin_right = 1139.0
+margin_bottom = 25.0
 
 [node name="Text" parent="." instance=ExtResource( 2 )]
-margin_left = 41.0
-margin_top = 21.0
-margin_right = 87.0
-margin_bottom = 43.0
+margin_left = -107.0
+margin_top = -25.0
+margin_right = -61.0
+margin_bottom = -3.0
 text = "Health"
 
 [node name="Text2" parent="." instance=ExtResource( 2 )]
-margin_left = 743.0
-margin_top = 21.0
-margin_right = 785.0
-margin_bottom = 43.0
+margin_left = 916.0
+margin_top = -25.0
+margin_right = 958.0
+margin_bottom = -3.0
 text = "Power"
 
 [node name="Particles2D" type="Particles2D" parent="."]
-position = Vector2( 45, 73 )
+position = Vector2( -107, 25 )
 amount = 30
 process_material = SubResource( 1 )
