@@ -19,6 +19,8 @@ public class Ninja : Basic_Player
 
     public override void _Ready()
     {
+        base._Ready();
+
         custom_constructor(700, 11000);
 
         is_busy = false;
@@ -44,6 +46,9 @@ public class Ninja : Basic_Player
 
     public override void _Process(float delta)
     {
+        base._Process(delta);
+        
+
         basic_animation_changing_condition = !is_busy;
 
         custom_process(delta);

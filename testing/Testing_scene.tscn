@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Tile (2).png" type="Texture" id=1]
+[ext_resource path="res://Characters/Ninja.tscn" type="PackedScene" id=2]
 [ext_resource path="res://testing/TileMap.cs" type="Script" id=3]
 [ext_resource path="res://assets/images/gui/background.webp" type="Texture" id=4]
 
@@ -52,3 +53,6 @@ texture = ExtResource( 4 )
 position = Vector2( 2264.5, 36.4993 )
 scale = Vector2( 1.50077, 1.81972 )
 texture = ExtResource( 4 )
+
+[node name="Ninja" parent="." instance=ExtResource( 2 )]
+position = Vector2( 152, 12 )

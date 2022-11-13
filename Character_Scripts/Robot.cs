@@ -29,6 +29,11 @@ public class Robot : Basic_Player
 
     public override void _Ready()
     {
+
+        // calling the base class
+        base._Ready();
+
+
         custom_constructor(700, 9000, basic_attack_name: "Melee");
         is_busy = false;
         available_moves = new ArrayList() { "death", "idle", "jump", "jump_melee", "jump_shoot", "melee", "run", "run_shoot", "shoot", "slide" , "laser_beam"};
@@ -51,6 +56,9 @@ public class Robot : Basic_Player
 
     public override void _Process(float delta)
     {
+        base._Process(delta);
+
+
         if(!laser_bean.is_animation_performing){
 
             basic_animation_changing_condition = !is_busy;
@@ -101,6 +109,7 @@ public class Robot : Basic_Player
             set_animation_idle("Jump_Melee");
 
             LinearVelocity = moving_speed;
+
         }
 
     }
@@ -112,6 +121,7 @@ public class Robot : Basic_Player
 
         if (old_tile._node_type == "block")
         {
+            GD.Print(old_tile._node_type);
 
 
         }
