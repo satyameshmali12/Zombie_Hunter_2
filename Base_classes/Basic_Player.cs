@@ -251,6 +251,21 @@ public class Basic_Player : Basic_Character
 
     }
 
+    public override void collided_with_body(Node body)
+    {
+        base.collided_with_body(body);
+
+        // Global_Variables_F_A_T old_tile = (Global_Variables_F_A_T)body;
+
+        // if (old_tile._node_type == "block")
+        // {
+        //     GD.Print(old_tile._node_type);
+
+
+        // }
+
+    }
+
 
 
 

@@ -6,6 +6,7 @@ public class Red_Hat_Boy : Basic_Player
 {
     public override void _Ready()
     {
+        base._Ready();
         custom_constructor(700,9000);
         is_busy = false;
         available_moves = new ArrayList(){};
@@ -16,6 +17,8 @@ public class Red_Hat_Boy : Basic_Player
 
     public override void _Process(float delta)
     {
+        base._Process(delta);
+        
         basic_animation_changing_condition = !is_busy;
         
         custom_process(delta);

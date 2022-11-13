@@ -13,6 +13,7 @@ public class Knight : Basic_Player
 
 	public override void _Ready()
 	{
+		base._Ready();
 		custom_constructor(650,10000);
 		available_moves = new ArrayList(){"attack","death","idle","jump","jump_attack","run","walk"};
 		available_moves_consumption = new int[7]{0,0,0,0,10,0,0};
@@ -23,6 +24,9 @@ public class Knight : Basic_Player
 
 	public override void _Process(float delta)
 	{
+		base._Process(delta);
+
+		
 		basic_animation_changing_condition = !is_busy;
 
 		custom_process(delta);

@@ -113,20 +113,6 @@ public class Robot : Basic_Player
         }
 
     }
-    public override void collided_with_body(Node body)
-    {
-        base.collided_with_body(body);
-
-        Global_Variables_F_A_T old_tile = (Global_Variables_F_A_T)body;
-
-        if (old_tile._node_type == "block")
-        {
-            GD.Print(old_tile._node_type);
-
-
-        }
-
-    }
 
     void add_new_bullet(int speed_increment=0)
     {
@@ -146,16 +132,20 @@ public class Robot : Basic_Player
             add_new_bullet();
         }
     }
+    public override void collided_with_body(Node body)
+    {
+        base.collided_with_body(body);
 
-    // public Timer create_timer(int wait_time, string signal_func_name)
-    // {
-    //     var new_timer = new Timer();
-    //     new_timer.WaitTime = 1;
-    //     this.AddChild(new_timer);
-    //     new_timer.Stop();
-    //     new_timer.Connect("timeout", this, signal_func_name);
-    //     return new_timer;
-    // }
+        Global_Variables_F_A_T old_tile = (Global_Variables_F_A_T)body;
+
+        if (old_tile._node_type == "block")
+        {
+            GD.Print(old_tile._node_type);
+
+
+        }
+
+    }
 
     
 }
