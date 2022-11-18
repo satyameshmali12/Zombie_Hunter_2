@@ -46,7 +46,7 @@ public class Basic_Player : Basic_Character
 
     // to check the height of the player from the ground
     public RayCast2D height_checker;
-    public Timer One_Second_Timer, Power_Enhancer_Timer;
+    public Timer One_Second_Timer;
     public bool is_to_give_fall_damage;  // it will help us to determine whether to give the fall damage but also to play the animation at the time of the fall damage
     public int no_of_seconds;  // to check for how much time the player was in the sky it will help us to manage the intensity of the fall damage
 
@@ -102,8 +102,6 @@ public class Basic_Player : Basic_Character
         #region Making the Timer which will be called after every one second and a second timer for Increasing the power
         One_Second_Timer = this.create_timer(1, "One_Second_Timer_Out");
 
-        Power_Enhancer_Timer = this.create_timer(power_increment_wait_time, "Increase_Power");
-        Power_Enhancer_Timer.Start();
         #endregion
 
 
@@ -213,6 +211,7 @@ public class Basic_Player : Basic_Character
         }
         else if (!One_Second_Timer.IsStopped() && is_on_ground)
         {
+            // change the amount below to give more stronger fall damage
             health = (no_of_seconds > 1) ? health - (5 + no_of_seconds) : health;
             One_Second_Timer.Stop();
             no_of_seconds = 0;
@@ -224,6 +223,18 @@ public class Basic_Player : Basic_Character
         health_bar.Value = health;
         power_bar.Value = power_available;
 
+
+
+        // Position2D player_position = GetNode<Position2D>("Position2D");
+        // player_position.SetAsToplevel(false);
+        #region data_transfer to the global script
+            // passing the data of the player to the player or global script
+            // to perform all the other logics
+            // CollisionShape2D collisionshape = GetNode<CollisionShape2D>("CollisionShape2D");
+            player_variable.player_position = this.Position;
+        #endregion
+
+        // GD.Print(player_position.Position);
 
         
     }

@@ -47,11 +47,12 @@ public class Ninja : Basic_Player
     public override void _Process(float delta)
     {
         base._Process(delta);
-        
+
+
+        custom_process(delta);
 
         basic_animation_changing_condition = !is_busy;
 
-        custom_process(delta);
 
         // jump attack move of the ninja
         if (Input.IsActionJustReleased("Jump_Attack") && !is_on_ground && can_perform_move("Jump_Attack"))
@@ -133,6 +134,8 @@ public class Ninja : Basic_Player
         }
 
 
+        // player_variable.player_position = this.animations.Position;
+
         LinearVelocity = moving_speed;
 
     }
@@ -140,6 +143,7 @@ public class Ninja : Basic_Player
     public override void collided_with_body(Node body)
     {
         base.collided_with_body(body);
+        
         Global_Variables_F_A_T new_node = (Global_Variables_F_A_T)body;
 
         if (new_node._node_type == "player")

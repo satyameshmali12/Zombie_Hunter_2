@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=2]
+[gd_scene load_steps=49 format=2]
 
 [ext_resource path="res://assets/images/zombie/female/dead/Dead (9).png" type="Texture" id=1]
 [ext_resource path="res://assets/images/zombie/female/dead/Dead (93).png" type="Texture" id=2]
@@ -45,6 +45,7 @@
 [ext_resource path="res://assets/images/zombie/female/idle/Idle (7).png" type="Texture" id=43]
 [ext_resource path="res://assets/images/zombie/female/idle/Idle (6).png" type="Texture" id=44]
 [ext_resource path="res://assets/images/zombie/female/idle/Idle (1).png" type="Texture" id=45]
+[ext_resource path="res://Character_Scripts/Female_Zombie.cs" type="Script" id=46]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 37.0
@@ -74,16 +75,36 @@ animations = [ {
 } ]
 
 [node name="Female_Zombie" type="RigidBody2D"]
+mode = 3
+script = ExtResource( 46 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 561, 325 )
 z_index = 1
 shape = SubResource( 1 )
 
-[node name="Animation" type="AnimatedSprite" parent="."]
+[node name="Movements" type="AnimatedSprite" parent="."]
 position = Vector2( 556, 315 )
 scale = Vector2( 0.241, 0.279 )
 frames = SubResource( 2 )
 animation = "Attack"
-frame = 5
+frame = 3
 playing = true
+
+[node name="Left_Collision_Rays" type="Node2D" parent="."]
+
+[node name="Right_Collision_Rays" type="Node2D" parent="."]
+
+[node name="Rays" type="Node2D" parent="."]
+position = Vector2( -26, -129 )
+
+[node name="Jump_Ray_1" type="RayCast2D" parent="Rays"]
+position = Vector2( 590, 501 )
+cast_to = Vector2( 22, 39 )
+
+[node name="Jump_Ray_2" type="RayCast2D" parent="Rays"]
+position = Vector2( 590, 501 )
+
+[node name="Jump_Ray_3" type="RayCast2D" parent="Rays"]
+position = Vector2( 590, 501 )
+cast_to = Vector2( -29, 34 )

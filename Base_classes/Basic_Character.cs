@@ -22,6 +22,9 @@ public class Basic_Character : RigidBody2D, Global_Variables_F_A_T
     public string _node_type { get; set; }
 
 
+    public string character_name = null; // the name of the character as per the node name of the following player
+
+
 
     // all the properties of a basic character
     public Vector2 moving_speed;
@@ -44,6 +47,7 @@ public class Basic_Character : RigidBody2D, Global_Variables_F_A_T
     // this property will help to make the player fall down with more speed if the player not on the ground
     [Export]
     public int advanced_gravity = 300;
+
     public readonly int default_gravity = 300;   // to set the gravity to the default wherever needed
 
     #endregion
@@ -54,10 +58,13 @@ public class Basic_Character : RigidBody2D, Global_Variables_F_A_T
     #region Associated with the health and power of a basic_character
 
     #endregion
+
+    
     public ArrayList available_moves;
     public int[] available_moves_damage;
     public int[] available_moves_consumption;
     public string[] available_moves_damage_condition;
+
 
 
     [Export]
@@ -70,8 +77,27 @@ public class Basic_Character : RigidBody2D, Global_Variables_F_A_T
     public bool is_on_ground; // to check whether the player is on ground so that ground attack's and movements can be performed
     public bool is_busy;
 
-    public List<RayCast2D> ground_collider_rays; // this will help us know whether the player is on ground or not.
+    public ArrayList ground_collider_rays; // this will help us know whether the player is on ground or not.
 
+
+    // to get all the global as well as the player information
+    public Global_Variables player_variable;
+
+
+
+    // to check the collision in the left and right direction using the rays
+    public ArrayList Left_Collision_Rays;
+    public ArrayList Right_Collision_Rays;
+
+
+    // left_ray :- L_R and R_R :- Right_Ray
+    public bool L_R_Colliding,R_R_Collding;
+
+    public string colliding_condition; // the node which should collide with the player
+
+
+
+    public Timer Power_Enhancer_Timer;
 
 
     public override void _Ready()
@@ -82,6 +108,7 @@ public class Basic_Character : RigidBody2D, Global_Variables_F_A_T
 
         power_available = 100;
         animations = GetNode<AnimatedSprite>("Movements");
+        animations.Play("Idle"); // given the initial state to all the characters
 
 
         this.ContactMonitor = true;
@@ -93,25 +120,33 @@ public class Basic_Character : RigidBody2D, Global_Variables_F_A_T
         #region Collision_rays
         // Iterating all the ray's availble in the Rays node
         // And then making all the ray's enabled so that they can collide with the object
-        ground_collider_rays = new List<RayCast2D>();
 
-        var rays = GetNode<Node2D>("Rays").GetChildren();
-        foreach (RayCast2D item in rays)
-        {
-            ground_collider_rays.Add(item);
-        }
+        ground_collider_rays = get_the_collider_rays("Rays");
 
 
-        foreach (var item in ground_collider_rays)
+        foreach (RayCast2D item in ground_collider_rays)
         {
             item.Enabled = true;
         }
         #endregion
 
-
-
-
         this.Connect("body_entered", this, "collided_with_body");
+
+        
+        player_variable = GetNode<Global_Variables>("/root/Global_Variables"); 
+
+
+
+        // getting the collision ray on the left side and right side of the zombie        
+        Left_Collision_Rays = get_the_collider_rays("Left_Collision_Rays");
+        Right_Collision_Rays = get_the_collider_rays("Right_Collision_Rays");
+
+        colliding_condition = "all"; // default the colliding condition is setted to zero
+
+        
+        Power_Enhancer_Timer = this.create_timer(power_increment_wait_time, "Increase_Power");
+        Power_Enhancer_Timer.Start();
+
 
     }
 
@@ -122,7 +157,7 @@ public class Basic_Character : RigidBody2D, Global_Variables_F_A_T
         
         // in this part first we checked whether the player is on ground and thereby declared whether the player is jumping or not
         // here the is_on_ground is the whether the player is jumping or not
-        foreach (var item in ground_collider_rays)
+        foreach (RayCast2D item in ground_collider_rays)
         {
             if (item.IsColliding())
             {
@@ -140,6 +175,15 @@ public class Basic_Character : RigidBody2D, Global_Variables_F_A_T
 
         moving_speed.y += advanced_gravity;
         moving_direction = (animations.FlipH) ? Direction.Left : Direction.Right;
+
+        
+        // performing the colision detection as well as calling the collision method
+        // the collision method is called right from the below function 
+        // the description can be founded in the respective classes
+        L_R_Colliding = is_collider_ray_colliding(Left_Collision_Rays,true,colliding_condition);
+        R_R_Collding = is_collider_ray_colliding(Right_Collision_Rays,true,colliding_condition);
+
+
     }
 
 
@@ -212,13 +256,55 @@ public class Basic_Character : RigidBody2D, Global_Variables_F_A_T
 
 
     // to set the animation idle
-    public void set_animation_idle(string animation_name, int decrement_count = 1)
+    // if the animation is settled to idle then it returns true else false
+    public bool set_animation_idle(string animation_name, int decrement_count = 1)
     {
         if (animations.Animation == animation_name && animations.Frame == animations.Frames.GetFrameCount(animation_name) - decrement_count)
         {
             is_busy = false;
             animations.Animation = "Idle";
+            return true;
         }
+        return false;
+    }
+    public ArrayList get_the_collider_rays(string node_name){
+        var collider_rays = new ArrayList();
+        var rays = GetNode<Node2D>(node_name).GetChildren();
+        foreach (RayCast2D item in rays)
+        {
+            item.Enabled = true;
+            collider_rays.Add(item);
+        }
+        return collider_rays;
+    }
+
+
+
+    // to get whether a single collider rays is been colliding to any object
+    // pass all as the collider_name for considering all for the collision
+    public bool is_collider_ray_colliding(ArrayList collider_rays,bool is_to_call_colliding_func=false,string collider_name="all"){
+        var is_collided = false;
+        foreach (RayCast2D item in collider_rays)
+        {
+            if(!item.Enabled){
+                item.Enabled = true;
+            }
+            else if(item.IsColliding()){
+                Global_Variables_F_A_T collided_item = (Global_Variables_F_A_T)item.GetCollider();
+                if(collided_item._node_type=="player" || collider_name.ToLower()=="all"){
+                    is_collided = true;
+                    if(is_to_call_colliding_func){
+                        collided_with_L_R_ray(item.GetCollider());
+                    }
+                    break;
+                }
+            }
+            else{
+                is_collided = false;
+            }
+            
+        }
+        return is_collided;
     }
 
 
@@ -231,6 +317,15 @@ public class Basic_Character : RigidBody2D, Global_Variables_F_A_T
 
 
     }
+
+    // L_R_Ray :- Left_Right_Ray
+    // this method will be used both by the enemy as well as on the player
+    public virtual void collided_with_L_R_ray(Godot.Object collided_obj)
+    {
+        
+
+    }
+
 
 
 }

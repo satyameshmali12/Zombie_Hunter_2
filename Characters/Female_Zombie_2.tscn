@@ -1,4 +1,4 @@
-[gd_scene load_steps=63 format=2]
+[gd_scene load_steps=65 format=2]
 
 [ext_resource path="res://assets/images/Zombie Woman/Attack_1.png" type="Texture" id=1]
 [ext_resource path="res://assets/images/Zombie Woman/Hurt.png" type="Texture" id=2]
@@ -10,6 +10,12 @@
 [ext_resource path="res://assets/images/Zombie Woman/Run.png" type="Texture" id=8]
 [ext_resource path="res://assets/images/Zombie Woman/Scream.png" type="Texture" id=9]
 [ext_resource path="res://assets/images/Zombie Woman/Walk.png" type="Texture" id=10]
+[ext_resource path="res://Character_Scripts/Female_Zombie_2.cs" type="Script" id=11]
+
+[sub_resource type="PhysicsMaterial" id=58]
+friction = 0.2
+rough = true
+bounce = 0.1
 
 [sub_resource type="AtlasTexture" id=3]
 atlas = ExtResource( 1 )
@@ -265,19 +271,54 @@ animations = [ {
 } ]
 
 [sub_resource type="CapsuleShape2D" id=57]
-radius = 55.0
-height = 86.0
+radius = 33.0
+height = 102.0
 
 [node name="Female_Zombie_2" type="RigidBody2D"]
+mode = 2
+mass = 0.816326
+physics_material_override = SubResource( 58 )
+gravity_scale = 30.0
+contacts_reported = 10
+contact_monitor = true
+script = ExtResource( 11 )
 
 [node name="Movements" type="AnimatedSprite" parent="."]
 position = Vector2( 513, 338 )
 scale = Vector2( 2.25, 2.25 )
 frames = SubResource( 2 )
-animation = "Attack"
+animation = "Idle"
+frame = 3
 playing = true
+flip_h = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 512, 365 )
+position = Vector2( 516, 365 )
 z_index = 1
 shape = SubResource( 57 )
+
+[node name="Left_Collision_Rays" type="Node2D" parent="."]
+
+[node name="Jump_Ray_1" type="RayCast2D" parent="Left_Collision_Rays"]
+position = Vector2( 476, 365 )
+cast_to = Vector2( -29, 3 )
+
+[node name="Right_Collision_Rays" type="Node2D" parent="."]
+
+[node name="Jump_Ray_1" type="RayCast2D" parent="Right_Collision_Rays"]
+position = Vector2( 557, 365 )
+cast_to = Vector2( 25, -2 )
+
+[node name="Rays" type="Node2D" parent="."]
+position = Vector2( -74, -72 )
+
+[node name="Jump_Ray_1" type="RayCast2D" parent="Rays"]
+position = Vector2( 590, 501 )
+cast_to = Vector2( 22, 39 )
+
+[node name="Jump_Ray_2" type="RayCast2D" parent="Rays"]
+position = Vector2( 590, 501 )
+
+[node name="Jump_Ray_3" type="RayCast2D" parent="Rays"]
+position = Vector2( 590, 501 )
+cast_to = Vector2( -29, 34 )

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Kunai.png-dd5c7e1653bca36491bf8e7b8175097b.stex"
+path="res://.import/Kunai.png-9c7c8b27b5e0bc53a2032724d6195192.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/images/ninja/Kunai.png"
-dest_files=[ "res://.import/Kunai.png-dd5c7e1653bca36491bf8e7b8175097b.stex" ]
+source_file="res://assets/images/Ninja/Kunai.png"
+dest_files=[ "res://.import/Kunai.png-9c7c8b27b5e0bc53a2032724d6195192.stex" ]
 
 [params]
 

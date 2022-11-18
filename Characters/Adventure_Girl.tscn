@@ -1,32 +1,11 @@
-[gd_scene load_steps=34 format=2]
+[gd_scene load_steps=56 format=2]
 
-[ext_resource path="res://assets/images/Adventure_Girl/Run/Run (6).png" type="Texture" id=1]
-[ext_resource path="res://assets/images/Adventure_Girl/Run/Run (2).png" type="Texture" id=2]
-[ext_resource path="res://assets/images/Adventure_Girl/Run/Run (5).png" type="Texture" id=3]
-[ext_resource path="res://assets/images/Adventure_Girl/Run/Run (1).png" type="Texture" id=4]
-[ext_resource path="res://assets/images/Adventure_Girl/Run/Run (7).png" type="Texture" id=5]
-[ext_resource path="res://assets/images/Adventure_Girl/Run/Run (3).png" type="Texture" id=6]
-[ext_resource path="res://assets/images/Adventure_Girl/Run/Run (4).png" type="Texture" id=7]
-[ext_resource path="res://assets/images/Adventure_Girl/Run/Run (8).png" type="Texture" id=8]
-[ext_resource path="res://assets/images/Adventure_Girl/Jump/Jump (4).png" type="Texture" id=9]
-[ext_resource path="res://assets/images/Adventure_Girl/Jump/Jump (8).png" type="Texture" id=10]
-[ext_resource path="res://assets/images/Adventure_Girl/Jump/Jump (9).png" type="Texture" id=11]
-[ext_resource path="res://assets/images/Adventure_Girl/Jump/Jump (10).png" type="Texture" id=12]
-[ext_resource path="res://assets/images/Adventure_Girl/Jump/Jump (2).png" type="Texture" id=13]
-[ext_resource path="res://assets/images/Adventure_Girl/Jump/Jump (6).png" type="Texture" id=14]
-[ext_resource path="res://assets/images/Adventure_Girl/Jump/Jump (1).png" type="Texture" id=15]
-[ext_resource path="res://assets/images/Adventure_Girl/Jump/Jump (5).png" type="Texture" id=16]
-[ext_resource path="res://assets/images/Adventure_Girl/Jump/Jump (7).png" type="Texture" id=17]
-[ext_resource path="res://assets/images/Adventure_Girl/Idle/Idle (1).png" type="Texture" id=18]
-[ext_resource path="res://assets/images/Adventure_Girl/Idle/Idle (2).png" type="Texture" id=19]
-[ext_resource path="res://assets/images/Adventure_Girl/Idle/Idle (4).png" type="Texture" id=20]
-[ext_resource path="res://assets/images/Adventure_Girl/Idle/Idle (5).png" type="Texture" id=21]
-[ext_resource path="res://assets/images/Adventure_Girl/Idle/Idle (7).png" type="Texture" id=22]
-[ext_resource path="res://assets/images/Adventure_Girl/Idle/Idle (8).png" type="Texture" id=23]
-[ext_resource path="res://assets/images/Adventure_Girl/Idle/Idle (9).png" type="Texture" id=24]
-[ext_resource path="res://assets/images/Adventure_Girl/Idle/Idle (6).png" type="Texture" id=25]
-[ext_resource path="res://assets/images/Adventure_Girl/Idle/Idle (10).png" type="Texture" id=26]
-[ext_resource path="res://assets/images/Adventure_Girl/Idle/Idle (3).png" type="Texture" id=27]
+[ext_resource path="res://assets/images/Adventure_Girl/Idle/spritesheet.png" type="Texture" id=1]
+[ext_resource path="res://assets/images/Adventure_Girl/Jump/spritesheet.png" type="Texture" id=2]
+[ext_resource path="res://assets/images/Adventure_Girl/Slide/spritesheet.png" type="Texture" id=3]
+[ext_resource path="res://assets/images/Adventure_Girl/Run/spritesheet.png" type="Texture" id=4]
+[ext_resource path="res://assets/images/Adventure_Girl/Shoot/spritesheet.png" type="Texture" id=5]
+[ext_resource path="res://assets/images/Adventure_Girl/Melee/spritesheet.png" type="Texture" id=6]
 [ext_resource path="res://Weapons_And_Animation/components/scenes/Game_Gui.tscn" type="PackedScene" id=28]
 [ext_resource path="res://Weapons_And_Animation/components/scenes/Camera.tscn" type="PackedScene" id=29]
 [ext_resource path="res://Character_Scripts/Adventure_Girl.cs" type="Script" id=30]
@@ -40,21 +19,208 @@ bounce = 0.1
 radius = 38.0
 height = 100.0
 
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 0, 641, 542 )
+
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 1 )
+region = Rect2( 641, 0, 641, 542 )
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 1 )
+region = Rect2( 1282, 0, 641, 542 )
+
+[sub_resource type="AtlasTexture" id=7]
+atlas = ExtResource( 1 )
+region = Rect2( 1923, 0, 641, 542 )
+
+[sub_resource type="AtlasTexture" id=8]
+atlas = ExtResource( 1 )
+region = Rect2( 2564, 0, 641, 542 )
+
+[sub_resource type="AtlasTexture" id=9]
+atlas = ExtResource( 1 )
+region = Rect2( 3205, 0, 641, 542 )
+
+[sub_resource type="AtlasTexture" id=10]
+atlas = ExtResource( 1 )
+region = Rect2( 3846, 0, 641, 542 )
+
+[sub_resource type="AtlasTexture" id=11]
+atlas = ExtResource( 1 )
+region = Rect2( 4487, 0, 641, 542 )
+
+[sub_resource type="AtlasTexture" id=12]
+atlas = ExtResource( 1 )
+region = Rect2( 5128, 0, 641, 542 )
+
+[sub_resource type="AtlasTexture" id=13]
+atlas = ExtResource( 1 )
+region = Rect2( 5769, 0, 641, 542 )
+
+[sub_resource type="AtlasTexture" id=14]
+atlas = ExtResource( 2 )
+region = Rect2( 0, 0, 641, 542 )
+
+[sub_resource type="AtlasTexture" id=15]
+atlas = ExtResource( 2 )
+region = Rect2( 641, 0, 641, 542 )
+
+[sub_resource type="AtlasTexture" id=16]
+atlas = ExtResource( 2 )
+region = Rect2( 1282, 0, 641, 542 )
+
+[sub_resource type="AtlasTexture" id=17]
+atlas = ExtResource( 2 )
+region = Rect2( 1923, 0, 641, 542 )
+
+[sub_resource type="AtlasTexture" id=18]
+atlas = ExtResource( 2 )
+region = Rect2( 2564, 0, 641, 542 )
+
+[sub_resource type="AtlasTexture" id=19]
+atlas = ExtResource( 2 )
+region = Rect2( 3205, 0, 641, 542 )
+
+[sub_resource type="AtlasTexture" id=20]
+atlas = ExtResource( 2 )
+region = Rect2( 3846, 0, 641, 542 )
+
+[sub_resource type="AtlasTexture" id=21]
+atlas = ExtResource( 2 )
+region = Rect2( 4487, 0, 641, 542 )
+
+[sub_resource type="AtlasTexture" id=22]
+atlas = ExtResource( 2 )
+region = Rect2( 5128, 0, 641, 542 )
+
+[sub_resource type="AtlasTexture" id=23]
+atlas = ExtResource( 2 )
+region = Rect2( 5769, 0, 641, 542 )
+
+[sub_resource type="AtlasTexture" id=24]
+atlas = ExtResource( 6 )
+region = Rect2( 0, 0, 641, 542 )
+
+[sub_resource type="AtlasTexture" id=25]
+atlas = ExtResource( 6 )
+region = Rect2( 641, 0, 641, 542 )
+
+[sub_resource type="AtlasTexture" id=26]
+atlas = ExtResource( 6 )
+region = Rect2( 1282, 0, 641, 542 )
+
+[sub_resource type="AtlasTexture" id=27]
+atlas = ExtResource( 6 )
+region = Rect2( 1923, 0, 641, 542 )
+
+[sub_resource type="AtlasTexture" id=28]
+atlas = ExtResource( 6 )
+region = Rect2( 2564, 0, 641, 542 )
+
+[sub_resource type="AtlasTexture" id=29]
+atlas = ExtResource( 6 )
+region = Rect2( 3205, 0, 641, 542 )
+
+[sub_resource type="AtlasTexture" id=30]
+atlas = ExtResource( 6 )
+region = Rect2( 3846, 0, 641, 542 )
+
+[sub_resource type="AtlasTexture" id=31]
+atlas = ExtResource( 4 )
+region = Rect2( 0, 0, 641, 542 )
+
+[sub_resource type="AtlasTexture" id=32]
+atlas = ExtResource( 4 )
+region = Rect2( 641, 0, 641, 542 )
+
+[sub_resource type="AtlasTexture" id=33]
+atlas = ExtResource( 4 )
+region = Rect2( 1282, 0, 641, 542 )
+
+[sub_resource type="AtlasTexture" id=34]
+atlas = ExtResource( 4 )
+region = Rect2( 1923, 0, 641, 542 )
+
+[sub_resource type="AtlasTexture" id=35]
+atlas = ExtResource( 4 )
+region = Rect2( 2564, 0, 641, 542 )
+
+[sub_resource type="AtlasTexture" id=36]
+atlas = ExtResource( 4 )
+region = Rect2( 3205, 0, 641, 542 )
+
+[sub_resource type="AtlasTexture" id=37]
+atlas = ExtResource( 4 )
+region = Rect2( 3846, 0, 641, 542 )
+
+[sub_resource type="AtlasTexture" id=38]
+atlas = ExtResource( 4 )
+region = Rect2( 4487, 0, 641, 542 )
+
+[sub_resource type="AtlasTexture" id=39]
+atlas = ExtResource( 5 )
+region = Rect2( 0, 0, 641, 542 )
+
+[sub_resource type="AtlasTexture" id=40]
+atlas = ExtResource( 5 )
+region = Rect2( 641, 0, 641, 542 )
+
+[sub_resource type="AtlasTexture" id=41]
+atlas = ExtResource( 5 )
+region = Rect2( 1282, 0, 641, 542 )
+
+[sub_resource type="AtlasTexture" id=42]
+atlas = ExtResource( 3 )
+region = Rect2( 0, 0, 641, 542 )
+
+[sub_resource type="AtlasTexture" id=43]
+atlas = ExtResource( 3 )
+region = Rect2( 641, 0, 641, 542 )
+
+[sub_resource type="AtlasTexture" id=44]
+atlas = ExtResource( 3 )
+region = Rect2( 1282, 0, 641, 542 )
+
+[sub_resource type="AtlasTexture" id=45]
+atlas = ExtResource( 3 )
+region = Rect2( 1923, 0, 641, 542 )
+
+[sub_resource type="AtlasTexture" id=46]
+atlas = ExtResource( 3 )
+region = Rect2( 2564, 0, 641, 542 )
+
 [sub_resource type="SpriteFrames" id=2]
 animations = [ {
-"frames": [ ExtResource( 27 ), ExtResource( 24 ), ExtResource( 26 ), ExtResource( 23 ), ExtResource( 22 ), ExtResource( 25 ), ExtResource( 21 ), ExtResource( 20 ), ExtResource( 18 ), ExtResource( 19 ) ],
+"frames": [ SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ), SubResource( 9 ), SubResource( 10 ), SubResource( 11 ), SubResource( 12 ), SubResource( 13 ) ],
 "loop": true,
 "name": "Idle",
 "speed": 10.0
 }, {
-"frames": [ ExtResource( 10 ), ExtResource( 12 ), ExtResource( 14 ), ExtResource( 17 ), ExtResource( 16 ), ExtResource( 9 ), ExtResource( 15 ), ExtResource( 13 ), ExtResource( 11 ) ],
+"frames": [ SubResource( 14 ), SubResource( 15 ), SubResource( 16 ), SubResource( 17 ), SubResource( 18 ), SubResource( 19 ), SubResource( 20 ), SubResource( 21 ), SubResource( 22 ), SubResource( 23 ) ],
 "loop": true,
 "name": "Jump",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 2 ), ExtResource( 5 ), ExtResource( 8 ), ExtResource( 1 ), ExtResource( 3 ), ExtResource( 7 ), ExtResource( 6 ), ExtResource( 4 ) ],
+"frames": [ SubResource( 24 ), SubResource( 25 ), SubResource( 26 ), SubResource( 27 ), SubResource( 28 ), SubResource( 29 ), SubResource( 30 ) ],
+"loop": true,
+"name": "Melee",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 31 ), SubResource( 32 ), SubResource( 33 ), SubResource( 34 ), SubResource( 35 ), SubResource( 36 ), SubResource( 37 ), SubResource( 38 ) ],
 "loop": true,
 "name": "Run",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 39 ), SubResource( 40 ), SubResource( 41 ) ],
+"loop": true,
+"name": "Shoot",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 42 ), SubResource( 43 ), SubResource( 44 ), SubResource( 45 ), SubResource( 46 ) ],
+"loop": true,
+"name": "Slide",
 "speed": 5.0
 } ]
 
@@ -77,7 +243,9 @@ shape = SubResource( 1 )
 position = Vector2( 737, 201 )
 scale = Vector2( 0.226, 0.322 )
 frames = SubResource( 2 )
-animation = "Idle"
+animation = "Run"
+frame = 1
+playing = true
 
 [node name="Rays" type="Node2D" parent="."]
 
@@ -107,3 +275,7 @@ position = Vector2( 199, -292 )
 
 [node name="Camera" parent="." instance=ExtResource( 29 )]
 position = Vector2( 710, 32 )
+
+[node name="Left_Collision_Rays" type="Node2D" parent="."]
+
+[node name="Right_Collision_Rays" type="Node2D" parent="."]

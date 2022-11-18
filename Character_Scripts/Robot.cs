@@ -140,7 +140,7 @@ public class Robot : Basic_Player
 
         if (old_tile._node_type == "block")
         {
-            GD.Print(old_tile._node_type);
+            // GD.Print(old_tile._node_type);
 
 
         }
