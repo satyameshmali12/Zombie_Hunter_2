@@ -1,0 +1,9 @@
+C:\Users\hp\OneDrive\Desktop\Zombie Hunter 2\.mono\temp\bin\ExportDebug\Zombie_Hunter_2.dll
+C:\Users\hp\OneDrive\Desktop\Zombie Hunter 2\.mono\temp\bin\ExportDebug\Zombie_Hunter_2.pdb
+C:\Users\hp\OneDrive\Desktop\Zombie Hunter 2\.mono\temp\obj\ExportDebug\Zombie_Hunter_2.csproj.AssemblyReference.cache
+C:\Users\hp\OneDrive\Desktop\Zombie Hunter 2\.mono\temp\obj\ExportDebug\Zombie_Hunter_2.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\hp\OneDrive\Desktop\Zombie Hunter 2\.mono\temp\obj\ExportDebug\Zombie_Hunter_2.AssemblyInfoInputs.cache
+C:\Users\hp\OneDrive\Desktop\Zombie Hunter 2\.mono\temp\obj\ExportDebug\Zombie_Hunter_2.AssemblyInfo.cs
+C:\Users\hp\OneDrive\Desktop\Zombie Hunter 2\.mono\temp\obj\ExportDebug\Zombie_Hunter_2.csproj.CoreCompileInputs.cache
+C:\Users\hp\OneDrive\Desktop\Zombie Hunter 2\.mono\temp\obj\ExportDebug\Zombie_Hunter_2.dll
+C:\Users\hp\OneDrive\Desktop\Zombie Hunter 2\.mono\temp\obj\ExportDebug\Zombie_Hunter_2.pdb

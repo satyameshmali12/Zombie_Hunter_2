@@ -38,6 +38,8 @@ public class Ninja : Basic_Player
         available_moves_consumption = new int[10] { 0, 0, 0, 2, 0, 0, 5, 0, 0, 10 };
         available_moves_damage = new int[10] { 20, 0, 0, 5, 0, 5, 50, 0, 3, 100 };
 
+        // attack_move_names = new in
+
         Glide_Timer = this.create_timer(1, "Glide_Timer_Out");
 
 
@@ -143,7 +145,7 @@ public class Ninja : Basic_Player
     public override void collided_with_body(Node body)
     {
         base.collided_with_body(body);
-        
+                
         Global_Variables_F_A_T new_node = (Global_Variables_F_A_T)body;
 
         if (new_node._node_type == "player")

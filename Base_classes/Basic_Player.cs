@@ -30,7 +30,6 @@ public class Basic_Player : Basic_Character
     ArrayList Basic_Movements;
 
 
-    public int jump_intensity;
 
 
     
@@ -40,15 +39,10 @@ public class Basic_Player : Basic_Character
     // int health; // health of the player
 
     // getting the components 
-    ProgressBar health_bar, power_bar;
+    ProgressBar power_bar;
 
 
 
-    // to check the height of the player from the ground
-    public RayCast2D height_checker;
-    public Timer One_Second_Timer;
-    public bool is_to_give_fall_damage;  // it will help us to determine whether to give the fall damage but also to play the animation at the time of the fall damage
-    public int no_of_seconds;  // to check for how much time the player was in the sky it will help us to manage the intensity of the fall damage
 
 
 
@@ -88,27 +82,15 @@ public class Basic_Player : Basic_Character
         basic_animation_changing_condition = true;
 
 
-        // this.ContactMonitor = true;
-        // this.ContactsReported = 10;
 
 
         health_bar = game_gui.GetNode<ProgressBar>("Health_Bar");
         health_bar.Value = 100;
-
-
-        height_checker = GetNode<RayCast2D>("Height_Checker");
-
-
-        #region Making the Timer which will be called after every one second and a second timer for Increasing the power
-        One_Second_Timer = this.create_timer(1, "One_Second_Timer_Out");
-
-        #endregion
-
-
         
 
-
         moving_direction = Direction.Right;
+        
+        colliding_condition = "all";
 
     }
 
@@ -196,28 +178,6 @@ public class Basic_Player : Basic_Character
                 moving_speed = new Vector2(0, moving_speed.y);
             }
         }
-
-        
-
-        #region Giving the fall damage to the player
-
-        if (!height_checker.IsColliding())
-        {
-            if (One_Second_Timer.IsStopped())
-            {
-                One_Second_Timer.WaitTime = 1;
-                One_Second_Timer.Start();
-            }
-        }
-        else if (!One_Second_Timer.IsStopped() && is_on_ground)
-        {
-            // change the amount below to give more stronger fall damage
-            health = (no_of_seconds > 1) ? health - (5 + no_of_seconds) : health;
-            One_Second_Timer.Stop();
-            no_of_seconds = 0;
-        }
-
-        #endregion
         
 
         health_bar.Value = health;
@@ -225,16 +185,12 @@ public class Basic_Player : Basic_Character
 
 
 
-        // Position2D player_position = GetNode<Position2D>("Position2D");
-        // player_position.SetAsToplevel(false);
         #region data_transfer to the global script
             // passing the data of the player to the player or global script
             // to perform all the other logics
-            // CollisionShape2D collisionshape = GetNode<CollisionShape2D>("CollisionShape2D");
             player_variable.player_position = this.Position;
         #endregion
 
-        // GD.Print(player_position.Position);
 
         
     }
@@ -251,30 +207,23 @@ public class Basic_Player : Basic_Character
         return health;
     }
 
-    // giving the fall damage to the player
-    public virtual void One_Second_Timer_Out()
-    {
-        // checking whether the player is gliding or not as in the case of the ninja
-        if (advanced_gravity == default_gravity)
-        {
-            no_of_seconds++;
-        }
-
-    }
 
     public override void collided_with_body(Node body)
     {
         base.collided_with_body(body);
 
-        // Global_Variables_F_A_T old_tile = (Global_Variables_F_A_T)body;
+    }
 
-        // if (old_tile._node_type == "block")
-        // {
-        //     GD.Print(old_tile._node_type);
+    public override void collided_with_L_R_ray(Godot.Object collided_obj){
 
-
-        // }
-
+        Global_Variables_F_A_T collided_one = collided_obj as Global_Variables_F_A_T;
+        if(collided_one._node_type=="zombie"){
+            if(!is_hitted){
+                Basic_Zombie collided_zombie = (Basic_Zombie)collided_one;
+                collided_zombie.health-=available_moves_damage[available_moves.IndexOf(animations.Animation)];
+                GD.Print("hey there zombie health decreased");
+            }
+        }
     }
 
 

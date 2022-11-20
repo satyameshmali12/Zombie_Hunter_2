@@ -18,7 +18,7 @@ public class Basic_Character : RigidBody2D, Global_Variables_F_A_T
     // inherited properties from the Global_Variables_F_A_T
     // entire description can be finded in the respective class
 
-    [Export]
+    // [Export]
     public string _node_type { get; set; }
 
 
@@ -47,6 +47,8 @@ public class Basic_Character : RigidBody2D, Global_Variables_F_A_T
     // this property will help to make the player fall down with more speed if the player not on the ground
     [Export]
     public int advanced_gravity = 300;
+    [Export]
+    public int jump_intensity = 10000;
 
     public readonly int default_gravity = 300;   // to set the gravity to the default wherever needed
 
@@ -59,11 +61,12 @@ public class Basic_Character : RigidBody2D, Global_Variables_F_A_T
 
     #endregion
 
-    
+
     public ArrayList available_moves;
     public int[] available_moves_damage;
     public int[] available_moves_consumption;
     public string[] available_moves_damage_condition;
+
 
 
 
@@ -76,6 +79,8 @@ public class Basic_Character : RigidBody2D, Global_Variables_F_A_T
 
     public bool is_on_ground; // to check whether the player is on ground so that ground attack's and movements can be performed
     public bool is_busy;
+    public bool is_hitted; // to hit only once in a attack
+
 
     public ArrayList ground_collider_rays; // this will help us know whether the player is on ground or not.
 
@@ -91,13 +96,24 @@ public class Basic_Character : RigidBody2D, Global_Variables_F_A_T
 
 
     // left_ray :- L_R and R_R :- Right_Ray
-    public bool L_R_Colliding,R_R_Collding;
+    public bool L_R_Colliding, R_R_Collding;
 
     public string colliding_condition; // the node which should collide with the player
 
 
 
     public Timer Power_Enhancer_Timer;
+
+
+    // to check the height of the player from the ground
+    public RayCast2D height_checker;
+    public Timer One_Second_Timer;
+    public bool is_to_give_fall_damage;  // it will help us to determine whether to give the fall damage but also to play the animation at the time of the fall damage
+    public int no_of_seconds;  // to check for how much time the player was in the sky it will help us to manage the intensity of the fall damage
+
+
+    public ProgressBar health_bar;
+
 
 
     public override void _Ready()
@@ -107,12 +123,15 @@ public class Basic_Character : RigidBody2D, Global_Variables_F_A_T
 
 
         power_available = 100;
+        health = 100;
         animations = GetNode<AnimatedSprite>("Movements");
         animations.Play("Idle"); // given the initial state to all the characters
 
 
         this.ContactMonitor = true;
         this.ContactsReported = 10;
+
+        is_hitted = false;
 
 
 
@@ -132,8 +151,8 @@ public class Basic_Character : RigidBody2D, Global_Variables_F_A_T
 
         this.Connect("body_entered", this, "collided_with_body");
 
-        
-        player_variable = GetNode<Global_Variables>("/root/Global_Variables"); 
+
+        player_variable = GetNode<Global_Variables>("/root/Global_Variables");
 
 
 
@@ -143,9 +162,24 @@ public class Basic_Character : RigidBody2D, Global_Variables_F_A_T
 
         colliding_condition = "all"; // default the colliding condition is setted to zero
 
-        
+
         Power_Enhancer_Timer = this.create_timer(power_increment_wait_time, "Increase_Power");
         Power_Enhancer_Timer.Start();
+
+
+        height_checker = GetNode<RayCast2D>("Height_Checker");
+
+
+        #region Making the Timer which will be called after every one second and a second timer for Increasing the power
+        One_Second_Timer = this.create_timer(1, "One_Second_Timer_Out");
+
+        #endregion
+
+
+        // var game_gui = GetNode<Node2D>("Game_Gui");
+
+        // health_bar = game_gui.GetNode<ProgressBar>("Health_Bar");
+        // health_bar.Value = 100;
 
 
     }
@@ -154,7 +188,7 @@ public class Basic_Character : RigidBody2D, Global_Variables_F_A_T
     {
         moving_speed = Vector2.Zero;
 
-        
+
         // in this part first we checked whether the player is on ground and thereby declared whether the player is jumping or not
         // here the is_on_ground is the whether the player is jumping or not
         foreach (RayCast2D item in ground_collider_rays)
@@ -176,12 +210,53 @@ public class Basic_Character : RigidBody2D, Global_Variables_F_A_T
         moving_speed.y += advanced_gravity;
         moving_direction = (animations.FlipH) ? Direction.Left : Direction.Right;
 
-        
+
+        #region Giving the fall damage to the player
+
+        if (!height_checker.IsColliding())
+        {
+            if (One_Second_Timer.IsStopped())
+            {
+                One_Second_Timer.WaitTime = 1;
+                One_Second_Timer.Start();
+            }
+        }
+        else if (!One_Second_Timer.IsStopped() && is_on_ground)
+        {
+            // change the amount below to give more stronger fall damage
+            health = (no_of_seconds > 1) ? health - (5 + no_of_seconds) : health;
+            One_Second_Timer.Stop();
+            no_of_seconds = 0;
+            // if (_node_type == "zombie")
+            // {
+            //     GD.Print("health of the Zombie is :", health);
+            // }
+        }
+
+        #endregion
+
+
+
         // performing the colision detection as well as calling the collision method
         // the collision method is called right from the below function 
         // the description can be founded in the respective classes
-        L_R_Colliding = is_collider_ray_colliding(Left_Collision_Rays,true,colliding_condition);
-        R_R_Collding = is_collider_ray_colliding(Right_Collision_Rays,true,colliding_condition);
+        L_R_Colliding = is_collider_ray_colliding(Left_Collision_Rays, true, colliding_condition);
+        R_R_Collding = is_collider_ray_colliding(Right_Collision_Rays, true, colliding_condition);
+
+
+
+        // setting the attack to the idle 
+        // complete description can be founded in the respective class i.e set_animation_idle()
+        // if (attack_move_names.Contains(this.animations.Animation.ToLower()))
+        // {
+        //     var is_settled = set_animation_idle(this.animations.Animation);
+        //     if (is_settled)
+        //     {
+        //         is_hitted = false;
+        //     }
+        // }
+
+        health_bar.Value = health;
 
 
     }
@@ -226,14 +301,16 @@ public class Basic_Character : RigidBody2D, Global_Variables_F_A_T
     }
 
 
-    public void perform_move(string move_name)
+    // if the player has performed the move then the function will return true
+    public bool perform_move(string move_name,bool is_to_make_busy = true)
     {
-        if (available_moves.Contains(move_name.ToLower()))
+        if (available_moves.Contains(move_name.ToLower()) && animations.Animation!=move_name)
         {
-            is_busy = true;
+            is_busy = is_to_make_busy;
             animations.Animation = move_name;
+            return true;
         }
-
+        return false;
     }
 
     public virtual void Increase_Power()
@@ -267,7 +344,8 @@ public class Basic_Character : RigidBody2D, Global_Variables_F_A_T
         }
         return false;
     }
-    public ArrayList get_the_collider_rays(string node_name){
+    public ArrayList get_the_collider_rays(string node_name)
+    {
         var collider_rays = new ArrayList();
         var rays = GetNode<Node2D>(node_name).GetChildren();
         foreach (RayCast2D item in rays)
@@ -282,33 +360,59 @@ public class Basic_Character : RigidBody2D, Global_Variables_F_A_T
 
     // to get whether a single collider rays is been colliding to any object
     // pass all as the collider_name for considering all for the collision
-    public bool is_collider_ray_colliding(ArrayList collider_rays,bool is_to_call_colliding_func=false,string collider_name="all"){
+    public bool is_collider_ray_colliding(ArrayList collider_rays, bool is_to_call_colliding_func = false, string collider_name = "all")
+    {
         var is_collided = false;
         foreach (RayCast2D item in collider_rays)
         {
-            if(!item.Enabled){
+            if (!item.Enabled)
+            {
                 item.Enabled = true;
             }
-            else if(item.IsColliding()){
+            else if (item.IsColliding())
+            {
                 Global_Variables_F_A_T collided_item = (Global_Variables_F_A_T)item.GetCollider();
-                if(collided_item._node_type=="player" || collider_name.ToLower()=="all"){
+                if (collided_item._node_type == "player" || collider_name.ToLower() == "all")
+                {
                     is_collided = true;
-                    if(is_to_call_colliding_func){
+                    if (is_to_call_colliding_func)
+                    {
                         collided_with_L_R_ray(item.GetCollider());
                     }
                     break;
                 }
             }
-            else{
+            else
+            {
                 is_collided = false;
             }
-            
+
         }
         return is_collided;
     }
 
 
-    
+    // giving the fall damage to the player
+    public virtual void One_Second_Timer_Out()
+    {
+        // checking whether the player is gliding or not as in the case of the ninja
+        if (advanced_gravity == default_gravity)
+        {
+            no_of_seconds++;
+        }
+
+    }
+
+    // this function contain's only one parameter
+    // this parameter will be used to use some other intensity instead of the jump_intensity
+    public bool jump(int new_jump_intensity = 0){
+
+        moving_speed.y = (new_jump_intensity==0)?-jump_intensity:new_jump_intensity;
+        return true;
+    }
+
+
+
     // this method will  be inherited by the respective child classes of its 
     // the logic will be as per the strength and the level of the character  
     public virtual void collided_with_body(Node body)
@@ -322,10 +426,10 @@ public class Basic_Character : RigidBody2D, Global_Variables_F_A_T
     // this method will be used both by the enemy as well as on the player
     public virtual void collided_with_L_R_ray(Godot.Object collided_obj)
     {
-        
+
 
     }
-
+    
 
 
 }

@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=2]
+[gd_scene load_steps=51 format=2]
 
 [ext_resource path="res://assets/images/zombie/female/dead/Dead (9).png" type="Texture" id=1]
 [ext_resource path="res://assets/images/zombie/female/dead/Dead (93).png" type="Texture" id=2]
@@ -46,10 +46,16 @@
 [ext_resource path="res://assets/images/zombie/female/idle/Idle (6).png" type="Texture" id=44]
 [ext_resource path="res://assets/images/zombie/female/idle/Idle (1).png" type="Texture" id=45]
 [ext_resource path="res://Character_Scripts/Female_Zombie.cs" type="Script" id=46]
+[ext_resource path="res://Weapons_And_Animation/components/scenes/Health_Bar.tscn" type="PackedScene" id=47]
+
+[sub_resource type="PhysicsMaterial" id=3]
+friction = 0.2
+rough = true
+bounce = 0.1
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 37.0
-height = 90.0
+height = 66.0
 
 [sub_resource type="SpriteFrames" id=2]
 animations = [ {
@@ -75,36 +81,117 @@ animations = [ {
 } ]
 
 [node name="Female_Zombie" type="RigidBody2D"]
-mode = 3
+mode = 2
+mass = 0.816326
+physics_material_override = SubResource( 3 )
+gravity_scale = 30.0
+custom_integrator = true
+contacts_reported = 10
+contact_monitor = true
 script = ExtResource( 46 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 561, 325 )
+position = Vector2( 552, 327 )
 z_index = 1
 shape = SubResource( 1 )
 
 [node name="Movements" type="AnimatedSprite" parent="."]
-position = Vector2( 556, 315 )
+position = Vector2( 554, 317 )
 scale = Vector2( 0.241, 0.279 )
 frames = SubResource( 2 )
-animation = "Attack"
-frame = 3
+animation = "Idle"
+frame = 1
 playing = true
 
-[node name="Left_Collision_Rays" type="Node2D" parent="."]
-
-[node name="Right_Collision_Rays" type="Node2D" parent="."]
-
 [node name="Rays" type="Node2D" parent="."]
-position = Vector2( -26, -129 )
+position = Vector2( -36, -124 )
 
 [node name="Jump_Ray_1" type="RayCast2D" parent="Rays"]
 position = Vector2( 590, 501 )
-cast_to = Vector2( 22, 39 )
+enabled = true
+cast_to = Vector2( 22, 30 )
+collide_with_areas = true
 
 [node name="Jump_Ray_2" type="RayCast2D" parent="Rays"]
 position = Vector2( 590, 501 )
+enabled = true
+cast_to = Vector2( 0, 30 )
+collide_with_areas = true
 
 [node name="Jump_Ray_3" type="RayCast2D" parent="Rays"]
 position = Vector2( 590, 501 )
-cast_to = Vector2( -29, 34 )
+enabled = true
+cast_to = Vector2( -29, 30 )
+collide_with_areas = true
+
+[node name="Left_Collision_Rays" type="Node2D" parent="."]
+position = Vector2( -39, -141 )
+
+[node name="Left_Collision_Ray_1" type="RayCast2D" parent="Left_Collision_Rays"]
+position = Vector2( 549, 471 )
+cast_to = Vector2( -16, 0 )
+
+[node name="Left_Collision_Ray_2" type="RayCast2D" parent="Left_Collision_Rays"]
+position = Vector2( 549, 445 )
+cast_to = Vector2( -16, 0 )
+
+[node name="Left_Collision_Ray_3" type="RayCast2D" parent="Left_Collision_Rays"]
+position = Vector2( 549, 495 )
+cast_to = Vector2( -16, 0 )
+
+[node name="Right_Collision_Rays" type="Node2D" parent="."]
+position = Vector2( -17, -137 )
+
+[node name="Left_Collision_Ray_1" type="RayCast2D" parent="Right_Collision_Rays"]
+position = Vector2( 610, 442 )
+cast_to = Vector2( 16, 1 )
+
+[node name="Left_Collision_Ray_2" type="RayCast2D" parent="Right_Collision_Rays"]
+position = Vector2( 609, 493 )
+cast_to = Vector2( 16, 1 )
+
+[node name="Left_Collision_Ray_3" type="RayCast2D" parent="Right_Collision_Rays"]
+position = Vector2( 610, 469 )
+cast_to = Vector2( 16, 1 )
+
+[node name="Left_Upward_Ray" type="RayCast2D" parent="."]
+position = Vector2( 517, 271 )
+enabled = true
+cast_to = Vector2( -45, -98 )
+collide_with_areas = true
+
+[node name="Right_Upward_Ray" type="RayCast2D" parent="."]
+position = Vector2( 581, 268 )
+enabled = true
+cast_to = Vector2( 33, -87 )
+collide_with_areas = true
+
+[node name="Upward_Ray" type="RayCast2D" parent="."]
+position = Vector2( 548, 254 )
+enabled = true
+cast_to = Vector2( -3, -104 )
+collide_with_areas = true
+
+[node name="Height_Checker" type="RayCast2D" parent="."]
+position = Vector2( 554, 377 )
+enabled = true
+cast_to = Vector2( 1, 146 )
+
+[node name="Fall_Down_Left_Rays" type="Node2D" parent="."]
+position = Vector2( 100, 0 )
+
+[node name="Fall_Detection_Left_1" type="RayCast2D" parent="Fall_Down_Left_Rays"]
+position = Vector2( 417, 381 )
+cast_to = Vector2( -40, 187 )
+
+[node name="Fall_Down_Right_Rays" type="Node2D" parent="."]
+
+[node name="Fall_Detection_Right_1" type="RayCast2D" parent="Fall_Down_Right_Rays"]
+position = Vector2( 581, 381 )
+cast_to = Vector2( 56, 182 )
+
+[node name="Health_Bar" parent="." instance=ExtResource( 47 )]
+margin_left = 445.0
+margin_top = 181.0
+margin_right = 668.0
+margin_bottom = 248.0
