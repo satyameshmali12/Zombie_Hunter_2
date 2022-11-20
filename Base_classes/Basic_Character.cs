@@ -118,7 +118,7 @@ public class Basic_Character : RigidBody2D, Global_Variables_F_A_T
 
     public override void _Ready()
     {
-        GD.Print("hey there I am right from the basic_character not the basic player..");
+        // GD.Print("hey there I am right from the basic_character not the basic player..");
         _node_type = null;
 
 
@@ -131,7 +131,7 @@ public class Basic_Character : RigidBody2D, Global_Variables_F_A_T
         this.ContactMonitor = true;
         this.ContactsReported = 10;
 
-        is_hitted = false;
+        is_hitted = false; // default is_hitted is setteled down to false
 
 
 
@@ -247,14 +247,16 @@ public class Basic_Character : RigidBody2D, Global_Variables_F_A_T
 
         // setting the attack to the idle 
         // complete description can be founded in the respective class i.e set_animation_idle()
-        // if (attack_move_names.Contains(this.animations.Animation.ToLower()))
-        // {
-        //     var is_settled = set_animation_idle(this.animations.Animation);
-        //     if (is_settled)
-        //     {
-        //         is_hitted = false;
-        //     }
-        // }
+        // and also making the hitted false
+        // in an entire move the a character can hit only once
+        if (available_moves_damage[available_moves.IndexOf(animations.Animation.ToLower())]!=0)
+        {
+            var is_settled = set_animation_idle(this.animations.Animation);
+            if (is_settled)
+            {
+                is_hitted = false;
+            }
+        }
 
         health_bar.Value = health;
 

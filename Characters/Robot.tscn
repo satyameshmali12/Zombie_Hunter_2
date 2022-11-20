@@ -463,9 +463,43 @@ position = Vector2( -145, -41 )
 [node name="Laser_Bean" parent="." instance=ExtResource( 87 )]
 position = Vector2( -102, -72 )
 
-[node name="Left_Collision_Rays" type="Node2D" parent="."]
-
-[node name="Right_Collision_Rays" type="Node2D" parent="."]
-
 [node name="Position2D" type="Position2D" parent="."]
 position = Vector2( 364, 198 )
+
+[node name="Left_Collision_Rays" type="Node2D" parent="."]
+position = Vector2( 4, -4 )
+
+[node name="Left_Collision_Ray_1" type="RayCast2D" parent="Left_Collision_Rays"]
+position = Vector2( 331, 282 )
+cast_to = Vector2( -120, 1 )
+
+[node name="Left_Collision_Ray_2" type="RayCast2D" parent="Left_Collision_Rays"]
+position = Vector2( 331, 256 )
+cast_to = Vector2( -120, 0 )
+
+[node name="Left_Collision_Ray_3" type="RayCast2D" parent="Left_Collision_Rays"]
+position = Vector2( 331, 306 )
+cast_to = Vector2( -120, -1 )
+
+[node name="Left_Collision_Ray_4" type="RayCast2D" parent="Left_Collision_Rays"]
+position = Vector2( 332, 231 )
+cast_to = Vector2( -120, 0 )
+
+[node name="Right_Collision_Rays" type="Node2D" parent="."]
+position = Vector2( 105, -8 )
+
+[node name="Left_Collision_Ray_1" type="RayCast2D" parent="Right_Collision_Rays"]
+position = Vector2( 297, 284 )
+cast_to = Vector2( 120, 1 )
+
+[node name="Left_Collision_Ray_2" type="RayCast2D" parent="Right_Collision_Rays"]
+position = Vector2( 297, 258 )
+cast_to = Vector2( 120, 0 )
+
+[node name="Left_Collision_Ray_3" type="RayCast2D" parent="Right_Collision_Rays"]
+position = Vector2( 297, 308 )
+cast_to = Vector2( 120, -1 )
+
+[node name="Left_Collision_Ray_4" type="RayCast2D" parent="Right_Collision_Rays"]
+position = Vector2( 298, 233 )
+cast_to = Vector2( 120, 0 )

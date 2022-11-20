@@ -7,7 +7,7 @@ public class Bullet : Basic_Throwable_Weapon
     public override void _Ready()
     {
         base._Ready();
-        damage = 10;
+        damage = 30;
         weapon_speed = 10;
     }
 

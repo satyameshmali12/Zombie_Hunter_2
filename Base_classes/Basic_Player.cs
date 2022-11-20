@@ -211,7 +211,7 @@ public class Basic_Player : Basic_Character
     public override void collided_with_body(Node body)
     {
         base.collided_with_body(body);
-
+        
     }
 
     public override void collided_with_L_R_ray(Godot.Object collided_obj){
@@ -220,8 +220,8 @@ public class Basic_Player : Basic_Character
         if(collided_one._node_type=="zombie"){
             if(!is_hitted){
                 Basic_Zombie collided_zombie = (Basic_Zombie)collided_one;
-                collided_zombie.health-=available_moves_damage[available_moves.IndexOf(animations.Animation)];
-                GD.Print("hey there zombie health decreased");
+                collided_zombie.health-=available_moves_damage[available_moves.IndexOf(animations.Animation.ToLower())];
+                is_hitted = true;
             }
         }
     }

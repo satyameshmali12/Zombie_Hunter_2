@@ -72,9 +72,17 @@ public class Basic_Throwable_Weapon:Area2D,Global_Variables_F_A_T
     public virtual void Collided_With_An_Obj(Node2D body)
     {
 
+        Global_Variables_F_A_T collided_body = body as Global_Variables_F_A_T;
+        if(this.animation.Visible){
+            if(collided_body._node_type == "zombie"){
+                Basic_Player collided_player = collided_body as Basic_Player;
+                collided_player.health-=damage;
+            }
+        }
         is_collided = true;
         this.animation.Visible = false;
         collision_animation.Emitting = true;
+
         
     }
 

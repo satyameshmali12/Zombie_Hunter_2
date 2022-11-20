@@ -95,20 +95,6 @@ public class Basic_Zombie : Basic_Character
             moving_speed.x = (moving_direction == Direction.Right) ? speed_x : -speed_x; // moving the zombie in the direction's
         }
 
-
-
-        // setting the attack to the idle 
-        // complete description can be founded in the respective class i.e set_animation_idle()
-        if (attack_move_names.Contains(this.animations.Animation.ToLower()))
-        {
-            var is_settled = set_animation_idle(this.animations.Animation);
-            if (is_settled)
-            {
-                is_hitted = false;
-            }
-        }
-        
-
         if (is_obstruction_in_between)
         {
             var is_left_upward_ray_colliding = Left_Upward_Ray.IsColliding();
@@ -161,9 +147,7 @@ public class Basic_Zombie : Basic_Character
             is_busy = false;
         }
 
-
-
-
+        
     }
 
     public override void collided_with_body(Node body)

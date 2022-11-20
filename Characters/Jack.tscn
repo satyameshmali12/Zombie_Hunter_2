@@ -54,7 +54,7 @@
 [ext_resource path="res://assets/images/jack/walk/Walk (4).png" type="Texture" id=52]
 [ext_resource path="res://assets/images/jack/walk/Walk (5).png" type="Texture" id=53]
 [ext_resource path="res://Character_Scripts/Jack.cs" type="Script" id=54]
-[ext_resource path="res://Weapons_And_Animation/components/scenes/Health_Bar.tscn" type="PackedScene" id=55]
+[ext_resource path="res://Weapons_And_Animation/components/scenes/Game_Gui.tscn" type="PackedScene" id=55]
 [ext_resource path="res://Weapons_And_Animation/components/scenes/Camera.tscn" type="PackedScene" id=56]
 
 [sub_resource type="PhysicsMaterial" id=3]
@@ -134,12 +134,6 @@ cast_to = Vector2( 21, 41 )
 position = Vector2( 154, 375 )
 cast_to = Vector2( -19, 36 )
 
-[node name="Health_Bar" parent="." instance=ExtResource( 55 )]
-margin_left = -202.0
-margin_top = -35.0
-margin_right = 38.0
-margin_bottom = 5.0
-
 [node name="Camera" parent="." instance=ExtResource( 56 )]
 position = Vector2( 316, 251 )
 
@@ -149,5 +143,46 @@ enabled = true
 cast_to = Vector2( 0, 306 )
 
 [node name="Left_Collision_Rays" type="Node2D" parent="."]
+position = Vector2( -96, 174 )
+
+[node name="Left_Collision_Ray_1" type="RayCast2D" parent="Left_Collision_Rays"]
+position = Vector2( 327, 280 )
+cast_to = Vector2( -80, 1 )
+
+[node name="Left_Collision_Ray_2" type="RayCast2D" parent="Left_Collision_Rays"]
+position = Vector2( 327, 254 )
+cast_to = Vector2( -80, 0 )
+
+[node name="Left_Collision_Ray_3" type="RayCast2D" parent="Left_Collision_Rays"]
+position = Vector2( 327, 304 )
+cast_to = Vector2( -80, -1 )
+
+[node name="Left_Collision_Ray_4" type="RayCast2D" parent="Left_Collision_Rays"]
+position = Vector2( 328, 229 )
+cast_to = Vector2( -80, 0 )
 
 [node name="Right_Collision_Rays" type="Node2D" parent="."]
+position = Vector2( 8, 169 )
+
+[node name="Left_Collision_Ray_1" type="RayCast2D" parent="Right_Collision_Rays"]
+position = Vector2( 301, 281 )
+enabled = true
+cast_to = Vector2( 80, 1 )
+
+[node name="Left_Collision_Ray_2" type="RayCast2D" parent="Right_Collision_Rays"]
+position = Vector2( 301, 255 )
+enabled = true
+cast_to = Vector2( 80, 0 )
+
+[node name="Left_Collision_Ray_3" type="RayCast2D" parent="Right_Collision_Rays"]
+position = Vector2( 301, 305 )
+enabled = true
+cast_to = Vector2( 80, -1 )
+
+[node name="Left_Collision_Ray_4" type="RayCast2D" parent="Right_Collision_Rays"]
+position = Vector2( 302, 230 )
+enabled = true
+cast_to = Vector2( 80, 0 )
+
+[node name="Game_Gui" parent="." instance=ExtResource( 55 )]
+position = Vector2( -181, -83 )
