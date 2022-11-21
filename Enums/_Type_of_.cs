@@ -4,6 +4,7 @@ public enum _Type_of_
     Zombie = 1,
     Block = 2,
     Throwable_Weapon = 3,
-    Nothing = 4
+    Spell = 4,
+    Nothing = 5
     
 }
