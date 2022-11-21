@@ -50,7 +50,7 @@ public class Basic_Player : Basic_Character
     public void custom_constructor(int speed, int jump_intensity, int health = 100, string basic_attack_name = "Attack")
     {
 
-        _node_type = "player";
+        _node_type = _Type_of_.Player;
 
         this.basic_attack_name = basic_attack_name;
 
@@ -217,7 +217,7 @@ public class Basic_Player : Basic_Character
     public override void collided_with_L_R_ray(Godot.Object collided_obj){
 
         Global_Variables_F_A_T collided_one = collided_obj as Global_Variables_F_A_T;
-        if(collided_one._node_type=="zombie"){
+        if(collided_one._node_type==_Type_of_.Zombie){
             if(!is_hitted){
                 Basic_Zombie collided_zombie = (Basic_Zombie)collided_one;
                 collided_zombie.health-=available_moves_damage[available_moves.IndexOf(animations.Animation.ToLower())];

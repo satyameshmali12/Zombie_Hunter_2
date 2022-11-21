@@ -138,13 +138,10 @@ public class Robot : Basic_Player
 
         Global_Variables_F_A_T old_tile = (Global_Variables_F_A_T)body;
 
-        if (old_tile._node_type == "block")
-        {
+        // if (old_tile._node_type == "block")
+        // {
             // GD.Print(old_tile._node_type);
-
-
-        }
-
+        // }
     }
 
     

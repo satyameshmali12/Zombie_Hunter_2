@@ -148,7 +148,7 @@ public class Ninja : Basic_Player
                 
         Global_Variables_F_A_T new_node = (Global_Variables_F_A_T)body;
 
-        if (new_node._node_type == "player")
+        if (new_node._node_type == _Type_of_.Player)
         {
             body.QueueFree();
         }

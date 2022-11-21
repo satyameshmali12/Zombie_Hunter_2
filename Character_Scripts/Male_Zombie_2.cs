@@ -15,7 +15,7 @@ public class Male_Zombie_2 : Basic_Zombie
 
         power_increment = 10;
 
-        available_moves = new ArrayList() { "attack", "attack_2", "attack_3", "bite", "dead", "hurt", "idle", "jump", "run", "walk" };
+        available_moves = new ArrayList() { "attack", "attack_2", "attack_3", "bite", "death", "hurt", "idle", "jump", "run", "walk" };
         available_moves_consumption = new int[10] { 8, 16, 16, 12, 0, 0, 0, 0, 0, 0 };
         available_moves_damage = new int[10] { 3, 3, 4, 4, 0, 0, 0, 0, 0, 0 };
 

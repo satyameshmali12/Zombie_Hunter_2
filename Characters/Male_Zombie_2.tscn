@@ -1,4 +1,4 @@
-[gd_scene load_steps=79 format=2]
+[gd_scene load_steps=86 format=2]
 
 [ext_resource path="res://assets/images/Zombie Man/Attack_1.png" type="Texture" id=1]
 [ext_resource path="res://assets/images/Zombie Man/Attack_2.png" type="Texture" id=2]
@@ -11,6 +11,8 @@
 [ext_resource path="res://assets/images/Zombie Man/Run.png" type="Texture" id=9]
 [ext_resource path="res://assets/images/Zombie Man/Walk.png" type="Texture" id=10]
 [ext_resource path="res://Character_Scripts/Male_Zombie_2.cs" type="Script" id=11]
+[ext_resource path="res://Weapons_And_Animation/components/scenes/Health_Bar.tscn" type="PackedScene" id=12]
+[ext_resource path="res://assets/images/gui/white_color.png" type="Texture" id=13]
 
 [sub_resource type="PhysicsMaterial" id=69]
 friction = 0.2
@@ -330,6 +332,31 @@ animations = [ {
 "speed": 10.0
 } ]
 
+[sub_resource type="Gradient" id=73]
+offsets = PoolRealArray( 0.106742, 0.404494, 1 )
+colors = PoolColorArray( 0, 1, 0.536603, 1, 1, 0.015625, 0.015625, 1, 1, 1, 1, 1 )
+
+[sub_resource type="GradientTexture" id=74]
+gradient = SubResource( 73 )
+
+[sub_resource type="Curve" id=70]
+_data = [ Vector2( 0, 0.271159 ), 0.0, 0.0, 0, 0, Vector2( 0.502488, 0.816613 ), 0.0, 0.0, 0, 0, Vector2( 1, 0.371534 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=71]
+curve = SubResource( 70 )
+
+[sub_resource type="ParticlesMaterial" id=72]
+flag_disable_z = true
+direction = Vector3( 0, -1, 0 )
+spread = 180.0
+gravity = Vector3( 0, -1000, 0 )
+initial_velocity = 200.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+scale = 0.08
+scale_curve = SubResource( 71 )
+color_ramp = SubResource( 74 )
+
 [node name="Male_Zombie_2" type="RigidBody2D"]
 position = Vector2( -222, 2 )
 mode = 2
@@ -348,6 +375,7 @@ shape = SubResource( 67 )
 [node name="Movements" type="AnimatedSprite" parent="."]
 position = Vector2( 713, 286 )
 scale = Vector2( 3.32292, 2.25 )
+z_index = 1
 frames = SubResource( 68 )
 animation = "Walk"
 frame = 4
@@ -435,3 +463,19 @@ cast_to = Vector2( -114, 479 )
 [node name="Fall_Detection_Right_1" type="RayCast2D" parent="Fall_Down_Right_Rays"]
 position = Vector2( 759, 394 )
 cast_to = Vector2( 177, 460 )
+
+[node name="Health_Bar" parent="." instance=ExtResource( 12 )]
+margin_left = 670.0
+margin_top = 206.0
+margin_right = 780.0
+margin_bottom = 229.0
+
+[node name="Blood_Animation" type="Particles2D" parent="."]
+position = Vector2( 727, 324 )
+emitting = false
+amount = 40
+lifetime = 0.5
+one_shot = true
+explosiveness = 0.4
+process_material = SubResource( 72 )
+texture = ExtResource( 13 )

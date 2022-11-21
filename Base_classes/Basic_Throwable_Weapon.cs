@@ -9,7 +9,7 @@ using Godot;
 
 public class Basic_Throwable_Weapon:Area2D,Global_Variables_F_A_T
 {
-    public string _node_type{get;set;}
+    public _Type_of_ _node_type{get;set;}
 
     [Export]
     public int damage=0; // the damage to given after hitting a enemy black or a particular in the game
@@ -32,7 +32,7 @@ public class Basic_Throwable_Weapon:Area2D,Global_Variables_F_A_T
     {
         this.SetAsToplevel(true);// setting the weapon to inherit the character from his parent
         
-        _node_type = "throwable_weapon";
+        _node_type = _Type_of_.Throwable_Weapon;
 
         is_collided = false;
 
@@ -74,9 +74,19 @@ public class Basic_Throwable_Weapon:Area2D,Global_Variables_F_A_T
 
         Global_Variables_F_A_T collided_body = body as Global_Variables_F_A_T;
         if(this.animation.Visible){
-            if(collided_body._node_type == "zombie"){
-                Basic_Player collided_player = collided_body as Basic_Player;
-                collided_player.health-=damage;
+            if(collided_body._node_type == _Type_of_.Zombie){
+                Basic_Character collided_player = collided_body as Basic_Character;
+                collided_player.health-=(damage+(int)(weapon_speed/100 * 20));
+            }
+            else if(collided_body._node_type == _Type_of_.Block){
+                TileMap tileMap = body as TileMap;
+                var tiles_position = tileMap.GetUsedCells();
+                foreach (Vector2 item in tiles_position)
+                {
+                    GD.Print($"x:- {item.x}, y:- {item.y}");
+                }
+                // var tile_position = tileMap.MapToWorld(this.Position);
+                // tileMap.TileSet.RemoveTile(tileMap.GetCell((int)tile_position.x,(int)tile_position.y));
             }
         }
         is_collided = true;

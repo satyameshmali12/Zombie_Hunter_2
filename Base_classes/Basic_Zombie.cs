@@ -28,12 +28,12 @@ public class Basic_Zombie : Basic_Character
     public bool can_jump_over,is_attacking,is_on_edge;
 
 
-
+    
     public override void _Ready()
     {
         base._Ready();
 
-        _node_type = "zombie";
+        _node_type = _Type_of_.Zombie;
 
         colliding_condition = "player";
         speed_x = 2000;
@@ -165,14 +165,14 @@ public class Basic_Zombie : Basic_Character
 
         Global_Variables_F_A_T collided_one = collided_obj as Global_Variables_F_A_T;
 
-        if(is_on_ground && collided_one._node_type=="zombie" && can_jump_over){
+        if(is_on_ground && collided_one._node_type==_Type_of_.Zombie && can_jump_over){
             if(L_R_Colliding && moving_speed.x<0 || R_R_Collding && moving_speed.x>0){
                 jump(jump_intensity-500);
             }
         }
 
 
-        if (collided_one._node_type == "block")
+        if (collided_one._node_type == _Type_of_.Block)
         {
             // GD.Print("hey there I am collide..!!");
             is_obstruction_in_between = true;
@@ -180,7 +180,7 @@ public class Basic_Zombie : Basic_Character
 
         if (!is_busy)
         {
-            if (collided_one._node_type == "player" && !is_on_edge) 
+            if (collided_one._node_type == _Type_of_.Player && !is_on_edge) 
             {
 
                 string random_attack = (string)attack_move_names[Convert.ToInt32(GD.RandRange(0, attack_move_names.Count - 1))];
@@ -201,7 +201,7 @@ public class Basic_Zombie : Basic_Character
         {
             if (!is_hitted)
             {
-                if (collided_one._node_type == "player")
+                if (collided_one._node_type == _Type_of_.Player)
                 {
                     Basic_Player character = collided_obj as Basic_Player;
                     character.health -= available_moves_damage[available_moves.IndexOf(this.animations.Animation.ToLower())];

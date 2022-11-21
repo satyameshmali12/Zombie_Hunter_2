@@ -1,4 +1,4 @@
-[gd_scene load_steps=65 format=2]
+[gd_scene load_steps=74 format=2]
 
 [ext_resource path="res://assets/images/Zombie Woman/Attack_1.png" type="Texture" id=1]
 [ext_resource path="res://assets/images/Zombie Woman/Hurt.png" type="Texture" id=2]
@@ -11,6 +11,8 @@
 [ext_resource path="res://assets/images/Zombie Woman/Scream.png" type="Texture" id=9]
 [ext_resource path="res://assets/images/Zombie Woman/Walk.png" type="Texture" id=10]
 [ext_resource path="res://Character_Scripts/Female_Zombie_2.cs" type="Script" id=11]
+[ext_resource path="res://assets/images/gui/white_color.png" type="Texture" id=12]
+[ext_resource path="res://Weapons_And_Animation/components/scenes/Health_Bar.tscn" type="PackedScene" id=13]
 
 [sub_resource type="PhysicsMaterial" id=58]
 friction = 0.2
@@ -236,7 +238,7 @@ animations = [ {
 }, {
 "frames": [ SubResource( 52 ), SubResource( 53 ), SubResource( 54 ), SubResource( 55 ), SubResource( 56 ) ],
 "loop": true,
-"name": "Dead",
+"name": "Death",
 "speed": 8.0
 }, {
 "frames": [ SubResource( 19 ), SubResource( 20 ), SubResource( 21 ) ],
@@ -273,6 +275,34 @@ animations = [ {
 [sub_resource type="CapsuleShape2D" id=57]
 radius = 33.0
 height = 102.0
+
+[sub_resource type="Curve" id=59]
+_data = [ Vector2( 0, 0.271159 ), 0.0, 0.0, 0, 0, Vector2( 0.502488, 0.816613 ), 0.0, 0.0, 0, 0, Vector2( 1, 0.371534 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=60]
+curve = SubResource( 59 )
+
+[sub_resource type="ParticlesMaterial" id=61]
+flag_disable_z = true
+direction = Vector3( 0, -1, 0 )
+spread = 180.0
+gravity = Vector3( 0, -1000, 0 )
+initial_velocity = 130.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+scale = 0.08
+scale_curve = SubResource( 60 )
+color = Color( 0.207843, 0, 0, 1 )
+
+[sub_resource type="CanvasItemMaterial" id=62]
+
+[sub_resource type="Theme" id=63]
+
+[sub_resource type="StyleBoxFlat" id=64]
+bg_color = Color( 0.913725, 0.196078, 0.141176, 1 )
+
+[sub_resource type="StyleBoxFlat" id=65]
+bg_color = Color( 0.576471, 0.0823529, 0.984314, 1 )
 
 [node name="Female_Zombie_2" type="RigidBody2D"]
 mode = 2
@@ -376,3 +406,27 @@ position = Vector2( -208, 46 )
 [node name="Fall_Detection_Right_1" type="RayCast2D" parent="Fall_Down_Right_Rays"]
 position = Vector2( 759, 394 )
 cast_to = Vector2( 52, 205 )
+
+[node name="Blood_Animation" type="Particles2D" parent="."]
+position = Vector2( 519, 386 )
+emitting = false
+amount = 30
+lifetime = 0.5
+one_shot = true
+explosiveness = 0.4
+process_material = SubResource( 61 )
+texture = ExtResource( 12 )
+
+[node name="Health_Bar" parent="." instance=ExtResource( 13 )]
+modulate = Color( 1, 1, 1, 1 )
+self_modulate = Color( 1, 1, 1, 1 )
+material = SubResource( 62 )
+margin_left = 464.0
+margin_top = 247.0
+margin_right = 574.0
+margin_bottom = 270.0
+theme = SubResource( 63 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_color_shadow = Color( 0.0313726, 1, 0.321569, 1 )
+custom_styles/fg = SubResource( 64 )
+custom_styles/bg = SubResource( 65 )

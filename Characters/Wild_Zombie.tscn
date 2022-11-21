@@ -1,4 +1,4 @@
-[gd_scene load_steps=81 format=2]
+[gd_scene load_steps=90 format=2]
 
 [ext_resource path="res://assets/images/Wild Zombie/Attack_1.png" type="Texture" id=1]
 [ext_resource path="res://assets/images/Wild Zombie/Attack_2.png" type="Texture" id=2]
@@ -11,6 +11,8 @@
 [ext_resource path="res://assets/images/Wild Zombie/Run.png" type="Texture" id=9]
 [ext_resource path="res://assets/images/Wild Zombie/Walk.png" type="Texture" id=10]
 [ext_resource path="res://Character_Scripts/Wild_Zombie.cs" type="Script" id=11]
+[ext_resource path="res://assets/images/gui/white_color.png" type="Texture" id=12]
+[ext_resource path="res://Weapons_And_Animation/components/scenes/Health_Bar.tscn" type="PackedScene" id=13]
 
 [sub_resource type="PhysicsMaterial" id=73]
 friction = 0.2
@@ -304,7 +306,7 @@ animations = [ {
 }, {
 "frames": [ SubResource( 19 ), SubResource( 20 ), SubResource( 21 ), SubResource( 22 ), SubResource( 23 ) ],
 "loop": true,
-"name": "Dead",
+"name": "Death",
 "speed": 10.0
 }, {
 "frames": [ SubResource( 38 ), SubResource( 39 ), SubResource( 40 ), SubResource( 41 ), SubResource( 42 ), SubResource( 43 ), SubResource( 44 ), SubResource( 45 ), SubResource( 46 ), SubResource( 47 ), SubResource( 48 ) ],
@@ -338,6 +340,43 @@ animations = [ {
 "speed": 10.0
 } ]
 
+[sub_resource type="Curve" id=74]
+_data = [ Vector2( 0, 0.271159 ), 0.0, 0.0, 0, 0, Vector2( 0.502488, 0.816613 ), 0.0, 0.0, 0, 0, Vector2( 1, 0.371534 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=75]
+curve = SubResource( 74 )
+
+[sub_resource type="ParticlesMaterial" id=76]
+emission_shape = 2
+emission_box_extents = Vector3( 1, 4, 1 )
+flag_disable_z = true
+direction = Vector3( 0, -1, 0 )
+spread = 180.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 150.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+scale = 0.08
+scale_curve = SubResource( 75 )
+color = Color( 1, 0.67451, 0.0509804, 1 )
+
+[sub_resource type="CanvasItemMaterial" id=77]
+
+[sub_resource type="Theme" id=78]
+
+[sub_resource type="StyleBoxFlat" id=79]
+bg_color = Color( 0.345098, 0, 0.956863, 1 )
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id=80]
+
 [node name="Wild_Zombie" type="RigidBody2D"]
 mode = 2
 mass = 0.816326
@@ -355,6 +394,7 @@ shape = SubResource( 1 )
 [node name="Movements" type="AnimatedSprite" parent="."]
 position = Vector2( 392, 195 )
 scale = Vector2( 2.28125, 2.83333 )
+z_index = 1
 frames = SubResource( 6 )
 animation = "Idle"
 centered = false
@@ -476,3 +516,26 @@ position = Vector2( -224, 75 )
 [node name="Fall_Detection_Right_1" type="RayCast2D" parent="Fall_Down_Right_Rays"]
 position = Vector2( 759, 394 )
 cast_to = Vector2( 58, 258 )
+
+[node name="Blood_Animation" type="Particles2D" parent="."]
+position = Vector2( 506, 416 )
+emitting = false
+amount = 20
+lifetime = 0.5
+one_shot = true
+explosiveness = 0.4
+process_material = SubResource( 76 )
+texture = ExtResource( 12 )
+
+[node name="Health_Bar" parent="." instance=ExtResource( 13 )]
+modulate = Color( 1, 1, 1, 1 )
+self_modulate = Color( 0, 1, 0.372549, 1 )
+material = SubResource( 77 )
+margin_left = 443.0
+margin_top = 294.0
+margin_right = 553.0
+margin_bottom = 317.0
+theme = SubResource( 78 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_styles/fg = SubResource( 79 )
+custom_styles/bg = SubResource( 80 )

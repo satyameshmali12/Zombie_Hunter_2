@@ -4,7 +4,7 @@ using System;
 public class Kunai : Area2D,Global_Variables_F_A_T
 {
 
-	public string _node_type{get;set;}
+	public _Type_of_ _node_type{get;set;}
 
 	[Export]
 	int Kunai_Move_Speed=20;
@@ -22,7 +22,8 @@ public class Kunai : Area2D,Global_Variables_F_A_T
 	{
 		Kunai_Texture = GetNode<TextureRect>("Kunai_Texture");
 
-		_node_type = "weapon"; // setting the _node_type to weapon to identify the collisions as the weapon
+		// _node_type = "weapon"; // setting the _node_type to weapon to identify the collisions as the weapon
+		_node_type = _Type_of_.Throwable_Weapon;
 		this.Monitoring = true;
 		this.Connect("body_entered",this,"Kunai_Collided");
 		
@@ -45,7 +46,7 @@ public class Kunai : Area2D,Global_Variables_F_A_T
 
 	public void Kunai_Collided(Node body){
 		Global_Variables_F_A_T collided_body = (Global_Variables_F_A_T)body;
-		if(collided_body._node_type=="block"){
+		if(collided_body._node_type==_Type_of_.Block){
 			this.Visible = false;
 			// TileSet tile = (TileSet)collided_body;
 			GD.Print("hey I am the queuefree one..!!");

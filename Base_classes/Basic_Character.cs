@@ -19,7 +19,7 @@ public class Basic_Character : RigidBody2D, Global_Variables_F_A_T
     // entire description can be finded in the respective class
 
     // [Export]
-    public string _node_type { get; set; }
+    public _Type_of_ _node_type { get; set; }
 
 
     public string character_name = null; // the name of the character as per the node name of the following player
@@ -33,6 +33,10 @@ public class Basic_Character : RigidBody2D, Global_Variables_F_A_T
 
     public int power_available;
     public int health; // the health of a basic player
+    int past_health;
+
+    public Particles2D blood_effect;
+    bool is_to_settle_past_health;
 
 
 
@@ -74,6 +78,7 @@ public class Basic_Character : RigidBody2D, Global_Variables_F_A_T
     public int power_increment_wait_time = 5;
     [Export]
     public int power_increment = 4;
+
 
 
 
@@ -119,13 +124,17 @@ public class Basic_Character : RigidBody2D, Global_Variables_F_A_T
     public override void _Ready()
     {
         // GD.Print("hey there I am right from the basic_character not the basic player..");
-        _node_type = null;
+        _node_type = _Type_of_.Nothing;
 
 
         power_available = 100;
         health = 100;
+        past_health = health;
         animations = GetNode<AnimatedSprite>("Movements");
         animations.Play("Idle"); // given the initial state to all the characters
+
+        blood_effect = GetNode<Particles2D>("Blood_Animation");
+        blood_effect.OneShot = true;
 
 
         this.ContactMonitor = true;
@@ -260,6 +269,26 @@ public class Basic_Character : RigidBody2D, Global_Variables_F_A_T
 
         health_bar.Value = health;
 
+        // both the condition will loop out loop throught each other
+        if(health!=past_health && !blood_effect.Emitting){
+            blood_effect.Emitting = true;
+            is_to_settle_past_health = true;
+            past_health = health;
+        }
+        if(is_to_settle_past_health && !blood_effect.Emitting){
+            is_to_settle_past_health = false;
+            // blood_effect.Emitting = false;
+        }
+
+
+        if(health_bar.Value <= 0){
+            perform_move("Death");
+            is_busy = true;
+        }
+        if(animations.Animation == "Death" && animations.Frame >= animations.Frames.GetFrameCount("Death")-2){
+            this.QueueFree();
+        }
+
 
     }
 
@@ -374,7 +403,7 @@ public class Basic_Character : RigidBody2D, Global_Variables_F_A_T
             else if (item.IsColliding())
             {
                 Global_Variables_F_A_T collided_item = (Global_Variables_F_A_T)item.GetCollider();
-                if (collided_item._node_type == "player" || collider_name.ToLower() == "all")
+                if (collided_item._node_type == _Type_of_.Player || collider_name.ToLower() == "all")
                 {
                     is_collided = true;
                     if (is_to_call_colliding_func)

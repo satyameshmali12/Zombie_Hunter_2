@@ -1,4 +1,4 @@
-[gd_scene load_steps=50 format=2]
+[gd_scene load_steps=59 format=2]
 
 [ext_resource path="res://assets/images/zombie/male/attack/Attack (3).png" type="Texture" id=1]
 [ext_resource path="res://assets/images/zombie/male/attack/Attack (5).png" type="Texture" id=2]
@@ -46,6 +46,8 @@
 [ext_resource path="res://assets/images/zombie/male/dead/Dead (2).png" type="Texture" id=44]
 [ext_resource path="res://assets/images/zombie/male/idle/Idle (4).png" type="Texture" id=45]
 [ext_resource path="res://Character_Scripts/Male_Zombie.cs" type="Script" id=46]
+[ext_resource path="res://Weapons_And_Animation/components/scenes/Health_Bar.tscn" type="PackedScene" id=47]
+[ext_resource path="res://assets/images/gui/white_color.png" type="Texture" id=48]
 
 [sub_resource type="PhysicsMaterial" id=3]
 friction = 0.1
@@ -60,7 +62,7 @@ animations = [ {
 }, {
 "frames": [ ExtResource( 42 ), ExtResource( 44 ), ExtResource( 41 ), ExtResource( 30 ), ExtResource( 33 ), ExtResource( 31 ), ExtResource( 32 ), ExtResource( 34 ), ExtResource( 36 ), ExtResource( 35 ), ExtResource( 37 ), ExtResource( 38 ) ],
 "loop": true,
-"name": "Dead",
+"name": "Death",
 "speed": 10.0
 }, {
 "frames": [ ExtResource( 39 ), ExtResource( 40 ), ExtResource( 43 ), ExtResource( 45 ), ExtResource( 18 ), ExtResource( 9 ), ExtResource( 10 ), ExtResource( 24 ), ExtResource( 25 ), ExtResource( 11 ), ExtResource( 26 ), ExtResource( 17 ), ExtResource( 27 ), ExtResource( 13 ), ExtResource( 19 ) ],
@@ -78,6 +80,36 @@ animations = [ {
 radius = 32.0
 height = 64.0
 
+[sub_resource type="CanvasItemMaterial" id=4]
+
+[sub_resource type="Theme" id=5]
+
+[sub_resource type="StyleBoxFlat" id=10]
+bg_color = Color( 0.913725, 0.196078, 0.141176, 1 )
+
+[sub_resource type="StyleBoxFlat" id=11]
+bg_color = Color( 0.576471, 0.0823529, 0.984314, 1 )
+
+[sub_resource type="Curve" id=6]
+_data = [ Vector2( 0, 0.271159 ), 0.0, 0.0, 0, 0, Vector2( 0.502488, 0.816613 ), 0.0, 0.0, 0, 0, Vector2( 1, 0.371534 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=9]
+curve = SubResource( 6 )
+
+[sub_resource type="ParticlesMaterial" id=8]
+emission_shape = 2
+emission_box_extents = Vector3( 1, 4, 1 )
+flag_disable_z = true
+direction = Vector3( 0, -1, 0 )
+spread = 180.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 130.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+scale = 0.08
+scale_curve = SubResource( 9 )
+color = Color( 1, 0.0431373, 0.0431373, 1 )
+
 [node name="Male_Zombie" type="RigidBody2D"]
 position = Vector2( -97, -129 )
 mode = 2
@@ -92,9 +124,10 @@ script = ExtResource( 46 )
 [node name="Movements" type="AnimatedSprite" parent="."]
 position = Vector2( 590, 460 )
 scale = Vector2( 0.240698, 0.278902 )
+z_index = 1
 frames = SubResource( 2 )
 animation = "Walk"
-frame = 4
+frame = 6
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -190,3 +223,27 @@ cast_to = Vector2( -60, 209 )
 [node name="Fall_Detection_Right_1" type="RayCast2D" parent="Fall_Down_Right_Rays"]
 position = Vector2( 588, 517 )
 cast_to = Vector2( 64, 207 )
+
+[node name="Health_Bar" parent="." instance=ExtResource( 47 )]
+modulate = Color( 0, 1, 0.227451, 1 )
+self_modulate = Color( 1, 1, 1, 1 )
+material = SubResource( 4 )
+margin_left = 530.0
+margin_top = 364.0
+margin_right = 640.0
+margin_bottom = 387.0
+theme = SubResource( 5 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_color_shadow = Color( 0.0313726, 1, 0.321569, 1 )
+custom_styles/fg = SubResource( 10 )
+custom_styles/bg = SubResource( 11 )
+
+[node name="Blood_Animation" type="Particles2D" parent="."]
+position = Vector2( 587, 467 )
+emitting = false
+amount = 20
+lifetime = 0.5
+one_shot = true
+explosiveness = 0.4
+process_material = SubResource( 8 )
+texture = ExtResource( 48 )

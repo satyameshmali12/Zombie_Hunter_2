@@ -1,4 +1,4 @@
-[gd_scene load_steps=101 format=2]
+[gd_scene load_steps=104 format=2]
 
 [ext_resource path="res://assets/images/Robot/Death/spritesheet(1).png" type="Texture" id=1]
 [ext_resource path="res://assets/images/Robot/Jump/spritesheet.png" type="Texture" id=2]
@@ -406,6 +406,23 @@ animations = [ {
 radius = 32.0
 height = 68.0
 
+[sub_resource type="Curve" id=88]
+_data = [ Vector2( 0.0101523, 0.396863 ), 0.0, 2.52355, 0, 0, Vector2( 1, 0.242317 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=89]
+curve = SubResource( 88 )
+
+[sub_resource type="ParticlesMaterial" id=87]
+flag_disable_z = true
+spread = 180.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 146.78
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+scale = 10.0
+scale_curve = SubResource( 89 )
+color = Color( 0, 0.152941, 1, 1 )
+
 [node name="Robot" type="RigidBody2D"]
 position = Vector2( 137, 210 )
 mode = 2
@@ -503,3 +520,12 @@ cast_to = Vector2( 120, -1 )
 [node name="Left_Collision_Ray_4" type="RayCast2D" parent="Right_Collision_Rays"]
 position = Vector2( 298, 233 )
 cast_to = Vector2( 120, 0 )
+
+[node name="Blood_Animation" type="Particles2D" parent="."]
+position = Vector2( 370, 275 )
+emitting = false
+amount = 50
+lifetime = 0.4
+one_shot = true
+explosiveness = 0.4
+process_material = SubResource( 87 )
