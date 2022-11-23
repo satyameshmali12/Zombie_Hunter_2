@@ -1,0 +1,28 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://assets/images/bomb/Explosion_6/Explosion_5.png" type="Texture" id=1]
+[ext_resource path="res://assets/images/bomb/Explosion_6/Explosion_2.png" type="Texture" id=2]
+[ext_resource path="res://assets/images/bomb/Explosion_6/Explosion_6.png" type="Texture" id=3]
+[ext_resource path="res://assets/images/bomb/Explosion_6/Explosion_4.png" type="Texture" id=4]
+[ext_resource path="res://assets/images/bomb/Explosion_6/Explosion_1.png" type="Texture" id=5]
+[ext_resource path="res://assets/images/bomb/Explosion_6/Explosion_9.png" type="Texture" id=6]
+[ext_resource path="res://assets/images/bomb/Explosion_6/Explosion_8.png" type="Texture" id=7]
+[ext_resource path="res://assets/images/bomb/Explosion_6/Explosion_7.png" type="Texture" id=8]
+[ext_resource path="res://assets/images/bomb/Explosion_6/Explosion_3.png" type="Texture" id=9]
+[ext_resource path="res://assets/images/bomb/Explosion_6/Explosion_10.png" type="Texture" id=10]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 5 ), ExtResource( 2 ), ExtResource( 9 ), ExtResource( 4 ), ExtResource( 1 ), ExtResource( 3 ), ExtResource( 8 ), ExtResource( 7 ), ExtResource( 6 ), ExtResource( 10 ) ],
+"loop": true,
+"name": "Explode",
+"speed": 10.0
+} ]
+
+[node name="Thunder_Blast_2" type="Node2D"]
+
+[node name="Animation" type="AnimatedSprite" parent="."]
+position = Vector2( 505, 231 )
+frames = SubResource( 1 )
+animation = "Explode"
+frame = 7

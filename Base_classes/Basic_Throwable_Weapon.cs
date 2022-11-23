@@ -81,10 +81,10 @@ public class Basic_Throwable_Weapon:Area2D,Global_Variables_F_A_T
             else if(collided_body._node_type == _Type_of_.Block){
                 TileMap tileMap = body as TileMap;
                 var tiles_position = tileMap.GetUsedCells();
-                foreach (Vector2 item in tiles_position)
-                {
-                    GD.Print($"x:- {item.x}, y:- {item.y}");
-                }
+                // foreach (Vector2 item in tiles_position)
+                // {
+                //     // GD.Print($"x:- {item.x}, y:- {item.y}");
+                // }
                 // var tile_position = tileMap.MapToWorld(this.Position);
                 // tileMap.TileSet.RemoveTile(tileMap.GetCell((int)tile_position.x,(int)tile_position.y));
             }

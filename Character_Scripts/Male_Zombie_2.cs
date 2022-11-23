@@ -28,6 +28,8 @@ public class Male_Zombie_2 : Basic_Zombie
 
         can_jump_over = true;
 
+        // is_resisted = true;
+
 
 
     }

@@ -5,6 +5,7 @@ public enum _Type_of_
     Block = 2,
     Throwable_Weapon = 3,
     Spell = 4,
-    Nothing = 5
+    Nothing = 5,
+    View = 6  // this will be allocated to the view for e.g.  Game_View,Home_View
     
 }

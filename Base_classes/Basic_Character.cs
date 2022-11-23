@@ -11,6 +11,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Godot;
 
+
 public class Basic_Character : RigidBody2D, Global_Variables_F_A_T
 {
 
@@ -119,7 +120,9 @@ public class Basic_Character : RigidBody2D, Global_Variables_F_A_T
 
     public ProgressBar health_bar;
 
-    public Custom_Func c_functions;
+    public bool is_resisted;
+
+    // public Custom_Func c_functions;
 
 
 
@@ -128,7 +131,7 @@ public class Basic_Character : RigidBody2D, Global_Variables_F_A_T
         // GD.Print("hey there I am right from the basic_character not the basic player..");
         _node_type = _Type_of_.Nothing;
 
-        c_functions = new Custom_Func();
+        // c_functions = new Custom_Func(this);
 
         power_available = 100;
         health = 100;
@@ -187,6 +190,7 @@ public class Basic_Character : RigidBody2D, Global_Variables_F_A_T
 
         #endregion
 
+        is_resisted = false;
 
         // var game_gui = GetNode<Node2D>("Game_Gui");
 
@@ -324,15 +328,15 @@ public class Basic_Character : RigidBody2D, Global_Variables_F_A_T
         }
     }
 
-    // public Timer create_timer(int wait_time, string signal_func_name)
-    // {
-    //     var new_timer = new Timer();
-    //     new_timer.WaitTime = 1;
-    //     this.AddChild(new_timer);
-    //     new_timer.Stop();
-    //     new_timer.Connect("timeout", this, signal_func_name);
-    //     return new_timer;
-    // }
+    public Timer create_timer(int wait_time, string signal_func_name)
+    {
+        var new_timer = new Timer();
+        new_timer.WaitTime = 1;
+        this.AddChild(new_timer);
+        new_timer.Stop();
+        new_timer.Connect("timeout", this, signal_func_name);
+        return new_timer;
+    }
 
 
     // if the player has performed the move then the function will return true
@@ -378,17 +382,17 @@ public class Basic_Character : RigidBody2D, Global_Variables_F_A_T
         }
         return false;
     }
-    // public ArrayList get_the_collider_rays(string node_name)
-    // {
-    //     var collider_rays = new ArrayList();
-    //     var rays = GetNode<Node2D>(node_name).GetChildren();
-    //     foreach (RayCast2D item in rays)
-    //     {
-    //         item.Enabled = true;
-    //         collider_rays.Add(item);
-    //     }
-    //     return collider_rays;
-    // }
+    public ArrayList get_the_collider_rays(string node_name)
+    {
+        var collider_rays = new ArrayList();
+        var rays = GetNode<Node2D>(node_name).GetChildren();
+        foreach (RayCast2D item in rays)
+        {
+            item.Enabled = true;
+            collider_rays.Add(item);
+        }
+        return collider_rays;
+    }
 
 
 
