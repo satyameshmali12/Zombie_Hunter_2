@@ -19,7 +19,7 @@ public class Basic_Bomb:Node2D
         animation = GetNode<AnimatedSprite>("Animation");
         animation.Play();
 
-        collision_rays = basf.get_the_collider_rays("Collision_Rays");
+        collision_rays = basf.get_the_node_childrens("Collision_Rays",true);
         basf.make_all_raycast2d_enable(collision_rays);
 
         

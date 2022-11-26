@@ -69,7 +69,7 @@
 [ext_resource path="res://assets/images/knight/walk/Walk (4).png" type="Texture" id=67]
 [ext_resource path="res://assets/images/knight/walk/Walk (6).png" type="Texture" id=68]
 [ext_resource path="res://assets/images/knight/walk/Walk (10).png" type="Texture" id=69]
-[ext_resource path="res://Character_Scripts/Knight.cs" type="Script" id=70]
+[ext_resource path="res://Characters/Character_Scripts/Player/Knight.cs" type="Script" id=70]
 [ext_resource path="res://Weapons_And_Animation/components/scenes/Game_Gui.tscn" type="PackedScene" id=71]
 [ext_resource path="res://Weapons_And_Animation/components/scenes/Camera.tscn" type="PackedScene" id=72]
 

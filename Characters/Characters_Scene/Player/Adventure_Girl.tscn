@@ -29,7 +29,7 @@
 [ext_resource path="res://assets/images/Adventure_Girl/Melee/Melee (3).png" type="Texture" id=27]
 [ext_resource path="res://Weapons_And_Animation/components/scenes/Game_Gui.tscn" type="PackedScene" id=28]
 [ext_resource path="res://Weapons_And_Animation/components/scenes/Camera.tscn" type="PackedScene" id=29]
-[ext_resource path="res://Character_Scripts/Adventure_Girl.cs" type="Script" id=30]
+[ext_resource path="res://Characters/Character_Scripts/Player/Adventure_Girl.cs" type="Script" id=30]
 [ext_resource path="res://assets/images/Adventure_Girl/Run/Run (4).png" type="Texture" id=31]
 [ext_resource path="res://assets/images/Adventure_Girl/Run/Run (3).png" type="Texture" id=32]
 [ext_resource path="res://assets/images/Adventure_Girl/Run/Run (5).png" type="Texture" id=33]

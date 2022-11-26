@@ -32,7 +32,7 @@
 [ext_resource path="res://assets/images/Red_Hat_Boy/Jump/Jump (7).png" type="Texture" id=30]
 [ext_resource path="res://assets/images/Red_Hat_Boy/Jump/Jump (10).png" type="Texture" id=31]
 [ext_resource path="res://assets/images/Red_Hat_Boy/Jump/Jump (9).png" type="Texture" id=32]
-[ext_resource path="res://Character_Scripts/Red_Hat_Boy.cs" type="Script" id=33]
+[ext_resource path="res://Characters/Character_Scripts/Zombie/Red_Hat_Boy.cs" type="Script" id=33]
 [ext_resource path="res://assets/images/Red_Hat_Boy/Hurt/Hurt (1).png" type="Texture" id=34]
 [ext_resource path="res://assets/images/Red_Hat_Boy/Hurt/Hurt (2).png" type="Texture" id=35]
 [ext_resource path="res://assets/images/Red_Hat_Boy/Hurt/Hurt (3).png" type="Texture" id=36]
@@ -148,7 +148,7 @@ position = Vector2( 351, 267 )
 scale = Vector2( 0.257848, 0.334359 )
 frames = SubResource( 2 )
 animation = "Idle"
-frame = 6
+frame = 7
 playing = true
 
 [node name="Height_Checker" type="RayCast2D" parent="."]

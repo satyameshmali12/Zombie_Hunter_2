@@ -10,12 +10,19 @@ public class Basic_View:Control,Global_Variables_F_A_T
     
     public Basic_Func all_func;
 
+    string level_base_url;
+
     public override void _Ready()
     {
         _node_type = _Type_of_.View;
         
         all_func = new Basic_Func(this);
+        level_base_url = "res://Levels/Scenes/";
+    }
 
+    public bool start_level(string level_name){
+        GetTree().ChangeScene($"{level_base_url}{level_name}.tscn");
+        return true;
     }
         
 }

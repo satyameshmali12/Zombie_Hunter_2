@@ -27,14 +27,18 @@ public class Basic_Zombie : Basic_Character
 
     public bool can_jump_over,is_attacking,is_on_edge;
 
+    public int kill_score_increment; // the amount of increment in the score as the zombie is been killed
+
 
     
     public override void _Ready()
     {
         base._Ready();
-
+        
         _node_type = _Type_of_.Zombie;
 
+        kill_score_increment = 10;
+        
         colliding_condition = "player";
         speed_x = 2000;
 
@@ -57,8 +61,8 @@ public class Basic_Zombie : Basic_Character
 
         // gettting all the Left and Right Fall down rays which fill help us to detect were the zombie should walk and where not
         // the stronger the zombie the stronger will be it's range of the Left and Right Fall Down Rays....
-        Fall_Down_Left_Rays = get_the_collider_rays("Fall_Down_Left_Rays");
-        Fall_Down_Right_Rays = get_the_collider_rays("Fall_Down_Right_Rays");
+        Fall_Down_Left_Rays = basf.get_the_node_childrens("Fall_Down_Left_Rays",true);
+        Fall_Down_Right_Rays = basf.get_the_node_childrens("Fall_Down_Right_Rays",true);
 
 
         // for powerfull zombie only
@@ -80,7 +84,7 @@ public class Basic_Zombie : Basic_Character
         // this is the position of the defender of the game
         // on which our zombie will attack
 
-        var player_global_position = player_variable.player_position;
+        var player_global_position = global_variables.player_position;
 
         var player_x = player_global_position.x;
 

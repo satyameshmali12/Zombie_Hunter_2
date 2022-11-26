@@ -64,8 +64,7 @@ public class Basic_Character : RigidBody2D, Global_Variables_F_A_T
 
     #region Associated with the health and power of a basic_character
 
-    #endregion
-
+    #endregion 
 
     public ArrayList available_moves;
     public int[] available_moves_damage;
@@ -92,7 +91,7 @@ public class Basic_Character : RigidBody2D, Global_Variables_F_A_T
 
 
     // to get all the global as well as the player information
-    public Global_Variables player_variable;
+    public Global_Variables global_variables;
 
 
 
@@ -122,16 +121,21 @@ public class Basic_Character : RigidBody2D, Global_Variables_F_A_T
 
     public bool is_resisted;
 
-    // public Custom_Func c_functions;
+    public Basic_Func basf; // containing the basic_function 
+
+    
 
 
 
     public override void _Ready()
     {
+        // global_Variables = GetNode<Global_Variables>("./root/Global_Varaibles");
+
         // GD.Print("hey there I am right from the basic_character not the basic player..");
         _node_type = _Type_of_.Nothing;
 
-        // c_functions = new Custom_Func(this);
+        basf = new Basic_Func(this);
+
 
         power_available = 100;
         health = 100;
@@ -155,7 +159,7 @@ public class Basic_Character : RigidBody2D, Global_Variables_F_A_T
         // Iterating all the ray's availble in the Rays node
         // And then making all the ray's enabled so that they can collide with the object
 
-        ground_collider_rays = get_the_collider_rays("Rays");
+        ground_collider_rays = basf.get_the_node_childrens("Rays",true);
 
 
         foreach (RayCast2D item in ground_collider_rays)
@@ -167,18 +171,18 @@ public class Basic_Character : RigidBody2D, Global_Variables_F_A_T
         this.Connect("body_entered", this, "collided_with_body");
 
 
-        player_variable = GetNode<Global_Variables>("/root/Global_Variables");
+        global_variables = GetNode<Global_Variables>("/root/Global_Variables");
 
 
 
         // getting the collision ray on the left side and right side of the zombie        
-        Left_Collision_Rays = get_the_collider_rays("Left_Collision_Rays");
-        Right_Collision_Rays = get_the_collider_rays("Right_Collision_Rays");
+        Left_Collision_Rays = basf.get_the_node_childrens("Left_Collision_Rays",true);
+        Right_Collision_Rays = basf.get_the_node_childrens("Right_Collision_Rays",true);
 
         colliding_condition = "all"; // default the colliding condition is setted to zero
 
 
-        Power_Enhancer_Timer = this.create_timer(power_increment_wait_time, "Increase_Power");
+        Power_Enhancer_Timer = basf.create_timer(power_increment_wait_time, "Increase_Power");
         Power_Enhancer_Timer.Start();
 
 
@@ -186,7 +190,7 @@ public class Basic_Character : RigidBody2D, Global_Variables_F_A_T
 
 
         #region Making the Timer which will be called after every one second and a second timer for Increasing the power
-        One_Second_Timer = this.create_timer(1, "One_Second_Timer_Out");
+        One_Second_Timer = basf.create_timer(1, "One_Second_Timer_Out");
 
         #endregion
 
@@ -293,7 +297,18 @@ public class Basic_Character : RigidBody2D, Global_Variables_F_A_T
             is_busy = true;
         }
         if(animations.Animation == "Death" && animations.Frame >= animations.Frames.GetFrameCount("Death")-2){
+            if(global_variables._main_character_name==this.Name){
+                global_variables.is_game_over = true;
+            }
+            if(this._node_type == _Type_of_.Zombie){
+                Basic_Zombie died_zombie = this as Basic_Zombie;
+                global_variables.score+=died_zombie.kill_score_increment;
+                GD.Print("the increment score");
+                GD.Print(global_variables.score);
+            }
+            
             this.QueueFree();
+            
         }
 
 
@@ -328,15 +343,6 @@ public class Basic_Character : RigidBody2D, Global_Variables_F_A_T
         }
     }
 
-    public Timer create_timer(int wait_time, string signal_func_name)
-    {
-        var new_timer = new Timer();
-        new_timer.WaitTime = 1;
-        this.AddChild(new_timer);
-        new_timer.Stop();
-        new_timer.Connect("timeout", this, signal_func_name);
-        return new_timer;
-    }
 
 
     // if the player has performed the move then the function will return true
@@ -382,18 +388,6 @@ public class Basic_Character : RigidBody2D, Global_Variables_F_A_T
         }
         return false;
     }
-    public ArrayList get_the_collider_rays(string node_name)
-    {
-        var collider_rays = new ArrayList();
-        var rays = GetNode<Node2D>(node_name).GetChildren();
-        foreach (RayCast2D item in rays)
-        {
-            item.Enabled = true;
-            collider_rays.Add(item);
-        }
-        return collider_rays;
-    }
-
 
 
     // to get whether a single collider rays is been colliding to any object

@@ -45,7 +45,7 @@
 [ext_resource path="res://assets/images/zombie/female/idle/Idle (7).png" type="Texture" id=43]
 [ext_resource path="res://assets/images/zombie/female/idle/Idle (6).png" type="Texture" id=44]
 [ext_resource path="res://assets/images/zombie/female/idle/Idle (1).png" type="Texture" id=45]
-[ext_resource path="res://Character_Scripts/Female_Zombie.cs" type="Script" id=46]
+[ext_resource path="res://Characters/Character_Scripts/Zombie/Female_Zombie.cs" type="Script" id=46]
 [ext_resource path="res://Weapons_And_Animation/components/scenes/Health_Bar.tscn" type="PackedScene" id=47]
 [ext_resource path="res://assets/images/gui/white_color.png" type="Texture" id=48]
 

@@ -45,7 +45,7 @@
 [ext_resource path="res://assets/images/zombie/male/idle/Idle (3).png" type="Texture" id=43]
 [ext_resource path="res://assets/images/zombie/male/dead/Dead (2).png" type="Texture" id=44]
 [ext_resource path="res://assets/images/zombie/male/idle/Idle (4).png" type="Texture" id=45]
-[ext_resource path="res://Character_Scripts/Male_Zombie.cs" type="Script" id=46]
+[ext_resource path="res://Characters/Character_Scripts/Zombie/Male_Zombie.cs" type="Script" id=46]
 [ext_resource path="res://Weapons_And_Animation/components/scenes/Health_Bar.tscn" type="PackedScene" id=47]
 [ext_resource path="res://assets/images/gui/white_color.png" type="Texture" id=48]
 
@@ -127,7 +127,7 @@ scale = Vector2( 0.240698, 0.278902 )
 z_index = 1
 frames = SubResource( 2 )
 animation = "Walk"
-frame = 5
+frame = 7
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

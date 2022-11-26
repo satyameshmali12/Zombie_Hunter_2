@@ -5,8 +5,15 @@ public class Basic_Func
 {
     public Node node;
 
+    public Data_Manager dm;
+
+    public Global_Variables global_Variables;
+
     public Basic_Func(Node node){
         this.node = node;
+        dm = new Data_Manager();
+
+        global_Variables = node.GetNode<Global_Variables>("/root/Global_Variables");
     }
 
     public Timer create_timer(int wait_time, string signal_func_name)
@@ -20,13 +27,17 @@ public class Basic_Func
     }
 
     
-    public ArrayList get_the_collider_rays(string node_name)
+    public ArrayList get_the_node_childrens(string node_name,bool is_ray_is_raycast2d=false)
     {
         var collider_rays = new ArrayList();
         var rays = node.GetNode<Node2D>(node_name).GetChildren();
         foreach (var item in rays)
         {
             collider_rays.Add(item);
+            if(is_ray_is_raycast2d){
+                RayCast2D ray = item as RayCast2D;
+                ray.Enabled = true;
+            }
         }
         return collider_rays;
     }
@@ -46,5 +57,15 @@ public class Basic_Func
             throw new System.InvalidCastException("Check for you node type may it differs..!!");
         }
     }
+
+    public bool clear_children_nodes(Node node_name){
+        foreach (Node2D item in node_name.GetChildren())
+        {
+            item.QueueFree();
+        }
+        return true;
+    }
+
+    
 
 }

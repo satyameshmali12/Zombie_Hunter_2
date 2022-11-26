@@ -40,7 +40,7 @@ public class Ninja : Basic_Player
 
         // attack_move_names = new in
 
-        Glide_Timer  = create_timer(1, "Glide_Timer_Out");
+        Glide_Timer  = basf.create_timer(1, "Glide_Timer_Out");
 
 
 

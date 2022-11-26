@@ -11,7 +11,7 @@
 [ext_resource path="res://assets/images/Ninja/slide/spritesheet.png" type="Texture" id=9]
 [ext_resource path="res://assets/images/Ninja/jump/spritesheet.png" type="Texture" id=10]
 [ext_resource path="res://assets/images/Ninja/run/spritesheet.png" type="Texture" id=11]
-[ext_resource path="res://Character_Scripts/Ninja.cs" type="Script" id=110]
+[ext_resource path="res://Characters/Character_Scripts/Player/Ninja.cs" type="Script" id=12]
 [ext_resource path="res://Weapons_And_Animation/scenes/Kunai.tscn" type="PackedScene" id=111]
 [ext_resource path="res://Weapons_And_Animation/components/scenes/Camera.tscn" type="PackedScene" id=113]
 [ext_resource path="res://Weapons_And_Animation/components/scenes/Game_Gui.tscn" type="PackedScene" id=115]
@@ -548,7 +548,7 @@ physics_material_override = SubResource( 3 )
 gravity_scale = 30.0
 contacts_reported = 10
 contact_monitor = true
-script = ExtResource( 110 )
+script = ExtResource( 12 )
 __meta__ = {
 "_edit_horizontal_guides_": [ 231.0 ]
 }

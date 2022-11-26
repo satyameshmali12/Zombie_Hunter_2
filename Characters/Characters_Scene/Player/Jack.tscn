@@ -53,7 +53,7 @@
 [ext_resource path="res://assets/images/jack/walk/Walk (2).png" type="Texture" id=51]
 [ext_resource path="res://assets/images/jack/walk/Walk (4).png" type="Texture" id=52]
 [ext_resource path="res://assets/images/jack/walk/Walk (5).png" type="Texture" id=53]
-[ext_resource path="res://Character_Scripts/Jack.cs" type="Script" id=54]
+[ext_resource path="res://Characters/Character_Scripts/Player/Jack.cs" type="Script" id=54]
 [ext_resource path="res://Weapons_And_Animation/components/scenes/Game_Gui.tscn" type="PackedScene" id=55]
 [ext_resource path="res://Weapons_And_Animation/components/scenes/Camera.tscn" type="PackedScene" id=56]
 

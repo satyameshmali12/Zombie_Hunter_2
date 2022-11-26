@@ -1,0 +1,22 @@
+Their are total 5 field for each level 
+
+1> Name 
+  :-  The name of the level
+  :-  It will help us
+
+2> Total_Zombie 
+  :- The total number that will be render throught a entire level
+  :- as the Total_Zombie becomes zero then no more zombie will be spawned
+
+3> max_zombie
+  :- Max no of zombie at a time on the screen
+  :- The harder the level the max_zombie will be more
+
+4> Difficulty_Level
+  :- The Difficulty_Level of the game
+  :- it will help to render the type of zombie
+5> score
+  :- the score made in the respective levels
+
+6> is_level_unlocked
+  :- whether the level can be played in other words is is_level_unlocked or not

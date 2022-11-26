@@ -10,9 +10,9 @@
 [ext_resource path="res://assets/images/Robot/Run_Shoot/spritesheet.png" type="Texture" id=8]
 [ext_resource path="res://assets/images/Robot/Run/spritesheet.png" type="Texture" id=9]
 [ext_resource path="res://assets/images/Robot/Slide/spritesheet.png" type="Texture" id=10]
+[ext_resource path="res://Characters/Character_Scripts/Player/Robot.cs" type="Script" id=11]
 [ext_resource path="res://Weapons_And_Animation/components/scenes/Camera.tscn" type="PackedScene" id=83]
 [ext_resource path="res://Weapons_And_Animation/components/scenes/Game_Gui.tscn" type="PackedScene" id=84]
-[ext_resource path="res://Character_Scripts/Robot.cs" type="Script" id=85]
 [ext_resource path="res://Weapons_And_Animation/scenes/Behind_Shader.tscn" type="PackedScene" id=86]
 [ext_resource path="res://Weapons_And_Animation/scenes/Laser_Bean.tscn" type="PackedScene" id=87]
 
@@ -431,7 +431,7 @@ physics_material_override = SubResource( 3 )
 gravity_scale = 30.0
 contacts_reported = 10
 contact_monitor = true
-script = ExtResource( 85 )
+script = ExtResource( 11 )
 
 [node name="Movements" type="AnimatedSprite" parent="."]
 position = Vector2( 370, 269 )

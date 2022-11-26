@@ -17,7 +17,69 @@ texture = ExtResource( 1 )
 [node name="Level_Buttons" type="Node2D" parent="."]
 position = Vector2( 99, 86 )
 
-[node name="First" type="Button" parent="Level_Buttons"]
-margin_right = 143.0
-margin_bottom = 48.0
+[node name="Level1" type="Button" parent="Level_Buttons"]
+margin_left = 337.0
+margin_top = 136.0
+margin_right = 480.0
+margin_bottom = 184.0
 text = "1st Level"
+
+[node name="Level2" type="Button" parent="Level_Buttons"]
+margin_left = 268.0
+margin_top = 2.0
+margin_right = 411.0
+margin_bottom = 50.0
+text = "2nd Level"
+
+[node name="Level3" type="Button" parent="Level_Buttons"]
+margin_left = 146.0
+margin_top = 70.0
+margin_right = 289.0
+margin_bottom = 118.0
+text = "3rd Level"
+
+[node name="Level4" type="Button" parent="Level_Buttons"]
+margin_left = 339.0
+margin_top = 350.0
+margin_right = 482.0
+margin_bottom = 398.0
+text = "4th Level"
+
+[node name="Level5" type="Button" parent="Level_Buttons"]
+margin_left = 616.0
+margin_top = 241.0
+margin_right = 759.0
+margin_bottom = 289.0
+text = "5th Level"
+
+[node name="Level6" type="Button" parent="Level_Buttons"]
+visible = false
+margin_left = 290.0
+margin_top = 139.0
+margin_right = 433.0
+margin_bottom = 187.0
+text = "6th Level"
+
+[node name="Level7" type="Button" parent="Level_Buttons"]
+visible = false
+margin_left = 85.0
+margin_top = 160.0
+margin_right = 228.0
+margin_bottom = 208.0
+text = "7th Level"
+
+[node name="Level9" type="Button" parent="Level_Buttons"]
+visible = false
+margin_left = 424.0
+margin_top = 227.0
+margin_right = 567.0
+margin_bottom = 275.0
+text = "9th Level"
+
+[node name="Level8" type="Button" parent="Level_Buttons"]
+visible = false
+margin_left = 524.0
+margin_top = 91.0
+margin_right = 667.0
+margin_bottom = 139.0
+text = "8th Level"

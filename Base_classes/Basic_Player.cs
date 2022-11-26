@@ -188,7 +188,7 @@ public class Basic_Player : Basic_Character
         #region data_transfer to the global script
             // passing the data of the player to the player or global script
             // to perform all the other logics
-            player_variable.player_position = this.Position;
+            global_variables.player_position = this.Position;
         #endregion
 
 

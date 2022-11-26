@@ -10,7 +10,7 @@
 [ext_resource path="res://assets/images/Zombie Woman/Run.png" type="Texture" id=8]
 [ext_resource path="res://assets/images/Zombie Woman/Scream.png" type="Texture" id=9]
 [ext_resource path="res://assets/images/Zombie Woman/Walk.png" type="Texture" id=10]
-[ext_resource path="res://Character_Scripts/Female_Zombie_2.cs" type="Script" id=11]
+[ext_resource path="res://Characters/Character_Scripts/Zombie/Female_Zombie_2.cs" type="Script" id=11]
 [ext_resource path="res://assets/images/gui/white_color.png" type="Texture" id=12]
 [ext_resource path="res://Weapons_And_Animation/components/scenes/Health_Bar.tscn" type="PackedScene" id=13]
 
