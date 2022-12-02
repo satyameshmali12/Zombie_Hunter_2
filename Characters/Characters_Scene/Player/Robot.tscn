@@ -444,9 +444,6 @@ frame = 2
 [node name="Camera" parent="." instance=ExtResource( 83 )]
 position = Vector2( 389, 50 )
 
-[node name="Game_Gui" parent="." instance=ExtResource( 84 )]
-position = Vector2( -114, -293 )
-
 [node name="Height_Checker" type="RayCast2D" parent="."]
 position = Vector2( 368, 305 )
 enabled = true
@@ -529,3 +526,6 @@ lifetime = 0.4
 one_shot = true
 explosiveness = 0.4
 process_material = SubResource( 87 )
+
+[node name="Game_Gui" parent="." instance=ExtResource( 84 )]
+position = Vector2( -246, -291 )

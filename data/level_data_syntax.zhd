@@ -20,3 +20,8 @@ Their are total 5 field for each level
 
 6> is_level_unlocked
   :- whether the level can be played in other words is is_level_unlocked or not
+
+
+not added yet
+7> zombie_speed_increment
+  the power of the zombies will differ from level to level

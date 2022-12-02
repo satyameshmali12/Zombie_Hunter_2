@@ -80,6 +80,12 @@ public class Basic_Zombie : Basic_Character
 
         base._Process(delta);
 
+        // for (var i = 0; i < Left_Collision_Rays.Count; i++)
+        // {
+        //     RayCast2D ray = Left_Collision_Rays[i] as RayCast2D;
+        //     ray.ForceRaycastUpdate();
+        // }
+
 
         // this is the position of the defender of the game
         // on which our zombie will attack

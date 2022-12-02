@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Collections;
 
 public class Global_Variables : Node2D
 {
@@ -12,6 +13,17 @@ public class Global_Variables : Node2D
     public bool is_level_added;
     public int score;
 
+    public bool is_arcade;
+
+    // this is used for adding the gamer_over_view after the death of the player 
+    // this is used in the level file
+    // If you are in VsCode you can view the use by clicking on the refererence below or can move to the respective
+    public Vector2 game_over_view_adding_position; 
+
+    public ArrayList bomb_Buttons; // this is the list of the bomb button's which is present on the game gui of the character(here)
+
+    // public bool is_spell_in_hand;
+    public string spell_in_hand;
     public override void _Ready()
     {
         is_game_over = false;
@@ -19,6 +31,11 @@ public class Global_Variables : Node2D
         score = 0;
         level_name = null;
         is_level_added = false;
+
+        is_arcade = false;
+        
+        // is_spell_in_hand = false;
+        spell_in_hand = null;
     }
 
 

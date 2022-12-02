@@ -6,12 +6,14 @@ public class Basic_Func
     public Node node;
 
     public Data_Manager dm;
-
     public Global_Variables global_Variables;
 
-    public Basic_Func(Node node){
+    public string main_game_scene_path = "res://Views/Scenes/Main_Game_Scene.tscn";
+    public string home_scene_path = "res://Views/Scenes/Home_View.tscn";
+
+    public Basic_Func(Node node,string data_path = "data//level_data.zhd"){
         this.node = node;
-        dm = new Data_Manager();
+        dm = new Data_Manager(data_path);
 
         global_Variables = node.GetNode<Global_Variables>("/root/Global_Variables");
     }
@@ -65,7 +67,58 @@ public class Basic_Func
         }
         return true;
     }
+    public void navigateTo(Node2D node2D,string path){
+        node2D.GetTree().ChangeScene(path);
+    }
+    public void navigateTo(Control control_node,string path){
+        control_node.GetTree().ChangeScene(path);
+        
+    }
 
-    
+    // for texture_button
+    public bool is_any_one_button_pressed(ArrayList button_list){
+        foreach (TextureButton item in button_list)
+        {
+            if(item.Pressed){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public PackedScene get_the_packed_scene(string path_of_the_scene){
+        try
+        {
+            PackedScene scene = ResourceLoader.Load<PackedScene>(path_of_the_scene);
+            return scene;
+        }
+
+        catch (System.IO.FileNotFoundException)
+        {
+            throw new System.IO.FileNotFoundException("Hey no such file exits..!!");
+        }
+
+    }
+    public int get_index_in_array<Thing,Value>(Thing[] arr,Value value){
+        for (var i = 0; i < arr.Length; i++)
+        {
+            GD.Print(arr[i],value.ToString());
+            if(arr[i].ToString().Trim() == value.ToString().Trim()){
+                return i;
+            }
+        }
+        return -1;
+    } 
+    // public int get_index_in_array(string[] arr,string value){
+    //     for (var i = 0; i < arr.Length; i++)
+    //     {
+    //         GD.Print(arr[i],value.ToString());
+    //         if(arr[i].ToString().Trim() == value.ToString().Trim()){
+    //             return i;
+    //         }
+    //     }
+    //     return -1;
+    // }
+   
 
 }

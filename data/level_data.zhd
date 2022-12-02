@@ -2,19 +2,26 @@ Level1
 10
 10
 3
-0
+100
 true
 
 Level2
-20
-6
-4
-90
+0
+10
+5
+0
 true
 
 Level3
 30
 10
+4
+20
+true
+
+Level4
+40
+20
 4
 20
 false

@@ -299,6 +299,7 @@ public class Basic_Character : RigidBody2D, Global_Variables_F_A_T
         if(animations.Animation == "Death" && animations.Frame >= animations.Frames.GetFrameCount("Death")-2){
             if(global_variables._main_character_name==this.Name){
                 global_variables.is_game_over = true;
+                global_variables.game_over_view_adding_position = this.GetNode<Node2D>("Game_Gui").GetNode<Node2D>("Adding_Postion").Position;
             }
             if(this._node_type == _Type_of_.Zombie){
                 Basic_Zombie died_zombie = this as Basic_Zombie;
