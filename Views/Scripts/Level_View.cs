@@ -32,6 +32,9 @@ public class Level_View : Basic_View
         forward = GetNode<Button>("Forward");
         backward = GetNode<Button>("Backward");
         change_the_level(0);
+
+        // setting the field name's of the level_data
+        basf.dm.all_field_names = basf.global_Variables.level_data_all_field_names;
         
     }
 

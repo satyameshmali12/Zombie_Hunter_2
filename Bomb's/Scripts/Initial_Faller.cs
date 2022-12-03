@@ -17,9 +17,11 @@ public class Initial_Faller : Particles2D
 
         // here data bomb_data is been loaded using the dm but it is used only for getting the data
         // lefting getting the data we are not using any function from the dm(data_manager)
-        basf = new Basic_Func(this,"data//bomb_data.zhd");
-        data_start_index = basf.get_index_in_array(basf.dm.level_data,bomb_name);
-        GD.Print(data_start_index);
+
+        
+        // basf = new Basic_Func(this,"data//bomb_data.zhd");
+        // data_start_index = basf.get_index_in_array(basf.dm.level_data,bomb_name);
+        // GD.Print(data_start_index);
 
         
     }

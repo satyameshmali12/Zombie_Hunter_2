@@ -20,13 +20,7 @@ texture = ExtResource( 1 )
 [node name="Zombie_Spawn_Points" type="Node2D" parent="."]
 
 [node name="Zombie_Spawn_Point_2" type="Position2D" parent="Zombie_Spawn_Points"]
-position = Vector2( 1485, 114 )
-
-[node name="Zombie_Spawn_Point_1" type="Position2D" parent="Zombie_Spawn_Points"]
-position = Vector2( -587, -107 )
-
-[node name="Zombie_Spawn_Point_3" type="Position2D" parent="Zombie_Spawn_Points"]
-position = Vector2( -201, 110 )
+position = Vector2( 1049, -349 )
 
 [node name="Player_Spawn_Point" type="Position2D" parent="."]
 position = Vector2( 532, 22 )
