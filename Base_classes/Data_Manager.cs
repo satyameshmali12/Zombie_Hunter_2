@@ -7,12 +7,21 @@ using System.IO;
 using Godot;
 using System.Collections;
 
+[Serializable]
+public class No_Such_Field_Founded_In_Data : Exception
+{
+    public No_Such_Field_Founded_In_Data() { }
+    public No_Such_Field_Founded_In_Data(string message)
+        : base(message) { }
+
+}
+
 public class Data_Manager
 {
     public int data_start_index; // In entire data finding the start index of a specific level with the help of the level name
 
     // public ArrayList level_data;
-    public string[] level_data;
+    public string[] data;
 
     public ArrayList all_field_names;
     // ArrayList reahing_increment;
@@ -26,15 +35,15 @@ public class Data_Manager
 
         // laoding the data 
         this.data_path = data_path;
-        level_data = System.IO.File.ReadAllLines(data_path);
+        data = System.IO.File.ReadAllLines(data_path);
 
     }
 
     public void load_data(string identifier)
     {
-        for (var i = 0; i < level_data.Length; i++)
+        for (var i = 0; i < data.Length; i++)
         {
-            if (level_data[i].Trim().TrimEnd() == identifier)
+            if (data[i].Trim().TrimEnd() == identifier)
             {
                 data_start_index = i;
                 break;
@@ -51,14 +60,14 @@ public class Data_Manager
         }
 
 
-        GD.Print("start index ", data_start_index);
+        // GD.Print("start index ", data_start_index);
 
 
 
         for (var i = 0; i < all_field_names.Count; i++)
         {
             var index = i + data_start_index;
-            all_field_values.Add(level_data[index]);
+            all_field_values.Add(data[index]);
         }
 
     }
@@ -66,11 +75,11 @@ public class Data_Manager
     public bool is_level_unlocked(string current_level_name)
     {
         var is_unlocked = false;
-        for (var i = 0; i < level_data.Length; i++)
+        for (var i = 0; i < data.Length; i++)
         {
-            if (level_data[i] == current_level_name)
+            if (data[i] == current_level_name)
             {
-                is_unlocked = Convert.ToBoolean(level_data[i + get_incre("Is_Level_Unlocked")]);
+                is_unlocked = Convert.ToBoolean(data[i + get_incre("Is_Level_Unlocked")]);
                 break;
             }
         }
@@ -95,7 +104,7 @@ public class Data_Manager
         
         // unlocking the next 
         // if there is no further more level then the similar leve is been unlocked again in othe words in such case there is no change in the data
-        level_data[data_start_index + get_incre("Is_Level_Unlocked")] = "true";
+        data[data_start_index + get_incre("Is_Level_Unlocked")] = "true";
         save_data(); // saving the data once again
 
         return new_level;
@@ -103,7 +112,7 @@ public class Data_Manager
 
     public void save_data()
     {
-        System.IO.File.WriteAllLines("data/level_data.zhd", level_data);
+        System.IO.File.WriteAllLines(data_path, data);
     }
 
     public string get_data(string field_name)
@@ -114,6 +123,15 @@ public class Data_Manager
     public int get_incre(string field_name)
     {
         return all_field_names.IndexOf(field_name);
+    }
+
+    public bool set_value(string field_name,string value){
+        if(!all_field_names.Contains(field_name)){
+            throw new No_Such_Field_Founded_In_Data("No such data field exits");
+        }
+        var incre = get_incre(field_name);
+        data[data_start_index+incre] = value;
+        return true;
     }
 
 

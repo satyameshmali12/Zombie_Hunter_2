@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Skew_Bomb_Explosion.mp3-7d8291a07eb1215aa040d91bdc4ab768.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/Bomb's/Skew_Bomb_Explosion.mp3"
+dest_files=[ "res://.import/Skew_Bomb_Explosion.mp3-7d8291a07eb1215aa040d91bdc4ab768.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

@@ -119,6 +119,22 @@ public class Basic_Func
     //     }
     //     return -1;
     // }
+    
+    // for raycast 2d only
+    public int get_number_of_ray_colliding(ArrayList raycast_2ds_arr){
+        var count = 0;
+        foreach (RayCast2D item in raycast_2ds_arr)
+        {
+            if(!item.Enabled){
+                item.Enabled = true;
+            }
+            if(item.IsColliding()){
+                count++;
+            }
+            
+        }
+        return count;
+    }
    
 
 }

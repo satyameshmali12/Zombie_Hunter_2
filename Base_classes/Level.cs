@@ -102,7 +102,7 @@ public class Level : Node2D, Global_Variables_F_A_T
                 {
                     // saving the data for the current level
                     // if the player win's then setting the score
-                    basf.dm.level_data[basf.dm.data_start_index + 4] = global_variables.score.ToString();
+                    basf.dm.data[basf.dm.data_start_index + 4] = global_variables.score.ToString();
                     basf.dm.save_data();
 
                     // unlocking the next level
@@ -132,6 +132,7 @@ public class Level : Node2D, Global_Variables_F_A_T
             if (is_data_saved)
             {
                 move_to_game_over_screen();
+                global_variables.is_game_over = false;
             }
         }
 
@@ -139,6 +140,7 @@ public class Level : Node2D, Global_Variables_F_A_T
         var is_bomb_in_hand = basf.global_Variables.spell_in_hand != null;
         if (is_bomb_in_hand && Input.IsActionPressed("Mouse_Pressed") && !basf.is_any_one_button_pressed(global_variables.bomb_Buttons))
         {
+            GD.Print("hey the mouse pressed event is been created..!!");
             // GD.Print("hello world pressed!!");
             var ini_faller = basf.get_the_packed_scene("res://Bomb's/Scenes/Initial_Faller.tscn").Instance() as Initial_Faller;
             ini_faller.settle_values(global_variables.spell_in_hand, GetGlobalMousePosition());

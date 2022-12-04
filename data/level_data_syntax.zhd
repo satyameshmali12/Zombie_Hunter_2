@@ -1,6 +1,6 @@
 Their are total 5 field for each level 
-
-1> Name 
+1> Name
+  :- first letter of the level name should be capital(UpperCase) 
   :-  The name of the level
   :-  It will help us
 
@@ -15,6 +15,7 @@ Their are total 5 field for each level
 4> Difficulty_Level
   :- The Difficulty_Level of the game
   :- it will help to render the type of zombie
+  
 5> score
   :- the score made in the respective levels
 

@@ -1,0 +1,106 @@
+[gd_scene load_steps=14 format=2]
+
+[ext_resource path="res://assets/images/bomb/Explosion_3/Explosion_2.png" type="Texture" id=1]
+[ext_resource path="res://assets/images/bomb/Explosion_3/Explosion_10.png" type="Texture" id=2]
+[ext_resource path="res://assets/images/bomb/Explosion_3/Explosion_3.png" type="Texture" id=3]
+[ext_resource path="res://assets/images/bomb/Explosion_3/Explosion_9.png" type="Texture" id=4]
+[ext_resource path="res://Bomb's/Scripts/Skem_Bomb.cs" type="Script" id=5]
+[ext_resource path="res://assets/images/bomb/Explosion_3/Explosion_4.png" type="Texture" id=6]
+[ext_resource path="res://assets/images/bomb/Explosion_3/Explosion_8.png" type="Texture" id=7]
+[ext_resource path="res://assets/images/bomb/Explosion_3/Explosion_7.png" type="Texture" id=8]
+[ext_resource path="res://assets/images/bomb/Explosion_3/Explosion_6.png" type="Texture" id=9]
+[ext_resource path="res://assets/images/bomb/Explosion_3/Explosion_1.png" type="Texture" id=10]
+[ext_resource path="res://assets/images/bomb/Explosion_3/Explosion_5.png" type="Texture" id=11]
+[ext_resource path="res://assets/audio/Bomb's/Skew_Bomb_Explosion.mp3" type="AudioStream" id=12]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 10 ), ExtResource( 1 ), ExtResource( 3 ), ExtResource( 6 ), ExtResource( 11 ), ExtResource( 9 ), ExtResource( 8 ), ExtResource( 7 ), ExtResource( 4 ), ExtResource( 2 ) ],
+"loop": true,
+"name": "Explode",
+"speed": 4.0
+} ]
+
+[node name="Skew_Bomb" type="Node2D"]
+position = Vector2( 518, 473 )
+z_index = 100
+script = ExtResource( 5 )
+
+[node name="Animation" type="AnimatedSprite" parent="."]
+position = Vector2( 3, -249 )
+frames = SubResource( 1 )
+animation = "Explode"
+frame = 3
+
+[node name="Collision_Rays" type="Node2D" parent="."]
+position = Vector2( -574, -364 )
+
+[node name="Collision_Rays_1" type="RayCast2D" parent="Collision_Rays"]
+position = Vector2( 575, 298 )
+enabled = true
+cast_to = Vector2( -2, -189 )
+
+[node name="Collision_Rays_2" type="RayCast2D" parent="Collision_Rays"]
+position = Vector2( 575, 298 )
+enabled = true
+cast_to = Vector2( -89, -96 )
+
+[node name="Collision_Rays_3" type="RayCast2D" parent="Collision_Rays"]
+position = Vector2( 575, 298 )
+enabled = true
+cast_to = Vector2( 117, -141 )
+
+[node name="Collision_Rays_4" type="RayCast2D" parent="Collision_Rays"]
+position = Vector2( 575, 298 )
+enabled = true
+cast_to = Vector2( 189, -2 )
+
+[node name="Collision_Rays_5" type="RayCast2D" parent="Collision_Rays"]
+position = Vector2( 575, 298 )
+enabled = true
+cast_to = Vector2( -169, -5 )
+
+[node name="Collision_Rays_6" type="RayCast2D" parent="Collision_Rays"]
+position = Vector2( 575, 298 )
+enabled = true
+cast_to = Vector2( -102, 112 )
+
+[node name="Collision_Rays_7" type="RayCast2D" parent="Collision_Rays"]
+position = Vector2( 575, 298 )
+enabled = true
+cast_to = Vector2( 9, 128 )
+
+[node name="Collision_Rays_8" type="RayCast2D" parent="Collision_Rays"]
+position = Vector2( 575, 298 )
+enabled = true
+cast_to = Vector2( -65, -146 )
+
+[node name="Collision_Rays_9" type="RayCast2D" parent="Collision_Rays"]
+position = Vector2( 575, 298 )
+enabled = true
+cast_to = Vector2( 81, 110 )
+
+[node name="Collision_Rays_10" type="RayCast2D" parent="Collision_Rays"]
+position = Vector2( 575, 298 )
+enabled = true
+cast_to = Vector2( -135, 79 )
+
+[node name="Collision_Rays_11" type="RayCast2D" parent="Collision_Rays"]
+position = Vector2( 575, 298 )
+enabled = true
+cast_to = Vector2( 136, 68 )
+
+[node name="Collision_Rays_12" type="RayCast2D" parent="Collision_Rays"]
+position = Vector2( 575, 298 )
+enabled = true
+cast_to = Vector2( -148, -80 )
+
+[node name="Collision_Rays_13" type="RayCast2D" parent="Collision_Rays"]
+position = Vector2( 575, 298 )
+enabled = true
+cast_to = Vector2( 150, -66 )
+
+[node name="Explosion_Sound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 12 )
+volume_db = 10.0
+max_distance = 200000.0

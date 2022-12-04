@@ -105,7 +105,7 @@ position = Vector2( 342, -32 )
 
 [node name="Bomb_Button\'s" type="Node2D" parent="."]
 
-[node name="Bomb1" type="TextureButton" parent="Bomb_Button\'s"]
+[node name="Skew_Bomb" type="TextureButton" parent="Bomb_Button\'s"]
 margin_left = 306.0
 margin_top = -8.0
 margin_right = 393.0
