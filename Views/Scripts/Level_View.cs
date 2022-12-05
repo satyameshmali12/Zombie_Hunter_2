@@ -21,9 +21,10 @@ public class Level_View : Basic_View
     {
         base._Ready();
         basf = new Basic_Func(this);
+        // basf.dm.load_data(this.Name);
 
         level_buttons = all_func.get_the_node_childrens("Level_Buttons");
-
+        
         button_per_screen = 4;
 
         total_number_of_button = System.IO.Directory.GetFiles("C:\\Users\\hp\\OneDrive\\Desktop\\Zombie Hunter 2\\Levels\\Scenes").Length;
@@ -34,7 +35,7 @@ public class Level_View : Basic_View
         change_the_level(0);
 
         // setting the field name's of the level_data
-        basf.dm.all_field_names = basf.global_Variables.level_data_all_field_names;
+        // basf.dm.all_field_names = basf.global_Variables.level_data_all_field_names;
         
     }
 
@@ -46,6 +47,8 @@ public class Level_View : Basic_View
         {
             if (item.Pressed)
             {
+                // basf.dm.all_field_values.Clear();
+                // basf.dm.load_data(item.Name);
                 if (basf.dm.is_level_unlocked(item.Name))
                 {
                     GD.Print("first_stage");

@@ -29,9 +29,9 @@ public class Initial_Faller : Particles2D
         // lefting getting the data we are not using any function from the dm(data_manager)
 
         
-        basf = new Basic_Func(this,"data//bomb_data.zhd");
+        basf = new Basic_Func(this,"data//data_fields/bomb_data_fields.zhd");
         var data = basf.dm;
-        data.all_field_names = new ArrayList(){"Bomb_Name","No_Of_Bomb_Available"};
+        // data.all_field_names = new ArrayList(){"Bomb_Name","No_Of_Bomb_Available"};
         basf.dm.load_data(bomb_name);
 
         available_Bomb_Count = Convert.ToInt32(data.get_data("No_Of_Bomb_Available"));

@@ -13,7 +13,7 @@ rect_pivot_offset = Vector2( 291, 237 )
 script = ExtResource( 2 )
 
 [node name="Bg" type="Sprite" parent="."]
-position = Vector2( 514, 312 )
+position = Vector2( 510, 301 )
 scale = Vector2( 0.512, 0.532808 )
 texture = ExtResource( 1 )
 

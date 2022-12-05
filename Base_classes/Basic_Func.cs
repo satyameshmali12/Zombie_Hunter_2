@@ -11,7 +11,7 @@ public class Basic_Func
     public string main_game_scene_path = "res://Views/Scenes/Main_Game_Scene.tscn";
     public string home_scene_path = "res://Views/Scenes/Home_View.tscn";
 
-    public Basic_Func(Node node,string data_path = "data//level_data.zhd"){
+    public Basic_Func(Node node,string data_path = "data//data_fields/level_data_fields.zhd"){
         this.node = node;
         dm = new Data_Manager(data_path);
 

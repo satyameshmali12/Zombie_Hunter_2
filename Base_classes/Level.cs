@@ -50,8 +50,8 @@ public class Level : Node2D, Global_Variables_F_A_T
         game_over_timing = 0;
 
         basf = new Basic_Func(this);
-        basf.dm = new Data_Manager();
-        basf.dm.all_field_names = basf.global_Variables.level_data_all_field_names;
+        // basf.dm = new Data_Manager();
+        // basf.dm.all_field_names = basf.global_Variables.level_data_all_field_names;
         basf.dm.load_data(this.Name);
         total_zombie = Convert.ToInt32(basf.dm.get_data("Total_Zombie"));
         max_zombie_per_screen = Convert.ToInt32(basf.dm.get_data("Max_Zombie"));

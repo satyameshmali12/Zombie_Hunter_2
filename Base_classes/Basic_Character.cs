@@ -309,7 +309,6 @@ public class Basic_Character : RigidBody2D, Global_Variables_F_A_T
             }
             
             this.QueueFree();
-            
         }
 
 

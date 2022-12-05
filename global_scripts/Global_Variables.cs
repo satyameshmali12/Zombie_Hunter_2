@@ -25,6 +25,7 @@ public class Global_Variables : Node2D
 
     public ArrayList level_data_all_field_names = new ArrayList(){"Name","Total_Zombie","Max_Zombie","Difficulty_Level","Score","Is_Level_Unlocked"};
     // public bool is_spell_in_hand;
+    
     public string spell_in_hand;
     public override void _Ready()
     {
