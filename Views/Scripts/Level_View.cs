@@ -17,6 +17,8 @@ public class Level_View : Basic_View
 
     Button forward,backward;
 
+    bool is_navigated;
+
     public override void _Ready()
     {
         base._Ready();
@@ -34,9 +36,16 @@ public class Level_View : Basic_View
         backward = GetNode<Button>("Backward");
         change_the_level(0);
 
+
+        GD.Print("hey I am the constructor of the level_view..!!");
+
         // setting the field name's of the level_data
         // basf.dm.all_field_names = basf.global_Variables.level_data_all_field_names;
-        
+        // AudioStreamPlayer2D audio = new AudioStreamPlayer2D();
+        // audio.VolumeDb = 10;
+        // audio.PitchScale = 2;
+        // audio.Stream = ResourceLoader.Load<AudioStream>("res://assets/audio/GUI/navigation_sound.mp3");
+        // audio.Play();
     }
 
     public override void _Process(float delta)
@@ -70,6 +79,20 @@ public class Level_View : Basic_View
         }
         else{
             is_button_pressed = false;
+        }
+
+
+        // navigation's from the level_view
+
+        var gui_buttons = basf.get_the_node_childrens("GUI_Buttons");
+        foreach (TextureButton item in gui_buttons)
+        {
+            if(item.Pressed && !is_navigated){
+                
+                GD.Print("hey the audio played did you heard it ..???");
+                basf.navigateTo(this,$"{basf.global_Variables.view_scene_base_url}/{item.Name}.tscn");
+                is_navigated = true;
+            }
         }
 
         

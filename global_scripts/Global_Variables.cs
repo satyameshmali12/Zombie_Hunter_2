@@ -27,6 +27,9 @@ public class Global_Variables : Node2D
     // public bool is_spell_in_hand;
 
     public string current_level_name = null;
+
+    public string bomb_data_field_location = "data//data_fields/bomb_data_fields.zhd";
+    public string view_scene_base_url = "res://Views/Scenes";
     
     public string spell_in_hand;
     public override void _Ready()

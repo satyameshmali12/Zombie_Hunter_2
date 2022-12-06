@@ -50,16 +50,20 @@ public class Data_Manager
         all_field_values = new ArrayList();
 
 
-        // laoding the data 
-        data = System.IO.File.ReadAllLines(this.data_path);
+        read_data();
 
         // testing
 
 
     }
+    public void read_data(){
+        // laoding the data 
+        data = System.IO.File.ReadAllLines(this.data_path);
+    }
 
     public void load_data(string identifier)
     {
+        all_field_values.Clear();
         for (var i = 0; i < data.Length; i++)
         {
             if (data[i].Trim().TrimEnd() == identifier)
@@ -170,10 +174,10 @@ public class Data_Manager
             }
         }
 
-        foreach (var item in selected_data_fields)
-        {
-            GD.Print(item);
-        }
+        // foreach (var item in selected_data_fields)
+        // {
+        //     GD.Print(item);
+        // }
 
         return selected_data_fields;
 

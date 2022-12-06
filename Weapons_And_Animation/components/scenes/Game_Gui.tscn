@@ -1,10 +1,14 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://Weapons_And_Animation/components/scenes/Health_Bar.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/fonts/STIXGeneralBolIta.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://Weapons_And_Animation/components/scenes/Power_Bar.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Weapons_And_Animation/components/scripts/Game_Gui.cs" type="Script" id=4]
 [ext_resource path="res://assets/images/gui/designs/Button_Frame.png" type="Texture" id=5]
+[ext_resource path="res://assets/images/bomb/Explosion_3/Explosion_6.png" type="Texture" id=6]
+[ext_resource path="res://assets/images/bomb/Explosion_5/Explosion_5.png" type="Texture" id=7]
+[ext_resource path="res://assets/images/bomb/Explosion_2/Explosion_6.png" type="Texture" id=8]
+[ext_resource path="res://assets/images/bomb/Explosion_6/Explosion_7.png" type="Texture" id=9]
 
 [sub_resource type="DynamicFont" id=6]
 outline_color = Color( 0.0352941, 0.843137, 1, 1 )
@@ -52,8 +56,14 @@ size = 37
 extra_spacing_char = 2
 font_data = ExtResource( 2 )
 
+[sub_resource type="DynamicFont" id=11]
+size = 24
+outline_color = Color( 0.12549, 0.133333, 0.141176, 1 )
+font_data = ExtResource( 2 )
+
 [node name="Game_Gui" type="Node2D"]
 position = Vector2( -80, 0 )
+z_index = 100
 script = ExtResource( 4 )
 
 [node name="Health_Bar" parent="." instance=ExtResource( 1 )]
@@ -104,12 +114,99 @@ text = "Power"
 position = Vector2( 342, -32 )
 
 [node name="Bomb_Button\'s" type="Node2D" parent="."]
+position = Vector2( 130, -19 )
 
 [node name="Skew_Bomb" type="TextureButton" parent="Bomb_Button\'s"]
-margin_left = 306.0
-margin_top = -8.0
-margin_right = 393.0
-margin_bottom = 61.0
+margin_left = 310.0
+margin_right = 380.0
+margin_bottom = 70.0
 action_mode = 0
-texture_normal = ExtResource( 5 )
+texture_normal = ExtResource( 6 )
 expand = true
+
+[node name="Preview" type="Sprite" parent="Bomb_Button\'s/Skew_Bomb"]
+position = Vector2( 33, 44 )
+scale = Vector2( 0.245985, 0.41596 )
+z_index = -1
+texture = ExtResource( 5 )
+
+[node name="Count" type="Label" parent="Bomb_Button\'s/Skew_Bomb"]
+modulate = Color( 0, 0, 0, 1 )
+margin_left = 8.0
+margin_top = 10.0
+margin_right = 53.0
+margin_bottom = 48.0
+custom_fonts/font = SubResource( 11 )
+text = "0"
+
+[node name="Thunder_Blast" type="TextureButton" parent="Bomb_Button\'s"]
+margin_left = 420.0
+margin_top = 12.0
+margin_right = 490.0
+margin_bottom = 82.0
+rect_pivot_offset = Vector2( -527, 63 )
+action_mode = 0
+texture_normal = ExtResource( 7 )
+expand = true
+
+[node name="Preview" type="Sprite" parent="Bomb_Button\'s/Thunder_Blast"]
+position = Vector2( 34, 31 )
+scale = Vector2( 0.245985, 0.41596 )
+z_index = -1
+texture = ExtResource( 5 )
+
+[node name="Count" type="Label" parent="Bomb_Button\'s/Thunder_Blast"]
+modulate = Color( 0, 0, 0, 1 )
+margin_left = 2.0
+margin_top = -2.0
+margin_right = 47.0
+margin_bottom = 36.0
+custom_fonts/font = SubResource( 11 )
+text = "0"
+
+[node name="Yellow_Fuse" type="TextureButton" parent="Bomb_Button\'s"]
+margin_left = 518.0
+margin_top = -5.0
+margin_right = 588.0
+margin_bottom = 65.0
+action_mode = 0
+texture_normal = ExtResource( 8 )
+expand = true
+
+[node name="Preview" type="Sprite" parent="Bomb_Button\'s/Yellow_Fuse"]
+position = Vector2( 40, 50 )
+scale = Vector2( 0.245985, 0.41596 )
+z_index = -1
+texture = ExtResource( 5 )
+
+[node name="Count" type="Label" parent="Bomb_Button\'s/Yellow_Fuse"]
+modulate = Color( 0, 0, 0, 1 )
+margin_left = 8.0
+margin_top = 15.0
+margin_right = 53.0
+margin_bottom = 53.0
+custom_fonts/font = SubResource( 11 )
+text = "0"
+
+[node name="Thunder_Blast_2" type="TextureButton" parent="Bomb_Button\'s"]
+margin_left = 630.0
+margin_top = 3.0
+margin_right = 700.0
+margin_bottom = 73.0
+action_mode = 0
+texture_normal = ExtResource( 9 )
+expand = true
+
+[node name="Preview" type="Sprite" parent="Bomb_Button\'s/Thunder_Blast_2"]
+position = Vector2( 33, 44 )
+scale = Vector2( 0.245985, 0.41596 )
+z_index = -1
+texture = ExtResource( 5 )
+
+[node name="Count" type="Label" parent="Bomb_Button\'s/Thunder_Blast_2"]
+modulate = Color( 0, 0, 0, 1 )
+margin_top = 9.0
+margin_right = 45.0
+margin_bottom = 47.0
+custom_fonts/font = SubResource( 11 )
+text = "0"

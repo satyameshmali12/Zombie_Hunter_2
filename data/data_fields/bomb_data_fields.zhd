@@ -2,3 +2,10 @@ data//bomb_data.zhd
 
 Bomb_Name
 No_Of_Bomb_Available
+Bomb_Per_Damage
+Current_level
+Max_Level
+Per_Level_Damage_Increment
+Update_Cost
+Update_Cost_Increment
+Price

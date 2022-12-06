@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/navigation_sound.mp3-f167afff84ad34723585690eb8064f0e.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/GUI/navigation_sound.mp3"
+dest_files=[ "res://.import/navigation_sound.mp3-f167afff84ad34723585690eb8064f0e.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

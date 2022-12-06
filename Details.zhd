@@ -1,2 +1,6 @@
 All the file name has been in first upper and then rest lower format
 
+If wanted to make a new view the make sure to add it in the respective directory of the file
+
+make sure all the rendering done of the scene is done on the basis of the Name of the node
+

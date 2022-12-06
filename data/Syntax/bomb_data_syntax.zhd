@@ -1,5 +1,33 @@
-Ignore this one>Name of the as per the scene
+Ignore this one
 
 1>Name of the bomb
+  Name of the bomb the name of the bomb is kept similar to that of the bomb scene because all the loading of the scene is done on the basis of the names of the file
 
 2>Number of bomb available
+  It is the number of the bomb that user have of a particular bomb
+
+3>Bomb_Per_Damage
+  The damage of the bomb per collision
+  as the bomb has multiple rays which give damage to the characters
+  it will be increased as the level of the bomb is been increased
+
+4>Current_level
+ the level of the bomb
+
+5>Max_Level
+ The max level of the bomb
+ the level cannot be increased if it reaches the Max_Level
+
+6>Per_Level_Damage_Increment
+ The amount of the increment in the damage as the bomb is been updated
+
+7>Update Cost
+  The price to update the bomb
+
+8>Increment of the update Cost
+  This is the update of in the update cost on per update
+  it will help us to increase the update price
+
+9>Cost of the bomb
+  As the bomb will be limited
+  Player has to buy it as per it's need

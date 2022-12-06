@@ -4,7 +4,7 @@
 [ext_resource path="res://assets/images/bomb/Explosion_3/Explosion_10.png" type="Texture" id=2]
 [ext_resource path="res://assets/images/bomb/Explosion_3/Explosion_3.png" type="Texture" id=3]
 [ext_resource path="res://assets/images/bomb/Explosion_3/Explosion_9.png" type="Texture" id=4]
-[ext_resource path="res://Bomb's/Scripts/Skem_Bomb.cs" type="Script" id=5]
+[ext_resource path="res://Base_classes/Basic_Bomb.cs" type="Script" id=5]
 [ext_resource path="res://assets/images/bomb/Explosion_3/Explosion_4.png" type="Texture" id=6]
 [ext_resource path="res://assets/images/bomb/Explosion_3/Explosion_8.png" type="Texture" id=7]
 [ext_resource path="res://assets/images/bomb/Explosion_3/Explosion_7.png" type="Texture" id=8]
@@ -23,14 +23,14 @@ animations = [ {
 
 [node name="Skew_Bomb" type="Node2D"]
 position = Vector2( 518, 473 )
-z_index = 100
+z_index = 10
 script = ExtResource( 5 )
 
 [node name="Animation" type="AnimatedSprite" parent="."]
 position = Vector2( 3, -249 )
 frames = SubResource( 1 )
 animation = "Explode"
-frame = 3
+frame = 2
 
 [node name="Collision_Rays" type="Node2D" parent="."]
 position = Vector2( -574, -364 )

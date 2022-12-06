@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://assets/images/bomb/Explosion_2/Explosion_2.png" type="Texture" id=1]
 [ext_resource path="res://assets/images/bomb/Explosion_2/Explosion_9.png" type="Texture" id=2]
@@ -10,18 +10,97 @@
 [ext_resource path="res://assets/images/bomb/Explosion_2/Explosion_1.png" type="Texture" id=8]
 [ext_resource path="res://assets/images/bomb/Explosion_2/Explosion_6.png" type="Texture" id=9]
 [ext_resource path="res://assets/images/bomb/Explosion_2/Explosion_5.png" type="Texture" id=10]
+[ext_resource path="res://assets/audio/Bomb's/Skew_Bomb_Explosion.mp3" type="AudioStream" id=11]
+[ext_resource path="res://base_classes/Basic_Bomb.cs" type="Script" id=12]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
 "frames": [ ExtResource( 8 ), ExtResource( 1 ), ExtResource( 3 ), ExtResource( 6 ), ExtResource( 10 ), ExtResource( 9 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 2 ), ExtResource( 7 ) ],
 "loop": true,
 "name": "Explode",
-"speed": 10.0
+"speed": 5.0
 } ]
 
 [node name="Yellow_Fuse" type="Node2D"]
+position = Vector2( 508, 392 )
+script = ExtResource( 12 )
 
 [node name="Animation" type="AnimatedSprite" parent="."]
-position = Vector2( 501, 233 )
+position = Vector2( 6, -217 )
 frames = SubResource( 1 )
 animation = "Explode"
+frame = 5
+
+[node name="Explosion_Sound" type="AudioStreamPlayer2D" parent="."]
+position = Vector2( -2, 0 )
+stream = ExtResource( 11 )
+volume_db = 10.0
+max_distance = 200000.0
+
+[node name="Collision_Rays" type="Node2D" parent="."]
+position = Vector2( -586, -402 )
+
+[node name="Collision_Rays_1" type="RayCast2D" parent="Collision_Rays"]
+position = Vector2( 598, 298 )
+enabled = true
+cast_to = Vector2( 2, -195 )
+
+[node name="Collision_Rays_2" type="RayCast2D" parent="Collision_Rays"]
+position = Vector2( 598, 298 )
+enabled = true
+cast_to = Vector2( -141, -130 )
+
+[node name="Collision_Rays_3" type="RayCast2D" parent="Collision_Rays"]
+position = Vector2( 598, 298 )
+enabled = true
+cast_to = Vector2( 116, -115 )
+
+[node name="Collision_Rays_4" type="RayCast2D" parent="Collision_Rays"]
+position = Vector2( 598, 298 )
+enabled = true
+cast_to = Vector2( 158, -8 )
+
+[node name="Collision_Rays_5" type="RayCast2D" parent="Collision_Rays"]
+position = Vector2( 598, 298 )
+enabled = true
+cast_to = Vector2( -200, -2 )
+
+[node name="Collision_Rays_6" type="RayCast2D" parent="Collision_Rays"]
+position = Vector2( 598, 298 )
+enabled = true
+cast_to = Vector2( -136, 112 )
+
+[node name="Collision_Rays_7" type="RayCast2D" parent="Collision_Rays"]
+position = Vector2( 598, 298 )
+enabled = true
+cast_to = Vector2( 0, 131 )
+
+[node name="Collision_Rays_8" type="RayCast2D" parent="Collision_Rays"]
+position = Vector2( 598, 298 )
+enabled = true
+cast_to = Vector2( -79, -142 )
+
+[node name="Collision_Rays_9" type="RayCast2D" parent="Collision_Rays"]
+position = Vector2( 598, 298 )
+enabled = true
+cast_to = Vector2( 102, 104 )
+
+[node name="Collision_Rays_10" type="RayCast2D" parent="Collision_Rays"]
+position = Vector2( 598, 298 )
+enabled = true
+cast_to = Vector2( -185, 75 )
+
+[node name="Collision_Rays_11" type="RayCast2D" parent="Collision_Rays"]
+position = Vector2( 598, 298 )
+enabled = true
+cast_to = Vector2( 203, 83 )
+
+[node name="Collision_Rays_12" type="RayCast2D" parent="Collision_Rays"]
+position = Vector2( 595, 298 )
+enabled = true
+cast_to = Vector2( -149, -66 )
+
+[node name="Collision_Rays_13" type="RayCast2D" parent="Collision_Rays"]
+position = Vector2( 598, 298 )
+enabled = true
+cast_to = Vector2( 173, -66 )
