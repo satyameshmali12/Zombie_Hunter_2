@@ -11,7 +11,7 @@ public class Male_Zombie_2 : Basic_Zombie
 
 
         character_name = "Male_Zombie_2";
-        speed_x = 200;
+        speed_x += 200;
 
         power_increment = 10;
 

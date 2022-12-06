@@ -50,6 +50,7 @@ public class Level : Node2D, Global_Variables_F_A_T
         game_over_timing = 0;
 
         basf = new Basic_Func(this);
+        basf.global_Variables.current_level_name = this.Name;  // passing the current level name to the global script
         // basf.dm = new Data_Manager();
         // basf.dm.all_field_names = basf.global_Variables.level_data_all_field_names;
         basf.dm.load_data(this.Name);

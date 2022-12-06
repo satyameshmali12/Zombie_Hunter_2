@@ -29,7 +29,11 @@ public class Basic_Character : RigidBody2D, Global_Variables_F_A_T
 
     // all the properties of a basic character
     public Vector2 moving_speed;
-    public int speed_x;  // this will toggle the moving speed
+    
+    // exporting the speed_x of every character in the game 
+    // so that the speed can be changed right from the editor
+    [Export]
+    public int speed_x = 200;  // this will toggle the moving speed
     public Direction moving_direction;// this will give the direction of the player in which the player is confronting
 
     public int power_available;

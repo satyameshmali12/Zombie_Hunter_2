@@ -12,7 +12,7 @@ public class Female_Zombie : Basic_Zombie
         base._Ready();
 
         character_name = "Female_Zombie";
-        speed_x = 200;
+        speed_x += 200;
 
         distancing_error = 120;
 

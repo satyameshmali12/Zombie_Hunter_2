@@ -10,7 +10,7 @@ public class Female_Zombie_2 : Basic_Zombie
         base._Ready();
 
         character_name = "Female_Zombie";
-        speed_x = 200;
+        speed_x += 200;
 
         available_moves = new ArrayList() { "attack", "attack_2", "attack_3", "death", "hurt", "idle", "jump", "walk", "run", "scream", "walk" };
         available_moves_consumption = new int[11] { 4, 4, 4, 0, 0, 0, 0, 0, 0, 10, 0 };

@@ -40,7 +40,11 @@ public class Basic_Zombie : Basic_Character
         kill_score_increment = 10;
         
         colliding_condition = "player";
-        speed_x = 2000;
+
+
+        basf.dm.load_data(basf.global_Variables.current_level_name);
+        GD.Print("the Zombie_Speed_Increment is :- ",basf.dm.get_data("Zombie_Speed_Increment"));
+        speed_x = Convert.ToInt32(basf.dm.get_data("Zombie_Speed_Increment"));
 
         distancing_error = 0;
 
