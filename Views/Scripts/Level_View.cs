@@ -13,7 +13,6 @@ public class Level_View : Basic_View
     int start_button_number = 0;
 
     bool is_button_pressed = false;
-    // Data_Manager data_Manager;  
 
     Button forward,backward;
 
@@ -23,8 +22,7 @@ public class Level_View : Basic_View
     {
         base._Ready();
         basf = new Basic_Func(this);
-        // basf.dm.load_data(this.Name);
-
+        
         level_buttons = all_func.get_the_node_childrens("Level_Buttons");
         
         button_per_screen = 4;
@@ -36,16 +34,6 @@ public class Level_View : Basic_View
         backward = GetNode<Button>("Backward");
         change_the_level(0);
 
-
-        GD.Print("hey I am the constructor of the level_view..!!");
-
-        // setting the field name's of the level_data
-        // basf.dm.all_field_names = basf.global_Variables.level_data_all_field_names;
-        // AudioStreamPlayer2D audio = new AudioStreamPlayer2D();
-        // audio.VolumeDb = 10;
-        // audio.PitchScale = 2;
-        // audio.Stream = ResourceLoader.Load<AudioStream>("res://assets/audio/GUI/navigation_sound.mp3");
-        // audio.Play();
     }
 
     public override void _Process(float delta)
@@ -56,15 +44,11 @@ public class Level_View : Basic_View
         {
             if (item.Pressed)
             {
-                // basf.dm.all_field_values.Clear();
-                // basf.dm.load_data(item.Name);
                 if (basf.dm.is_level_unlocked(item.Name))
                 {
-                    GD.Print("first_stage");
                     basf.global_Variables.is_level_added = false;
                     basf.global_Variables.level_name = item.Name;
                     GetTree().ChangeScene("res://Views/Scenes/Main_Game_Scene.tscn");
-                    GD.Print("Second Stage");
                 }
             }
         }
@@ -89,7 +73,7 @@ public class Level_View : Basic_View
         {
             if(item.Pressed && !is_navigated){
                 
-                GD.Print("hey the audio played did you heard it ..???");
+                // GD.Print("hey the audio played did you heard it ..???");
                 basf.navigateTo(this,$"{basf.global_Variables.view_scene_base_url}/{item.Name}.tscn");
                 is_navigated = true;
             }

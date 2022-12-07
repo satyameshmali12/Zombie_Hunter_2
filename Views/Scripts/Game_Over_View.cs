@@ -1,13 +1,16 @@
 using Godot;
 using System;
 
-public class Game_Over_View : Control
+public class Game_Over_View : Basic_View
 {
+
     Basic_Func basf;
-    TextureButton restart_button,home_button;
+    TextureButton restart_button, home_button;
     public bool is_to_stop; // to stop all the processes and to renavigate somewhere else
     public override void _Ready()
     {
+        base._Ready();
+
         restart_button = this.GetNode<TextureButton>("Restart");
         home_button = this.GetNode<TextureButton>("Home_Button");
 
@@ -20,23 +23,27 @@ public class Game_Over_View : Control
     // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _Process(float delta)
     {
-        if(!is_to_stop){
-            if(restart_button.Pressed){
+        if (!is_to_stop)
+        {
+            if (restart_button.Pressed)
+            {
                 terminate_all_task();
                 // basf.global_Variables.is_level_added = false;
-                basf.navigateTo(this,basf.main_game_scene_path);
+                basf.navigateTo(this, basf.main_game_scene_path);
                 // is_to_stop = true;
             }
-            if(home_button.Pressed){
+            if (home_button.Pressed)
+            {
                 terminate_all_task();
-                basf.navigateTo(this,basf.home_scene_path);
+                basf.navigateTo(this, basf.home_scene_path);
             }
         }
 
     }
 
-    public void terminate_all_task(){
+    public void terminate_all_task()
+    {
         is_to_stop = true;
-        basf.global_Variables.is_level_added  = false;
+        basf.global_Variables.is_level_added = false;
     }
 }

@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Weapons_And_Animation/components/scripts/Custom_Audio.cs" type="Script" id=1]
+[ext_resource path="res://assets/audio/GUI/navigation_sound.mp3" type="AudioStream" id=2]
+
+[node name="Audio" type="AudioStreamPlayer2D"]
+stream = ExtResource( 2 )
+autoplay = true
+script = ExtResource( 1 )

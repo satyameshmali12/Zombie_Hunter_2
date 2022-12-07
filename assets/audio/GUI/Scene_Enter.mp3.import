@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Scene_Enter.mp3-c1661d68d0cf9a1186e6ef2e6d6c9fbe.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/GUI/Scene_Enter.mp3"
+dest_files=[ "res://.import/Scene_Enter.mp3-c1661d68d0cf9a1186e6ef2e6d6c9fbe.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

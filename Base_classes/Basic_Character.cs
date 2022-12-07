@@ -448,6 +448,10 @@ public class Basic_Character : RigidBody2D, Global_Variables_F_A_T
     }
 
 
+    public bool change_health(int change){
+        health+=change;
+        return true;
+    }
 
     // this method will  be inherited by the respective child classes of its 
     // the logic will be as per the strength and the level of the character  
@@ -465,7 +469,5 @@ public class Basic_Character : RigidBody2D, Global_Variables_F_A_T
 
 
     }
-    
-
 
 }
