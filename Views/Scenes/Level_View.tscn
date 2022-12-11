@@ -41,9 +41,9 @@ texture = ExtResource( 3 )
 position = Vector2( 99, 86 )
 
 [node name="Level_button_1" type="Button" parent="Level_Buttons"]
-margin_left = 201.0
+margin_left = 205.0
 margin_top = 63.0
-margin_right = 358.0
+margin_right = 355.0
 margin_bottom = 128.0
 custom_fonts/font = SubResource( 2 )
 action_mode = 0
@@ -81,16 +81,16 @@ text = "4th Level"
 [node name="Shop" type="TextureButton" parent="GUI_Buttons"]
 margin_left = 768.0
 margin_top = 67.0
-margin_right = 851.0
-margin_bottom = 145.0
+margin_right = 841.0
+margin_bottom = 136.0
 texture_normal = ExtResource( 5 )
 expand = true
 
 [node name="Home_View" type="TextureButton" parent="GUI_Buttons"]
 margin_left = 144.0
 margin_top = 67.0
-margin_right = 227.0
-margin_bottom = 145.0
+margin_right = 218.0
+margin_bottom = 131.0
 texture_normal = ExtResource( 4 )
 expand = true
 

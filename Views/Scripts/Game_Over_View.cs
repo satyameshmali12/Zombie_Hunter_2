@@ -5,20 +5,79 @@ public class Game_Over_View : Basic_View
 {
 
     Basic_Func basf;
-    TextureButton restart_button, home_button;
+    TextureButton restart_button, home_button, next_level_button;
     public bool is_to_stop; // to stop all the processes and to renavigate somewhere else
+
+    public bool is_next_level_available; // storign the value of whether is next level is available or not
+
+    public int new_level_count; // this available only when the next level exits
+
+
+
     public override void _Ready()
     {
         base._Ready();
 
+        basf = new Basic_Func(this);
+        var dm = basf.dm;
+
+        is_next_level_available = false;
+
+        // loading the level data
+        dm = new Data_Manager();
+        var level_num = Convert.ToInt32(basf.global_Variables.current_level_name.Remove(0,"Level".Length)); // extracting the level number from the name 
+        GD.Print(dm.get_set_of_field_values("Name").Count);
+        // GD.Print(level_num+1);
+        if(level_num<dm.get_set_of_field_values("Name").Count){
+            new_level_count = level_num+1;
+            // GD.Print("From the game_over_view.cs");
+            // GD.Print("First stage");
+            if(dm.is_level_unlocked($"Level{new_level_count}")){
+                is_next_level_available = true;
+                // GD.Print("second_stage");
+            }
+        }
+
+
+
+        // note
+        // make the level_changer button i.e back and forward button on the game_over_screen
+
+
+
+
+
+
+
+
+        // loading the user_data
+        dm = new Data_Manager("data/data_fields/user_data_fields.zhd");
+        dm.load_data("Aj");
+
         restart_button = this.GetNode<TextureButton>("Restart");
         home_button = this.GetNode<TextureButton>("Home_Button");
+        next_level_button = this.GetNode<TextureButton>("Next_Level_Button");
+        if(!is_next_level_available){
+            next_level_button.Disabled = true;
+            next_level_button.Visible = false;
+        }
+        // var dm =basf.dm;
 
         is_to_stop = false;
 
 
-        basf = new Basic_Func(this);
+
+        // setting the text of the label on the screen
+        var money = basf.global_Variables.score * 4;
+        set_text_o_label("Score_Label", $"Score :- {basf.global_Variables.score}");
+        set_text_o_label("Earn_Label", $"Earned :- {basf.global_Variables.score * 4} $");
+        set_text_o_label("Win_Label", (basf.global_Variables.had_win_the_game) ? "Hey YOu W!n" : "yOu L0se,");
+
+        // saving the data of the user
+        dm.set_value("Money", $"{Convert.ToInt32(dm.get_data("Money")) + money}");
+        dm.save_data();
     }
+
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _Process(float delta)
@@ -32,10 +91,17 @@ public class Game_Over_View : Basic_View
                 basf.navigateTo(this, basf.main_game_scene_path);
                 // is_to_stop = true;
             }
-            if (home_button.Pressed)
+            else if (home_button.Pressed)
             {
                 terminate_all_task();
                 basf.navigateTo(this, basf.home_scene_path);
+            }
+
+            else if(next_level_button.Pressed){
+                GD.Print("Hey there navigated to the main_game_scene_path from the game_over_view");
+                terminate_all_task();
+                basf.global_Variables.level_name = $"Level{new_level_count}";
+                basf.navigateTo(this,basf.main_game_scene_path);
             }
         }
 
@@ -45,5 +111,12 @@ public class Game_Over_View : Basic_View
     {
         is_to_stop = true;
         basf.global_Variables.is_level_added = false;
+    }
+
+    // set text of a label
+    public void set_text_o_label(string node_name, string text)
+    {
+        this.GetNode<Label>(node_name).Text = text;
+
     }
 }

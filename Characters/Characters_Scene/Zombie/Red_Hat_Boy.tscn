@@ -148,7 +148,7 @@ position = Vector2( 351, 267 )
 scale = Vector2( 0.257848, 0.334359 )
 frames = SubResource( 2 )
 animation = "Idle"
-frame = 7
+frame = 6
 playing = true
 
 [node name="Height_Checker" type="RayCast2D" parent="."]

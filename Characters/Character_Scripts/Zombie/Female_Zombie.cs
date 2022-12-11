@@ -14,7 +14,7 @@ public class Female_Zombie : Basic_Zombie
         character_name = "Female_Zombie";
         speed_x += 200;
 
-        distancing_error = 120;
+        distancing_error = 170;
 
 
         available_moves = new ArrayList() { "attack", "death", "idle", "walk" };

@@ -23,7 +23,7 @@ public class Global_Variables : Node2D
     public ArrayList bomb_Buttons; // this is the list of the bomb button's which is present on the game gui of the character(here)
 
 
-    public ArrayList level_data_all_field_names = new ArrayList() { "Name", "Total_Zombie", "Max_Zombie", "Difficulty_Level", "Score", "Is_Level_Unlocked" };
+    // public ArrayList level_data_all_field_names = new ArrayList() { "Name", "Total_Zombie", "Max_Zombie", "Difficulty_Level", "Score", "Is_Level_Unlocked" };
     // public bool is_spell_in_hand;
 
     public string current_level_name = null;
@@ -37,12 +37,19 @@ public class Global_Variables : Node2D
 
     public Node current_scene;
 
+    public bool had_win_the_game = false;
+
 
     #region Related to play sound on the mouse pressed event
     public string navigation_sound_url = "res://assets/audio/GUI/navigation_sound.mp3";
     public string click_sound;
     public bool is_to_play_sound_on_click = true;
     #endregion
+
+
+    public int loading_percent = 0;
+
+
 
     public override void _Ready()
     {
@@ -60,6 +67,7 @@ public class Global_Variables : Node2D
         spell_in_hand = null;
 
         click_sound = navigation_sound_url;
+
     }
 
 
@@ -76,4 +84,5 @@ public class Global_Variables : Node2D
 
 
     }
+
 }

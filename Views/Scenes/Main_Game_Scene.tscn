@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://Views/Scripts/Main_Game_Scene.cs" type="Script" id=1]
+[ext_resource path="res://assets/images/gui/Gravery_Tile_Set/BG.png" type="Texture" id=2]
 
 [node name="Main_Game_Scene" type="Node2D"]
 script = ExtResource( 1 )
@@ -10,3 +11,17 @@ __meta__ = {
 "_editor_description_": "It will help us to remove and add the new level.As will be navigated
 here right from the Level_View"
 }
+
+[node name="loading_view" type="Node2D" parent="."]
+
+[node name="Sprite" type="Sprite" parent="loading_view"]
+position = Vector2( 515, 289 )
+scale = Vector2( 0.578, 0.632109 )
+texture = ExtResource( 2 )
+
+[node name="Loading_Bar" type="ProgressBar" parent="loading_view"]
+self_modulate = Color( 0.203922, 0.0470588, 0.976471, 1 )
+margin_left = 238.0
+margin_top = 381.0
+margin_right = 804.0
+margin_bottom = 418.0

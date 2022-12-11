@@ -25,25 +25,32 @@ public class Basic_Zombie : Basic_Character
     // will help us to train the AI of the Zombie..
     ArrayList Fall_Down_Left_Rays, Fall_Down_Right_Rays;
 
-    public bool can_jump_over,is_attacking,is_on_edge;
+    public bool can_jump_over, is_attacking, is_on_edge;
 
     public int kill_score_increment; // the amount of increment in the score as the zombie is been killed
 
+    public string groan_sound_url = "res://assets/audio/Zombie/Zombie_Groan.mp3";
 
-    
+    public ArrayList groan_sound_urls;
+
+
+
+
+
+
     public override void _Ready()
     {
         base._Ready();
-        
+
         _node_type = _Type_of_.Zombie;
 
         kill_score_increment = 10;
-        
+
         colliding_condition = "player";
 
 
         basf.dm.load_data(basf.global_Variables.current_level_name);
-        GD.Print("the Zombie_Speed_Increment is :- ",basf.dm.get_data("Zombie_Speed_Increment"));
+        // GD.Print("the Zombie_Speed_Increment is :- ", basf.dm.get_data("Zombie_Speed_Increment"));
         speed_x = Convert.ToInt32(basf.dm.get_data("Zombie_Speed_Increment"));
 
         distancing_error = 0;
@@ -65,17 +72,28 @@ public class Basic_Zombie : Basic_Character
 
         // gettting all the Left and Right Fall down rays which fill help us to detect were the zombie should walk and where not
         // the stronger the zombie the stronger will be it's range of the Left and Right Fall Down Rays....
-        Fall_Down_Left_Rays = basf.get_the_node_childrens("Fall_Down_Left_Rays",true);
-        Fall_Down_Right_Rays = basf.get_the_node_childrens("Fall_Down_Right_Rays",true);
+        Fall_Down_Left_Rays = basf.get_the_node_childrens("Fall_Down_Left_Rays", true);
+        Fall_Down_Right_Rays = basf.get_the_node_childrens("Fall_Down_Right_Rays", true);
 
 
         // for powerfull zombie only
         // not every zombie can jump above a another zombie
-        can_jump_over  = false;
+        can_jump_over = false;
         // is_attacking = false;
 
         health_bar = GetNode<ProgressBar>("Health_Bar");
 
+        groan_sound_urls = new ArrayList() { "res://assets/audio/Zombie/Zombie_Roar_2.mp3", "res://assets/audio/Zombie/Zombie_Roar_3.mp3", "res://assets/audio/Zombie/Zombie_Groan.mp3" };
+
+        this.death_sound_url = "res://assets/audio/Zombie/Zombie_Death.mp3";
+
+
+
+        var roar_sound = groan_sound_urls[Convert.ToInt32(GD.RandRange(0, groan_sound_urls.Count - 1))].ToString();
+        var rand_max_time = (float)GD.RandRange(0, 1f);
+        // basf.create_a_sound(roar_sound, this, false, rand_max_time, rand_max_time, 1);
+
+        this.hurt_sound_url = "res://assets/audio/Zombie/Zombie_Hurt.mp3";
     }
 
 
@@ -142,7 +160,7 @@ public class Basic_Zombie : Basic_Character
 
         var is_left_fall_ray_colliding = is_collider_ray_colliding(Fall_Down_Left_Rays);
         var is_right_fall_ray_colliding = is_collider_ray_colliding(Fall_Down_Right_Rays);
-        
+
         is_on_edge = !is_left_fall_ray_colliding && moving_speed.x < 0 || !is_right_fall_ray_colliding && moving_speed.x > 0;
 
         moving_speed.x = (is_on_edge) ? 0 : moving_speed.x;
@@ -151,17 +169,20 @@ public class Basic_Zombie : Basic_Character
 
         // making the zombie to be idle if it can't move forward
         // Idle and Walk are the one which doesn't make's the is_busy to true
-        if(!is_busy){
-            if(moving_speed.x==0){
+        if (!is_busy)
+        {
+            if (moving_speed.x == 0)
+            {
                 perform_move("Idle");
             }
-            else{
+            else
+            {
                 perform_move("Walk");
             }
             is_busy = false;
         }
 
-        
+
     }
 
     public override void collided_with_body(Node body)
@@ -179,9 +200,11 @@ public class Basic_Zombie : Basic_Character
 
         Global_Variables_F_A_T collided_one = collided_obj as Global_Variables_F_A_T;
 
-        if(is_on_ground && collided_one._node_type==_Type_of_.Zombie && can_jump_over){
-            if(L_R_Colliding && moving_speed.x<0 || R_R_Collding && moving_speed.x>0){
-                jump(jump_intensity-500);
+        if (is_on_ground && collided_one._node_type == _Type_of_.Zombie && can_jump_over)
+        {
+            if (L_R_Colliding && moving_speed.x < 0 || R_R_Collding && moving_speed.x > 0)
+            {
+                jump(jump_intensity - 500);
             }
         }
 
@@ -194,7 +217,7 @@ public class Basic_Zombie : Basic_Character
 
         if (!is_busy)
         {
-            if (collided_one._node_type == _Type_of_.Player && !is_on_edge) 
+            if (collided_one._node_type == _Type_of_.Player && !is_on_edge)
             {
 
                 string random_attack = (string)attack_move_names[Convert.ToInt32(GD.RandRange(0, attack_move_names.Count - 1))];
@@ -218,7 +241,8 @@ public class Basic_Zombie : Basic_Character
                 if (collided_one._node_type == _Type_of_.Player)
                 {
                     Basic_Player character = collided_obj as Basic_Player;
-                    character.health -= available_moves_damage[available_moves.IndexOf(this.animations.Animation.ToLower())];
+                    character.change_health(-available_moves_damage[available_moves.IndexOf(this.animations.Animation.ToLower())]);
+                    // character.health -= available_moves_damage[available_moves.IndexOf(this.animations.Animation.ToLower())];
                     is_hitted = true;
                 }
             }

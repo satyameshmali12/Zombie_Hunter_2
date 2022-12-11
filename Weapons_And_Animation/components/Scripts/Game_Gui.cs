@@ -8,15 +8,23 @@ public class Game_Gui : Node2D
 
     Basic_Func basf;
 
+    Label score_label;
+
     public override void _Ready()
     {
         basf = new Basic_Func(this, "data//data_fields/bomb_data_fields.zhd");
         // bomb_Buttons = this.GetNode<Node2D>("Bomb_Button's").GetChildren();
         basf.global_Variables.bomb_Buttons = basf.get_the_node_childrens("Bomb_Button's");
+
+        score_label = GetNode<Label>("Score_Label");
     }
     
     public override void _Process(float delta)
     {
+        var score = basf.global_Variables.score;
+        
+        score_label.Text = $"Sc0re:- {score}";
+
         var bomb_Buttons = basf.global_Variables.bomb_Buttons;
         foreach (TextureButton item in bomb_Buttons)
         {

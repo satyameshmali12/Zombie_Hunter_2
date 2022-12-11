@@ -424,7 +424,7 @@ scale_curve = SubResource( 89 )
 color = Color( 0, 0.152941, 1, 1 )
 
 [node name="Robot" type="RigidBody2D"]
-position = Vector2( 137, 210 )
+position = Vector2( 138, 210 )
 mode = 2
 mass = 0.816326
 physics_material_override = SubResource( 3 )

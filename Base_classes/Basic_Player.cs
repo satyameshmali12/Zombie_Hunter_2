@@ -32,7 +32,7 @@ public class Basic_Player : Basic_Character
 
 
 
-    
+
 
     public bool basic_animation_changing_condition;
 
@@ -41,14 +41,15 @@ public class Basic_Player : Basic_Character
     // getting the components 
     ProgressBar power_bar;
 
+    int damage_increment;
+
+    public ArrayList damage_increment_possible_moves;
 
 
 
-
-
-    
     public void custom_constructor(int speed, int jump_intensity, int health = 100, string basic_attack_name = "Attack")
     {
+        // _Ready();
 
         _node_type = _Type_of_.Player;
 
@@ -86,11 +87,23 @@ public class Basic_Player : Basic_Character
 
         health_bar = game_gui.GetNode<ProgressBar>("Health_Bar");
         health_bar.Value = 100;
-        
+
 
         moving_direction = Direction.Right;
-        
+
         colliding_condition = "all";
+
+        // loading the sound for a basic player
+        this.death_sound_url = "res://assets/audio/Player/Player_Death.mp3";
+        this.hurt_sound_url = "res://assets/audio/Player/Player_Hurt.mp3";
+
+        // loading the data of the player
+        var dm = basf.dm;
+        dm = new Data_Manager("data//data_fields/heros_data_field.zhd");
+        dm.load_data(this.Name);
+        damage_increment = Convert.ToInt32(dm.get_data("Damage_Increment"));
+        damage_increment_possible_moves = new ArrayList();
+
 
     }
 
@@ -128,15 +141,18 @@ public class Basic_Player : Basic_Character
         {
             if (!is_on_ground)
             {
-                animations.Animation = "Jump";
+                // animations.Animation = "Jump";
+                perform_move("Jump");
             }
             else if (moving_speed.x != 0)
             {
-                animations.Animation = "Run";
+                // animations.Animation = "Run";
+                perform_move("Run");
             }
             else
             {
-                animations.Animation = "Idle";
+                perform_move("Idle");
+                // animations.Animation = "Idle";
             }
         }
 
@@ -147,7 +163,8 @@ public class Basic_Player : Basic_Character
         if (Input.IsActionPressed("Slide") && is_on_ground && available_moves.Contains("Slide".ToLower()))
         {
             is_busy = true;
-            animations.Animation = "Slide";
+            perform_move("Slide");
+            // animations.Animation = "Slide";
             var speed_x = moving_speed.x;
             moving_speed.x = (speed_x < 0) ? speed_x - slide_speed_increment : speed_x + slide_speed_increment;
         }
@@ -155,7 +172,8 @@ public class Basic_Player : Basic_Character
         {
             if (animations.Animation == "Slide")
             {
-                animations.Animation = "Idle";
+                perform_move("Idle");
+                // animations.Animation = "Idle";
                 is_busy = false;
             }
         }
@@ -178,7 +196,7 @@ public class Basic_Player : Basic_Character
                 moving_speed = new Vector2(0, moving_speed.y);
             }
         }
-        
+
 
         health_bar.Value = health;
         power_bar.Value = power_available;
@@ -186,13 +204,13 @@ public class Basic_Player : Basic_Character
 
 
         #region data_transfer to the global script
-            // passing the data of the player to the player or global script
-            // to perform all the other logics
-            global_variables.player_position = this.Position;
+        // passing the data of the player to the player or global script
+        // to perform all the other logics
+        global_variables.player_position = this.Position;
         #endregion
 
 
-        
+
     }
 
 
@@ -206,21 +224,41 @@ public class Basic_Player : Basic_Character
     {
         return health;
     }
+    
+    // here the min damage is the amount that a move should have so that it can be included in the damage_increment_possible_moves list
+    public bool settle_damage_increment_possible_moves(int min_damage){
+        for (var i = 0; i < available_moves_damage.Length; i++)
+        {
+            var num = available_moves_damage[i];
+            if(num>min_damage){
+                damage_increment_possible_moves.Add(available_moves[i]);
+            }
+            
+        }
+        return true;
+    }
 
 
     public override void collided_with_body(Node body)
     {
         base.collided_with_body(body);
-        
+
     }
 
-    public override void collided_with_L_R_ray(Godot.Object collided_obj){
+    public override void collided_with_L_R_ray(Godot.Object collided_obj)
+    {
 
         Global_Variables_F_A_T collided_one = collided_obj as Global_Variables_F_A_T;
-        if(collided_one._node_type==_Type_of_.Zombie){
-            if(!is_hitted){
+        if (collided_one._node_type == _Type_of_.Zombie)
+        {
+            if (!is_hitted)
+            {
                 Basic_Zombie collided_zombie = (Basic_Zombie)collided_one;
-                collided_zombie.health-=available_moves_damage[available_moves.IndexOf(animations.Animation.ToLower())];
+                GD.Print(damage_increment);
+                var current_move = animations.Animation.ToLower();
+                var damage = get_moves_damage(current_move)+(damage_increment_possible_moves.Contains(current_move)?damage_increment:0);
+                collided_zombie.change_health(-damage);
+                basf.global_Variables.score+=damage;
                 is_hitted = true;
             }
         }
@@ -229,7 +267,7 @@ public class Basic_Player : Basic_Character
 
 
 
-    
+
 
 }
 

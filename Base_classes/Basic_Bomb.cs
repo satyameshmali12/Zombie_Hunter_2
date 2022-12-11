@@ -54,7 +54,8 @@ public class Basic_Bomb:Node2D,Global_Variables_F_A_T
                 if(node_type._node_type!=_Type_of_.Block){
                     Basic_Character character = item.GetCollider() as Basic_Character;
                     if(item.IsColliding() && !character.is_resisted){
-                        character.health-=bomb_per_damage;
+                        // character.health-=bomb_per_damage;
+                        character.change_health(-bomb_per_damage);
                         // item.Enabled = false;
                     }
                 }

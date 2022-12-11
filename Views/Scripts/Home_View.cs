@@ -11,7 +11,6 @@ public class Home_View : Basic_View
 
         but1 = GetNode("Start_Button") as Button;
         basf = new Basic_Func(this);
-
     }
     public override void _Process(float delta)
     {

@@ -40,6 +40,8 @@ public class Level : Node2D, Global_Variables_F_A_T
     public int max_zombie_per_screen; // the total_nubmer of zombie that can stay on in the game
     public int difficulty_level;
 
+    public AudioStreamPlayer2D background_Music;
+
 
 
 
@@ -50,16 +52,24 @@ public class Level : Node2D, Global_Variables_F_A_T
         game_over_timing = 0;
 
         basf = new Basic_Func(this);
+
+        // setting the metadata of the for the level
+        // in other words resetting all the properties of the global variables
         basf.global_Variables.current_level_name = this.Name;  // passing the current level name to the global script
         basf.global_Variables.spell_in_hand = null;
-        // basf.dm = new Data_Manager();
-        // basf.dm.all_field_names = basf.global_Variables.level_data_all_field_names;
+        basf.global_Variables.score = 0;
+        basf.global_Variables.had_win_the_game = false;
+
+
         basf.dm.load_data(this.Name);
+
         total_zombie = Convert.ToInt32(basf.dm.get_data("Total_Zombie"));
+
         max_zombie_per_screen = Convert.ToInt32(basf.dm.get_data("Max_Zombie"));
+
         difficulty_level = Convert.ToInt32(basf.dm.get_data("Difficulty_Level"));
 
-
+        basf.increment_loading_percent(10);
 
         is_data_saved = false;
 
@@ -75,8 +85,16 @@ public class Level : Node2D, Global_Variables_F_A_T
         player.Position = player_spawn_point.Position;
         this.AddChild(player);
 
+        basf.increment_loading_percent(20);
+
         global_variables = GetNode<Global_Variables>("/root/Global_Variables");
         global_variables._main_character_name = player.Name;
+
+
+        background_Music = basf.create_a_sound("res://assets/audio/Zombie/Zombie_Entire_Background.mp3", this, false, 1, .2f, .2f);
+
+        basf.increment_loading_percent(20);
+        GD.Print("hey the loading is done");
 
     }
 
@@ -98,14 +116,23 @@ public class Level : Node2D, Global_Variables_F_A_T
 
                 global_variables.is_game_over = false;
 
+                background_Music.Stop();
                 // unlocking the next level
                 // the complete description can be founded in the respective classes
                 if (win_condition)
                 {
                     // saving the data for the current level
                     // if the player win's then setting the score
-                    basf.dm.data[basf.dm.data_start_index + 4] = global_variables.score.ToString();
-                    basf.dm.save_data();
+                    var score = global_variables.score;
+                    var dm = basf.dm;
+                    if (score > Convert.ToInt32(dm.get_data("Score")))
+                    {
+                        dm.set_value("Score", score.ToString());
+                        dm.save_data();
+                    }
+
+                    // supplying the data to the global_variables
+                    global_variables.had_win_the_game = true;
 
                     // unlocking the next level
                     basf.dm.unlock_next_level(this.Name);

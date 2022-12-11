@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Run.mp3-f198df74f0cbe37eff7bb3e7d06789b1.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/Player/Run.mp3"
+dest_files=[ "res://.import/Run.mp3-f198df74f0cbe37eff7bb3e7d06789b1.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

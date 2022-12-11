@@ -63,6 +63,7 @@ public class Data_Manager
 
     public void load_data(string identifier)
     {
+        // GD.Print(identifier);
         all_field_values.Clear();
         for (var i = 0; i < data.Length; i++)
         {
@@ -110,6 +111,30 @@ public class Data_Manager
         }
         return is_unlocked;
     }
+
+    // If a field name given then it returns all the field names
+    // e.g if Score given as the parameter then the function returns all the level score in a arraylist
+    public ArrayList get_set_of_field_values(string field_name){
+
+        var all_selected_field_values = new ArrayList();
+        var on_going_data_index = 0;
+        for (var i = 0; i < data.Length; i++)
+        {
+            if(on_going_data_index>=data.Length){
+                break;
+            }
+            if(data[on_going_data_index].Trim()!=""){
+                var field_index = get_incre(field_name);
+                on_going_data_index+=field_index;
+                all_selected_field_values.Add(data[on_going_data_index]);
+                on_going_data_index+=(all_field_names.Count-field_index);
+            }
+            on_going_data_index++;   
+        }
+        return all_selected_field_values;
+    }
+    
+
 
     // call this function only when the level is over as once this function is called will change the entrir data
     // it returns the name of the level of which it save's the data

@@ -4,3 +4,25 @@ If wanted to make a new view the make sure to add it in the respective directory
 
 make sure all the rendering done of the scene is done on the basis of the Name of the node
 
+the earn money is 4 times is that of the score
+
+
+
+Data_Manager
+
+
+data field connect to the main data
+data_field contains all the the field a data contains
+it helps in avoiding the hardcoding the values
+
+
+
+// game rules
+the money earaned in any level is 1/4 of the score of that level
+The score is increased only when player hits the enemy
+the score is not increased when the zombies are hittet by the bomb
+
+// level_dev
+all the level name should be start from the keyword level
+and they should be in a numeric order mean it no number should be skipped
+if there are 10 levels then the next level name will be level11 and so

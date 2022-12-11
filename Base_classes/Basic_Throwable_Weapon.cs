@@ -76,7 +76,8 @@ public class Basic_Throwable_Weapon:Area2D,Global_Variables_F_A_T
         if(this.animation.Visible){
             if(collided_body._node_type == _Type_of_.Zombie){
                 Basic_Character collided_player = collided_body as Basic_Character;
-                collided_player.health-=(damage+(int)(weapon_speed/100 * 20));
+                // collided_player.health-=(damage+(int)(weapon_speed/100 * 20));
+                collided_player.change_health(-(damage+(int)(weapon_speed/100 * 20)));
             }
             else if(collided_body._node_type == _Type_of_.Block){
                 TileMap tileMap = body as TileMap;

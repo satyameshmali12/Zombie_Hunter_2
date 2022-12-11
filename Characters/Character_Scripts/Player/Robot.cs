@@ -35,11 +35,13 @@ public class Robot : Basic_Player
 
 
         custom_constructor(700, 9000, basic_attack_name: "Melee");
+
+
         is_busy = false;
         available_moves = new ArrayList() { "death", "idle", "jump", "jump_melee", "jump_shoot", "melee", "run", "run_shoot", "shoot", "slide" , "laser_beam"};
         available_moves_consumption = new int[11] { 0, 0, 0, 10, 15, 10, 0, 10, 8, 0, 10};
         available_moves_damage = new int[11]{0,0,5,40,100,20,1,120,0,1,200};
-
+        settle_damage_increment_possible_moves(4);
         
         
 
@@ -50,6 +52,7 @@ public class Robot : Basic_Player
         laser_bean = GetNode<Laser_Bean>("Laser_Bean");
         // emitter_setter_timer = create_timer(2,"")
 
+        
 
     }
 

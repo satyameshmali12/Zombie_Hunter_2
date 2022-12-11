@@ -20,10 +20,10 @@ public class Basic_Func
         global_Variables = node.GetNode<Global_Variables>("/root/Global_Variables");
     }
 
-    public Timer create_timer(int wait_time, string signal_func_name)
+    public Timer create_timer(float wait_time, string signal_func_name)
     {
         var new_timer = new Timer();
-        new_timer.WaitTime = 1;
+        new_timer.WaitTime = wait_time;
         node.AddChild(new_timer);
         new_timer.Stop();
         new_timer.Connect("timeout", node, signal_func_name);
@@ -140,15 +140,19 @@ public class Basic_Func
     }
 
     // music duration should be given only when if the music is to be played one time
-    public bool create_a_sound(string path_of_audio, Node parent, bool is_to_play_one_time, int music_duration = 1)
+    public Custom_Audio create_a_sound(string path_of_audio, Node parent, bool is_to_play_one_time, float music_duration = 1,float volume = 1,float pitch_scale = 1)
     {
         PackedScene scene = ResourceLoader.Load<PackedScene>("res://Weapons_And_Animation/components/scenes/Simple_Audio.tscn");
         Custom_Audio audio = scene.Instance<Custom_Audio>();
-        audio.is_to_play_one_time = is_to_play_one_time;
-        audio.music_duration = music_duration;
-        audio.Stream = ResourceLoader.Load<AudioStream>(path_of_audio);
-        audio.Playing = true;
+        audio.set_properties(path_of_audio,is_to_play_one_time,music_duration,volume,pitch_scale);
         parent.AddChild(audio);
+        return audio;
+    }
+
+    
+    public bool increment_loading_percent(int increment){
+
+        global_Variables.loading_percent+= (global_Variables.loading_percent+increment>100)?(100-global_Variables.loading_percent):increment;
         return true;
     }
 }

@@ -57,7 +57,7 @@ extra_spacing_char = 2
 font_data = ExtResource( 2 )
 
 [sub_resource type="DynamicFont" id=11]
-size = 24
+size = 30
 outline_color = Color( 0.12549, 0.133333, 0.141176, 1 )
 font_data = ExtResource( 2 )
 
@@ -210,3 +210,14 @@ margin_right = 45.0
 margin_bottom = 47.0
 custom_fonts/font = SubResource( 11 )
 text = "0"
+
+[node name="Score_Label" type="Label" parent="."]
+modulate = Color( 0, 0, 0, 1 )
+self_modulate = Color( 0, 0.498039, 0.827451, 1 )
+margin_left = 568.0
+margin_top = -64.0
+margin_right = 688.0
+margin_bottom = -18.0
+custom_colors/font_color_shadow = Color( 0, 1, 0.368627, 1 )
+custom_fonts/font = SubResource( 11 )
+text = "Sc0re:-"
