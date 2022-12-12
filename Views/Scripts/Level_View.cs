@@ -7,7 +7,7 @@ public class Level_View : Basic_View
 {
 	ArrayList level_buttons;
 
-	Basic_Func basf;
+	// Basic_Func basf;
 
 	int button_per_screen,total_number_of_button;
 	int start_button_number = 0;
@@ -23,7 +23,7 @@ public class Level_View : Basic_View
 		base._Ready();
 		basf = new Basic_Func(this);
 		
-		level_buttons = all_func.get_the_node_childrens("Level_Buttons");
+		level_buttons = basf.get_the_node_childrens("Level_Buttons");
 		
 		button_per_screen = 4;
 

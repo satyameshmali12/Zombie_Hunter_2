@@ -161,4 +161,11 @@ public class Ninja : Basic_Player
             power_available -= 10;
         }
     }
+
+    public override bool disconnect_all_signals()
+    {
+        base.disconnect_all_signals();
+        Glide_Timer.Disconnect("timeout",this,"Glide_Timer_Out");
+        return true;
+    }
 }

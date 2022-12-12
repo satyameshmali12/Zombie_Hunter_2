@@ -4,7 +4,7 @@ using System;
 public class Game_Over_View : Basic_View
 {
 
-    Basic_Func basf;
+    // Basic_Func basf;
     TextureButton restart_button, home_button, next_level_button;
     public bool is_to_stop; // to stop all the processes and to renavigate somewhere else
 

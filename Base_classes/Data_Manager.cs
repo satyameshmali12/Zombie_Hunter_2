@@ -63,10 +63,17 @@ public class Data_Manager
 
     public void load_data(string identifier)
     {
-        // GD.Print(identifier);
+        GD.Print(identifier);
         all_field_values.Clear();
         for (var i = 0; i < data.Length; i++)
         {
+            var specific_value = data[i].Trim().TrimEnd();
+
+            // remove this lines later on 
+            
+            // var value = (identifier.Length>specific_value.Length)?identifier.Remove(specific_value.Length-1,identifier.Length-1):identifier;
+            // GD.Print(value);
+            // var value = (specific_value.Length>)
             if (data[i].Trim().TrimEnd() == identifier)
             {
                 data_start_index = i;

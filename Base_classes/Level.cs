@@ -169,9 +169,12 @@ public class Level : Node2D, Global_Variables_F_A_T
         var is_bomb_in_hand = basf.global_Variables.spell_in_hand != null;
         if (is_bomb_in_hand && Input.IsActionPressed("Mouse_Pressed") && !basf.is_any_one_button_pressed(global_variables.bomb_Buttons))
         {
+            GD.Print(global_variables.spell_in_hand);
+            GD.Print();
             GD.Print("hey the mouse pressed event is been created..!!");
             // GD.Print("hello world pressed!!");
             var ini_faller = basf.get_the_packed_scene("res://Bomb's/Scenes/Initial_Faller.tscn").Instance() as Initial_Faller;
+            GD.Print("from the basic level..!!");
             ini_faller.settle_values(global_variables.spell_in_hand, GetGlobalMousePosition());
             // ini_faller.Position = GetGlobalMousePosition();
             // ini_faller.Emitting = true;

@@ -4,7 +4,7 @@ using System;
 public class Home_View : Basic_View
 {
     Button but1;
-    Basic_Func basf;
+    // Basic_Func basf;
     public override void _Ready()
     {
         base._Ready();

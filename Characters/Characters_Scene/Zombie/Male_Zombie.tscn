@@ -111,7 +111,7 @@ scale_curve = SubResource( 9 )
 color = Color( 1, 0.0431373, 0.0431373, 1 )
 
 [node name="Male_Zombie" type="RigidBody2D"]
-position = Vector2( -6, -8 )
+position = Vector2( -5, -2 )
 mode = 2
 mass = 0.816326
 physics_material_override = SubResource( 3 )
@@ -127,7 +127,7 @@ scale = Vector2( 0.240698, 0.278902 )
 z_index = 1
 frames = SubResource( 2 )
 animation = "Walk"
-frame = 3
+frame = 1
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

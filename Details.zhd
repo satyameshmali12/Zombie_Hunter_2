@@ -26,3 +26,7 @@ the score is not increased when the zombies are hittet by the bomb
 all the level name should be start from the keyword level
 and they should be in a numeric order mean it no number should be skipped
 if there are 10 levels then the next level name will be level11 and so
+
+
+caution 
+if you added any character or anything which makes any signal to called make sure to override the disconnect_all_signals function and the removing logic of that particular signal reference of this can be taken from the other characters

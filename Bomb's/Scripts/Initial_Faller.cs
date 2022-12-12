@@ -69,6 +69,7 @@ public class Initial_Faller : Particles2D
             Basic_Bomb bomb = bomb_scene.Instance() as Basic_Bomb;
             // bomb.Position = basf.global_Variables.player_position;
             bomb.Position = collision_point;
+            bomb.bomb_name = bomb_name;
             // bomb.GetNode<AnimatedSprite>("Animation").Position = basf.global_Variables.player_position;
             // bomb.GetNode<Node2D>("Collision_Rays").Position = basf.global_Variables.player_position;
             GD.Print(collision_point);

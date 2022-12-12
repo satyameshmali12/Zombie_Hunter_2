@@ -8,7 +8,7 @@ public class Basic_View:Control,Global_Variables_F_A_T
 {
     public _Type_of_ _node_type{get;set;}
     
-    public Basic_Func all_func;
+    public Basic_Func basf;
 
     string level_base_url;
 
@@ -16,10 +16,10 @@ public class Basic_View:Control,Global_Variables_F_A_T
     {
         _node_type = _Type_of_.View;
         
-        all_func = new Basic_Func(this);
-        all_func.create_a_sound("res://assets/audio/GUI/Scene_Enter.mp3",this,true);
+        basf = new Basic_Func(this);
+        basf.create_a_sound("res://assets/audio/GUI/Scene_Enter.mp3",this,true);
 
-        var global = all_func.global_Variables;
+        var global = basf.global_Variables;
         global.current_scene = this;
         global.click_sound = global.navigation_sound_url;
 

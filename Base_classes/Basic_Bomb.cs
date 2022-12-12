@@ -17,13 +17,20 @@ public class Basic_Bomb:Node2D,Global_Variables_F_A_T
 
     int bomb_per_damage;
 
+    public string bomb_name = null; // this will be setted from right initial_faller
+
     
     public override void _Ready()
     {
+        GD.Print("hey started processing from the basic_bomb");
         _node_type = _Type_of_.Bomb;
+        GD.Print(this.Name);
         // GD.Print()
         basf = new Basic_Func(this,"data//data_fields/bomb_data_fields.zhd");
-        basf.dm.load_data(this.Name);
+        // basf.dm.load_data(this.Name);
+        // here the node name is not used there can be multiple same bomb so there will be in change in the node name
+        // since no node can have two children with same name
+        basf.dm.load_data(bomb_name);  
         var dm = basf.dm;
 
         bomb_per_damage = Convert.ToInt32(basf.dm.get_data("Bomb_Per_Damage"));
@@ -36,7 +43,7 @@ public class Basic_Bomb:Node2D,Global_Variables_F_A_T
 
         explosion_sound = this.GetNode<AudioStreamPlayer2D>("Explosion_Sound");
         explosion_sound.Play();
-
+        GD.Print("hey ther processing is been overed..!!");
 
     }
 
@@ -56,6 +63,7 @@ public class Basic_Bomb:Node2D,Global_Variables_F_A_T
                     if(item.IsColliding() && !character.is_resisted){
                         // character.health-=bomb_per_damage;
                         character.change_health(-bomb_per_damage);
+                        basf.global_Variables.score+=bomb_per_damage;
                         // item.Enabled = false;
                     }
                 }

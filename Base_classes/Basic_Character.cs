@@ -142,6 +142,8 @@ public class Basic_Character : RigidBody2D, Global_Variables_F_A_T
 
 
 
+
+
 	public override void _Ready()
 	{
 		
@@ -499,6 +501,13 @@ public class Basic_Character : RigidBody2D, Global_Variables_F_A_T
 	public int get_moves_damage(string attack_name){
 		return available_moves_damage[available_moves.IndexOf(attack_name)];
 	}
+
+	public virtual bool disconnect_all_signals(){
+		this.Disconnect("body_entered", this, "collided_with_body");
+		Power_Enhancer_Timer.Disconnect("timeout",this,"Increase_Power");
+		return true;
+	}
+
 
 	// this method will  be inherited by the respective child classes of its 
 	// the logic will be as per the strength and the level of the character  

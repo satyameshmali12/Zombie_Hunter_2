@@ -19,7 +19,7 @@ public class Male_Zombie : Basic_Zombie
 
         attack_move_names = new ArrayList() { "attack" };
 
-        distancing_error = 0;
+        distancing_error = 170;
         jump_intensity = 3500;
 
     }
