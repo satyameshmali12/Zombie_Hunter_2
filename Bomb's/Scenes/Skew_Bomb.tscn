@@ -26,7 +26,7 @@ position = Vector2( 518, 473 )
 z_index = 10
 script = ExtResource( 5 )
 
-[node name="Animation" type="AnimatedSprite" parent="."]
+[node name="Movements" type="AnimatedSprite" parent="."]
 position = Vector2( 3, -249 )
 frames = SubResource( 1 )
 animation = "Explode"

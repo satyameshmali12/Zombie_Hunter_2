@@ -41,6 +41,14 @@ public class Data_Manager
     public Data_Manager(string data_path = "data//data_fields/level_data_fields.zhd")
     {
         // var all_the_values = System.IO.File.ReadAllLines("data//data_fields/bomb_data_fields.zhd");
+        reload_data(data_path);
+
+        // testing
+
+
+    }
+
+    public void reload_data(string data_path){
         string[] all_the_values = System.IO.File.ReadAllLines(data_path);
 
         this.data_path = all_the_values[0].ToString().Trim();
@@ -51,11 +59,11 @@ public class Data_Manager
 
 
         read_data();
-
-        // testing
-
-
     }
+
+
+
+
     public void read_data(){
         // laoding the data 
         data = System.IO.File.ReadAllLines(this.data_path);

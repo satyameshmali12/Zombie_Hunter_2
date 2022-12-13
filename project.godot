@@ -11,7 +11,7 @@ config_version=4
 [application]
 
 config/name="Zombie_Hunter_2"
-run/main_scene="res://views/Scenes/Shop.tscn"
+run/main_scene="res://Views/Scenes/Shop.tscn"
 config/icon="res://icon.png"
 
 [autoload]

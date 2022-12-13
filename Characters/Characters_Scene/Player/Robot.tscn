@@ -439,7 +439,7 @@ scale = Vector2( 0.210002, 0.299489 )
 z_index = 1
 frames = SubResource( 2 )
 animation = "Melee"
-frame = 2
+frame = 7
 
 [node name="Camera" parent="." instance=ExtResource( 83 )]
 position = Vector2( 389, 50 )
