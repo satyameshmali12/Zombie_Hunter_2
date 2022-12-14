@@ -7,6 +7,7 @@ Yellow_Fuse
 1000
 200
 100
+false
 
 Skew_Bomb
 55
@@ -17,6 +18,7 @@ Skew_Bomb
 1000
 200
 100
+true
 
 Thunder_Blast_2
 68
@@ -27,6 +29,7 @@ Thunder_Blast_2
 1000
 200
 100
+false
 
 Thunder_Blast
 8
@@ -37,4 +40,5 @@ Thunder_Blast
 1000
 200
 100
+true
 

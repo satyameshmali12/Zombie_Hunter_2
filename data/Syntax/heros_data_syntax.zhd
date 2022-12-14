@@ -1,1 +1,26 @@
-make the incrementary of the heros so that they can be updated
+Explanation of the character_data_fields
+Make sure everything done is case sensitive
+A single up down can result to a number of error
+
+1>Character_Name
+    Gives the name of the character
+2>Damage_Increment
+   Damage_Increment for the player
+   it will can be updated form the shop
+3>Current_level
+    the current level of the player
+    the current level is defualt 1
+    it couldn't be more then the Max_Level
+4>Max_Level
+    the max level until the player can be updated
+5>Per_Level_Damage_Increment
+    this is the increment given to the damager_increment
+    so that at every level the increment is slight greator the earlier one
+6>Update_Cost
+    cost to update the player
+7>Update_Cost_Increment
+    this is the increment in the update cost so that at every update the update cost becomes greator then the past one
+8>Price
+    this is the price which is required to buy the player
+9>Is_Unlocked
+    whether the player is Is_Unlocked or not

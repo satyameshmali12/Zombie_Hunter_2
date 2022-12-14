@@ -51,6 +51,11 @@ public class Global_Variables : Node2D
 
 
 
+    // public Data_Manager shop_data_manager;
+    // public bool is_new_scene_toggled_in_shop = false;
+
+
+
     public override void _Ready()
     {
 
@@ -67,6 +72,8 @@ public class Global_Variables : Node2D
         spell_in_hand = null;
 
         click_sound = navigation_sound_url;
+
+        // shop_data_manager = new Data_Manager();
 
     }
 

@@ -2,29 +2,46 @@ using Godot;
 using System;
 using System.Collections;
 
+// Note 
+// From the shop the data is been sended to the it's child component 
+// all the update and buy logic is writtened in the component's script of the shop
+// and whenever the data is changed buy updating or buying we just simply call reload_scene_features
+
+// in the basf.dm the user data is been stored whereas shop data is stored in the shop_data_manager
+
 public class Shop : Basic_View
 {
 
-    int menu_selection = 1; // the selection of the type of view in the shop
-    int view_index = 0; // the index of the character that user wanted to see
+    public int menu_selection = 0; // the selection of the type of view in the shop
+    public int view_index = 0; // the index of the character that user wanted to see
 
     ArrayList urls = new ArrayList() { };
 
-    const int player_view_index = 0;
-    const int zombie_view_index = 1;
-    const int bomb_view_index = 2;
+    public int player_view_index = 0;
+    public int zombie_view_index = 1;
+    public int bomb_view_index = 2;
 
     // this array is method with respect to the above index🔼
     string[] specific_data_fields_urls = new string[3] { "data//data_fields/heros_data_field.zhd", "data//data_fields/zombie_data_fields.zhd", "data//data_fields/bomb_data_fields.zhd" };
     string[] names = new string[3] { "Character_Name", "Zombie_Name", "Bomb_Name" };
 
+    public bool[] can_be_buyed_in_numbers = new bool[3]{false,false,true};
+
     string[] base_urls = new string[3] { "res://Characters/Characters_Scene/Player/", "res://Characters/Characters_Scene/Zombie/", "res://Bomb's/Scenes/" };
     bool is_button_pressed , is_button_pressed_2 = false;
 
     public TextureButton left_button, right_button;
+
+    public string specific_name = null;
+
+    public Data_Manager shop_data_manager;
+    public bool is_new_scene_toggled_in_shop = false;
+
+
     public override void _Ready()
     {
         base._Ready();
+
 
         basf = new Basic_Func(this);
         var dm = basf.dm;
@@ -38,10 +55,19 @@ public class Shop : Basic_View
         add_the_view();
         left_button = this.GetNode<TextureButton>("Left_Button");
         right_button = this.GetNode<TextureButton>("Right_Button");
+
+
+        // now loading the user data to get and set some of the requred value e.g money
+        load_user_data();
+
+        GD.Print("hey first stage form the shopt view hahah..!!");
+
     }
 
     public override void _Process(float delta)
     {
+        // showing the available money on the screen
+        this.GetNode<Label>("Money").Text = $"Money : - {basf.dm.get_data("Money")}";
 
         // make the character and zombie to be separated for the shop render so that concern been seperated
         // Caution🔺
@@ -66,8 +92,10 @@ public class Shop : Basic_View
         else
         {
             is_button_pressed = false;
-        }
+        }  
 
+
+        // interating thought the buttons and changing the menu_selection simultaneouly
         var containers = this.GetNode<HBoxContainer>("Gui_Buttons_Container");
         foreach (Container item in containers.GetChildren())
         {
@@ -96,7 +124,6 @@ public class Shop : Basic_View
         ArrayList arr = (ArrayList)urls[menu_selection];
         if (arr.Count > 0)
         {
-
             // first removing all the childs in other words first removing the old animation
             var adding_area = this.GetNode<Node2D>("Adding_Area");
             foreach (Node item in adding_area.GetChildren())
@@ -109,8 +136,22 @@ public class Shop : Basic_View
 
             // getting the url to the desired scene
             ArrayList desired_urls = (ArrayList)urls[menu_selection];
-            var path = $"{base_urls[menu_selection].ToString()}/{desired_urls[view_index].ToString()}.tscn";
+            
+            specific_name = desired_urls[view_index].ToString();
+            var specific_base_url = base_urls[menu_selection].ToString();
+
+
+            reload_scene_features();
+
+
+            var path = $"{specific_base_url}/{specific_name}.tscn";
             GD.Print(path);
+
+            this.GetNode<Label>("Specific_Name").Text = specific_name;
+            var value = names[menu_selection];
+            var start_index = value.Length-"_name".Length;
+            this.GetNode<Label>("Menu_Name").Text = value.Left(start_index);
+
 
             // getting the packed scene and instancing it with the basic_player
             PackedScene scene = basf.get_the_packed_scene(path);
@@ -151,8 +192,35 @@ public class Shop : Basic_View
 
             adding_area.AddChild(new_animation);
 
+
+
+            // var buy_view = this.GetNode<Control>("Buy");
+            // // var update_view = this.GetNode<Control>("Update");
+
+            // if(menu_selection!=zombie_view_index){
+                
+            // }
+            // else{
+                
+            // }
+
+
         }
         #endregion
         return true;
+    }
+
+    public void reload_scene_features(bool is_new_scene_toggled = true){
+        // loading specific data and sending the specific data as shop_data to the global_varaibles
+        var new_data_manager = new Data_Manager(specific_data_fields_urls[menu_selection].ToString());
+        new_data_manager.load_data(specific_name);
+        shop_data_manager = new_data_manager;
+        is_new_scene_toggled_in_shop = is_new_scene_toggled;
+        load_user_data();
+    }
+
+    public void load_user_data(){
+        basf.dm = new Data_Manager("data//data_fields/user_data_fields.zhd");
+        basf.dm.load_data("Aj");
     }
 }
