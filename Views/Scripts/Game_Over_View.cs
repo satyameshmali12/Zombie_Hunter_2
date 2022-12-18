@@ -30,11 +30,8 @@ public class Game_Over_View : Basic_View
         // GD.Print(level_num+1);
         if(level_num<dm.get_set_of_field_values("Name").Count){
             new_level_count = level_num+1;
-            // GD.Print("From the game_over_view.cs");
-            // GD.Print("First stage");
             if(dm.is_level_unlocked($"Level{new_level_count}")){
                 is_next_level_available = true;
-                // GD.Print("second_stage");
             }
         }
 
@@ -82,6 +79,7 @@ public class Game_Over_View : Basic_View
     // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _Process(float delta)
     {
+        base._Process(delta);
         if (!is_to_stop)
         {
             if (restart_button.Pressed)

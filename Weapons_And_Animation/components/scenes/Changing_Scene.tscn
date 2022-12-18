@@ -1,0 +1,117 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://assets/images/gui/designs/Down_Part.jpeg" type="Texture" id=1]
+[ext_resource path="res://assets/images/gui/designs/Up_Part.jpeg" type="Texture" id=2]
+[ext_resource path="res://Weapons_And_Animation/components/scripts/Changing_Scene.cs" type="Script" id=3]
+[ext_resource path="res://assets/fonts/STIXGeneralBolIta.ttf" type="DynamicFontData" id=4]
+[ext_resource path="res://assets/images/gui/designs/changing_scene_bg.webp" type="Texture" id=5]
+
+[sub_resource type="Animation" id=2]
+resource_name = "Closing"
+tracks/0/type = "value"
+tracks/0/path = NodePath("UpPart:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0.2, 0.5, 0.8 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 512, -144 ), Vector2( 512, 4.00002 ), Vector2( 512, 152 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("DownPart:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.2, 0.5, 0.8 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 512, 864 ), Vector2( 512, 660 ), Vector2( 512, 456 ) ]
+}
+
+[sub_resource type="Animation" id=1]
+resource_name = "Opening"
+tracks/0/type = "value"
+tracks/0/path = NodePath("UpPart:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0.2, 0.5, 0.8 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 512, 136 ), Vector2( 512, -80 ), Vector2( 512, -296 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("DownPart:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.2, 0.5, 0.8 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 512, 440 ), Vector2( 508, 652 ), Vector2( 504, 864 ) ]
+}
+
+[sub_resource type="DynamicFont" id=3]
+size = 32
+font_data = ExtResource( 4 )
+
+[sub_resource type="StyleBoxFlat" id=4]
+bg_color = Color( 0.611765, 0.603922, 0.603922, 1 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 0.317647, 0.027451, 0.027451, 1 )
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[node name="Changing_Scene" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 3 )
+
+[node name="UpPart" type="Sprite" parent="."]
+position = Vector2( 512, -144 )
+scale = Vector2( 0.924694, 1.04054 )
+z_index = 2
+texture = ExtResource( 2 )
+
+[node name="DownPart" type="Sprite" parent="."]
+position = Vector2( 512, 864 )
+scale = Vector2( 0.926335, 1.08784 )
+z_index = 2
+texture = ExtResource( 1 )
+
+[node name="Up-Down" type="AnimationPlayer" parent="."]
+method_call_mode = 1
+anims/Closing = SubResource( 2 )
+anims/Opening = SubResource( 1 )
+
+[node name="Preview" type="Node2D" parent="."]
+position = Vector2( 384, 320 )
+
+[node name="Label" type="Label" parent="Preview"]
+margin_right = 189.0
+margin_bottom = 56.0
+custom_colors/font_color = Color( 0.129412, 0.0980392, 0.0980392, 1 )
+custom_fonts/font = SubResource( 3 )
+custom_styles/normal = SubResource( 4 )
+text = "Loading..!!"
+uppercase = true
+
+[node name="ChangingSceneBg" type="Sprite" parent="Preview"]
+position = Vector2( 96, 32 )
+scale = Vector2( 0.736, 0.768 )
+z_index = -1
+texture = ExtResource( 5 )

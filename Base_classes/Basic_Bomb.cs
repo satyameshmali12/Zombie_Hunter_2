@@ -24,7 +24,7 @@ public class Basic_Bomb:Node2D,Global_Variables_F_A_T
     {
         GD.Print("hey started processing from the basic_bomb");
         _node_type = _Type_of_.Bomb;
-        GD.Print(this.Name);
+        // GD.Print(this.Name);
         // GD.Print()
         basf = new Basic_Func(this,"data//data_fields/bomb_data_fields.zhd");
         // basf.dm.load_data(this.Name);
@@ -35,7 +35,7 @@ public class Basic_Bomb:Node2D,Global_Variables_F_A_T
 
         bomb_per_damage = Convert.ToInt32(basf.dm.get_data("Bomb_Per_Damage"));
 
-        animation = GetNode<AnimatedSprite>("Animation");
+        animation = GetNode<AnimatedSprite>("Movements");
         animation.Play();
 
         collision_rays = basf.get_the_node_childrens("Collision_Rays",true);

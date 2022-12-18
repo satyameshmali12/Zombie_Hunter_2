@@ -71,17 +71,29 @@ public class Basic_Func
         }
         return true;
     }
-    public void navigateTo(Node2D node2D, string path)
+    public void navigateTo(Node node, string path)
     {
-        node2D.GetTree().ChangeScene(path);
+        // node.GetTree().ChangeScene(path);
+        add_changing_scene(node,path,true,true);
     }
-    public void navigateTo(Control control_node, string path)
-    {
-        control_node.GetTree().ChangeScene(path);
+    public Changing_Scene add_changing_scene(Node node,string path,bool is_to_reverse,bool is_to_navigate){
 
+        var scene = this.get_the_packed_scene("res://Weapons_And_Animation/components/scenes/Changing_Scene.tscn");
+
+        Changing_Scene changing_Scene = scene.Instance<Changing_Scene>();
+
+        changing_Scene.RectPosition = Vector2.Zero;
+        changing_Scene.Visible = false;
+
+        changing_Scene.set_values(node,path,is_to_reverse,is_to_navigate);
+
+        node.AddChild(changing_Scene);
+        changing_Scene.Visible = true;
+
+        return changing_Scene;
     }
 
-    // for texture_button
+    
     public bool is_any_one_button_pressed(ArrayList button_list)
     {
         foreach (TextureButton item in button_list)
@@ -154,5 +166,9 @@ public class Basic_Func
 
         global_Variables.loading_percent+= (global_Variables.loading_percent+increment>100)?(100-global_Variables.loading_percent):increment;
         return true;
+    }
+
+    public void pause_tree(Node node,bool is_to_pause = true){
+        node.GetTree().Paused = is_to_pause;
     }
 }

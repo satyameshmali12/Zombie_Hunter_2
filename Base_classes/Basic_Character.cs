@@ -490,7 +490,6 @@ public class Basic_Character : RigidBody2D, Global_Variables_F_A_T
 		return true;
 	}
 
-
 	public bool change_health(int change)
 	{
 		health += change;

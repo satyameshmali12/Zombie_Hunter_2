@@ -42,6 +42,7 @@ public class Robot : Basic_Player
         available_moves_consumption = new int[11] { 0, 0, 0, 10, 15, 10, 0, 10, 8, 0, 10};
         available_moves_damage = new int[11]{0,0,5,40,100,20,1,120,0,1,200};
         settle_damage_increment_possible_moves(4);
+        damage_increment_possible_moves = new ArrayList(){"melee"};
         
         
 

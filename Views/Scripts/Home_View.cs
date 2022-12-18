@@ -14,8 +14,10 @@ public class Home_View : Basic_View
     }
     public override void _Process(float delta)
     {
+        base._Process(delta);
+        
         if(but1.Pressed){
-            GetTree().ChangeScene("res://Views/Scenes/Level_View.tscn");
+            basf.navigateTo(this,"res://Views/Scenes/Level_View.tscn");
         }
         
     }

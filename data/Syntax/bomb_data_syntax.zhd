@@ -31,3 +31,10 @@ Ignore this one
 9>Cost of the bomb
   As the bomb will be limited
   Player has to buy it as per it's need
+  As bomb is bought by default 1 bomb is given to the user
+
+10>Per_Price
+  The money required to buy per specific bomb (one bomb price)
+
+11>Is_Unlocked
+  whether the following bomb is Is_Unlocked or not

@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://Weapons_And_Animation/components/scenes/Health_Bar.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/fonts/STIXGeneralBolIta.ttf" type="DynamicFontData" id=2]
@@ -9,6 +9,8 @@
 [ext_resource path="res://assets/images/bomb/Explosion_5/Explosion_5.png" type="Texture" id=7]
 [ext_resource path="res://assets/images/bomb/Explosion_2/Explosion_6.png" type="Texture" id=8]
 [ext_resource path="res://assets/images/bomb/Explosion_6/Explosion_7.png" type="Texture" id=9]
+[ext_resource path="res://Weapons_And_Animation/components/scenes/Pause_Menu.tscn" type="PackedScene" id=10]
+[ext_resource path="res://assets/images/gui/designs/settings-removebg-preview.png" type="Texture" id=11]
 
 [sub_resource type="DynamicFont" id=6]
 outline_color = Color( 0.0352941, 0.843137, 1, 1 )
@@ -60,6 +62,18 @@ font_data = ExtResource( 2 )
 size = 30
 outline_color = Color( 0.12549, 0.133333, 0.141176, 1 )
 font_data = ExtResource( 2 )
+
+[sub_resource type="StyleBoxTexture" id=12]
+texture = ExtResource( 11 )
+region_rect = Rect2( 0, 0, 224, 225 )
+
+[sub_resource type="StyleBoxTexture" id=13]
+texture = ExtResource( 11 )
+region_rect = Rect2( 0, 0, 224, 225 )
+
+[sub_resource type="StyleBoxTexture" id=14]
+texture = ExtResource( 11 )
+region_rect = Rect2( 0, 0, 223.847, 225 )
 
 [node name="Game_Gui" type="Node2D"]
 position = Vector2( -80, 0 )
@@ -221,3 +235,15 @@ margin_bottom = -18.0
 custom_colors/font_color_shadow = Color( 0, 1, 0.368627, 1 )
 custom_fonts/font = SubResource( 11 )
 text = "Sc0re:-"
+
+[node name="Pause_Button" type="Button" parent="."]
+margin_left = 912.0
+margin_top = -4.0
+margin_right = 985.0
+margin_bottom = 64.0
+custom_styles/hover = SubResource( 12 )
+custom_styles/pressed = SubResource( 13 )
+custom_styles/normal = SubResource( 14 )
+
+[node name="Pause_Menu" parent="." instance=ExtResource( 10 )]
+position = Vector2( 160, 112 )

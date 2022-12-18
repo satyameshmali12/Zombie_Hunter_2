@@ -2,7 +2,7 @@ data//heros_data.zhd
 
 Character_Name
 Damage_Increment
-Current_level
+Current_Level
 Max_Level
 Per_Level_Damage_Increment
 Update_Cost

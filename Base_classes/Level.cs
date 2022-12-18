@@ -42,6 +42,10 @@ public class Level : Node2D, Global_Variables_F_A_T
 
     public AudioStreamPlayer2D background_Music;
 
+    public Button pause_button;
+
+    public Node2D game_gui;
+
 
 
 
@@ -93,6 +97,10 @@ public class Level : Node2D, Global_Variables_F_A_T
 
         background_Music = basf.create_a_sound("res://assets/audio/Zombie/Zombie_Entire_Background.mp3", this, false, 1, .2f, .2f);
 
+
+        game_gui = player.GetNode<Node2D>("Game_Gui");
+        pause_button = game_gui.GetNode<Button>("Pause_Button");
+
         basf.increment_loading_percent(20);
         GD.Print("hey the loading is done");
 
@@ -100,11 +108,17 @@ public class Level : Node2D, Global_Variables_F_A_T
 
     public override void _Process(float delta)
     {
+
+        if(!is_data_saved && !global_variables.is_game_over){
+            if(pause_button.Pressed){
+                game_gui.GetNode<Pause_Menu>("Pause_Menu").Visible = true;
+                basf.pause_tree(this);
+            }
+        }
         var zombie_area = GetNode<Node2D>("Zombie_Area");
         spawn_zombie(zombie_area);
-
-
         var win_condition = total_zombie == 0 && zombie_area.GetChildren().Count == 0;
+
 
 
         if (global_variables.is_game_over || win_condition)

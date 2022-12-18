@@ -102,6 +102,8 @@ public class Basic_Player : Basic_Character
         dm = new Data_Manager("data//data_fields/heros_data_field.zhd");
         dm.load_data(this.Name);
         damage_increment = Convert.ToInt32(dm.get_data("Damage_Increment"));
+
+
         damage_increment_possible_moves = new ArrayList();
 
 
@@ -257,6 +259,7 @@ public class Basic_Player : Basic_Character
                 GD.Print(damage_increment);
                 var current_move = animations.Animation.ToLower();
                 var damage = get_moves_damage(current_move)+(damage_increment_possible_moves.Contains(current_move)?damage_increment:0);
+                GD.Print("basic player" , damage);
                 collided_zombie.change_health(-damage);
                 basf.global_Variables.score+=damage;
                 is_hitted = true;

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Hamburger.png-fe9888a1d6bbfca1d33aa4a19404f92d.stex"
+path="res://.import/changing_scene.jpeg-5cb41b181c51f34de3884d0512625b51.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/images/gui/designs/Hamburger.png"
-dest_files=[ "res://.import/Hamburger.png-fe9888a1d6bbfca1d33aa4a19404f92d.stex" ]
+source_file="res://assets/images/gui/designs/changing_scene.jpeg"
+dest_files=[ "res://.import/changing_scene.jpeg-5cb41b181c51f34de3884d0512625b51.stex" ]
 
 [params]
 

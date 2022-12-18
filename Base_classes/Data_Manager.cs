@@ -25,6 +25,11 @@ public class No_Such_Field_Founded_In_Data : Exception
 
 }
 
+public class Data_data : Exception
+{
+
+}
+
 public class Data_Manager
 {
     public int data_start_index; // In entire data finding the start index of a specific level with the help of the level name
@@ -35,14 +40,12 @@ public class Data_Manager
     public ArrayList all_field_names;
     // ArrayList reahing_increment;
     public ArrayList all_field_values;
-
     string data_path = "data//data_fields/level_data_fields.zhd";
 
     public Data_Manager(string data_path = "data//data_fields/level_data_fields.zhd")
     {
         // var all_the_values = System.IO.File.ReadAllLines("data//data_fields/bomb_data_fields.zhd");
         reload_data(data_path);
-
         // testing
 
 
@@ -71,7 +74,7 @@ public class Data_Manager
 
     public void load_data(string identifier)
     {
-        GD.Print(identifier);
+        // GD.Print(identifier);
         all_field_values.Clear();
         for (var i = 0; i < data.Length; i++)
         {
@@ -200,6 +203,19 @@ public class Data_Manager
         data[data_start_index + incre] = value;
         return true;
     }
+
+    public bool set_value(string[] field_names,string[] field_values){
+
+        for (var i = 0; i < field_names.Length; i++)
+        {
+            if(!all_field_names.Contains(field_names[i])){
+                throw new No_Such_Field_Founded_In_Data("No such field name there in the data..!!");
+            }
+            this.set_value(field_names[i],field_values[i]);
+        }
+        return true;
+    }
+    
 
     public ArrayList get_all_the_data_fields(string[] data)
     {
