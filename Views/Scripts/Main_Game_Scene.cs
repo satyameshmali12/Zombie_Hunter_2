@@ -12,6 +12,8 @@ public class Main_Game_Scene : Basic_Game_View
 
     Node2D loading_view;
     bool is_loading_view_queue_free;
+
+    public string level_path;
     public override void _Ready()
     {
         base._Ready();
@@ -20,14 +22,15 @@ public class Main_Game_Scene : Basic_Game_View
         basf.global_Variables.loading_percent = 0;
 
         loading_view = this.GetNode<Node2D>("loading_view");
-        is_loading_view_queue_free = false; 
+        is_loading_view_queue_free = false;
     }
 
     public override void _Process(float delta)
     {
         base._Process(delta);
 
-        if(!is_loading_view_queue_free){
+        if (!is_loading_view_queue_free)
+        {
             loading_view.GetNode<ProgressBar>("Loading_Bar").Value = basf.global_Variables.loading_percent;
         }
 
@@ -36,14 +39,19 @@ public class Main_Game_Scene : Basic_Game_View
         {
             basf.global_Variables.is_level_added = true;
             basf.clear_children_nodes(level_area);
-            
-            GD.Print("from main main_game_scene");
-            var level_path = $"res://Levels/Scenes/{basf.global_Variables.level_name}.tscn";
-            level_scene = ResourceLoader.Load(level_path) as PackedScene;
-            var new_level = level_scene.Instance();
 
+            var custom_url = basf.global_Variables.custom_url;
+            
+            level_path = (custom_url == null) ? $"res://Levels/Scenes/{basf.global_Variables.level_name}.tscn" : custom_url;
+            
+            level_scene = ResourceLoader.Load(level_path) as PackedScene;
+            
+            var new_level = level_scene.Instance();
+            
             added_level = (Node2D)new_level;
+            
             added_level.Visible = false;
+            
 
             basf.increment_loading_percent(50);
 
@@ -55,7 +63,8 @@ public class Main_Game_Scene : Basic_Game_View
         }
 
         // checking whether the loading is done or not
-        if(basf.global_Variables.loading_percent >= 100 && !is_loading_view_queue_free){
+        if (basf.global_Variables.loading_percent >= 100 && !is_loading_view_queue_free)
+        {
             loading_view.QueueFree();
             is_loading_view_queue_free = true;
             added_level.Visible = true;

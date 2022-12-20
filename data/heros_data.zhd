@@ -1,3 +1,13 @@
+Adventure_Girl
+20
+3
+3
+5
+35000
+3000
+20000
+true
+
 Ninja
 20
 3
@@ -16,16 +26,6 @@ Knight
 27000
 1000
 15000
-true
-
-Adventure_Girl
-20
-3
-3
-5
-35000
-3000
-20000
 true
 
 Robot
@@ -47,4 +47,15 @@ Jack
 5000
 1000
 50000
+true
+
+
+Ninja_Monk
+20
+3
+3
+5
+7000
+1000
+100000
 true

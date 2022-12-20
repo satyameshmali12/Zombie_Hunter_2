@@ -25,40 +25,36 @@ public class Game_Over_View : Basic_View
 
         // loading the level data
         dm = new Data_Manager();
-        var level_num = Convert.ToInt32(basf.global_Variables.current_level_name.Remove(0,"Level".Length)); // extracting the level number from the name 
-        GD.Print(dm.get_set_of_field_values("Name").Count);
-        // GD.Print(level_num+1);
-        if(level_num<dm.get_set_of_field_values("Name").Count){
-            new_level_count = level_num+1;
-            if(dm.is_level_unlocked($"Level{new_level_count}")){
-                is_next_level_available = true;
+
+        
+        restart_button = this.GetNode<TextureButton>("Restart");
+        home_button = this.GetNode<TextureButton>("Home_Button");
+        next_level_button = this.GetNode<TextureButton>("Next_Level_Button");
+
+
+        next_level_button.Visible = false; // initially making the level_button invisible
+
+        if(basf.global_Variables.custom_url==null){
+            var level_num = Convert.ToInt32(basf.global_Variables.current_level_name.Remove(0,"Level".Length)); // extracting the level number from the name 
+            GD.Print(dm.get_set_of_field_values("Name").Count);
+            // GD.Print(level_num+1);
+            if(level_num<dm.get_set_of_field_values("Name").Count){
+                new_level_count = level_num+1;
+                if(dm.is_level_unlocked($"Level{new_level_count}")){
+                    is_next_level_available = true;
+                }
+            }
+            // note
+            // make the level_changer button i.e back and forward button on the game_over_screen
+            if(is_next_level_available){
+                next_level_button.Disabled = true;
+                next_level_button.Visible = true;
             }
         }
-
-
-
-        // note
-        // make the level_changer button i.e back and forward button on the game_over_screen
-
-
-
-
-
-
-
 
         // loading the user_data
         dm = new Data_Manager("data/data_fields/user_data_fields.zhd");
         dm.load_data("Aj");
-
-        restart_button = this.GetNode<TextureButton>("Restart");
-        home_button = this.GetNode<TextureButton>("Home_Button");
-        next_level_button = this.GetNode<TextureButton>("Next_Level_Button");
-        if(!is_next_level_available){
-            next_level_button.Disabled = true;
-            next_level_button.Visible = false;
-        }
-        // var dm =basf.dm;
 
         is_to_stop = false;
 

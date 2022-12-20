@@ -48,6 +48,7 @@ public class Level_View : Basic_View
 				{
 					basf.global_Variables.is_level_added = false;
 					basf.global_Variables.level_name = item.Name;
+					basf.global_Variables.custom_url = null;
 					GetTree().ChangeScene("res://Views/Scenes/Main_Game_Scene.tscn");
 				}
 			}
@@ -92,8 +93,10 @@ public class Level_View : Basic_View
 		for (var i = 1; i < level_buttons.Count+1; i++)
 		{
 			var button = (Button)level_buttons[i-1];
+			var image = button.GetNode<Sprite>("LockImage");
+			var text = $"Level{start_button_number+i}";
+			button.GetNode<Sprite>("LockImage").Visible = !basf.dm.is_level_unlocked(text);
 			if(start_button_number+i<=total_number_of_button){
-				var text = $"Level{start_button_number+i}";
 				button.Text = text;
 				button.Name = text;
 				button.Visible = true;

@@ -60,7 +60,8 @@ public class Basic_Player : Basic_Character
 
         power_bar = game_gui.GetNode<ProgressBar>("Power_Bar");
 
-        Basic_Movements = new ArrayList() { "Idle", "Run", "Walk", "Jump", "Dead" };
+        // Dead changed to Death
+        Basic_Movements = new ArrayList() { "Idle", "Run", "Walk", "Jump", "Death" };
 
 
         this.health = health;// setting the health of the player which is by default hundred but for powerfull character it could be more....

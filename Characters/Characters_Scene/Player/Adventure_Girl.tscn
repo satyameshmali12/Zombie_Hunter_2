@@ -1,4 +1,4 @@
-[gd_scene load_steps=60 format=2]
+[gd_scene load_steps=63 format=2]
 
 [ext_resource path="res://assets/images/Adventure_Girl/Idle/Idle (7).png" type="Texture" id=1]
 [ext_resource path="res://assets/images/Adventure_Girl/Idle/Idle (10).png" type="Texture" id=2]
@@ -70,8 +70,8 @@ height = 100.0
 animations = [ {
 "frames": [ ExtResource( 50 ), ExtResource( 47 ), ExtResource( 48 ), ExtResource( 54 ), ExtResource( 53 ), ExtResource( 51 ), ExtResource( 55 ), ExtResource( 49 ), ExtResource( 52 ), ExtResource( 56 ) ],
 "loop": true,
-"name": "Dead",
-"speed": 5.0
+"name": "Death",
+"speed": 8.0
 }, {
 "frames": [ ExtResource( 9 ), ExtResource( 6 ), ExtResource( 4 ), ExtResource( 3 ), ExtResource( 8 ), ExtResource( 10 ), ExtResource( 1 ), ExtResource( 5 ), ExtResource( 7 ), ExtResource( 2 ) ],
 "loop": true,
@@ -81,17 +81,17 @@ animations = [ {
 "frames": [ ExtResource( 18 ), ExtResource( 20 ), ExtResource( 19 ), ExtResource( 15 ), ExtResource( 12 ), ExtResource( 14 ), ExtResource( 11 ), ExtResource( 13 ), ExtResource( 16 ), ExtResource( 17 ) ],
 "loop": true,
 "name": "Jump",
-"speed": 5.0
+"speed": 10.0
 }, {
 "frames": [ ExtResource( 25 ), ExtResource( 22 ), ExtResource( 27 ), ExtResource( 21 ), ExtResource( 24 ), ExtResource( 26 ), ExtResource( 23 ) ],
 "loop": true,
 "name": "Melee",
-"speed": 5.0
+"speed": 10.0
 }, {
 "frames": [ ExtResource( 35 ), ExtResource( 37 ), ExtResource( 32 ), ExtResource( 31 ), ExtResource( 33 ), ExtResource( 36 ), ExtResource( 38 ), ExtResource( 34 ) ],
 "loop": true,
 "name": "Run",
-"speed": 5.0
+"speed": 10.0
 }, {
 "frames": [ ExtResource( 40 ), ExtResource( 39 ), ExtResource( 41 ) ],
 "loop": true,
@@ -101,11 +101,28 @@ animations = [ {
 "frames": [ ExtResource( 43 ), ExtResource( 46 ), ExtResource( 44 ), ExtResource( 45 ), ExtResource( 42 ) ],
 "loop": true,
 "name": "Slide",
-"speed": 5.0
+"speed": 10.0
 } ]
 
+[sub_resource type="Curve" id=90]
+_data = [ Vector2( 0.0101523, 0.396863 ), 0.0, 2.52355, 0, 0, Vector2( 1, 0.242317 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=89]
+curve = SubResource( 90 )
+
+[sub_resource type="ParticlesMaterial" id=91]
+flag_disable_z = true
+spread = 180.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 146.78
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+scale = 15.0
+scale_curve = SubResource( 89 )
+color = Color( 0.52549, 0.0588235, 0.537255, 1 )
+
 [node name="Adventure_Girl" type="RigidBody2D"]
-position = Vector2( -200, 277 )
+position = Vector2( 4, 5 )
 mode = 2
 mass = 0.816326
 physics_material_override = SubResource( 3 )
@@ -115,45 +132,92 @@ contact_monitor = true
 script = ExtResource( 30 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 729, 194 )
+position = Vector2( 519.433, 500.262 )
 z_index = 1
 shape = SubResource( 1 )
 
 [node name="Movements" type="AnimatedSprite" parent="."]
-position = Vector2( 737, 201 )
+position = Vector2( 527.433, 507.262 )
 scale = Vector2( 0.226, 0.322 )
+z_index = 1
 frames = SubResource( 2 )
-animation = "Shoot"
+animation = "Idle"
+frame = 7
+playing = true
 
 [node name="Rays" type="Node2D" parent="."]
+position = Vector2( -193, 281 )
 
 [node name="Jump_Ray_1" type="RayCast2D" parent="Rays"]
-position = Vector2( 728, 257 )
+position = Vector2( 711.433, 282.262 )
 cast_to = Vector2( -18, 30 )
 
 [node name="Jump_Ray_2" type="RayCast2D" parent="Rays"]
-position = Vector2( 731, 258 )
+position = Vector2( 714.433, 283.262 )
 cast_to = Vector2( 24, 24 )
 
 [node name="Jump_Ray_3" type="RayCast2D" parent="Rays"]
-position = Vector2( 734, 252 )
+position = Vector2( 717.433, 277.262 )
 cast_to = Vector2( 14, 35 )
 
 [node name="Jump_Ray_4" type="RayCast2D" parent="Rays"]
-position = Vector2( 731, 253 )
+position = Vector2( 714.433, 278.262 )
 cast_to = Vector2( -1, 39 )
 
 [node name="Height_Checker" type="RayCast2D" parent="."]
-position = Vector2( 731, 255 )
+position = Vector2( 521.433, 561.262 )
 enabled = true
-cast_to = Vector2( -2, 292 )
+cast_to = Vector2( -1.43298, 245.738 )
 
 [node name="Game_Gui" parent="." instance=ExtResource( 28 )]
-position = Vector2( 199, -292 )
+position = Vector2( -160, -36 )
 
 [node name="Camera" parent="." instance=ExtResource( 29 )]
-position = Vector2( 710, 32 )
+position = Vector2( 470.433, 297 )
 
 [node name="Left_Collision_Rays" type="Node2D" parent="."]
+position = Vector2( 166, 207 )
+
+[node name="Left_Collision_Ray_1" type="RayCast2D" parent="Left_Collision_Rays"]
+position = Vector2( 314.433, 307.262 )
+cast_to = Vector2( -80, 1 )
+
+[node name="Left_Collision_Ray_2" type="RayCast2D" parent="Left_Collision_Rays"]
+position = Vector2( 314.433, 281.262 )
+cast_to = Vector2( -80, 0 )
+
+[node name="Left_Collision_Ray_3" type="RayCast2D" parent="Left_Collision_Rays"]
+position = Vector2( 314.433, 331.262 )
+cast_to = Vector2( -80, -1 )
+
+[node name="Left_Collision_Ray_4" type="RayCast2D" parent="Left_Collision_Rays"]
+position = Vector2( 315.433, 256.262 )
+cast_to = Vector2( -80, 0 )
 
 [node name="Right_Collision_Rays" type="Node2D" parent="."]
+position = Vector2( -193, 281 )
+
+[node name="Left_Collision_Ray_1" type="RayCast2D" parent="Right_Collision_Rays"]
+position = Vector2( 750.433, 239.262 )
+cast_to = Vector2( 80, 1 )
+
+[node name="Left_Collision_Ray_2" type="RayCast2D" parent="Right_Collision_Rays"]
+position = Vector2( 750.433, 213.262 )
+cast_to = Vector2( 80, 0 )
+
+[node name="Left_Collision_Ray_3" type="RayCast2D" parent="Right_Collision_Rays"]
+position = Vector2( 750.433, 263.262 )
+cast_to = Vector2( 80, -1 )
+
+[node name="Left_Collision_Ray_4" type="RayCast2D" parent="Right_Collision_Rays"]
+position = Vector2( 751.433, 188.262 )
+cast_to = Vector2( 80, 0 )
+
+[node name="Blood_Animation" type="Particles2D" parent="."]
+position = Vector2( 523, 505 )
+emitting = false
+amount = 50
+lifetime = 0.6
+one_shot = true
+explosiveness = 0.4
+process_material = SubResource( 91 )

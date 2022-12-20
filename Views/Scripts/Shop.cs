@@ -59,6 +59,10 @@ public class Shop : Basic_View
             urls.Add(dm.get_set_of_field_values(names[i]));
         }
 
+        menu_selection = Convert.ToInt32(basf.user_data.get_data("Menu_Selection"));
+        view_index = Convert.ToInt32(basf.user_data.get_data("Specific_Selection"));
+
+
         add_the_view();
         left_button = this.GetNode<TextureButton>("Left_Button");
         right_button = this.GetNode<TextureButton>("Right_Button");
@@ -101,6 +105,10 @@ public class Shop : Basic_View
                 if (new_value >= 0 && new_value < arr.Count)
                 {
                     view_index = new_value;
+                    var user_data = basf.user_data;
+                    user_data.set_value("Menu_Selection",$"{menu_selection}");
+                    user_data.set_value("Specific_Selection",$"{view_index}");
+                    user_data.save_data();
                     add_the_view();
                 }
             }

@@ -7,7 +7,9 @@ public class Basic_Func
     public Node node;
 
     public Data_Manager dm;
+    public Data_Manager user_data = new Data_Manager("data//data_fields/user_data_fields.zhd");
     public Global_Variables global_Variables;
+    public Global_Paths global_paths;
 
     public string main_game_scene_path = "res://Views/Scenes/Main_Game_Scene.tscn";
     public string home_scene_path = "res://Views/Scenes/Home_View.tscn";
@@ -16,8 +18,11 @@ public class Basic_Func
     {
         this.node = node;
         dm = new Data_Manager(data_path);
+        user_data.load_data("Aj");
 
         global_Variables = node.GetNode<Global_Variables>("/root/Global_Variables");
+        
+        global_paths = node.GetNode<Global_Paths>("/root/Global_Paths");
     }
 
     public Timer create_timer(float wait_time, string signal_func_name)
@@ -74,6 +79,7 @@ public class Basic_Func
     public void navigateTo(Node node, string path)
     {
         // node.GetTree().ChangeScene(path);
+        global_Variables.current_scene = node;
         add_changing_scene(node,path,true,true);
     }
     public Changing_Scene add_changing_scene(Node node,string path,bool is_to_reverse,bool is_to_navigate){
@@ -96,7 +102,8 @@ public class Basic_Func
     
     public bool is_any_one_button_pressed(ArrayList button_list)
     {
-        foreach (TextureButton item in button_list)
+        
+        foreach (BaseButton item in button_list)
         {
             if (item.Pressed)
             {

@@ -5,7 +5,8 @@ using System.IO;
 
 public class Level : Node2D, Global_Variables_F_A_T
 {
-    Basic_Func basf;
+    public Basic_Func basf;
+    // Data_Manager user_data;
 
 
     public _Type_of_ _node_type { get; set; }
@@ -46,6 +47,9 @@ public class Level : Node2D, Global_Variables_F_A_T
 
     public Node2D game_gui;
 
+    // this boolean will be overrided from the aracde script of the game
+    public bool is_arcade;
+
 
 
 
@@ -83,13 +87,16 @@ public class Level : Node2D, Global_Variables_F_A_T
         zombie_spawn_points = basf.get_the_node_childrens("Zombie_Spawn_Points");
         player_spawn_point = this.GetNode<Position2D>("Player_Spawn_Point");
 
-        player_scene = ResourceLoader.Load<PackedScene>("res://Characters/Characters_Scene/Player/Robot.tscn");
+
+        var character_name = basf.user_data.get_data("Current_Character");
+        player_scene = ResourceLoader.Load<PackedScene>($"res://Characters/Characters_Scene/Player/{character_name}.tscn");
 
         player = player_scene.Instance<Basic_Player>();
         player.Position = player_spawn_point.Position;
         this.AddChild(player);
 
         basf.increment_loading_percent(20);
+
 
         global_variables = GetNode<Global_Variables>("/root/Global_Variables");
         global_variables._main_character_name = player.Name;
@@ -222,7 +229,9 @@ public class Level : Node2D, Global_Variables_F_A_T
 
             is_successfully_added = true;
 
-            total_zombie--;
+            if(!is_arcade){
+                total_zombie--;
+            }
 
         }
         return is_successfully_added;

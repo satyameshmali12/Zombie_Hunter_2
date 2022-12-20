@@ -407,7 +407,7 @@ radius = 32.0
 height = 68.0
 
 [sub_resource type="Curve" id=88]
-_data = [ Vector2( 0.0101523, 0.396863 ), 0.0, 2.52355, 0, 0, Vector2( 1, 0.242317 ), 0.0, 0.0, 0, 0 ]
+_data = [ Vector2( 0, 0.58511 ), 0.0, 2.52355, 0, 0, Vector2( 0.447489, 0.430564 ), 2.04861, 2.04861, 0, 0, Vector2( 1, 0.172727 ), 0.0, 0.0, 0, 0 ]
 
 [sub_resource type="CurveTexture" id=89]
 curve = SubResource( 88 )
@@ -419,7 +419,7 @@ gravity = Vector3( 0, 0, 0 )
 initial_velocity = 146.78
 orbit_velocity = 0.0
 orbit_velocity_random = 0.0
-scale = 10.0
+scale = 20.0
 scale_curve = SubResource( 89 )
 color = Color( 0, 0.152941, 1, 1 )
 
@@ -522,7 +522,7 @@ cast_to = Vector2( 120, 0 )
 position = Vector2( 370, 275 )
 emitting = false
 amount = 50
-lifetime = 0.4
+lifetime = 0.6
 one_shot = true
 explosiveness = 0.4
 process_material = SubResource( 87 )

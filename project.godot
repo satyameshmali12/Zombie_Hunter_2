@@ -11,13 +11,14 @@ config_version=4
 [application]
 
 config/name="Zombie_Hunter_2"
-run/main_scene="res://Views/Scenes/Level_View.tscn"
+run/main_scene="res://Views/Scenes/Home_View.tscn"
 config/icon="res://icon.png"
 
 [autoload]
 
 Global_Variables="*res://global_scripts/Global_Variables.cs"
 Global_Signals="*res://global_scripts/Global_Signals.cs"
+Global_Paths="*res://global_scripts/Global_Paths.cs"
 
 [debug]
 
@@ -33,6 +34,7 @@ theme=false
 restore=false
 tag=false
 tab=false
+icon=false
 
 [gui]
 
