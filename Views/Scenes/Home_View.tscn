@@ -42,8 +42,8 @@ custom_fonts/font = SubResource( 1 )
 text = "Zombie Hunter 2"
 
 [node name="Arcade" type="Button" parent="."]
-margin_left = 141.0
-margin_top = 201.0
-margin_right = 332.0
-margin_bottom = 281.0
+margin_left = 113.0
+margin_top = 228.0
+margin_right = 304.0
+margin_bottom = 308.0
 text = "Atcade"

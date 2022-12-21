@@ -1,4 +1,4 @@
-[gd_scene load_steps=76 format=2]
+[gd_scene load_steps=81 format=2]
 
 [ext_resource path="res://assets/images/knight/idle/Idle (3).png" type="Texture" id=1]
 [ext_resource path="res://assets/images/knight/idle/Idle (8).png" type="Texture" id=2]
@@ -117,8 +117,33 @@ animations = [ {
 } ]
 
 [sub_resource type="CapsuleShape2D" id=2]
-radius = 238.938
-height = 90.0
+radius = 243.363
+height = 41.2241
+
+[sub_resource type="Gradient" id=7]
+offsets = PoolRealArray( 0.172249, 0.373206, 0.732057, 0.952153, 0.985646, 1 )
+colors = PoolColorArray( 1, 0, 0, 1, 0.8779, 0.0179056, 0.916768, 1, 0.313491, 0.0970298, 0.887129, 1, 0.578882, 0.971933, 0.633916, 1, 0.272418, 0.102835, 0.940205, 1, 1, 1, 1, 1 )
+
+[sub_resource type="GradientTexture" id=8]
+gradient = SubResource( 7 )
+
+[sub_resource type="Curve" id=5]
+_data = [ Vector2( 0.0344828, 0.318944 ), 0.0, 0.0, 0, 0, Vector2( 0.387931, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0.348459 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=6]
+curve = SubResource( 5 )
+
+[sub_resource type="ParticlesMaterial" id=4]
+flag_disable_z = true
+direction = Vector3( 0, -2, 0 )
+spread = 180.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 85.94
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+scale = 15.0
+scale_curve = SubResource( 6 )
+color_ramp = SubResource( 8 )
 
 [node name="Knight" type="RigidBody2D"]
 position = Vector2( 293, 256 )
@@ -131,10 +156,13 @@ contact_monitor = true
 script = ExtResource( 70 )
 
 [node name="Movements" type="AnimatedSprite" parent="."]
-position = Vector2( 237, 208 )
-scale = Vector2( 0.226, 0.322 )
+position = Vector2( 237, 218.914 )
+scale = Vector2( 0.201022, 0.291127 )
+z_index = 1
 frames = SubResource( 1 )
-animation = "Idle"
+animation = "Attack"
+frame = 2
+playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 225, 215 )
@@ -168,7 +196,7 @@ cast_to = Vector2( 25, 20 )
 [node name="Height_Checker" type="RayCast2D" parent="."]
 position = Vector2( 225, 254 )
 enabled = true
-cast_to = Vector2( -4, 398 )
+cast_to = Vector2( 6, 360 )
 
 [node name="Game_Gui" parent="." instance=ExtResource( 71 )]
 position = Vector2( -332, -312 )
@@ -213,3 +241,10 @@ cast_to = Vector2( 90, -1 )
 [node name="Left_Collision_Ray_4" type="RayCast2D" parent="Right_Collision_Rays"]
 position = Vector2( 300, 232 )
 cast_to = Vector2( 90, 0 )
+
+[node name="Blood_Animation" type="Particles2D" parent="."]
+position = Vector2( 235, 215 )
+emitting = false
+amount = 50
+one_shot = true
+process_material = SubResource( 4 )

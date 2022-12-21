@@ -46,10 +46,17 @@ public class Basic_Player : Basic_Character
     public ArrayList damage_increment_possible_moves;
 
 
+    #region All related to the bomb
+    public bool can_shoot,shoot_pressed,shooting_condition = false;
+    public PackedScene bullet_scene;
+    public int b_leftchange,b_rightchange,b_height_change = 0;
+    #endregion
+
+
+
 
     public void custom_constructor(int speed, int jump_intensity, int health = 100, string basic_attack_name = "Attack")
     {
-        // _Ready();
 
         _node_type = _Type_of_.Player;
 
@@ -114,9 +121,6 @@ public class Basic_Player : Basic_Character
     public void custom_process(float delta)
     {
 
-
-        // moving_speed = Vector2.Zero;
-
         if (Input.IsActionPressed("move_left"))
         {
             moving_speed.x = -speed_x;
@@ -144,18 +148,15 @@ public class Basic_Player : Basic_Character
         {
             if (!is_on_ground)
             {
-                // animations.Animation = "Jump";
                 perform_move("Jump");
             }
             else if (moving_speed.x != 0)
             {
-                // animations.Animation = "Run";
                 perform_move("Run");
             }
             else
             {
                 perform_move("Idle");
-                // animations.Animation = "Idle";
             }
         }
 
@@ -167,7 +168,6 @@ public class Basic_Player : Basic_Character
         {
             is_busy = true;
             perform_move("Slide");
-            // animations.Animation = "Slide";
             var speed_x = moving_speed.x;
             moving_speed.x = (speed_x < 0) ? speed_x - slide_speed_increment : speed_x + slide_speed_increment;
         }
@@ -176,10 +176,24 @@ public class Basic_Player : Basic_Character
             if (animations.Animation == "Slide")
             {
                 perform_move("Idle");
-                // animations.Animation = "Idle";
                 is_busy = false;
             }
         }
+
+
+        /* Logic for adding bullet on the screen*/
+        if (can_shoot)
+        {
+            
+            shoot_pressed = Input.IsActionPressed("S");
+            shooting_condition = animations.Animation!="Shoot" && animations.Animation!="Jump_Shoot" && animations.Animation!="Run_Shoot";
+            
+            if(shoot_pressed & shooting_condition){
+                fire_bullet();
+            }
+
+        }
+
 
 
         // performing the basic attack
@@ -227,16 +241,18 @@ public class Basic_Player : Basic_Character
     {
         return health;
     }
-    
+
     // here the min damage is the amount that a move should have so that it can be included in the damage_increment_possible_moves list
-    public bool settle_damage_increment_possible_moves(int min_damage){
+    public bool settle_damage_increment_possible_moves(int min_damage)
+    {
         for (var i = 0; i < available_moves_damage.Length; i++)
         {
             var num = available_moves_damage[i];
-            if(num>min_damage){
+            if (num > min_damage)
+            {
                 damage_increment_possible_moves.Add(available_moves[i]);
             }
-            
+
         }
         return true;
     }
@@ -259,15 +275,56 @@ public class Basic_Player : Basic_Character
                 Basic_Zombie collided_zombie = (Basic_Zombie)collided_one;
                 GD.Print(damage_increment);
                 var current_move = animations.Animation.ToLower();
-                var damage = get_moves_damage(current_move)+(damage_increment_possible_moves.Contains(current_move)?damage_increment:0);
-                GD.Print("basic player" , damage);
+                var damage = get_moves_damage(current_move) + (damage_increment_possible_moves.Contains(current_move) ? damage_increment : 0);
+                GD.Print("basic player", damage);
                 collided_zombie.change_health(-damage);
-                basf.global_Variables.score+=damage;
+                basf.global_Variables.score += damage;
                 is_hitted = true;
             }
         }
     }
+    
 
+
+
+
+    /*
+    This three function are related to each other
+
+    add_new_bullet is the main function which adds the bullet on the screen
+    where add_new_bullet_action uses the add_new_bullet as well as changes the animation or the action of the player
+    and the last fire_bullet is the one from where all of this function are been taken in consideration or used and this function can be overrided as per the logic of different characters
+
+    */
+    
+    /// <summary>Adds the bullet on the screen</summary>
+    public void add_new_bullet(int speed_increment = 0)
+    {
+        if (true)
+        {
+            var bullet = (Basic_Throwable_Weapon)bullet_scene.Instance();
+            bullet.weapon_speed = (is_on_ground) ? 15 : 30;
+            bullet.weapon_speed += speed_increment;
+            bullet.spawn_weapon(this.Position, moving_direction,b_rightchange,b_leftchange,b_height_change);
+            this.AddChild(bullet);
+        }
+    }
+
+    /// <summary>Adds the bullet on the screen by using the add_the_bullet function as well as changes the animation of the player</summary>
+    public void add_new_bullet_action(bool is_on_or_not_on_ground, string move_name)
+    {
+        if (is_on_or_not_on_ground && can_perform_move(move_name.ToLower()))
+        {
+            perform_move(move_name);
+            add_new_bullet();
+        }
+    }
+
+    /// <summary>It is the function which is used while player wanted to shooted thus we add all the adding logic on this as per the character or players needed.</summary>
+    public virtual void fire_bullet(){
+        add_new_bullet_action(is_on_ground,"Shoot");
+        // GD.Print("right form the basic_player adding the bullet hahah..!!");
+    }
 
 
 

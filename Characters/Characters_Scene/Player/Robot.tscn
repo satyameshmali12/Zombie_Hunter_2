@@ -424,7 +424,7 @@ scale_curve = SubResource( 89 )
 color = Color( 0, 0.152941, 1, 1 )
 
 [node name="Robot" type="RigidBody2D"]
-position = Vector2( 138, 210 )
+position = Vector2( 138, 206 )
 mode = 2
 mass = 0.816326
 physics_material_override = SubResource( 3 )
@@ -479,6 +479,9 @@ position = Vector2( -102, -72 )
 
 [node name="Position2D" type="Position2D" parent="."]
 position = Vector2( 364, 198 )
+__meta__ = {
+"_gizmo_extents_": 0.0
+}
 
 [node name="Left_Collision_Rays" type="Node2D" parent="."]
 position = Vector2( 4, -4 )

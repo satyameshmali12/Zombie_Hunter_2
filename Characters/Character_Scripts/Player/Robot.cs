@@ -20,7 +20,6 @@ using System.Collections;
 public class Robot : Basic_Player
 {
 
-    PackedScene bullet_scene;
 
     Timer bullet_timer;
 
@@ -49,10 +48,15 @@ public class Robot : Basic_Player
         
 
         bullet_scene = ResourceLoader.Load<PackedScene>("res://Weapons_And_Animation/scenes/Bullet.tscn");
+        b_rightchange = -50;
+        b_leftchange = -300;
+        b_height_change = -50;
 
         bullet_timer = GetNode<Timer>("Bullet_Timer");
 
         laser_bean = GetNode<Laser_Bean>("Laser_Bean");
+
+        can_shoot = true;
         // emitter_setter_timer = create_timer(2,"")
 
         
@@ -71,7 +75,7 @@ public class Robot : Basic_Player
 
             custom_process(delta);
 
-            if (Input.IsActionPressed("F") && !is_on_ground && can_perform_move("Jump_Melee".ToLower()))
+            if (Input.IsActionPressed("F") && !is_on_ground)
             {
                 perform_move("Jump_Melee");
             }
@@ -80,32 +84,25 @@ public class Robot : Basic_Player
                 if(can_perform_move("laser_beam") && !laser_bean.bean_animation.Visible){
                     laser_bean.perform_bean((animations.FlipH)?Direction.Left:Direction.Right,animations.Position);
                 }
-                // laser_bean.is_animation_performing = true;
             }
-            // else{
-            //     if(laser_bean.Visible){
-            //         laser_bean.hide_beam();
-            //     }
-            // }
-            // else if (!Input.IsActionPressed("F") && animations.Animation == "Jump_Melee")
+
+            // var shoot_pressed = Input.IsActionPressed("S");
+            // var shooting_condition = animations.Animation!="Shoot" && animations.Animation!="Jump_Shoot" && animations.Animation!="Run_Shoot";
+
+            // if (Input.IsActionPressed("Shift") && shoot_pressed && shooting_condition)
             // {
-            //     set_animation_idle("Jump_Melee");
+            //     add_new_bullet_action(is_on_ground,"Shoot");
+            //     add_new_bullet_action(!is_on_ground,"Jump_Shoot");
             // }
 
 
-            var shoot_pressed = Input.IsActionPressed("S");
-            var shooting_condition = animations.Animation!="Shoot" && animations.Animation!="Jump_Shoot" && animations.Animation!="Run_Shoot";
-
-            if (Input.IsActionPressed("Shift") && shoot_pressed && shooting_condition)
-            {
-                add_new_bullet_action(is_on_ground,"Shoot");
-                add_new_bullet_action(!is_on_ground,"Jump_Shoot");
-            }
 
             if(moving_speed.x!=0 && is_on_ground && shoot_pressed && shooting_condition && can_perform_move("Run_Shoot".ToLower())){
                 perform_move("Run_Shoot");
                 add_new_bullet(20);
             }
+
+
 
             // to set the animation idle in the the following animation ends
             // description of the this method can be founded in the Basic_Player class
@@ -120,24 +117,8 @@ public class Robot : Basic_Player
 
     }
 
-    void add_new_bullet(int speed_increment=0)
-    {
-        if(true){
-            var bullet = (Bullet)bullet_scene.Instance();
-            bullet.weapon_speed = (is_on_ground)?15:30;
-            bullet.weapon_speed+=speed_increment;
-            bullet.spawn_weapon(this.Position, moving_direction, true);
-            this.AddChild(bullet);
-        }
-    }
 
-
-    public void add_new_bullet_action(bool is_on_or_not_on_ground,string move_name){
-        if(is_on_or_not_on_ground && can_perform_move(move_name.ToLower())){
-            perform_move(move_name);
-            add_new_bullet();
-        }
-    }
+    
     public override void collided_with_body(Node body)
     {
         base.collided_with_body(body);
@@ -148,6 +129,11 @@ public class Robot : Basic_Player
         // {
             // GD.Print(old_tile._node_type);
         // }
+    }
+
+    public override void fire_bullet(){
+        base.fire_bullet();
+        add_new_bullet_action(!is_on_ground,"Jump_Shoot");
     }
 
     

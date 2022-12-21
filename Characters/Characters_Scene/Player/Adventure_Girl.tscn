@@ -142,7 +142,7 @@ scale = Vector2( 0.226, 0.322 )
 z_index = 1
 frames = SubResource( 2 )
 animation = "Idle"
-frame = 7
+frame = 2
 playing = true
 
 [node name="Rays" type="Node2D" parent="."]
@@ -221,3 +221,8 @@ lifetime = 0.6
 one_shot = true
 explosiveness = 0.4
 process_material = SubResource( 91 )
+
+[node name="Bullet_Adding_Pos" type="RayCast2D" parent="."]
+position = Vector2( 516, 397 )
+cast_to = Vector2( 1, 45 )
+collide_with_areas = true
