@@ -122,7 +122,7 @@ scale_curve = SubResource( 89 )
 color = Color( 0.52549, 0.0588235, 0.537255, 1 )
 
 [node name="Adventure_Girl" type="RigidBody2D"]
-position = Vector2( 4, 5 )
+position = Vector2( 528, 461 )
 mode = 2
 mass = 0.816326
 physics_material_override = SubResource( 3 )
@@ -132,21 +132,21 @@ contact_monitor = true
 script = ExtResource( 30 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 519.433, 500.262 )
+position = Vector2( -4.56702, -0.738037 )
 z_index = 1
 shape = SubResource( 1 )
 
 [node name="Movements" type="AnimatedSprite" parent="."]
-position = Vector2( 527.433, 507.262 )
+position = Vector2( 3.43311, 6.26196 )
 scale = Vector2( 0.226, 0.322 )
 z_index = 1
 frames = SubResource( 2 )
 animation = "Idle"
-frame = 2
+frame = 9
 playing = true
 
 [node name="Rays" type="Node2D" parent="."]
-position = Vector2( -193, 281 )
+position = Vector2( -717, -220 )
 
 [node name="Jump_Ray_1" type="RayCast2D" parent="Rays"]
 position = Vector2( 711.433, 282.262 )
@@ -165,18 +165,18 @@ position = Vector2( 714.433, 278.262 )
 cast_to = Vector2( -1, 39 )
 
 [node name="Height_Checker" type="RayCast2D" parent="."]
-position = Vector2( 521.433, 561.262 )
+position = Vector2( -2.56702, 60.262 )
 enabled = true
 cast_to = Vector2( -1.43298, 245.738 )
 
 [node name="Game_Gui" parent="." instance=ExtResource( 28 )]
-position = Vector2( -160, -36 )
+position = Vector2( -684, -537 )
 
 [node name="Camera" parent="." instance=ExtResource( 29 )]
-position = Vector2( 470.433, 297 )
+position = Vector2( -53.567, -204 )
 
 [node name="Left_Collision_Rays" type="Node2D" parent="."]
-position = Vector2( 166, 207 )
+position = Vector2( -358, -294 )
 
 [node name="Left_Collision_Ray_1" type="RayCast2D" parent="Left_Collision_Rays"]
 position = Vector2( 314.433, 307.262 )
@@ -195,7 +195,7 @@ position = Vector2( 315.433, 256.262 )
 cast_to = Vector2( -80, 0 )
 
 [node name="Right_Collision_Rays" type="Node2D" parent="."]
-position = Vector2( -193, 281 )
+position = Vector2( -717, -220 )
 
 [node name="Left_Collision_Ray_1" type="RayCast2D" parent="Right_Collision_Rays"]
 position = Vector2( 750.433, 239.262 )
@@ -214,7 +214,7 @@ position = Vector2( 751.433, 188.262 )
 cast_to = Vector2( 80, 0 )
 
 [node name="Blood_Animation" type="Particles2D" parent="."]
-position = Vector2( 523, 505 )
+position = Vector2( -1, 4 )
 emitting = false
 amount = 50
 lifetime = 0.6
@@ -223,6 +223,6 @@ explosiveness = 0.4
 process_material = SubResource( 91 )
 
 [node name="Bullet_Adding_Pos" type="RayCast2D" parent="."]
-position = Vector2( 516, 397 )
+position = Vector2( -8, -104 )
 cast_to = Vector2( 1, 45 )
 collide_with_areas = true

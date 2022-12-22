@@ -7,6 +7,16 @@ using Godot;
 using System;
 using System.Collections;
 
+/*
+
+Movements
+press f to fight
+jump and press f to jump_attack
+press s to throw weapon
+press t to open parachute (only when player is above of the height checker range) 
+
+*/
+
 
 public class Ninja : Basic_Player
 {
@@ -14,7 +24,8 @@ public class Ninja : Basic_Player
     int no_of_coll = 0;
     Kunai kunai; // this is the throw weapon of the player
     Timer Glide_Timer;
-    bool is_gliding;
+    bool is_gliding,is_gliding_availed,is_to_set_glide_to_idle = false;
+
 
 
     public override void _Ready()
@@ -28,19 +39,19 @@ public class Ninja : Basic_Player
 
         is_gliding = false;
 
-
-        kunai = GetNode("Kunai") as Kunai;
-        kunai.SetAsToplevel(true);
-        kunai.Visible = false;
-
-
-        available_moves = new ArrayList() { "attack", "climb", "death", "glide", "idle", "jump", "jump_attack", "run", "slide", "throw" };
-        available_moves_consumption = new int[10] { 0, 0, 0, 2, 0, 0, 5, 0, 0, 10 };
+        available_moves = new ArrayList() { "attack", "climb", "death", "glide", "idle", "jump", "jump_attack", "run", "slide", "shoot" };
+        available_moves_consumption = new int[10] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 };
         available_moves_damage = new int[10] { 20, 0, 0, 5, 0, 5, 50, 0, 3, 100 };
 
-        // attack_move_names = new in
 
         Glide_Timer  = basf.create_timer(1, "Glide_Timer_Out");
+
+
+        can_shoot = true;
+        bullet_scene = ResourceLoader.Load<PackedScene>("res://Weapons_And_Animation/scenes/Kunai.tscn");
+        b_rightchange = 100;
+        b_leftchange = -100;
+        b_height_change = 0;
 
 
 
@@ -57,86 +68,58 @@ public class Ninja : Basic_Player
 
 
         // jump attack move of the ninja
-        if (Input.IsActionJustReleased("Jump_Attack") && !is_on_ground && can_perform_move("Jump_Attack"))
+        if (Input.IsActionJustReleased("Jump_Attack") && !is_on_ground)
         {
-            perform_move("Jump_Attack");
-            advanced_gravity = default_gravity;
+            if(perform_move("Jump_Attack")){
+                reset_para();
+            }
         }
 
         else if (animations.Animation == "Jump_Attack" && is_on_ground)
         {
-            is_busy = false;
+            set_animation_idle("Jump_Attack",is_to_immediately:true);
         }
 
-        set_animation_idle("Jump_Attack");
+        if(animations.Animation == "Shoot"){
+            reset_para();
+        }
 
 
-        // to throw the kunai
-        if (Input.IsActionJustPressed("T") || animations.Animation == "Throw")
-        {
+        if(!is_gliding && !height_checker.IsColliding()){
+            if(!is_gliding_availed || Input.IsActionPressed("T")){
+                is_gliding_availed = true;
+                is_gliding = true;
+            }
+        }
 
-            if (!is_gliding && can_perform_move("Throw", animations.Animation != "Throw"))
-            {
-                // GD.Print("hey I am here in the ninja's code right there..!!");
-                var throw_frame_count = animations.Frame;
-                var throw_total_frame = animations.Frames.GetFrameCount("Throw");
-
-
-                // setting the is_busy to false ones the animation is finished
-                if (throw_frame_count >= throw_total_frame - 1)
-                {
-                    is_busy = false;
-                }
-
-                // checking whether the kunai is visible or not
-                // and if not then making it visible
-                if (!kunai.Visible)
-                {
-                    is_busy = true;
-                    if (animations.Animation != "Throw")
-                    {
-                        animations.Animation = "Throw";
-                    }
-
-                    if (throw_frame_count > throw_total_frame - 3)
-                    {
-                        kunai.Position = this.Position;
-                        kunai.Visible = true;
-
-                        // setting the direction of the kunai
-                        kunai.Kunai_Texture.FlipV = animations.FlipH;
-                    }
+        else if(is_gliding){
+            if(perform_move("Glide")){
+                advanced_gravity = 50;
+                if(Glide_Timer.IsStopped()){
+                    Glide_Timer.Start();
                 }
             }
-
-            is_gliding = false;
+        }
+        if(height_checker.IsColliding()){
+            reset_para();
+            is_gliding_availed = false;
         }
 
-        if (!is_gliding && !height_checker.IsColliding() && !is_on_ground && can_perform_move("Glide", false))
-        {
-            is_gliding = true;
-            // is_busy = true;
-            // animations.Animation = "Glide";
-            perform_move("Glide");
-            advanced_gravity = 50;
-            Glide_Timer.Start();
-        }
-        if (!can_perform_move("Glide", false) && animations.Animation == "Glide")
-        {
-            set_animation_idle("Glide");
-            set_gravity_default();
-        }
 
-        else if (is_gliding && is_on_ground || !is_gliding && advanced_gravity != default_gravity)
-        {
-            is_gliding = false;
-            is_busy = false;
-            advanced_gravity = default_gravity;
-            Glide_Timer.Stop();
+        if(!can_perform_move("Glide",true) && current_move=="Glide" || is_to_set_glide_to_idle){
+            is_to_set_glide_to_idle = true;
+            if(set_animation_idle("Glide")){
+                set_gravity_default();
+                is_to_set_glide_to_idle = false;
+            }
         }
-
 
         // player_variable.player_position = this.animations.Position;
+        set_animation_idle("Jump_Attack");
+        set_animation_idle("Run");
+        set_animation_idle("Jump");
+        set_animation_idle("Shoot");
+
 
         LinearVelocity = moving_speed;
 
@@ -158,7 +141,7 @@ public class Ninja : Basic_Player
     {
         if (animations.Animation == "Glide")
         {
-            power_available -= 10;
+            power_available -= 4;
         }
     }
 
@@ -167,5 +150,11 @@ public class Ninja : Basic_Player
         base.disconnect_all_signals();
         Glide_Timer.Disconnect("timeout",this,"Glide_Timer_Out");
         return true;
+    }
+
+    void reset_para(){
+        is_gliding = false;
+        advanced_gravity = default_gravity;
+        Glide_Timer.Stop();
     }
 }

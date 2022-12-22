@@ -17,7 +17,6 @@ public class Female_Zombie_2 : Basic_Zombie
         available_moves_damage = new int[11] { 1, 2, 3, 0, 0, 0, 0, 0, 0, 4, 0 };
 
         attack_move_names = new ArrayList() { "attack", "attack_2", "attack_3", "scream" };
-        distancing_error = 150;
 
         jump_intensity = 4600;
 

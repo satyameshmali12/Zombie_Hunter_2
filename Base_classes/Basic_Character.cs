@@ -59,6 +59,8 @@ public class Basic_Character : RigidBody2D, Global_Variables_F_A_T
 	[Export]
 	public int jump_intensity = 10000;
 
+	public string current_move = null;
+
 	public readonly int default_gravity = 300;   // to set the gravity to the default wherever needed
 
 	#endregion
@@ -239,6 +241,8 @@ public class Basic_Character : RigidBody2D, Global_Variables_F_A_T
 	{
 		moving_speed = Vector2.Zero;
 
+		current_move = this.animations.Animation;
+
 
 		// in this part first we checked whether the player is on ground and thereby declared whether the player is jumping or not
 		// here the is_on_ground is the whether the player is jumping or not
@@ -305,7 +309,8 @@ public class Basic_Character : RigidBody2D, Global_Variables_F_A_T
 			var is_settled = set_animation_idle(this.animations.Animation);
 			if (is_settled)
 			{
-				is_hitted = false;
+				// is_hitted = false;
+				resettle_of_hitness();
 			}
 		}
 
@@ -396,9 +401,11 @@ public class Basic_Character : RigidBody2D, Global_Variables_F_A_T
 	{
 		if (available_moves.Contains(move_name.ToLower()) && animations.Animation != move_name)
 		{
-			is_busy = is_to_make_busy;
-			animations.Animation = move_name;
-			return true;
+			if(can_perform_move(move_name.ToLower())){
+				is_busy = is_to_make_busy;
+				animations.Animation = move_name;
+				return true;
+			}
 		}
 		return false;
 	}
@@ -424,12 +431,13 @@ public class Basic_Character : RigidBody2D, Global_Variables_F_A_T
 
 	// to set the animation idle
 	// if the animation is settled to idle then it returns true else false
-	public bool set_animation_idle(string animation_name, int decrement_count = 1)
+	public bool set_animation_idle(string animation_name, int decrement_count = 1,bool is_to_immediately = false)
 	{
-		if (animations.Animation == animation_name && animations.Frame == animations.Frames.GetFrameCount(animation_name) - decrement_count)
+		if (animations.Animation == animation_name && animations.Frame == animations.Frames.GetFrameCount(animation_name) - decrement_count || is_to_immediately)
 		{
 			is_busy = false;
 			animations.Animation = "Idle";
+			// GD.Print("hey there ")
 			return true;
 		}
 		return false;
@@ -507,6 +515,12 @@ public class Basic_Character : RigidBody2D, Global_Variables_F_A_T
 		return true;
 	}
 
+	
+	/*<summary>To resettle the some values after the hitting so that the character can hit again in the next move </summary>*/
+	public virtual bool resettle_of_hitness(){
+		is_hitted = false;
+		return true;
+	}
 
 	// this method will  be inherited by the respective child classes of its 
 	// the logic will be as per the strength and the level of the character  

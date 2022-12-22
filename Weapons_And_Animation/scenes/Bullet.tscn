@@ -33,7 +33,7 @@ region = Rect2( 688, 0, 172, 139 )
 animations = [ {
 "frames": [ SubResource( 15 ), SubResource( 16 ), SubResource( 17 ), SubResource( 18 ), SubResource( 19 ) ],
 "loop": true,
-"name": "Bullet",
+"name": "Fire",
 "speed": 15.0
 } ]
 
@@ -41,13 +41,13 @@ animations = [ {
 offsets = PoolRealArray( 0.595238, 0.857143 )
 colors = PoolColorArray( 0.929688, 0.0907898, 0.0907898, 1, 0.945313, 0.559202, 0.0627747, 1 )
 
-[sub_resource type="GradientTexture" id=22]
+[sub_resource type="GradientTexture" id=20]
 gradient = SubResource( 6 )
 
 [sub_resource type="Curve" id=8]
 _data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 0.984293, 0.253143 ), 0.0, 0.0, 0, 0 ]
 
-[sub_resource type="CurveTexture" id=23]
+[sub_resource type="CurveTexture" id=21]
 curve = SubResource( 8 )
 
 [sub_resource type="ParticlesMaterial" id=3]
@@ -62,8 +62,8 @@ orbit_velocity = 0.0
 orbit_velocity_random = 0.0
 scale = 9.0
 scale_random = 0.3
-scale_curve = SubResource( 23 )
-color_ramp = SubResource( 22 )
+scale_curve = SubResource( 21 )
+color_ramp = SubResource( 20 )
 
 [sub_resource type="Animation" id=4]
 resource_name = "New Anim"
@@ -100,13 +100,13 @@ tracks/0/keys = {
 offsets = PoolRealArray( 0.14881, 0.363095, 0.702381, 1 )
 colors = PoolColorArray( 0.982548, 0.168875, 0.168875, 1, 0.194653, 0.904195, 0.153605, 1, 0.375311, 0.923954, 0.0505287, 1, 1, 1, 1, 1 )
 
-[sub_resource type="GradientTexture" id=20]
+[sub_resource type="GradientTexture" id=22]
 gradient = SubResource( 13 )
 
 [sub_resource type="Curve" id=10]
 _data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 0.994764, 0.280813 ), 0.0, 0.0, 0, 0 ]
 
-[sub_resource type="CurveTexture" id=21]
+[sub_resource type="CurveTexture" id=23]
 curve = SubResource( 10 )
 
 [sub_resource type="ParticlesMaterial" id=12]
@@ -118,26 +118,27 @@ initial_velocity = 400.0
 orbit_velocity = 2.0
 orbit_velocity_random = 0.0
 scale = 12.0
-scale_curve = SubResource( 21 )
-color_ramp = SubResource( 20 )
+scale_curve = SubResource( 23 )
+color_ramp = SubResource( 22 )
 
 [node name="Bullet" type="Area2D"]
 script = ExtResource( 5 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 498, 319 )
+position = Vector2( 7, 1.00027 )
 z_index = 1
 shape = SubResource( 1 )
 
 [node name="Animation" type="AnimatedSprite" parent="."]
-position = Vector2( 494, 323 )
+position = Vector2( 3, 5.00024 )
 scale = Vector2( 0.301413, 0.249913 )
 z_index = 2
 frames = SubResource( 2 )
-animation = "Bullet"
+animation = "Fire"
+frame = 4
 
 [node name="Particles2D" type="Particles2D" parent="."]
-position = Vector2( 490, 324 )
+position = Vector2( -1, 6.00027 )
 amount = 40
 process_material = SubResource( 3 )
 
@@ -149,7 +150,7 @@ anims/RESET = SubResource( 5 )
 wait_time = 10.0
 
 [node name="Collision_Animation" type="Particles2D" parent="."]
-position = Vector2( 527, 318 )
+position = Vector2( 36, 0.000274658 )
 emitting = false
 amount = 40
 lifetime = 0.2
@@ -158,13 +159,13 @@ explosiveness = 1.0
 process_material = SubResource( 12 )
 
 [node name="Shoot_Sound" type="AudioStreamPlayer2D" parent="."]
-position = Vector2( -99, 7.99973 )
+position = Vector2( -590, -310 )
 scale = Vector2( 0.665575, 0.708632 )
 stream = ExtResource( 2 )
 autoplay = true
 
 [node name="Bullet_Collision_Sound" type="AudioStreamPlayer2D" parent="."]
-position = Vector2( -99, 7.99973 )
+position = Vector2( -590, -310 )
 scale = Vector2( 0.665575, 0.708632 )
 stream = ExtResource( 3 )
 autoplay = true

@@ -111,7 +111,7 @@ scale_curve = SubResource( 9 )
 color = Color( 1, 0.0431373, 0.0431373, 1 )
 
 [node name="Male_Zombie" type="RigidBody2D"]
-position = Vector2( -5, -2 )
+position = Vector2( 526, 328 )
 mode = 2
 mass = 0.816326
 physics_material_override = SubResource( 3 )
@@ -122,7 +122,7 @@ contact_monitor = true
 script = ExtResource( 46 )
 
 [node name="Movements" type="AnimatedSprite" parent="."]
-position = Vector2( 591, 388 )
+position = Vector2( -2, 4 )
 scale = Vector2( 0.240698, 0.278902 )
 z_index = 1
 frames = SubResource( 2 )
@@ -131,11 +131,11 @@ frame = 1
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 587, 397 )
+position = Vector2( -6, 13 )
 shape = SubResource( 1 )
 
 [node name="Rays" type="Node2D" parent="."]
-position = Vector2( -2, -80 )
+position = Vector2( -595, -464 )
 
 [node name="Jump_Ray_1" type="RayCast2D" parent="Rays"]
 position = Vector2( 590, 521 )
@@ -156,7 +156,7 @@ cast_to = Vector2( -29, 20 )
 collide_with_areas = true
 
 [node name="Left_Collision_Rays" type="Node2D" parent="."]
-position = Vector2( 4, -76 )
+position = Vector2( -589, -460 )
 
 [node name="Left_Collision_Ray_1" type="RayCast2D" parent="Left_Collision_Rays"]
 position = Vector2( 549, 471 )
@@ -174,7 +174,7 @@ cast_to = Vector2( -16, 0 )
 collide_with_areas = true
 
 [node name="Right_Collision_Rays" type="Node2D" parent="."]
-position = Vector2( 12, -74 )
+position = Vector2( -581, -458 )
 
 [node name="Left_Collision_Ray_1" type="RayCast2D" parent="Right_Collision_Rays"]
 position = Vector2( 610, 442 )
@@ -189,37 +189,37 @@ position = Vector2( 610, 469 )
 cast_to = Vector2( 16, 1 )
 
 [node name="Left_Upward_Ray" type="RayCast2D" parent="."]
-position = Vector2( 552, 352 )
+position = Vector2( -41, -32 )
 enabled = true
 cast_to = Vector2( -45, -98 )
 collide_with_areas = true
 
 [node name="Right_Upward_Ray" type="RayCast2D" parent="."]
-position = Vector2( 624, 356 )
+position = Vector2( 31, -28 )
 enabled = true
 cast_to = Vector2( 33, -87 )
 collide_with_areas = true
 
 [node name="Upward_Ray" type="RayCast2D" parent="."]
-position = Vector2( 587, 330 )
+position = Vector2( -6, -54 )
 enabled = true
 cast_to = Vector2( -3, -104 )
 collide_with_areas = true
 
 [node name="Height_Checker" type="RayCast2D" parent="."]
-position = Vector2( 588, 439 )
+position = Vector2( -5, 55 )
 enabled = true
 cast_to = Vector2( 5, 153 )
 
 [node name="Fall_Down_Left_Rays" type="Node2D" parent="."]
-position = Vector2( 101, -72 )
+position = Vector2( -492, -456 )
 
 [node name="Fall_Detection_Left_1" type="RayCast2D" parent="Fall_Down_Left_Rays"]
 position = Vector2( 487, 513 )
 cast_to = Vector2( -60, 209 )
 
 [node name="Fall_Down_Right_Rays" type="Node2D" parent="."]
-position = Vector2( 1, -72 )
+position = Vector2( -592, -456 )
 
 [node name="Fall_Detection_Right_1" type="RayCast2D" parent="Fall_Down_Right_Rays"]
 position = Vector2( 588, 517 )
@@ -229,10 +229,10 @@ cast_to = Vector2( 64, 207 )
 modulate = Color( 0, 1, 0.227451, 1 )
 self_modulate = Color( 1, 1, 1, 1 )
 material = SubResource( 4 )
-margin_left = 531.0
-margin_top = 292.0
-margin_right = 641.0
-margin_bottom = 315.0
+margin_left = -62.0
+margin_top = -92.0
+margin_right = 48.0
+margin_bottom = -69.0
 theme = SubResource( 5 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_colors/font_color_shadow = Color( 0.0313726, 1, 0.321569, 1 )
@@ -240,7 +240,7 @@ custom_styles/fg = SubResource( 10 )
 custom_styles/bg = SubResource( 11 )
 
 [node name="Blood_Animation" type="Particles2D" parent="."]
-position = Vector2( 588, 395 )
+position = Vector2( -5, 11 )
 emitting = false
 amount = 20
 lifetime = 0.5

@@ -27,7 +27,7 @@ public class Basic_Throwable_Weapon : Area2D, Global_Variables_F_A_T
 
 
     Particles2D collision_animation;
-    AnimatedSprite animation;
+    public AnimatedSprite animation;
 
     AudioStreamPlayer2D collision_sound, shoot_sound;
 
@@ -35,6 +35,13 @@ public class Basic_Throwable_Weapon : Area2D, Global_Variables_F_A_T
     public int shoot_sound_duration = 1;
     public float collision_sound_start_point = .5f;
     public int max_screen_time = 10;
+    
+    // for controlling the max number of hits a weapon can do in its lifetime
+    public int current_hit = 0;
+    public int max_hits = 5;
+
+    // may due to some reason of sprites we may need to rotate the image from vertically instead of horizontally
+    public bool is_to_flip_vertically = false;
 
 
     public override void _Ready()
@@ -48,6 +55,8 @@ public class Basic_Throwable_Weapon : Area2D, Global_Variables_F_A_T
         is_collided = false;
 
         animation = GetNode<AnimatedSprite>("Animation");
+        animation.Animation = "Fire";
+        animation.Play();
 
         // the max time a weapon can stay on the screen
         var new_timer = basf.create_timer(max_screen_time, "Life_Finished");
@@ -92,6 +101,8 @@ public class Basic_Throwable_Weapon : Area2D, Global_Variables_F_A_T
 
     public virtual void Collided_With_An_Obj(Node2D body)
     {
+        var is_collided_to_character = false;
+        var is_damage_given = false;
 
         Global_Variables_F_A_T collided_body = body as Global_Variables_F_A_T;
         if (this.animation.Visible)
@@ -99,11 +110,16 @@ public class Basic_Throwable_Weapon : Area2D, Global_Variables_F_A_T
             if (collided_body._node_type == _Type_of_.Zombie)
             {
                 Basic_Character collided_player = collided_body as Basic_Character;
-
-                collided_player.change_health(-(damage + (int)(weapon_speed / 100 * 20)));
+                is_collided_to_character = true;
+                if(collided_player.health!=0){
+                    collided_player.change_health(-(damage + (int)(weapon_speed / 100 * 20)));
+                    basf.global_Variables.increment_score(damage);
+                    is_damage_given = true;
+                }
             }
             else if (collided_body._node_type == _Type_of_.Block)
             {
+                current_hit = max_hits;
                 TileMap tileMap = body as TileMap;
                 var tiles_position = tileMap.GetUsedCells();
                 // foreach (Vector2 item in tiles_position)
@@ -114,9 +130,14 @@ public class Basic_Throwable_Weapon : Area2D, Global_Variables_F_A_T
                 // tileMap.TileSet.RemoveTile(tileMap.GetCell((int)tile_position.x,(int)tile_position.y));
             }
         }
-        is_collided = true;
-        this.animation.Visible = false;
-        collision_animation.Emitting = true;
+        if(is_collided_to_character && is_damage_given || !is_collided_to_character){
+            current_hit++;
+        }
+        if(current_hit>=max_hits){
+            is_collided = true;
+            this.animation.Visible = false;
+            collision_animation.Emitting = true;
+        }
 
 
         // playing the collision sound from a specific point of it
@@ -143,9 +164,15 @@ public class Basic_Throwable_Weapon : Area2D, Global_Variables_F_A_T
         }
 
         var bullet_animation = this.GetNode<AnimatedSprite>("Animation");
-        bullet_animation.FlipH = (dir == Direction.Right) ? false : true;
+        if(!is_to_flip_vertically){
+            bullet_animation.FlipH = (dir == Direction.Right) ? false : true;
+        }
+        else{
+            GD.Print("hey their right fomr the basic_throwable_weapon and working for the kunai right now hahah..!!");
+            bullet_animation.FlipV = (dir == Direction.Right) ? false : true;
+        }
         moving_speed = (dir == Direction.Right) ? new Vector2(weapon_speed, 0) : new Vector2(-weapon_speed, 0);
 
     }
-    
+
 }

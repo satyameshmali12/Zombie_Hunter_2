@@ -53,6 +53,11 @@ public class Basic_Player : Basic_Character
     #endregion
 
 
+    
+    int number_of_hits = 0;
+    public int max_number_hits = 1;
+
+
 
 
     public void custom_constructor(int speed, int jump_intensity, int health = 100, string basic_attack_name = "Attack")
@@ -223,7 +228,7 @@ public class Basic_Player : Basic_Character
         #region data_transfer to the global script
         // passing the data of the player to the player or global script
         // to perform all the other logics
-        global_variables.player_position = this.Position;
+        global_variables.player_position = this.Position+this.GetNode<AnimatedSprite>("Movements").Position;
         #endregion
 
 
@@ -270,7 +275,7 @@ public class Basic_Player : Basic_Character
         Global_Variables_F_A_T collided_one = collided_obj as Global_Variables_F_A_T;
         if (collided_one._node_type == _Type_of_.Zombie)
         {
-            if (!is_hitted)
+            if (number_of_hits<max_number_hits)
             {
                 Basic_Zombie collided_zombie = (Basic_Zombie)collided_one;
                 GD.Print(damage_increment);
@@ -280,6 +285,7 @@ public class Basic_Player : Basic_Character
                 collided_zombie.change_health(-damage);
                 basf.global_Variables.score += damage;
                 is_hitted = true;
+                number_of_hits++;
             }
         }
     }
@@ -323,9 +329,16 @@ public class Basic_Player : Basic_Character
     /// <summary>It is the function which is used while player wanted to shooted thus we add all the adding logic on this as per the character or players needed.</summary>
     public virtual void fire_bullet(){
         add_new_bullet_action(is_on_ground,"Shoot");
+        // GD.Print("hey there the bullet is been added on the screen are you able to see it right from the basic_player.cs..!!");
         // GD.Print("right form the basic_player adding the bullet hahah..!!");
     }
 
+    public override bool resettle_of_hitness()
+    {
+        base.resettle_of_hitness();
+        number_of_hits = 0;
+        return true;
+    }
 
 
 

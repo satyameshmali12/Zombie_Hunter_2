@@ -95,8 +95,10 @@ public class Global_Variables : Node2D
         {
             basf.create_a_sound(click_sound, current_scene, true);
         }
+    }
 
-
+    public void increment_score(int increment){
+        score+=increment;
     }
 
 }

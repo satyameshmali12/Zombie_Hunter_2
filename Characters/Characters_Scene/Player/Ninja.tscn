@@ -381,46 +381,6 @@ region = Rect2( 2904, 0, 363, 458 )
 atlas = ExtResource( 11 )
 region = Rect2( 3267, 0, 363, 458 )
 
-[sub_resource type="AtlasTexture" id=94]
-atlas = ExtResource( 9 )
-region = Rect2( 0, 0, 373, 351 )
-
-[sub_resource type="AtlasTexture" id=95]
-atlas = ExtResource( 9 )
-region = Rect2( 373, 0, 373, 351 )
-
-[sub_resource type="AtlasTexture" id=96]
-atlas = ExtResource( 9 )
-region = Rect2( 746, 0, 373, 351 )
-
-[sub_resource type="AtlasTexture" id=97]
-atlas = ExtResource( 9 )
-region = Rect2( 1119, 0, 373, 351 )
-
-[sub_resource type="AtlasTexture" id=98]
-atlas = ExtResource( 9 )
-region = Rect2( 1492, 0, 373, 351 )
-
-[sub_resource type="AtlasTexture" id=99]
-atlas = ExtResource( 9 )
-region = Rect2( 1865, 0, 373, 351 )
-
-[sub_resource type="AtlasTexture" id=100]
-atlas = ExtResource( 9 )
-region = Rect2( 2238, 0, 373, 351 )
-
-[sub_resource type="AtlasTexture" id=101]
-atlas = ExtResource( 9 )
-region = Rect2( 2611, 0, 373, 351 )
-
-[sub_resource type="AtlasTexture" id=102]
-atlas = ExtResource( 9 )
-region = Rect2( 2984, 0, 373, 351 )
-
-[sub_resource type="AtlasTexture" id=103]
-atlas = ExtResource( 9 )
-region = Rect2( 3357, 0, 373, 351 )
-
 [sub_resource type="AtlasTexture" id=104]
 atlas = ExtResource( 8 )
 region = Rect2( 0, 0, 377, 451 )
@@ -460,6 +420,46 @@ region = Rect2( 3016, 0, 377, 451 )
 [sub_resource type="AtlasTexture" id=113]
 atlas = ExtResource( 8 )
 region = Rect2( 3393, 0, 377, 451 )
+
+[sub_resource type="AtlasTexture" id=94]
+atlas = ExtResource( 9 )
+region = Rect2( 0, 0, 373, 351 )
+
+[sub_resource type="AtlasTexture" id=95]
+atlas = ExtResource( 9 )
+region = Rect2( 373, 0, 373, 351 )
+
+[sub_resource type="AtlasTexture" id=96]
+atlas = ExtResource( 9 )
+region = Rect2( 746, 0, 373, 351 )
+
+[sub_resource type="AtlasTexture" id=97]
+atlas = ExtResource( 9 )
+region = Rect2( 1119, 0, 373, 351 )
+
+[sub_resource type="AtlasTexture" id=98]
+atlas = ExtResource( 9 )
+region = Rect2( 1492, 0, 373, 351 )
+
+[sub_resource type="AtlasTexture" id=99]
+atlas = ExtResource( 9 )
+region = Rect2( 1865, 0, 373, 351 )
+
+[sub_resource type="AtlasTexture" id=100]
+atlas = ExtResource( 9 )
+region = Rect2( 2238, 0, 373, 351 )
+
+[sub_resource type="AtlasTexture" id=101]
+atlas = ExtResource( 9 )
+region = Rect2( 2611, 0, 373, 351 )
+
+[sub_resource type="AtlasTexture" id=102]
+atlas = ExtResource( 9 )
+region = Rect2( 2984, 0, 373, 351 )
+
+[sub_resource type="AtlasTexture" id=103]
+atlas = ExtResource( 9 )
+region = Rect2( 3357, 0, 373, 351 )
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -508,15 +508,15 @@ animations = [ {
 "name": "Run",
 "speed": 14.0
 }, {
+"frames": [ SubResource( 104 ), SubResource( 105 ), SubResource( 106 ), SubResource( 107 ), SubResource( 108 ), SubResource( 109 ), SubResource( 110 ), SubResource( 111 ), SubResource( 112 ), SubResource( 113 ) ],
+"loop": true,
+"name": "Shoot",
+"speed": 14.0
+}, {
 "frames": [ SubResource( 94 ), SubResource( 95 ), SubResource( 96 ), SubResource( 97 ), SubResource( 98 ), SubResource( 99 ), SubResource( 100 ), SubResource( 101 ), SubResource( 102 ), SubResource( 103 ) ],
 "loop": true,
 "name": "Slide",
 "speed": 15.0
-}, {
-"frames": [ SubResource( 104 ), SubResource( 105 ), SubResource( 106 ), SubResource( 107 ), SubResource( 108 ), SubResource( 109 ), SubResource( 110 ), SubResource( 111 ), SubResource( 112 ), SubResource( 113 ) ],
-"loop": true,
-"name": "Throw",
-"speed": 14.0
 } ]
 
 [sub_resource type="CapsuleShape2D" id=2]
@@ -541,7 +541,7 @@ scale_curve = SubResource( 117 )
 color = Color( 0.933333, 0, 1, 1 )
 
 [node name="Ninja" type="RigidBody2D"]
-position = Vector2( 101, 43 )
+position = Vector2( 507, 452 )
 mode = 2
 mass = 0.816326
 physics_material_override = SubResource( 3 )
@@ -554,20 +554,21 @@ __meta__ = {
 }
 
 [node name="Camera" parent="." instance=ExtResource( 113 )]
-position = Vector2( 367, 125 )
+position = Vector2( -1, -211 )
 
 [node name="Movements" type="AnimatedSprite" parent="."]
-position = Vector2( 367, 266 )
+position = Vector2( -3, 40.0001 )
 scale = Vector2( 0.225746, 0.321717 )
 z_index = 1
 frames = SubResource( 1 )
 animation = "Idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 367, 264 )
+position = Vector2( -3, 38 )
 shape = SubResource( 2 )
 
 [node name="Rays" type="Node2D" parent="."]
+position = Vector2( -370, -226 )
 
 [node name="Jump_Ray_1" type="RayCast2D" parent="Rays"]
 position = Vector2( 368, 305 )
@@ -593,18 +594,18 @@ cast_to = Vector2( -39, 22 )
 collide_with_areas = true
 
 [node name="Kunai" parent="." instance=ExtResource( 111 )]
-position = Vector2( -488, -152 )
+visible = false
 
 [node name="Height_Checker" type="RayCast2D" parent="."]
-position = Vector2( 372, 306 )
+position = Vector2( 2, 80 )
 enabled = true
 cast_to = Vector2( -4, 398 )
 
 [node name="Game_Gui" parent="." instance=ExtResource( 115 )]
-position = Vector2( -249, -178 )
+position = Vector2( -618, -515 )
 
 [node name="Left_Collision_Rays" type="Node2D" parent="."]
-position = Vector2( 4, -4 )
+position = Vector2( -366, -230 )
 
 [node name="Left_Collision_Ray_1" type="RayCast2D" parent="Left_Collision_Rays"]
 position = Vector2( 327, 280 )
@@ -623,7 +624,7 @@ position = Vector2( 328, 229 )
 cast_to = Vector2( -140, 0 )
 
 [node name="Right_Collision_Rays" type="Node2D" parent="."]
-position = Vector2( 105, -8 )
+position = Vector2( -265, -234 )
 
 [node name="Left_Collision_Ray_1" type="RayCast2D" parent="Right_Collision_Rays"]
 position = Vector2( 299, 283 )
@@ -642,7 +643,7 @@ position = Vector2( 300, 232 )
 cast_to = Vector2( 140, 0 )
 
 [node name="Blood_Animation" type="Particles2D" parent="."]
-position = Vector2( 369, 272 )
+position = Vector2( -1, 46 )
 amount = 50
 lifetime = 0.4
 explosiveness = 0.4

@@ -1,19 +1,21 @@
 using Godot;
 using System;
 
-public class Kunai:Basic_Throwable_Weapon
+public class Blade : Basic_Throwable_Weapon
 {
-	
+    // Declare member variables here. Examples:
+    // private int a = 2;
+    // private string b = "text";
+
+    // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
         base._Ready();
-        damage = 40;
-        weapon_speed = 10;
-		is_to_flip_vertically = true;
-		var parent = this.GetParent<Basic_Character>();
-		animation.FlipV = (parent.moving_direction == Direction.Right) ? false : true;
+        damage = 55;
+        weapon_speed = 12;
+        
     }
-
+    
     public override void _Process(float delta)
     {
         base._Process(delta);        
@@ -28,5 +30,4 @@ public class Kunai:Basic_Throwable_Weapon
     }
 
 
-	
 }

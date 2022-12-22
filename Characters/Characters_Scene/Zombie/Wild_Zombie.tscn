@@ -378,7 +378,7 @@ corner_radius_bottom_left = 10
 [sub_resource type="StyleBoxFlat" id=80]
 
 [node name="Wild_Zombie" type="RigidBody2D"]
-position = Vector2( 2, 7 )
+position = Vector2( 546, 289 )
 mode = 2
 mass = 0.816326
 physics_material_override = SubResource( 73 )
@@ -388,12 +388,12 @@ contact_monitor = true
 script = ExtResource( 11 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 542, 444 )
+position = Vector2( -4, 7 )
 z_index = 1
 shape = SubResource( 1 )
 
 [node name="Movements" type="AnimatedSprite" parent="."]
-position = Vector2( 435, 231 )
+position = Vector2( -111, -206 )
 scale = Vector2( 2.28125, 2.83333 )
 z_index = 1
 frames = SubResource( 6 )
@@ -401,7 +401,7 @@ animation = "Idle"
 centered = false
 
 [node name="Rays" type="Node2D" parent="."]
-position = Vector2( -47.0001, -9 )
+position = Vector2( -593, -446 )
 scale = Vector2( 1.00121, 1.02393 )
 
 [node name="Jump_Ray_1" type="RayCast2D" parent="Rays"]
@@ -420,7 +420,7 @@ enabled = true
 cast_to = Vector2( -29, 35 )
 
 [node name="Left_Collision_Rays" type="Node2D" parent="."]
-position = Vector2( -48, -13 )
+position = Vector2( -594, -450 )
 
 [node name="Left_Collision_Ray_1" type="RayCast2D" parent="Left_Collision_Rays"]
 position = Vector2( 549, 471 )
@@ -447,7 +447,7 @@ cast_to = Vector2( -16, 0 )
 collide_with_areas = true
 
 [node name="Right_Collision_Rays" type="Node2D" parent="."]
-position = Vector2( -26, -7 )
+position = Vector2( -572, -444 )
 __meta__ = {
 "_editor_description_": "Second Most Powerfull Zombie of the game"
 }
@@ -477,7 +477,7 @@ cast_to = Vector2( 16, 1 )
 collide_with_areas = true
 
 [node name="Left_Upward_Ray" type="RayCast2D" parent="."]
-position = Vector2( 505, 394 )
+position = Vector2( -41, -43 )
 enabled = true
 cast_to = Vector2( -15, -139 )
 collide_with_areas = true
@@ -487,39 +487,39 @@ __meta__ = {
 }
 
 [node name="Right_Upward_Ray" type="RayCast2D" parent="."]
-position = Vector2( 571, 387 )
+position = Vector2( 25, -50 )
 enabled = true
 cast_to = Vector2( 14, -139 )
 collide_with_areas = true
 
 [node name="Upward_Ray" type="RayCast2D" parent="."]
-position = Vector2( 540, 372 )
+position = Vector2( -6, -65 )
 enabled = true
 cast_to = Vector2( -1, -81 )
 collide_with_areas = true
 
 [node name="Height_Checker" type="RayCast2D" parent="."]
-position = Vector2( 545, 503 )
+position = Vector2( -1, 66 )
 scale = Vector2( 2.28125, 2.83333 )
 enabled = true
 cast_to = Vector2( 2.19177, 100.235 )
 
 [node name="Fall_Down_Left_Rays" type="Node2D" parent="."]
-position = Vector2( -81, 111 )
+position = Vector2( -627, -326 )
 
 [node name="Fall_Detection_Left_1" type="RayCast2D" parent="Fall_Down_Left_Rays"]
 position = Vector2( 595, 394 )
 cast_to = Vector2( -45, 266 )
 
 [node name="Fall_Down_Right_Rays" type="Node2D" parent="."]
-position = Vector2( -181, 111 )
+position = Vector2( -727, -326 )
 
 [node name="Fall_Detection_Right_1" type="RayCast2D" parent="Fall_Down_Right_Rays"]
 position = Vector2( 759, 394 )
 cast_to = Vector2( 58, 258 )
 
 [node name="Blood_Animation" type="Particles2D" parent="."]
-position = Vector2( 549, 452 )
+position = Vector2( 3, 15 )
 emitting = false
 amount = 20
 lifetime = 0.5
@@ -532,10 +532,10 @@ texture = ExtResource( 12 )
 modulate = Color( 1, 1, 1, 1 )
 self_modulate = Color( 0, 1, 0.372549, 1 )
 material = SubResource( 77 )
-margin_left = 486.0
-margin_top = 330.0
-margin_right = 596.0
-margin_bottom = 353.0
+margin_left = -60.0
+margin_top = -107.0
+margin_right = 50.0
+margin_bottom = -84.0
 theme = SubResource( 78 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_styles/fg = SubResource( 79 )

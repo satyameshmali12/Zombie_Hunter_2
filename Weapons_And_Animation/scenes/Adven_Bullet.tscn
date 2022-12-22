@@ -9,7 +9,7 @@
 animations = [ {
 "frames": [ ExtResource( 1 ) ],
 "loop": true,
-"name": "Bullet",
+"name": "Fire",
 "speed": 5.0
 } ]
 
@@ -43,7 +43,7 @@ script = ExtResource( 2 )
 position = Vector2( -60.0719, 5.21119 )
 scale = Vector2( 0.543194, 0.569011 )
 frames = SubResource( 1 )
-animation = "Bullet"
+animation = "Fire"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( -99, 7.99976 )

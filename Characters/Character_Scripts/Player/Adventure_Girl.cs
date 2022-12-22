@@ -19,9 +19,9 @@ public class Adventure_Girl : Basic_Player
         bullet_scene = ResourceLoader.Load<PackedScene>("res://Weapons_And_Animation/scenes/Adven_Bullet.tscn");
 
 
-        b_rightchange = 550;
-        b_leftchange = 350;
-        b_height_change = 490;
+        b_rightchange = 100;
+        b_leftchange = -100;
+        b_height_change = 0;
         
     }
 

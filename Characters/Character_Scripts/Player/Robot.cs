@@ -48,9 +48,9 @@ public class Robot : Basic_Player
         
 
         bullet_scene = ResourceLoader.Load<PackedScene>("res://Weapons_And_Animation/scenes/Bullet.tscn");
-        b_rightchange = -50;
-        b_leftchange = -300;
-        b_height_change = -50;
+        b_rightchange = 100;
+        b_leftchange = -100;
+        b_height_change = 0;
 
         bullet_timer = GetNode<Timer>("Bullet_Timer");
 
@@ -86,20 +86,11 @@ public class Robot : Basic_Player
                 }
             }
 
-            // var shoot_pressed = Input.IsActionPressed("S");
-            // var shooting_condition = animations.Animation!="Shoot" && animations.Animation!="Jump_Shoot" && animations.Animation!="Run_Shoot";
 
-            // if (Input.IsActionPressed("Shift") && shoot_pressed && shooting_condition)
-            // {
-            //     add_new_bullet_action(is_on_ground,"Shoot");
-            //     add_new_bullet_action(!is_on_ground,"Jump_Shoot");
-            // }
-
-
-
-            if(moving_speed.x!=0 && is_on_ground && shoot_pressed && shooting_condition && can_perform_move("Run_Shoot".ToLower())){
-                perform_move("Run_Shoot");
-                add_new_bullet(20);
+            if(moving_speed.x!=0 && is_on_ground && shoot_pressed && shooting_condition){
+                if(perform_move("Run_Shoot")){
+                    add_new_bullet(20);
+                }
             }
 
 

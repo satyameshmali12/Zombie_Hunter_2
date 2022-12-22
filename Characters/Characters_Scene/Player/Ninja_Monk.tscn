@@ -59,30 +59,6 @@ region = Rect2( 288, 0, 96, 96 )
 atlas = ExtResource( 2 )
 region = Rect2( 384, 0, 96, 96 )
 
-[sub_resource type="AtlasTexture" id=12]
-atlas = ExtResource( 3 )
-region = Rect2( 0, 0, 96, 96 )
-
-[sub_resource type="AtlasTexture" id=13]
-atlas = ExtResource( 3 )
-region = Rect2( 96, 0, 96, 96 )
-
-[sub_resource type="AtlasTexture" id=14]
-atlas = ExtResource( 3 )
-region = Rect2( 192, 0, 96, 96 )
-
-[sub_resource type="AtlasTexture" id=15]
-atlas = ExtResource( 3 )
-region = Rect2( 288, 0, 96, 96 )
-
-[sub_resource type="AtlasTexture" id=16]
-atlas = ExtResource( 3 )
-region = Rect2( 384, 0, 96, 96 )
-
-[sub_resource type="AtlasTexture" id=17]
-atlas = ExtResource( 3 )
-region = Rect2( 480, 0, 96, 96 )
-
 [sub_resource type="AtlasTexture" id=18]
 atlas = ExtResource( 4 )
 region = Rect2( 0, 0, 96, 96 )
@@ -235,6 +211,30 @@ region = Rect2( 576, 0, 96, 96 )
 atlas = ExtResource( 9 )
 region = Rect2( 672, 0, 96, 96 )
 
+[sub_resource type="AtlasTexture" id=12]
+atlas = ExtResource( 3 )
+region = Rect2( 0, 0, 96, 96 )
+
+[sub_resource type="AtlasTexture" id=13]
+atlas = ExtResource( 3 )
+region = Rect2( 96, 0, 96, 96 )
+
+[sub_resource type="AtlasTexture" id=14]
+atlas = ExtResource( 3 )
+region = Rect2( 192, 0, 96, 96 )
+
+[sub_resource type="AtlasTexture" id=15]
+atlas = ExtResource( 3 )
+region = Rect2( 288, 0, 96, 96 )
+
+[sub_resource type="AtlasTexture" id=16]
+atlas = ExtResource( 3 )
+region = Rect2( 384, 0, 96, 96 )
+
+[sub_resource type="AtlasTexture" id=17]
+atlas = ExtResource( 3 )
+region = Rect2( 480, 0, 96, 96 )
+
 [sub_resource type="AtlasTexture" id=56]
 atlas = ExtResource( 10 )
 region = Rect2( 0, 0, 96, 96 )
@@ -273,12 +273,7 @@ animations = [ {
 "frames": [ SubResource( 7 ), SubResource( 8 ), SubResource( 9 ), SubResource( 10 ), SubResource( 11 ) ],
 "loop": true,
 "name": "Attack_2",
-"speed": 9.0
-}, {
-"frames": [ SubResource( 12 ), SubResource( 13 ), SubResource( 14 ), SubResource( 15 ), SubResource( 16 ), SubResource( 17 ) ],
-"loop": true,
-"name": "Blade",
-"speed": 8.0
+"speed": 10.0
 }, {
 "frames": [ SubResource( 18 ), SubResource( 19 ), SubResource( 20 ), SubResource( 21 ), SubResource( 22 ) ],
 "loop": true,
@@ -303,12 +298,17 @@ animations = [ {
 "frames": [ SubResource( 39 ), SubResource( 40 ), SubResource( 41 ), SubResource( 42 ), SubResource( 43 ), SubResource( 44 ), SubResource( 45 ), SubResource( 46 ), SubResource( 47 ) ],
 "loop": true,
 "name": "Jump",
-"speed": 5.0
+"speed": 15.0
 }, {
 "frames": [ SubResource( 48 ), SubResource( 49 ), SubResource( 50 ), SubResource( 51 ), SubResource( 52 ), SubResource( 53 ), SubResource( 54 ), SubResource( 55 ) ],
 "loop": true,
 "name": "Run",
 "speed": 10.0
+}, {
+"frames": [ SubResource( 12 ), SubResource( 13 ), SubResource( 14 ), SubResource( 15 ), SubResource( 16 ), SubResource( 17 ) ],
+"loop": true,
+"name": "Shoot",
+"speed": 8.0
 }, {
 "frames": [ SubResource( 56 ), SubResource( 57 ), SubResource( 58 ), SubResource( 59 ), SubResource( 60 ), SubResource( 61 ), SubResource( 62 ) ],
 "loop": true,
@@ -338,7 +338,7 @@ scale_curve = SubResource( 115 )
 color = Color( 0.0980392, 0, 0.105882, 1 )
 
 [node name="Ninja_Monk" type="RigidBody2D"]
-position = Vector2( 16, 16 )
+position = Vector2( 528, 552 )
 mode = 2
 mass = 0.816326
 physics_material_override = SubResource( 118 )
@@ -348,14 +348,15 @@ contact_monitor = true
 script = ExtResource( 13 )
 
 [node name="Movements" type="AnimatedSprite" parent="."]
-position = Vector2( 536, 405.156 )
+position = Vector2( 3.05176e-05, 5.15601 )
 scale = Vector2( 2.10156, 2.27409 )
 z_index = 1
 frames = SubResource( 63 )
-animation = "Idle"
+animation = "Jump"
+frame = 7
 
 [node name="Rays" type="Node2D" parent="."]
-position = Vector2( 168, 184 )
+position = Vector2( -368, -216 )
 
 [node name="Jump_Ray_1" type="RayCast2D" parent="Rays"]
 position = Vector2( 368, 305 )
@@ -381,14 +382,14 @@ cast_to = Vector2( -63, 46 )
 collide_with_areas = true
 
 [node name="Camera" parent="." instance=ExtResource( 11 )]
-position = Vector2( 504, 200 )
+position = Vector2( -32, -200 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 536, 416 )
+position = Vector2( 0, 16 )
 shape = SubResource( 64 )
 
 [node name="Left_Collision_Rays" type="Node2D" parent="."]
-position = Vector2( 160, 144 )
+position = Vector2( -376, -256 )
 
 [node name="Left_Collision_Ray_1" type="RayCast2D" parent="Left_Collision_Rays"]
 position = Vector2( 327, 280 )
@@ -407,7 +408,7 @@ position = Vector2( 328, 229 )
 cast_to = Vector2( -150, 0 )
 
 [node name="Right_Collision_Rays" type="Node2D" parent="."]
-position = Vector2( 288, 136 )
+position = Vector2( -248, -264 )
 
 [node name="Left_Collision_Ray_1" type="RayCast2D" parent="Right_Collision_Rays"]
 position = Vector2( 299, 283 )
@@ -426,15 +427,15 @@ position = Vector2( 300, 232 )
 cast_to = Vector2( 150, 0 )
 
 [node name="Game_Gui" parent="." instance=ExtResource( 12 )]
-position = Vector2( -136, -128 )
+position = Vector2( -672, -528 )
 
 [node name="Height_Checker" type="RayCast2D" parent="."]
-position = Vector2( 536, 512 )
+position = Vector2( 0, 112 )
 enabled = true
 cast_to = Vector2( -4, 398 )
 
 [node name="Blood_Animation" type="Particles2D" parent="."]
-position = Vector2( 536, 416 )
+position = Vector2( 0, 16 )
 emitting = false
 amount = 60
 lifetime = 0.6

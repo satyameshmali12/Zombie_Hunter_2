@@ -19,7 +19,6 @@ public class Wild_Zombie : Basic_Zombie
 
         attack_move_names = new ArrayList() { "attack", "attack_2", "attack_3", "eating" };
 
-        distancing_error = 200;
 
         jump_intensity = 6500;
 

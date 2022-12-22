@@ -6,8 +6,7 @@ using System.Collections;
 
 public class Basic_Zombie : Basic_Character
 {
-
-    public int distancing_error;
+    
 
     // this will help us know all the attack a zombie have 
     // as different zombies will have their respective attack (attack_name)
@@ -33,6 +32,8 @@ public class Basic_Zombie : Basic_Character
 
     public ArrayList groan_sound_urls;
 
+    // this will be used by the character if there will be any issure regarding the distance between the playe and the specific zombie 
+    public int distancing_error;
 
 
 
@@ -45,7 +46,6 @@ public class Basic_Zombie : Basic_Character
         _node_type = _Type_of_.Zombie;
 
         kill_score_increment = 10;
-
         colliding_condition = "player";
 
 
@@ -222,15 +222,16 @@ public class Basic_Zombie : Basic_Character
 
                 string random_attack = (string)attack_move_names[Convert.ToInt32(GD.RandRange(0, attack_move_names.Count - 1))];
 
-                if (can_perform_move(random_attack, true))
-                {
+                // if (can_perform_move(random_attack,false))
+                // {
                     // is_attacking = true;
+
                     // converting the first character of the string to the upper case
-                    var edited_attack_name = $"{random_attack.ToUpper()[0]}{random_attack.Substring(1, random_attack.Length - 1)}";
+                var edited_attack_name = $"{random_attack.ToUpper()[0]}{random_attack.Substring(1, random_attack.Length - 1)}";
 
-                    perform_move(edited_attack_name);
+                perform_move(edited_attack_name);
 
-                }
+                // }
             }
         }
 

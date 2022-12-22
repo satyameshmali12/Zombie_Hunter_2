@@ -24,7 +24,6 @@ public class Male_Zombie_2 : Basic_Zombie
 
         attack_move_names = new ArrayList() { "attack", "attack_2", "attack_3", "bite" };
 
-        distancing_error = 300;
 
         can_jump_over = true;
 
