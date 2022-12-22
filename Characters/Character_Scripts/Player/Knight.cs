@@ -20,7 +20,6 @@ public class Knight : Basic_Player
 		available_moves = new ArrayList(){"attack","death","idle","jump","jump_attack","run","walk"};
 		available_moves_consumption = new int[7]{0,0,0,0,10,0,0};
 		available_moves_damage = new int[7]{10,0,0,0,20,0,0};
-		max_number_hits = 3;
 		is_busy = false;
 	}
 

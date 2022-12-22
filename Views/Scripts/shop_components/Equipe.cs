@@ -31,7 +31,8 @@ public class Equipe : Buy
 
         // GD.Print(current_character_name);
 
-        this.Visible =  is_unlocked && parent.menu_selection==parent.player_view_index;
+        // this.Visible =  is_unlocked && parent.menu_selection==parent.player_view_index;
+        this.Visible = is_unlocked && parent.can_be_equiped[menu_selection];
 
 
     }

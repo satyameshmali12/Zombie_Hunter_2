@@ -9,3 +9,5 @@ Update_Cost
 Update_Cost_Increment
 Price
 Is_Unlocked
+Max_No_Of_Hits
+Hits_Increment_Per_Update

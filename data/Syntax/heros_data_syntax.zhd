@@ -24,3 +24,7 @@ A single up down can result to a number of error
     this is the price which is required to buy the player
 9>Is_Unlocked
     whether the player is Is_Unlocked or not
+10>Max_No_Of_Hits
+    It is the number of hits a player can give at per attack to the enemy
+11>Hits_Increment_Per_Update
+    It is the increment to the Max_No_Of_Hits per update

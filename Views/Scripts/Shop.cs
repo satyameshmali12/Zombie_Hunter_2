@@ -29,6 +29,8 @@ public class Shop : Basic_View
 
     // making all the condition
     public bool[] can_be_buyed_in_numbers = new bool[3]{false,false,true};
+    public bool[] can_be_buyed = new bool[3]{true,false,true};
+    public bool[] can_be_equiped = new bool[3]{true,false,false};
 
     string[] base_urls = new string[3] { "res://Characters/Characters_Scene/Player/", "res://Characters/Characters_Scene/Zombie/", "res://Bomb's/Scenes/" };
     bool is_button_pressed , is_button_pressed_2 = false;

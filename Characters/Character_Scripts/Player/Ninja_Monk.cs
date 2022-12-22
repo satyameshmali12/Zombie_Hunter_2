@@ -31,7 +31,6 @@ public class Ninja_Monk : Basic_Player
         available_moves_consumption = new int[10] { 0, 2, 10, 5, 0, 0, 5, 0, 0, 10 };
         available_moves_damage = new int[10] { 20, 40, 0, 0, 0, 5, 0, 0, 3, 0 };
         settle_damage_increment_possible_moves(3);
-        max_number_hits = 3;
 
 
         bullet_scene = ResourceLoader.Load<PackedScene>("res://Weapons_And_Animation/scenes/Blade.tscn");

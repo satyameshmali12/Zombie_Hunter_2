@@ -115,6 +115,8 @@ public class Basic_Player : Basic_Character
         dm = new Data_Manager("data//data_fields/heros_data_field.zhd");
         dm.load_data(this.Name);
         damage_increment = Convert.ToInt32(dm.get_data("Damage_Increment"));
+        max_number_hits = Convert.ToInt32(dm.get_data("Max_No_Of_Hits"));
+        GD.Print("max number of hits from the basic player ..:: ",max_number_hits);
 
 
         damage_increment_possible_moves = new ArrayList();
