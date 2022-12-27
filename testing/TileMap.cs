@@ -24,4 +24,7 @@ public class TileMap : Godot.TileMap,Global_Variables_F_A_T
 		
 
 	}
+	public virtual void update_logic(Data_Manager shop_data,Data_Manager user_data,Data_Manager throwable_weapons_dm){
+		
+	}
 }

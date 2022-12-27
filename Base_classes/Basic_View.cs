@@ -46,5 +46,9 @@ public class Basic_View:Control,Global_Variables_F_A_T
     public void initialize_view(){
 
     }
+    
+
+    public virtual void update_logic(Data_Manager shop_data,Data_Manager user_data,Data_Manager throwable_weapons_dm){
         
+    }
 }

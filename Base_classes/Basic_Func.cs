@@ -8,6 +8,7 @@ public class Basic_Func
 
     public Data_Manager dm;
     public Data_Manager user_data = new Data_Manager("data//data_fields/user_data_fields.zhd");
+    public Data_Manager throwable_weapons_dm;
     public Global_Variables global_Variables;
     public Global_Paths global_paths;
 
@@ -23,6 +24,8 @@ public class Basic_Func
         global_Variables = node.GetNode<Global_Variables>("/root/Global_Variables");
         
         global_paths = node.GetNode<Global_Paths>("/root/Global_Paths");
+
+        throwable_weapons_dm = new Data_Manager(global_paths.basic_throwable_weapons_data_fields_Url);
     }
 
     public Timer create_timer(float wait_time, string signal_func_name)

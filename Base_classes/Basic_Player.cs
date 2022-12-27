@@ -47,13 +47,13 @@ public class Basic_Player : Basic_Character
 
 
     #region All related to the bomb
-    public bool can_shoot,shoot_pressed,shooting_condition = false;
+    public bool can_shoot, shoot_pressed, shooting_condition = false;
     public PackedScene bullet_scene;
-    public int b_leftchange,b_rightchange,b_height_change = 0;
+    public int b_leftchange, b_rightchange, b_height_change = 0;
     #endregion
 
 
-    
+
     int number_of_hits = 0;
     public int max_number_hits = 1;
 
@@ -116,7 +116,7 @@ public class Basic_Player : Basic_Character
         dm.load_data(this.Name);
         damage_increment = Convert.ToInt32(dm.get_data("Damage_Increment"));
         max_number_hits = Convert.ToInt32(dm.get_data("Max_No_Of_Hits"));
-        GD.Print("max number of hits from the basic player ..:: ",max_number_hits);
+        GD.Print("max number of hits from the basic player ..:: ", max_number_hits);
 
 
         damage_increment_possible_moves = new ArrayList();
@@ -191,11 +191,12 @@ public class Basic_Player : Basic_Character
         /* Logic for adding bullet on the screen*/
         if (can_shoot)
         {
-            
+
             shoot_pressed = Input.IsActionPressed("S");
-            shooting_condition = animations.Animation!="Shoot" && animations.Animation!="Jump_Shoot" && animations.Animation!="Run_Shoot";
-            
-            if(shoot_pressed & shooting_condition){
+            shooting_condition = animations.Animation != "Shoot" && animations.Animation != "Jump_Shoot" && animations.Animation != "Run_Shoot";
+
+            if (shoot_pressed & shooting_condition)
+            {
                 fire_bullet();
             }
 
@@ -230,7 +231,7 @@ public class Basic_Player : Basic_Character
         #region data_transfer to the global script
         // passing the data of the player to the player or global script
         // to perform all the other logics
-        global_variables.player_position = this.Position+this.GetNode<AnimatedSprite>("Movements").Position;
+        global_variables.player_position = this.Position + this.GetNode<AnimatedSprite>("Movements").Position;
         #endregion
 
 
@@ -277,7 +278,7 @@ public class Basic_Player : Basic_Character
         Global_Variables_F_A_T collided_one = collided_obj as Global_Variables_F_A_T;
         if (collided_one._node_type == _Type_of_.Zombie)
         {
-            if (number_of_hits<max_number_hits)
+            if (number_of_hits < max_number_hits)
             {
                 Basic_Zombie collided_zombie = (Basic_Zombie)collided_one;
                 GD.Print(damage_increment);
@@ -291,7 +292,7 @@ public class Basic_Player : Basic_Character
             }
         }
     }
-    
+
 
 
 
@@ -304,7 +305,7 @@ public class Basic_Player : Basic_Character
     and the last fire_bullet is the one from where all of this function are been taken in consideration or used and this function can be overrided as per the logic of different characters
 
     */
-    
+
     /// <summary>Adds the bullet on the screen</summary>
     public void add_new_bullet(int speed_increment = 0)
     {
@@ -313,7 +314,9 @@ public class Basic_Player : Basic_Character
             var bullet = (Basic_Throwable_Weapon)bullet_scene.Instance();
             bullet.weapon_speed = (is_on_ground) ? 15 : 30;
             bullet.weapon_speed += speed_increment;
-            bullet.spawn_weapon(this.Position, moving_direction,b_rightchange,b_leftchange,b_height_change);
+            bullet.spawn_weapon(this.Position, moving_direction, b_rightchange, b_leftchange, b_height_change);
+            bullet.weapon_name = bullet.Name;
+            // GD.Print("hey there the bullet name is right from the basic_player..!! ", bullet.weapon_name);
             this.AddChild(bullet);
         }
     }
@@ -329,8 +332,9 @@ public class Basic_Player : Basic_Character
     }
 
     /// <summary>It is the function which is used while player wanted to shooted thus we add all the adding logic on this as per the character or players needed.</summary>
-    public virtual void fire_bullet(){
-        add_new_bullet_action(is_on_ground,"Shoot");
+    public virtual void fire_bullet()
+    {
+        add_new_bullet_action(is_on_ground, "Shoot");
         // GD.Print("hey there the bullet is been added on the screen are you able to see it right from the basic_player.cs..!!");
         // GD.Print("right form the basic_player adding the bullet hahah..!!");
     }
@@ -342,6 +346,26 @@ public class Basic_Player : Basic_Character
         return true;
     }
 
+    // use this function only when a player can have a weapon with him
+    public bool load_basic_weapon(string weapon_name,int b_height_change,int b_leftchange,int b_rightchange)
+    {
+        
+        bullet_scene = ResourceLoader.Load<PackedScene>($"{basf.global_paths.Weapons_Base_Url}/{weapon_name}.tscn");
+        this.b_rightchange = 100;
+        this.b_leftchange = -100;
+        this.b_height_change = 0;
+        can_shoot = true;
+        return true;
+    }
+
+    public override void update_logic(Data_Manager shop_data,Data_Manager user_data,Data_Manager throwable_weapons_dm)
+    {
+        base.update_logic(shop_data,user_data,throwable_weapons_dm);
+        var max_number_of_hits = Convert.ToInt32(shop_data.get_data("Max_No_Of_Hits"));
+        var max_number_of_hits_increment = Convert.ToInt32(shop_data.get_data("Hits_Increment_Per_Update"));
+        shop_data.set_value("Max_No_Of_Hits", (max_number_of_hits + max_number_of_hits_increment).ToString());
+        
+    }
 
 
 

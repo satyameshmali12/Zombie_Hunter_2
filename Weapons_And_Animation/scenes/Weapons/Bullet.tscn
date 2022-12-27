@@ -129,7 +129,7 @@ position = Vector2( 7, 1.00027 )
 z_index = 1
 shape = SubResource( 1 )
 
-[node name="Animation" type="AnimatedSprite" parent="."]
+[node name="Movements" type="AnimatedSprite" parent="."]
 position = Vector2( 3, 5.00024 )
 scale = Vector2( 0.301413, 0.249913 )
 z_index = 2

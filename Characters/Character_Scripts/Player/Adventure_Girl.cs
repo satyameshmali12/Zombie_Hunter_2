@@ -15,13 +15,14 @@ public class Adventure_Girl : Basic_Player
         available_moves_damage = new int[7]{0,0,5,25,1,1,3};
         settle_damage_increment_possible_moves(3);
 
-        can_shoot = true;
-        bullet_scene = ResourceLoader.Load<PackedScene>("res://Weapons_And_Animation/scenes/Adven_Bullet.tscn");
+        this.load_basic_weapon("Adven_Bullet",0,-100,100);
+        // can_shoot = true;
+        // bullet_scene = ResourceLoader.Load<PackedScene>("res://Weapons_And_Animation/scenes/Adven_Bullet.tscn");
 
 
-        b_rightchange = 100;
-        b_leftchange = -100;
-        b_height_change = 0;
+        // b_rightchange = 100;
+        // b_leftchange = -100;
+        // b_height_change = 0;
         
     }
 

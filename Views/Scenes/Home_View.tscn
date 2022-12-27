@@ -1,9 +1,12 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://assets/fonts/STIXGeneralBolIta.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://assets/images/gui/Gravery_Tile_Set/BG.png" type="Texture" id=2]
 [ext_resource path="res://Views/Scripts/Home_View.cs" type="Script" id=3]
 [ext_resource path="res://Weapons_And_Animation/components/scenes/All_Tiles.tscn" type="PackedScene" id=4]
+[ext_resource path="res://assets/images/gui/designs/Shop.png" type="Texture" id=5]
+[ext_resource path="res://Weapons_And_Animation/components/Scripts/Navigational_Button.cs" type="Script" id=6]
+[ext_resource path="res://assets/images/gui/designs/Video_Game.png" type="Texture" id=7]
 
 [sub_resource type="DynamicFont" id=1]
 size = 50
@@ -47,3 +50,27 @@ margin_top = 228.0
 margin_right = 304.0
 margin_bottom = 308.0
 text = "Atcade"
+
+[node name="Navigational_Buttons" type="Control" parent="."]
+margin_left = 420.0
+margin_top = 169.0
+margin_right = 460.0
+margin_bottom = 209.0
+
+[node name="Shop" type="TextureButton" parent="Navigational_Buttons"]
+margin_left = -371.0
+margin_top = -120.0
+margin_right = -287.0
+margin_bottom = -51.0
+texture_normal = ExtResource( 5 )
+expand = true
+script = ExtResource( 6 )
+
+[node name="Level_View" type="TextureButton" parent="Navigational_Buttons"]
+margin_left = 458.0
+margin_top = -110.0
+margin_right = 538.0
+margin_bottom = -40.0
+texture_normal = ExtResource( 7 )
+expand = true
+script = ExtResource( 6 )

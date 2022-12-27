@@ -33,7 +33,7 @@ public class Basic_Bomb:Node2D,Global_Variables_F_A_T
         basf.dm.load_data(bomb_name);  
         var dm = basf.dm;
 
-        bomb_per_damage = Convert.ToInt32(basf.dm.get_data("Bomb_Per_Damage"));
+        bomb_per_damage = Convert.ToInt32(basf.dm.get_data("Damage_Increment"));
 
         animation = GetNode<AnimatedSprite>("Movements");
         animation.Play();
@@ -69,6 +69,9 @@ public class Basic_Bomb:Node2D,Global_Variables_F_A_T
                 }
             }
         }
+    }
 
+    public virtual void update_logic(Data_Manager shop_data,Data_Manager user_data,Data_Manager throwable_weapons_dm){
+        
     }
 }

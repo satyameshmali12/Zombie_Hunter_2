@@ -1,9 +1,13 @@
 data/basic_throwable_weapons_data.zhd
 
-Name
+Weapon_Name
 Associated_With
 Current_Level
 Max_Level
 Update_Cost
 Update_Cost_Increment
 Is_Unlocked
+Damage_Increment
+Per_Level_Damage_Increment
+Max_No_Of_Hits
+Hits_Increment_Per_Update

@@ -42,17 +42,18 @@ public class Ninja : Basic_Player
         available_moves = new ArrayList() { "attack", "climb", "death", "glide", "idle", "jump", "jump_attack", "run", "slide", "shoot" };
         available_moves_consumption = new int[10] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 };
         available_moves_damage = new int[10] { 20, 0, 0, 5, 0, 5, 50, 0, 3, 100 };
+        settle_damage_increment_possible_moves(2);
 
 
         Glide_Timer  = basf.create_timer(1, "Glide_Timer_Out");
 
 
-        can_shoot = true;
-        bullet_scene = ResourceLoader.Load<PackedScene>("res://Weapons_And_Animation/scenes/Kunai.tscn");
-        b_rightchange = 100;
-        b_leftchange = -100;
-        b_height_change = 0;
-
+        // can_shoot = true;
+        // bullet_scene = ResourceLoader.Load<PackedScene>("res://Weapons_And_Animation/scenes/Kunai.tscn");
+        // b_rightchange = 100;
+        // b_leftchange = -100;
+        // b_height_change = 0;
+        this.load_basic_weapon("Kunai",0,-100,100);
 
 
     }

@@ -239,6 +239,7 @@ public class Basic_Character : RigidBody2D, Global_Variables_F_A_T
 
 	public override void _Process(float delta)
 	{
+		
 		moving_speed = Vector2.Zero;
 
 		current_move = this.animations.Animation;
@@ -303,7 +304,6 @@ public class Basic_Character : RigidBody2D, Global_Variables_F_A_T
 		// setting the attack to the idle 
 		// complete description can be founded in the respective class i.e set_animation_idle()
 		// and also making the hitted false
-		// in an entire move the a character can hit only once
 		if (available_moves_damage[available_moves.IndexOf(animations.Animation.ToLower())] != 0)
 		{
 			var is_settled = set_animation_idle(this.animations.Animation);
@@ -520,6 +520,10 @@ public class Basic_Character : RigidBody2D, Global_Variables_F_A_T
 	public virtual bool resettle_of_hitness(){
 		is_hitted = false;
 		return true;
+	}
+
+	public virtual void update_logic(Data_Manager shop_data,Data_Manager user_data,Data_Manager throwable_weapons_dm){
+
 	}
 
 	// this method will  be inherited by the respective child classes of its 

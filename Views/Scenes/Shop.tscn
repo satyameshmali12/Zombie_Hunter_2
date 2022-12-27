@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=2]
+[gd_scene load_steps=43 format=2]
 
 [ext_resource path="res://Views/Scripts/Shop.cs" type="Script" id=1]
 [ext_resource path="res://assets/images/gui/designs/Right_Arrow.png" type="Texture" id=2]
@@ -174,6 +174,9 @@ corner_radius_top_right = 20
 corner_radius_bottom_right = 20
 corner_radius_bottom_left = 20
 
+[sub_resource type="DynamicFont" id=29]
+font_data = ExtResource( 4 )
+
 [sub_resource type="DynamicFont" id=9]
 size = 20
 outline_color = Color( 0.054902, 0.0392157, 0.0392157, 1 )
@@ -262,9 +265,9 @@ position = Vector2( 514, 311 )
 
 [node name="Gui_Buttons_Container" type="HBoxContainer" parent="."]
 margin_left = -5.0
-margin_top = 72.0
-margin_right = 437.0
-margin_bottom = 139.0
+margin_top = 90.0
+margin_right = 577.0
+margin_bottom = 157.0
 
 [node name="Characters" type="MarginContainer" parent="Gui_Buttons_Container"]
 material = SubResource( 1 )
@@ -343,6 +346,32 @@ __meta__ = {
 "_editor_description_": "Here name 0(Zero) is given with respect to the code in order to change or toggle some values so make sure to not change until not required.."
 }
 
+[node name="Weapons" type="MarginContainer" parent="Gui_Buttons_Container"]
+material = SubResource( 1 )
+margin_left = 446.0
+margin_right = 582.0
+margin_bottom = 67.0
+custom_constants/margin_right = 11
+custom_constants/margin_top = 9
+custom_constants/margin_left = 10
+custom_constants/margin_bottom = 6
+
+[node name="3" type="Button" parent="Gui_Buttons_Container/Weapons"]
+margin_left = 10.0
+margin_top = 9.0
+margin_right = 125.0
+margin_bottom = 61.0
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0.0745098, 0.992157, 0.0470588, 1 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/normal = SubResource( 3 )
+text = "       Weapons      "
+__meta__ = {
+"_editor_description_": "Here name 0(Zero) is given with respect to the code in order to change or toggle some values so make sure to not change until not required.."
+}
+
 [node name="Menu_Name" type="Label" parent="."]
 margin_left = 766.0
 margin_top = 15.0
@@ -377,11 +406,10 @@ align = 1
 unique_name_in_owner = true
 margin_left = 735.0
 margin_top = 81.0
-margin_right = 987.0
+margin_right = 973.0
 margin_bottom = 187.0
 
 [node name="Unlock" type="Control" parent="Buy"]
-visible = false
 margin_right = 40.0
 margin_bottom = 40.0
 script = ExtResource( 6 )
@@ -428,21 +456,9 @@ margin_bottom = 45.0
 script = ExtResource( 7 )
 
 [node name="Money" type="Label" parent="Buy/Buy_In_Number"]
-margin_left = 26.0
+margin_left = 25.0
 margin_top = -20.0
-margin_right = 254.0
-margin_bottom = 12.0
-rect_pivot_offset = Vector2( -721, -68 )
-custom_colors/font_color = Color( 0.901961, 0.0392157, 0.0392157, 1 )
-custom_fonts/font = SubResource( 2 )
-text = "100$"
-align = 1
-autowrap = true
-
-[node name="Money2" type="Label" parent="Buy/Buy_In_Number"]
-margin_left = 26.0
-margin_top = -20.0
-margin_right = 254.0
+margin_right = 253.0
 margin_bottom = 12.0
 rect_pivot_offset = Vector2( -721, -68 )
 custom_colors/font_color = Color( 0.901961, 0.0392157, 0.0392157, 1 )
@@ -560,6 +576,15 @@ custom_styles/hover = SubResource( 21 )
 custom_styles/pressed = SubResource( 22 )
 custom_styles/normal = SubResource( 20 )
 text = "Equipe"
+
+[node name="Weapons_Label" type="Label" parent="Buy"]
+margin_left = -338.0
+margin_top = 364.0
+margin_right = -201.0
+margin_bottom = 390.0
+custom_colors/font_color = Color( 0.137255, 0.105882, 0.105882, 1 )
+custom_fonts/font = SubResource( 29 )
+text = "The Weapon is as"
 
 [node name="Navigational_Buttons" type="Control" parent="."]
 margin_left = 420.0

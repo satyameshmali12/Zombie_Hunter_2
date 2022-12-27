@@ -2,8 +2,8 @@
 
 [ext_resource path="res://Weapons_And_Animation/scripts/Kunai.cs" type="Script" id=1]
 [ext_resource path="res://assets/images/Ninja/Kunai.png" type="Texture" id=2]
-[ext_resource path="res://assets/audio/Bomb's/Gun_Shoot.mp3" type="AudioStream" id=3]
-[ext_resource path="res://assets/audio/Bomb's/Bullet_Collision_Sound.mp3" type="AudioStream" id=4]
+[ext_resource path="res://assets/audio/Bomb's/Bullet_Collision_Sound.mp3" type="AudioStream" id=3]
+[ext_resource path="res://assets/audio/Bomb's/Gun_Shoot.mp3" type="AudioStream" id=4]
 
 [sub_resource type="RectangleShape2D" id=34]
 extents = Vector2( 64.5, 15.4999 )
@@ -108,7 +108,7 @@ position = Vector2( 3.5, -2 )
 z_index = 1
 shape = SubResource( 34 )
 
-[node name="Animation" type="AnimatedSprite" parent="."]
+[node name="Movements" type="AnimatedSprite" parent="."]
 position = Vector2( 10.6078, -5.51047 )
 rotation = 1.57079
 scale = Vector2( 1.08755, 0.920053 )
@@ -117,8 +117,7 @@ frames = SubResource( 25 )
 animation = "Fire"
 
 [node name="Particles2D" type="Particles2D" parent="."]
-visible = false
-position = Vector2( 466, 285 )
+position = Vector2( -49, 0 )
 amount = 40
 process_material = SubResource( 28 )
 
@@ -141,11 +140,11 @@ process_material = SubResource( 33 )
 [node name="Shoot_Sound" type="AudioStreamPlayer2D" parent="."]
 position = Vector2( -654, -360 )
 scale = Vector2( 0.665575, 0.708632 )
-stream = ExtResource( 3 )
+stream = ExtResource( 4 )
 autoplay = true
 
 [node name="Bullet_Collision_Sound" type="AudioStreamPlayer2D" parent="."]
 position = Vector2( -654, -360 )
 scale = Vector2( 0.665575, 0.708632 )
-stream = ExtResource( 4 )
+stream = ExtResource( 3 )
 autoplay = true

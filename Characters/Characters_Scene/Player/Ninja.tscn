@@ -1,4 +1,4 @@
-[gd_scene load_steps=132 format=2]
+[gd_scene load_steps=131 format=2]
 
 [ext_resource path="res://assets/images/Ninja/attack/spritesheet.png" type="Texture" id=1]
 [ext_resource path="res://assets/images/Ninja/climb/spritesheet.png" type="Texture" id=2]
@@ -12,7 +12,6 @@
 [ext_resource path="res://assets/images/Ninja/jump/spritesheet.png" type="Texture" id=10]
 [ext_resource path="res://assets/images/Ninja/run/spritesheet.png" type="Texture" id=11]
 [ext_resource path="res://Characters/Character_Scripts/Player/Ninja.cs" type="Script" id=12]
-[ext_resource path="res://Weapons_And_Animation/scenes/Kunai.tscn" type="PackedScene" id=111]
 [ext_resource path="res://Weapons_And_Animation/components/scenes/Camera.tscn" type="PackedScene" id=113]
 [ext_resource path="res://Weapons_And_Animation/components/scenes/Game_Gui.tscn" type="PackedScene" id=115]
 
@@ -592,9 +591,6 @@ collide_with_areas = true
 position = Vector2( 367, 306 )
 cast_to = Vector2( -39, 22 )
 collide_with_areas = true
-
-[node name="Kunai" parent="." instance=ExtResource( 111 )]
-visible = false
 
 [node name="Height_Checker" type="RayCast2D" parent="."]
 position = Vector2( 2, 80 )

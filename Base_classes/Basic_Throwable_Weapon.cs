@@ -2,10 +2,12 @@
 
 //for using this class refer the bullet component of the game
 // all the things should like the bullet class as well as the bullet scene respectively
+// make sure to set the weapon name before adding it to the main_tree.The name of the node is not taken as their can be single node multiple time in an scene
 #endregion
 
 
 using Godot;
+using System;
 
 public class Basic_Throwable_Weapon : Area2D, Global_Variables_F_A_T
 {
@@ -38,11 +40,11 @@ public class Basic_Throwable_Weapon : Area2D, Global_Variables_F_A_T
     
     // for controlling the max number of hits a weapon can do in its lifetime
     public int current_hit = 0;
-    public int max_hits = 5;
+    public int max_hits = 1;
 
     // may due to some reason of sprites we may need to rotate the image from vertically instead of horizontally
     public bool is_to_flip_vertically = false;
-
+    public string weapon_name = null;
 
     public override void _Ready()
     {
@@ -51,10 +53,15 @@ public class Basic_Throwable_Weapon : Area2D, Global_Variables_F_A_T
         _node_type = _Type_of_.Throwable_Weapon;
 
         basf = new Basic_Func(this);
+        var dm = basf.dm;
+        dm = new Data_Manager(basf.global_paths.basic_throwable_weapons_data_fields_Url);
+
+        GD.Print("the weapon name right from the basic_throwable_weapon is ",weapon_name);
+        dm.load_data(weapon_name);
 
         is_collided = false;
 
-        animation = GetNode<AnimatedSprite>("Animation");
+        animation = GetNode<AnimatedSprite>("Movements");
         animation.Animation = "Fire";
         animation.Play();
 
@@ -73,6 +80,8 @@ public class Basic_Throwable_Weapon : Area2D, Global_Variables_F_A_T
 
         // playing the shooting sound with the help of the basf function
         basf.create_a_sound(shoot_sound.Stream.ResourcePath, this, true, shoot_sound_duration);
+
+        max_hits = Convert.ToInt32(dm.get_data("Max_No_Of_Hits"));
 
     }
 
@@ -163,7 +172,7 @@ public class Basic_Throwable_Weapon : Area2D, Global_Variables_F_A_T
             this.Position = position;
         }
 
-        var bullet_animation = this.GetNode<AnimatedSprite>("Animation");
+        var bullet_animation = this.GetNode<AnimatedSprite>("Movements");
         if(!is_to_flip_vertically){
             bullet_animation.FlipH = (dir == Direction.Right) ? false : true;
         }
@@ -173,6 +182,12 @@ public class Basic_Throwable_Weapon : Area2D, Global_Variables_F_A_T
         }
         moving_speed = (dir == Direction.Right) ? new Vector2(weapon_speed, 0) : new Vector2(-weapon_speed, 0);
 
+    }
+
+    public virtual void update_logic(Data_Manager shop_data,Data_Manager user_data,Data_Manager throwable_weapons_dm){
+        var max_number_of_hits = Convert.ToInt32(shop_data.get_data("Max_No_Of_Hits"));
+        var max_number_of_hits_increment = Convert.ToInt32(shop_data.get_data("Hits_Increment_Per_Update"));
+        shop_data.set_value("Max_No_Of_Hits", (max_number_of_hits + max_number_of_hits_increment).ToString());
     }
 
 }

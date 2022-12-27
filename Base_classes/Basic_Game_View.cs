@@ -23,4 +23,7 @@ public class Basic_Game_View:Node2D,Global_Variables_F_A_T
         basf.create_a_sound("res://assets/audio/GUI/Scene_Enter.mp3",this,true);
     }
 
+    public virtual void update_logic(Data_Manager shop_data,Data_Manager user_data,Data_Manager throwable_weapons_dm){
+        
+    }
 }

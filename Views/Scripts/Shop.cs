@@ -21,18 +21,20 @@ public class Shop : Basic_View
     public int player_view_index = 0;
     public int zombie_view_index = 1;
     public int bomb_view_index = 2;
-
+    public int weapons_view_index = 3;
 
     // this array is method with respect to the above index🔼
-    string[] specific_data_fields_urls = new string[3] { "data//data_fields/heros_data_field.zhd", "data//data_fields/zombie_data_fields.zhd", "data//data_fields/bomb_data_fields.zhd" };
-    string[] names = new string[3] { "Character_Name", "Zombie_Name", "Bomb_Name" };
+    string[] specific_data_fields_urls = new string[4] { "data//data_fields/heros_data_field.zhd", "data//data_fields/zombie_data_fields.zhd", "data//data_fields/bomb_data_fields.zhd","data//data_fields/basic_throwable_weapons_data_fields.zhd"};
+    string[] names = new string[4] { "Character_Name", "Zombie_Name", "Bomb_Name","Weapon_Name"};
 
     // making all the condition
-    public bool[] can_be_buyed_in_numbers = new bool[3]{false,false,true};
-    public bool[] can_be_buyed = new bool[3]{true,false,true};
-    public bool[] can_be_equiped = new bool[3]{true,false,false};
+    // all this arrays are made with respect to the abobe name in a definite or corresponding indexing order
+    public bool[] can_be_buyed_in_numbers = new bool[4]{false,false,true,false};
+    public bool[] can_be_unlocked = new bool[4]{true,false,true,false};
+    public bool[] can_be_equiped = new bool[4]{true,false,false,false};
+    public bool[] can_be_updated = new bool[4]{true,false,true,true};
 
-    string[] base_urls = new string[3] { "res://Characters/Characters_Scene/Player/", "res://Characters/Characters_Scene/Zombie/", "res://Bomb's/Scenes/" };
+    string[] base_urls = new string[4] { "res://Characters/Characters_Scene/Player/", "res://Characters/Characters_Scene/Zombie/", "res://Bomb's/Scenes/" ,"res://Weapons_And_Animation/scenes/Weapons/"};
     bool is_button_pressed , is_button_pressed_2 = false;
 
     // getting some buttons on the screen
@@ -41,11 +43,15 @@ public class Shop : Basic_View
     public string specific_name = null;
 
     public Data_Manager shop_data_manager;
-    public bool is_new_scene_toggled_in_shop = false;// whether new scene is toggled or not
+    public Data_Manager user_data_manager;
+    public bool is_shop_data_loaded,is_user_data_loaded = false;
+
 
 
     AnimatedSprite current_animation;
     bool is_current_animation_initialized;
+
+    public Node render_char;
 
     public override void _Ready()
     {
@@ -57,6 +63,7 @@ public class Shop : Basic_View
 
         for (var i = 0; i < names.Length; i++)
         {
+            GD.Print(i);
             dm = new Data_Manager(specific_data_fields_urls[i]);
             urls.Add(dm.get_set_of_field_values(names[i]));
         }
@@ -66,13 +73,14 @@ public class Shop : Basic_View
 
 
         add_the_view();
+
         left_button = this.GetNode<TextureButton>("Left_Button");
         right_button = this.GetNode<TextureButton>("Right_Button");
 
         is_current_animation_initialized = false;
 
         // now loading the user data to get and set some of the requred value e.g money
-        load_user_data();
+        // load_user_data();
 
         // GD.Print("hey first stage form the shopt view hahah..!!");
 
@@ -89,7 +97,7 @@ public class Shop : Basic_View
 
         
         // showing the available money on the screen
-        this.GetNode<Label>("Money").Text = $"Money : - {basf.dm.get_data("Money")}";
+        this.GetNode<Label>("Money").Text = $"Money : - {user_data_manager.get_data("Money")}";
 
         // make the character and zombie to be separated for the shop render so that concern been seperated
         // Caution🔺
@@ -107,10 +115,9 @@ public class Shop : Basic_View
                 if (new_value >= 0 && new_value < arr.Count)
                 {
                     view_index = new_value;
-                    var user_data = basf.user_data;
-                    user_data.set_value("Menu_Selection",$"{menu_selection}");
-                    user_data.set_value("Specific_Selection",$"{view_index}");
-                    user_data.save_data();
+                    user_data_manager.set_value("Menu_Selection",$"{menu_selection}");
+                    user_data_manager.set_value("Specific_Selection",$"{view_index}");
+                    user_data_manager.save_data();
                     add_the_view();
                 }
             }
@@ -139,6 +146,8 @@ public class Shop : Basic_View
             }
         }
 
+
+        
 
 
 
@@ -188,6 +197,8 @@ public class Shop : Basic_View
             PackedScene scene = basf.get_the_packed_scene(path);
 
             var view = scene.Instance<Node2D>();
+
+            render_char = view;
 
             #region getting_the_animation the animation of the desired node and displaying it on the screen
 
@@ -250,18 +261,25 @@ public class Shop : Basic_View
     }
 
     // function to reload some data and other stuff too..
-    public void reload_scene_features(bool is_new_scene_toggled = true){
-        // loading specific data and sending the specific data as shop_data to the global_varaibles
-        var new_data_manager = new Data_Manager(specific_data_fields_urls[menu_selection].ToString());
-        new_data_manager.load_data(specific_name);
-        shop_data_manager = new_data_manager;
-        is_new_scene_toggled_in_shop = is_new_scene_toggled;
+    public void reload_scene_features(){
+        
+        if(is_shop_data_loaded){
+            shop_data_manager.save_data();
+        }
+
+        shop_data_manager = new Data_Manager(specific_data_fields_urls[menu_selection].ToString());
+        shop_data_manager.load_data(specific_name);
+        is_shop_data_loaded = true;
         load_user_data();
     }
 
     // function to load the user_data
     public void load_user_data(){
-        basf.dm = new Data_Manager("data//data_fields/user_data_fields.zhd");
-        basf.dm.load_data("Aj");
+        if(is_user_data_loaded){
+            user_data_manager.save_data();
+        }
+        user_data_manager = new Data_Manager("data//data_fields/user_data_fields.zhd");
+        user_data_manager.load_data("Aj");
+        is_user_data_loaded = true;
     }
 }

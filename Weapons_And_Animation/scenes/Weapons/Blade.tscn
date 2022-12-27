@@ -117,7 +117,7 @@ process_material = SubResource( 29 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 30 )
 
-[node name="Animation" type="AnimatedSprite" parent="."]
+[node name="Movements" type="AnimatedSprite" parent="."]
 position = Vector2( 3.8147e-06, 0 )
 scale = Vector2( 8, 6.75 )
 frames = SubResource( 34 )

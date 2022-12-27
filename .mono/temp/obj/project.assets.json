@@ -415,19 +415,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\hp\\.nuget\\packages\\": {}
+    "C:\\Users\\satya\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\hp\\OneDrive\\Desktop\\Zombie Hunter 2\\Zombie_Hunter_2.csproj",
+      "projectUniqueName": "C:\\Users\\satya\\Desktop\\Zombie Hunter 2\\Zombie_Hunter_2.csproj",
       "projectName": "Zombie_Hunter_2",
-      "projectPath": "C:\\Users\\hp\\OneDrive\\Desktop\\Zombie Hunter 2\\Zombie_Hunter_2.csproj",
-      "packagesPath": "C:\\Users\\hp\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\hp\\OneDrive\\Desktop\\Zombie Hunter 2\\.mono\\temp\\obj\\",
+      "projectPath": "C:\\Users\\satya\\Desktop\\Zombie Hunter 2\\Zombie_Hunter_2.csproj",
+      "packagesPath": "C:\\Users\\satya\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\satya\\Desktop\\Zombie Hunter 2\\.mono\\temp\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\hp\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\satya\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net472"
@@ -458,7 +458,7 @@
             "autoReferenced": true
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.301\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.101\\RuntimeIdentifierGraph.json"
       }
     }
   }

@@ -27,7 +27,7 @@ public class Level_View : Basic_View
 		
 		button_per_screen = 4;
 
-		total_number_of_button = System.IO.Directory.GetFiles("C:\\Users\\hp\\OneDrive\\Desktop\\Zombie Hunter 2\\Levels\\Scenes").Length;
+		total_number_of_button = System.IO.Directory.GetFiles(basf.global_paths.Level_Scenes_Directory_Url).Length;
 		GD.Print(total_number_of_button);
 
 		forward = GetNode<Button>("Forward");
@@ -48,6 +48,7 @@ public class Level_View : Basic_View
 				{
 					basf.global_Variables.is_level_added = false;
 					basf.global_Variables.level_name = item.Name;
+					GD.Print(item.Name, " right from the level_view.cshaha.>!!");
 					basf.global_Variables.custom_url = null;
 					GetTree().ChangeScene("res://Views/Scenes/Main_Game_Scene.tscn");
 				}
