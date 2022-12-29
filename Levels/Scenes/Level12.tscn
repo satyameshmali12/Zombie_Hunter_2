@@ -6,7 +6,7 @@
 [ext_resource path="res://assets/images/Level_Assets/game_background_13.png" type="Texture" id=4]
 [ext_resource path="res://assets/images/Level_Assets/game_background_12.png" type="Texture" id=5]
 
-[node name="Level7" type="Node2D"]
+[node name="Level12" type="Node2D"]
 script = ExtResource( 3 )
 
 [node name="TileMap" parent="." instance=ExtResource( 1 )]
@@ -30,19 +30,19 @@ position = Vector2( 812, -1113 )
 [node name="Zombie_Area" type="Node2D" parent="."]
 z_index = -1
 
-[node name="GameBackground14" type="Sprite" parent="Zombie_Area"]
+[node name="featured_images" type="Node2D" parent="."]
+
+[node name="GameBackground14" type="Sprite" parent="featured_images"]
 position = Vector2( -958.5, -413.001 )
 scale = Vector2( 2.69427, 2.93148 )
 texture = ExtResource( 2 )
 
-[node name="GameBackground13" type="Sprite" parent="Zombie_Area"]
+[node name="GameBackground13" type="Sprite" parent="featured_images"]
 position = Vector2( 4240.87, -354.251 )
 scale = Vector2( 2.80149, 2.77361 )
 texture = ExtResource( 4 )
 
-[node name="GameBackground12" type="Sprite" parent="Zombie_Area"]
+[node name="GameBackground12" type="Sprite" parent="featured_images"]
 position = Vector2( 9038, -468 )
 scale = Vector2( 2.175, 2.16481 )
 texture = ExtResource( 5 )
-
-[node name="featured_images" type="Node2D" parent="."]

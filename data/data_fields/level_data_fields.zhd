@@ -4,6 +4,9 @@ Name
 Total_Zombie
 Max_Zombie
 Difficulty_Level
+Is_Specified_Char_Level
+Specified_Characters
+Specified_Characters_Num
 Score
 Zombie_Speed_Increment
 Is_Level_Unlocked

@@ -245,4 +245,27 @@ public class Data_Manager
 		return selected_data_fields;
 
 	}
+
+	public ArrayList get_the_list_data_out(string raw_data){
+		
+		ArrayList processed_data = new ArrayList();
+		var value =  "";
+
+		foreach (char item in raw_data)
+		{
+			if(item.ToString()!=","){
+				value+=item;
+				continue;
+			}
+			if(value.Length>0){
+				processed_data.Add(value);
+				value = "";
+			}
+		}
+		if(value.Length!=0){
+			processed_data.Add(value);
+		}
+
+		return processed_data;
+	}
 }

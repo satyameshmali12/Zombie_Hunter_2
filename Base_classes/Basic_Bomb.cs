@@ -22,7 +22,6 @@ public class Basic_Bomb:Node2D,Global_Variables_F_A_T
     
     public override void _Ready()
     {
-        GD.Print("hey started processing from the basic_bomb");
         _node_type = _Type_of_.Bomb;
         // GD.Print(this.Name);
         // GD.Print()

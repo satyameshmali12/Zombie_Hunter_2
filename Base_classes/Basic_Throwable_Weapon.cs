@@ -56,7 +56,6 @@ public class Basic_Throwable_Weapon : Area2D, Global_Variables_F_A_T
         var dm = basf.dm;
         dm = new Data_Manager(basf.global_paths.basic_throwable_weapons_data_fields_Url);
 
-        GD.Print("the weapon name right from the basic_throwable_weapon is ",weapon_name);
         dm.load_data(weapon_name);
 
         is_collided = false;

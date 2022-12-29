@@ -93,9 +93,7 @@ public class Global_Variables : Node2D
         // this sound will not be played during the navigation
         if (Input.IsActionJustPressed("Mouse_Pressed") && is_to_play_sound_on_click)
         {
-            GD.Print("Hello wrold right from the global_varaiblaes.cs..!!");
             basf.create_a_sound(click_sound, current_scene, true);
-            GD.Print("second stage..!!");
         }
     }
 

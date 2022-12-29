@@ -1,4 +1,4 @@
-[gd_scene load_steps=84 format=2]
+[gd_scene load_steps=85 format=2]
 
 [ext_resource path="res://Characters/Character_Scripts/Zombie/Zombie_Knight_1.cs" type="Script" id=1]
 [ext_resource path="res://Weapons_And_Animation/components/scenes/Health_Bar.tscn" type="PackedScene" id=2]
@@ -22,7 +22,7 @@ rough = true
 bounce = 0.1
 
 [sub_resource type="CapsuleShape2D" id=1]
-radius = 37.0
+radius = 40.0
 height = 66.0
 
 [sub_resource type="AtlasTexture" id=12]
@@ -348,6 +348,12 @@ bg_color = Color( 0.913725, 0.196078, 0.141176, 1 )
 [sub_resource type="StyleBoxFlat" id=11]
 bg_color = Color( 0.576471, 0.0823529, 0.984314, 1 )
 
+[sub_resource type="ParticlesMaterial" id=82]
+flag_disable_z = true
+gravity = Vector3( 0, 98, 0 )
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+
 [node name="Zombie_Knight_1" type="RigidBody2D"]
 position = Vector2( 488, 300 )
 mode = 2
@@ -365,8 +371,8 @@ z_index = 1
 shape = SubResource( 1 )
 
 [node name="Movements" type="AnimatedSprite" parent="."]
-position = Vector2( 5.49999, -11.5001 )
-scale = Vector2( 1.77907, 2.29069 )
+position = Vector2( 11, -20.5002 )
+scale = Vector2( 1.90698, 2.5 )
 z_index = 1
 frames = SubResource( 2 )
 animation = "Attack"
@@ -483,3 +489,12 @@ custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_colors/font_color_shadow = Color( 0.0313726, 1, 0.321569, 1 )
 custom_styles/fg = SubResource( 10 )
 custom_styles/bg = SubResource( 11 )
+
+[node name="Personals" type="Node2D" parent="."]
+
+[node name="Use_Specail_Power" type="Particles2D" parent="Personals"]
+position = Vector2( -254, -34 )
+emitting = false
+amount = 100
+lifetime = 2.0
+process_material = SubResource( 82 )

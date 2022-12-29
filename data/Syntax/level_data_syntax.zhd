@@ -6,7 +6,8 @@ Their are total 5 field for each level
 
 2> Total_Zombie 
   :- The total number that will be render throught a entire level
-  :- as the Total_Zombie becomes zero then no more zombie will be spawned
+  :- As the Total_Zombie becomes zero then no more zombie will be spawned
+  :- If the Is_Specified_Char_Level is true then the total zombie settled according to that of the Specified_Characters_Num
 
 3> max_zombie
   :- Max no of zombie at a time on the screen
@@ -16,11 +17,26 @@ Their are total 5 field for each level
   :- The Difficulty_Level of the game
   :- it will help to render the type of zombie
   
-5> score
+5>Is_Specified_Char_Level
+  :- Did the level contains specified Characters
+  :- If a settled to false then Specified_Characters definetly need to be given
+
+6> Specified_Characters 
+  :- only when is Is_Specified_Char_Level is settled down to false
+  :- if Is_Specified_Char_Level is settled to false then it should be given (-)hypen as the argument
+  :- The index of the specifed character which should be rendered on the screen
+
+7> Specified_Characters_Num
+  :- If a specific amount of zombie need to be render
+  :- provide only when Is_Specified_Char_Level is set to true 
+  :- If not given then it should be given hypen(-) as the default argument
+  :- If specifed players wanna be rendered with specific index
+
+8> score
   :- the score made in the respective levels
 
-6> is_level_unlocked
+9> is_level_unlocked
   :- whether the level can be played in other words is is_level_unlocked or not
 
-7> zombie_speed_increment
+10> zombie_speed_increment
   the power of the zombies will differ from level to level
