@@ -27,7 +27,7 @@ public class Female_Zombie_2 : Basic_Zombie
     {
         base._Process(delta);
 
-        LinearVelocity = moving_speed;
+        move();
 
     }
 }

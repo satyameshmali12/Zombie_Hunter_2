@@ -19,7 +19,7 @@ extents = Vector2( 37.5615, 17.9924 )
 [sub_resource type="Curve" id=16]
 _data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 0.538813, 0 ), 0.0, 0.0, 0, 0, Vector2( 0.986301, 0.87529 ), 0.0, 0.0, 0, 0 ]
 
-[sub_resource type="CurveTexture" id=11]
+[sub_resource type="CurveTexture" id=18]
 curve = SubResource( 16 )
 
 [sub_resource type="ParticlesMaterial" id=17]
@@ -31,7 +31,7 @@ initial_velocity = 400.0
 orbit_velocity = 2.0
 orbit_velocity_random = 0.0
 scale = 12.0
-scale_curve = SubResource( 11 )
+scale_curve = SubResource( 18 )
 color = Color( 0.831373, 0.00784314, 0.00784314, 1 )
 
 [node name="Adven_Bullet" type="Area2D"]

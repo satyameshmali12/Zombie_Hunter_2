@@ -10,6 +10,7 @@ true
 4
 1
 Adven_Bullet
+true
 
 Ninja
 90
@@ -23,6 +24,7 @@ true
 6
 1
 Kunai
+true
 
 Knight
 90
@@ -36,6 +38,7 @@ true
 5
 1
 No_Weapon
+true
 
 Robot
 180
@@ -49,20 +52,22 @@ true
 9
 1
 Bullet
+true
 
 
 Jack
-80
-1
+90
+3
 3
 5
-11000
+13000
 1000
 50000
 true
-3
+5
 1
 No_Weapon
+true
 
 Ninja_Monk
 70
@@ -76,3 +81,4 @@ true
 12
 1
 Blade
+true

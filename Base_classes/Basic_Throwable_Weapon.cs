@@ -8,8 +8,9 @@
 
 using Godot;
 using System;
+using System.Collections;
 
-public class Basic_Throwable_Weapon : Area2D, Global_Variables_F_A_T
+public class Basic_Throwable_Weapon : Area2D, Character
 {
     public _Type_of_ _node_type { get; set; }
 
@@ -19,12 +20,15 @@ public class Basic_Throwable_Weapon : Area2D, Global_Variables_F_A_T
     [Export]
     public int weapon_speed = 0; // change this speed to make the move faster
 
-    Vector2 moving_speed = Vector2.Zero; // setting the initial speed to zero
+    public Vector2 moving_speed = Vector2.Zero; // setting the initial speed to zero
     // this is concurrently depended on the moving_speed
 
     bool is_collided;
 
-    Basic_Func basf;
+    public Basic_Func basf;
+
+    public int health { get; set; }
+    public ArrayList can_collide_with { get; set; }
 
 
 
@@ -37,7 +41,7 @@ public class Basic_Throwable_Weapon : Area2D, Global_Variables_F_A_T
     public int shoot_sound_duration = 1;
     public float collision_sound_start_point = .5f;
     public int max_screen_time = 10;
-    
+
     // for controlling the max number of hits a weapon can do in its lifetime
     public int current_hit = 0;
     public int max_hits = 1;
@@ -45,6 +49,10 @@ public class Basic_Throwable_Weapon : Area2D, Global_Variables_F_A_T
     // may due to some reason of sprites we may need to rotate the image from vertically instead of horizontally
     public bool is_to_flip_vertically = false;
     public string weapon_name = null;
+
+    public ArrayList exclude_list = new ArrayList();
+
+    Node2D parent;
 
     public override void _Ready()
     {
@@ -69,6 +77,7 @@ public class Basic_Throwable_Weapon : Area2D, Global_Variables_F_A_T
         new_timer.Start();
 
         this.Connect("body_entered", this, "Collided_With_An_Obj");
+        this.Connect("area_entered",this, "Collided_With_An_Obj");
 
         collision_animation = GetNode<Particles2D>("Collision_Animation");
 
@@ -82,6 +91,9 @@ public class Basic_Throwable_Weapon : Area2D, Global_Variables_F_A_T
 
         max_hits = Convert.ToInt32(dm.get_data("Max_No_Of_Hits"));
 
+        can_collide_with = new ArrayList(){_Type_of_.Drone,_Type_of_.Player,_Type_of_.Zombie};
+        
+        health = 100;
     }
 
 
@@ -113,13 +125,15 @@ public class Basic_Throwable_Weapon : Area2D, Global_Variables_F_A_T
         var is_damage_given = false;
 
         Global_Variables_F_A_T collided_body = body as Global_Variables_F_A_T;
+
         if (this.animation.Visible)
         {
-            if (collided_body._node_type == _Type_of_.Zombie)
+            if (can_collide_with.Contains(collided_body._node_type) && !exclude_list.Contains(collided_body))
             {
-                Basic_Character collided_player = collided_body as Basic_Character;
+                Character collided_player = collided_body as Character;
                 is_collided_to_character = true;
-                if(collided_player.health!=0){
+                if (collided_player.health != 0)
+                {
                     collided_player.change_health(-(damage + (int)(weapon_speed / 100 * 20)));
                     basf.global_Variables.increment_score(damage);
                     is_damage_given = true;
@@ -130,18 +144,14 @@ public class Basic_Throwable_Weapon : Area2D, Global_Variables_F_A_T
                 current_hit = max_hits;
                 TileMap tileMap = body as TileMap;
                 var tiles_position = tileMap.GetUsedCells();
-                // foreach (Vector2 item in tiles_position)
-                // {
-                //     // GD.Print($"x:- {item.x}, y:- {item.y}");
-                // }
-                // var tile_position = tileMap.MapToWorld(this.Position);
-                // tileMap.TileSet.RemoveTile(tileMap.GetCell((int)tile_position.x,(int)tile_position.y));
             }
         }
-        if(is_collided_to_character && is_damage_given || !is_collided_to_character){
+        if (is_collided_to_character && is_damage_given || !is_collided_to_character)
+        {
             current_hit++;
         }
-        if(current_hit>=max_hits){
+        if (current_hit >= max_hits)
+        {
             is_collided = true;
             this.animation.Visible = false;
             collision_animation.Emitting = true;
@@ -172,10 +182,12 @@ public class Basic_Throwable_Weapon : Area2D, Global_Variables_F_A_T
         }
 
         var bullet_animation = this.GetNode<AnimatedSprite>("Movements");
-        if(!is_to_flip_vertically){
+        if (!is_to_flip_vertically)
+        {
             bullet_animation.FlipH = (dir == Direction.Right) ? false : true;
         }
-        else{
+        else
+        {
             GD.Print("hey their right fomr the basic_throwable_weapon and working for the kunai right now hahah..!!");
             bullet_animation.FlipV = (dir == Direction.Right) ? false : true;
         }
@@ -183,10 +195,17 @@ public class Basic_Throwable_Weapon : Area2D, Global_Variables_F_A_T
 
     }
 
-    public virtual void update_logic(Data_Manager shop_data,Data_Manager user_data,Data_Manager throwable_weapons_dm){
+    public virtual void update_logic(Data_Manager shop_data, Data_Manager user_data, Data_Manager throwable_weapons_dm)
+    {
         var max_number_of_hits = Convert.ToInt32(shop_data.get_data("Max_No_Of_Hits"));
         var max_number_of_hits_increment = Convert.ToInt32(shop_data.get_data("Hits_Increment_Per_Update"));
         shop_data.set_value("Max_No_Of_Hits", (max_number_of_hits + max_number_of_hits_increment).ToString());
+    }
+
+    public bool change_health(int change)
+    {
+
+        return true;
     }
 
 }

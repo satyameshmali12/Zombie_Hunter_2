@@ -1,7 +1,10 @@
 #region Basic_Character
-// This class contains all the properties and function which a basic_character requires
+// This class contains all the properties and function which a basic_character must requires
 // this class will be inherited by the zombie as well as the player's(different heros) 
-// this class inherits one class named rigid_body_2d and the interface global_variables_F_A_T
+// this class inherits one class namely rigid_body_2d and the interface character(child class of Global_Varaible_F_A_T)
+
+
+// controls 
 #endregion
 
 using System;
@@ -12,7 +15,7 @@ using System.Threading.Tasks;
 using Godot;
 
 
-public class Basic_Character : RigidBody2D, Global_Variables_F_A_T
+public class Basic_Character : RigidBody2D, Character
 {
 
 	// node_type of the character e.g player,zombie etc....
@@ -22,6 +25,7 @@ public class Basic_Character : RigidBody2D, Global_Variables_F_A_T
 	// [Export]
 	public _Type_of_ _node_type { get; set; }
 
+	public int health{get;set;} // the health of a basic player
 
 	public string character_name = null; // the name of the character as per the node name of the following player
 
@@ -37,7 +41,6 @@ public class Basic_Character : RigidBody2D, Global_Variables_F_A_T
 	public Direction moving_direction;// this will give the direction of the player in which the player is confronting
 
 	public int power_available;
-	public int health; // the health of a basic player
 	int past_health;
 
 	public Particles2D blood_effect;
@@ -125,7 +128,14 @@ public class Basic_Character : RigidBody2D, Global_Variables_F_A_T
 
 	public ProgressBar health_bar;
 
-	public bool is_resisted;
+	#region All this varaiables are associated with the spell usage
+
+	public bool is_resisted = false;
+	public bool is_to_decrease_power = true;
+	public bool can_move = true;	
+	public bool is_able_to_perform_moves = true;	
+
+	#endregion
 
 	public Basic_Func basf; // containing the basic_function 
 
@@ -143,6 +153,9 @@ public class Basic_Character : RigidBody2D, Global_Variables_F_A_T
 
 
 
+	public ArrayList can_collide_with{get;set;}
+
+
 
 
 
@@ -153,9 +166,10 @@ public class Basic_Character : RigidBody2D, Global_Variables_F_A_T
 
 		// GD.Print("hey there I am right from the basic_character not the basic player..");
 		_node_type = _Type_of_.Nothing;
-
+		
 		basf = new Basic_Func(this);
 
+		can_collide_with = new ArrayList();
 
 
 		power_available = 100;
@@ -362,6 +376,10 @@ public class Basic_Character : RigidBody2D, Global_Variables_F_A_T
 			this.QueueFree();
 		}
 
+		if(!is_to_decrease_power){
+			power_available = 100;
+		}
+
 
 	}
 
@@ -399,7 +417,7 @@ public class Basic_Character : RigidBody2D, Global_Variables_F_A_T
 	// if the player has performed the move then the function will return true
 	public bool perform_move(string move_name, bool is_to_make_busy = true)
 	{
-		if (available_moves.Contains(move_name.ToLower()) && animations.Animation != move_name)
+		if (available_moves.Contains(move_name.ToLower()) && animations.Animation != move_name && is_able_to_perform_moves)
 		{
 			if(can_perform_move(move_name.ToLower())){
 				is_busy = is_to_make_busy;
@@ -500,8 +518,11 @@ public class Basic_Character : RigidBody2D, Global_Variables_F_A_T
 
 	public bool change_health(int change)
 	{
-		health += change;
-		return true;
+		if(!is_resisted){
+			health += change;
+			return true;
+		}
+		return false;
 	}
 
 
@@ -520,6 +541,10 @@ public class Basic_Character : RigidBody2D, Global_Variables_F_A_T
 	public virtual bool resettle_of_hitness(){
 		is_hitted = false;
 		return true;
+	}
+
+	public void move(){
+		this.LinearVelocity = (can_move)?this.moving_speed:Vector2.Zero;
 	}
 
 	public virtual void update_logic(Data_Manager shop_data,Data_Manager user_data,Data_Manager throwable_weapons_dm){

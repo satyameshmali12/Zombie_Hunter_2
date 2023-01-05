@@ -50,8 +50,8 @@ public class Knight : Basic_Player
 		set_animation_idle("Run");
 		set_animation_idle("Jump_Attack");
 
+		move();
 
-		LinearVelocity = moving_speed;
 	}
 
 	public override void collided_with_body(Node body)

@@ -29,7 +29,7 @@ public class Female_Zombie : Basic_Zombie
 	public override void _Process(float delta)
 	{
 		base._Process(delta);
-
-		LinearVelocity = moving_speed;
+		
+		move();
 	}
 }

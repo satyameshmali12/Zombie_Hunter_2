@@ -33,7 +33,7 @@ public class Adventure_Girl : Basic_Player
         
         custom_process(delta);
 
-        LinearVelocity = moving_speed;
+        move();
         
     }
     public override void collided_with_body(Node body)

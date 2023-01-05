@@ -121,9 +121,7 @@ public class Ninja : Basic_Player
         set_animation_idle("Jump");
         set_animation_idle("Shoot");
 
-
-        LinearVelocity = moving_speed;
-
+        move();
     }
 
     public override void collided_with_body(Node body)

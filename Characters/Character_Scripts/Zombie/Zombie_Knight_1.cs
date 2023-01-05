@@ -24,8 +24,7 @@ public class Zombie_Knight_1 : Powerful_Zombie
 	{
 		base._Process(delta);
 
-		LinearVelocity = moving_speed;
-
+		move();
 	}
 
 }

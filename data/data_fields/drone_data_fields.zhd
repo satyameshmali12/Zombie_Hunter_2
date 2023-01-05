@@ -1,0 +1,10 @@
+data/drone_data.zhd
+
+Drone_Name
+Drone_Speed_X
+Drone_Speed_Y
+No_Of_Bursting
+Ini_Faller_Range
+Ini_Faller_Y_Speed
+Bomb_Name
+Is_To_Display_On_Shop

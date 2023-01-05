@@ -50,6 +50,8 @@ public class Basic_Func
             {
                 RayCast2D ray = item as RayCast2D;
                 ray.Enabled = true;
+                ray.CollideWithAreas = true;
+                ray.CollideWithBodies = true;
             }
         }
         return collider_rays;
@@ -180,5 +182,23 @@ public class Basic_Func
 
     public void pause_tree(Node node,bool is_to_pause = true){
         node.GetTree().Paused = is_to_pause;
+    }
+
+    public bool remove_all_childs(){
+        var children = node.GetChildren();
+        foreach (Node item in children)
+        {
+            item.QueueFree();
+        }
+        return true;
+    }
+
+    public void disvisible_visible_list(Node2D except = null){
+        foreach (Node2D item in global_Variables.visibility_list)
+        {
+            if(except!=item){
+                item.Visible = false;
+            }
+        }
     }
 }

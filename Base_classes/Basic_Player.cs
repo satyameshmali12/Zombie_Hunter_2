@@ -120,6 +120,8 @@ public class Basic_Player : Basic_Character
 
 
         damage_increment_possible_moves = new ArrayList();
+        
+        can_collide_with = new ArrayList(){_Type_of_.Zombie,_Type_of_.Drone};
 
 
     }
@@ -276,16 +278,15 @@ public class Basic_Player : Basic_Character
     {
 
         Global_Variables_F_A_T collided_one = collided_obj as Global_Variables_F_A_T;
-        if (collided_one._node_type == _Type_of_.Zombie)
+        // if (collided_one._node_type == _Type_of_.Zombie)
+        if(can_collide_with.Contains(collided_one._node_type))
         {
             if (number_of_hits < max_number_hits)
             {
-                Basic_Zombie collided_zombie = (Basic_Zombie)collided_one;
-                GD.Print(damage_increment);
+                Character collided_char = (Character)collided_one;
                 var current_move = animations.Animation.ToLower();
                 var damage = get_moves_damage(current_move) + (damage_increment_possible_moves.Contains(current_move) ? damage_increment : 0);
-                GD.Print("basic player", damage);
-                collided_zombie.change_health(-damage);
+                collided_char.change_health(-damage);
                 basf.global_Variables.score += damage;
                 is_hitted = true;
                 number_of_hits++;

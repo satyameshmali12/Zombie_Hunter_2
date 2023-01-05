@@ -9,9 +9,9 @@ public class Global_Variables : Node2D
     public bool is_game_over;
 
     public string _main_character_name; // this will help us in the multi character match
+    public Node2D character_scene = null;
     public string level_name;
-
-
+    public TileMap level_tiles = null;
     /* this custom url is been used on the main game scene to render the level
     this is used to render the zombie match which is not included in the the basic levels e.g Arcade*/
     
@@ -19,6 +19,11 @@ public class Global_Variables : Node2D
 
     public bool is_level_added;
     public int score;
+    public Node2D level_scene = null;
+
+    public ArrayList visibility_list = new ArrayList();
+
+
 
     public bool is_arcade;
 
@@ -96,6 +101,7 @@ public class Global_Variables : Node2D
             basf.create_a_sound(click_sound, current_scene, true);
         }
     }
+    
 
     public void increment_score(int increment){
         score+=increment;

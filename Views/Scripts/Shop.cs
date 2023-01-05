@@ -65,8 +65,23 @@ public class Shop : Basic_View
         {
             GD.Print(i);
             dm = new Data_Manager(specific_data_fields_urls[i]);
-            urls.Add(dm.get_set_of_field_values(names[i]));
+            var data = dm.get_set_of_field_values(names[i]);
+            var is_to_add = dm.get_set_of_field_values("Is_To_Display_On_Shop");
+            var removal_index = 0;
+            for (int j = 0; j < data.Count; j++)
+            {
+                var is_to_show_on_shop =  Convert.ToBoolean(is_to_add[j-removal_index].ToString().Trim());
+                if(!is_to_show_on_shop){
+                    data.Remove(data[j]);
+                    removal_index++;
+                }
+            }
+
+            urls.Add(data);
         }
+
+        // removing the item
+
 
         menu_selection = Convert.ToInt32(basf.user_data.get_data("Menu_Selection"));
         view_index = Convert.ToInt32(basf.user_data.get_data("Specific_Selection"));
@@ -181,7 +196,7 @@ public class Shop : Basic_View
             specific_name = desired_urls[view_index].ToString();
             var specific_base_url = base_urls[menu_selection].ToString();
 
-
+;
             reload_scene_features();
 
 

@@ -58,12 +58,10 @@ public class Basic_Bomb:Node2D,Global_Variables_F_A_T
             if(item.IsColliding()){
                 Global_Variables_F_A_T node_type = (Global_Variables_F_A_T)item.GetCollider();
                 if(node_type._node_type!=_Type_of_.Block){
-                    Basic_Character character = item.GetCollider() as Basic_Character;
-                    if(item.IsColliding() && !character.is_resisted){
-                        // character.health-=bomb_per_damage;
+                    Character character = item.GetCollider() as Character;
+                    if(item.IsColliding()){
                         character.change_health(-bomb_per_damage);
                         basf.global_Variables.score+=bomb_per_damage;
-                        // item.Enabled = false;
                     }
                 }
             }

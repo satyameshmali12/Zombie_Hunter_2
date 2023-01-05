@@ -46,7 +46,6 @@ public class Level : Node2D, Global_Variables_F_A_T
     public AudioStreamPlayer2D background_Music;
 
     public Button pause_button;
-
     public Node2D game_gui;
 
     // this boolean will be overrided from the aracde script of the game
@@ -67,6 +66,10 @@ public class Level : Node2D, Global_Variables_F_A_T
         game_over_timing = 0;
 
         basf = new Basic_Func(this);
+
+        basf.global_Variables.visibility_list.Clear();
+
+        basf.global_Variables.level_scene = this;
 
         // setting the metadata of the for the level
         // in other words resetting all the properties of the global variables
@@ -187,6 +190,11 @@ public class Level : Node2D, Global_Variables_F_A_T
         player.Position = player_spawn_point.Position;
         this.AddChild(player);
 
+
+        // sending the data to the global_variables i.e the player scene
+        basf.global_Variables.character_scene = player;
+        basf.global_Variables.level_tiles = this.GetNode<TileMap>("TileMap");
+
         basf.increment_loading_percent(20);
 
 
@@ -208,14 +216,10 @@ public class Level : Node2D, Global_Variables_F_A_T
     public override void _Process(float delta)
     {
 
-        if (!is_data_saved && !global_variables.is_game_over)
-        {
-            if (pause_button.Pressed)
-            {
-                game_gui.GetNode<Pause_Menu>("Pause_Menu").Visible = true;
-                basf.pause_tree(this);
-            }
-        }
+        // if (!is_data_saved && !global_variables.is_game_over)
+        // {
+            
+        // }
         var zombie_area = GetNode<Node2D>("Zombie_Area");
         spawn_zombie(zombie_area);
         var win_condition = total_zombie == 0 && zombie_area.GetChildren().Count == 0;

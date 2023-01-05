@@ -1,0 +1,69 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://Weapons_And_Animation/components/scripts/Shooter_DD_Bullet.cs" type="Script" id=1]
+[ext_resource path="res://assets/audio/Bomb's/Gun_Shoot.mp3" type="AudioStream" id=2]
+[ext_resource path="res://assets/audio/Bomb's/Bullet_Collision_Sound.mp3" type="AudioStream" id=3]
+[ext_resource path="res://assets/images/drones/Bomb/star_image-removebg-preview.png" type="Texture" id=4]
+
+[sub_resource type="CircleShape2D" id=1]
+
+[sub_resource type="SpriteFrames" id=12]
+animations = [ {
+"frames": [ ExtResource( 4 ) ],
+"loop": true,
+"name": "Fire",
+"speed": 5.0
+} ]
+
+[sub_resource type="Curve" id=14]
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 0.538813, 0 ), 0.0, 0.0, 0, 0, Vector2( 0.986301, 0.87529 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=11]
+curve = SubResource( 14 )
+
+[sub_resource type="ParticlesMaterial" id=15]
+flag_disable_z = true
+direction = Vector3( 0, 0, 0 )
+spread = 180.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 400.0
+orbit_velocity = 2.0
+orbit_velocity_random = 0.0
+scale = 12.0
+scale_curve = SubResource( 11 )
+color = Color( 0.831373, 0.00784314, 0.00784314, 1 )
+
+[node name="Shooter_DD_Bullet" type="Area2D"]
+position = Vector2( 455, 297 )
+script = ExtResource( 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="Movements" type="AnimatedSprite" parent="."]
+position = Vector2( 0, 3 )
+scale = Vector2( 0.0648536, 0.0651341 )
+frames = SubResource( 12 )
+animation = "Fire"
+
+[node name="Collision_Animation" type="Particles2D" parent="."]
+position = Vector2( 7.62939e-06, 1.33514e-05 )
+emitting = false
+amount = 40
+lifetime = 0.4
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource( 15 )
+
+[node name="Life_Timer" type="Timer" parent="."]
+wait_time = 5.0
+
+[node name="Shoot_Sound" type="AudioStreamPlayer2D" parent="."]
+position = Vector2( 0, 7.62939e-06 )
+scale = Vector2( 0.665575, 0.708632 )
+stream = ExtResource( 2 )
+
+[node name="Bullet_Collision_Sound" type="AudioStreamPlayer2D" parent="."]
+position = Vector2( 0, 7.62939e-06 )
+scale = Vector2( 0.665575, 0.708632 )
+stream = ExtResource( 3 )

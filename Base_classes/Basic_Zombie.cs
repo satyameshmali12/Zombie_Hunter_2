@@ -94,6 +94,8 @@ public class Basic_Zombie : Basic_Character
         // basf.create_a_sound(roar_sound, this, false, rand_max_time, rand_max_time, 1);
 
         this.hurt_sound_url = "res://assets/audio/Zombie/Zombie_Hurt.mp3";
+
+        can_collide_with = new ArrayList(){_Type_of_.Player,_Type_of_.Drone};
     }
 
 
@@ -217,7 +219,8 @@ public class Basic_Zombie : Basic_Character
 
         if (!is_busy)
         {
-            if (collided_one._node_type == _Type_of_.Player && !is_on_edge)
+            // if (collided_one._node_type == _Type_of_.Player && !is_on_edge)
+            if(can_collide_with.Contains(collided_one._node_type) && !is_on_edge)
             {
 
                 string random_attack = (string)attack_move_names[Convert.ToInt32(GD.RandRange(0, attack_move_names.Count - 1))];
@@ -239,9 +242,10 @@ public class Basic_Zombie : Basic_Character
         {
             if (!is_hitted)
             {
-                if (collided_one._node_type == _Type_of_.Player)
+                // if (collided_one._node_type == _Type_of_.Player)
+                if(can_collide_with.Contains(collided_one._node_type))
                 {
-                    Basic_Player character = collided_obj as Basic_Player;
+                    Character character = collided_obj as Character;
                     character.change_health(-available_moves_damage[available_moves.IndexOf(this.animations.Animation.ToLower())]);
                     // character.health -= available_moves_damage[available_moves.IndexOf(this.animations.Animation.ToLower())];
                     is_hitted = true;

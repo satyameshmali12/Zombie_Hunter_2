@@ -8,6 +8,7 @@ public enum _Type_of_
     Nothing = 5,
     View = 6,  // this will be allocated to the view for e.g.  Game_View,Home_View
     Bomb = 7,
-    Game_View = 8
+    Game_View = 8,
+    Drone = 9
     
 }

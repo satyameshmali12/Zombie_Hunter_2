@@ -29,6 +29,6 @@ public class Wild_Zombie : Basic_Zombie
     {
         base._Process(delta);
 
-        LinearVelocity = moving_speed;
+        move();
     }
 }

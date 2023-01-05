@@ -24,7 +24,7 @@ public class Jack : Basic_Player
 
 		custom_process(delta);
 
-		LinearVelocity = moving_speed;
+		move();
 
 
 		

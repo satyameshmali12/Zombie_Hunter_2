@@ -15,6 +15,10 @@ public class Global_Paths:Node
     public string basic_throwable_weapons_data_fields_Url = "data/data_fields/basic_throwable_weapons_data_fields.zhd";
     public string Heros_Data_Field_Url = "data/data_fields/heros_data_field.zhd";
     public string Level_Scenes_Directory_Url = "Levels\\Scenes";
+
+    public string Drone_Ini_Faller_Url = "res://Bomb's/Scenes/Drone_Ini_Faller.tscn";
+
+    public string Shooter_DD_Bullet_Url = "res://Weapons_And_Animation/scenes/Weapons/Shooter_DD_Bullet.tscn";
     public Global_Paths(){
         
     }

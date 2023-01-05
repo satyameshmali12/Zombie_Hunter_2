@@ -1,0 +1,123 @@
+[gd_scene load_steps=21 format=2]
+
+[ext_resource path="res://assets/images/drones/1 Drones/1/Walk.png" type="Texture" id=1]
+[ext_resource path="res://assets/images/drones/1 Drones/1/Scan.png" type="Texture" id=2]
+[ext_resource path="res://Drones/Scripts/Drone_1.cs" type="Script" id=3]
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 2 )
+region = Rect2( 0, 0, 48, 48 )
+
+[sub_resource type="AtlasTexture" id=7]
+atlas = ExtResource( 2 )
+region = Rect2( 48, 0, 48, 48 )
+
+[sub_resource type="AtlasTexture" id=8]
+atlas = ExtResource( 2 )
+region = Rect2( 96, 0, 48, 48 )
+
+[sub_resource type="AtlasTexture" id=9]
+atlas = ExtResource( 2 )
+region = Rect2( 144, 0, 48, 48 )
+
+[sub_resource type="AtlasTexture" id=10]
+atlas = ExtResource( 2 )
+region = Rect2( 192, 0, 48, 48 )
+
+[sub_resource type="AtlasTexture" id=11]
+atlas = ExtResource( 2 )
+region = Rect2( 240, 0, 48, 48 )
+
+[sub_resource type="AtlasTexture" id=12]
+atlas = ExtResource( 2 )
+region = Rect2( 288, 0, 48, 48 )
+
+[sub_resource type="AtlasTexture" id=13]
+atlas = ExtResource( 2 )
+region = Rect2( 336, 0, 48, 48 )
+
+[sub_resource type="AtlasTexture" id=1]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 0, 48, 48 )
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 1 )
+region = Rect2( 48, 0, 48, 48 )
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 1 )
+region = Rect2( 96, 0, 48, 48 )
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 1 )
+region = Rect2( 144, 0, 48, 48 )
+
+[sub_resource type="SpriteFrames" id=14]
+animations = [ {
+"frames": [ SubResource( 6 ), SubResource( 7 ), SubResource( 8 ), SubResource( 9 ), SubResource( 10 ), SubResource( 11 ), SubResource( 12 ), SubResource( 13 ) ],
+"loop": true,
+"name": "Attack",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ) ],
+"loop": true,
+"name": "Walk",
+"speed": 10.0
+} ]
+
+[sub_resource type="CircleShape2D" id=15]
+radius = 61.0328
+
+[sub_resource type="Curve" id=17]
+_data = [ Vector2( 0, 0.67952 ), 0.0, 0.0, 0, 0, Vector2( 0.558659, 0.227273 ), 0.0, 0.0, 0, 0, Vector2( 0.98324, 0.87952 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=18]
+curve = SubResource( 17 )
+
+[sub_resource type="ParticlesMaterial" id=16]
+emission_shape = 2
+emission_box_extents = Vector3( 1, 1, 1 )
+flag_disable_z = true
+direction = Vector3( 0, 0, 0 )
+spread = 180.0
+gravity = Vector3( 0, 98, 0 )
+initial_velocity = 842.49
+orbit_velocity = 366.34
+orbit_velocity_random = 0.19
+scale = 20.0
+scale_curve = SubResource( 18 )
+color = Color( 0.984314, 0.0588235, 0.0588235, 1 )
+
+[node name="Drone_1" type="Area2D"]
+position = Vector2( 532, 282 )
+script = ExtResource( 3 )
+
+[node name="Movements" type="AnimatedSprite" parent="."]
+position = Vector2( 0.499962, 2.75008 )
+scale = Vector2( 2.6875, 2.84375 )
+z_index = 2
+frames = SubResource( 14 )
+animation = "Attack"
+frame = 3
+playing = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 15 )
+
+[node name="Death_Animation" type="Particles2D" parent="."]
+emitting = false
+amount = 100
+one_shot = true
+process_material = SubResource( 16 )
+
+[node name="Left_Collision_Ray" type="RayCast2D" parent="."]
+enabled = true
+cast_to = Vector2( -208, 1 )
+
+[node name="Right_Collision_Ray" type="RayCast2D" parent="."]
+enabled = true
+cast_to = Vector2( 179, -6 )
+
+[node name="Ground_Collision_Rays" type="RayCast2D" parent="."]
+enabled = true
+cast_to = Vector2( 0, 311 )

@@ -72,8 +72,8 @@ public class Ninja_Monk : Basic_Player
 		set_animation_idle("Cast");
 
 
-		LinearVelocity = this.moving_speed;
-
+		move();
+		
 	}
 
 	public override void fire_bullet()

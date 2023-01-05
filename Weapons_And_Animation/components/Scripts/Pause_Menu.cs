@@ -20,6 +20,7 @@ public class Pause_Menu : Node2D
         quit_button = this.GetNode<Button>("Quit_Button");
         this.PauseMode = PauseModeEnum.Process;
         basf = new Basic_Func(this);
+        basf.global_Variables.visibility_list.Add(this);
     }
 
     public override void _Process(float delta)

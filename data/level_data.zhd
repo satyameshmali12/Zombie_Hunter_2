@@ -5,8 +5,9 @@ Level1
 false
 -
 -
-19956
+24796
 6
+true
 true
 
 Level2
@@ -19,6 +20,7 @@ true
 14062
 10
 true
+true
 
 Level3
 20
@@ -29,6 +31,7 @@ true
 1
 25442
 20
+true
 true
 
 Level4
@@ -41,6 +44,7 @@ true
 23641
 10
 true
+true
 
 Level5
 100
@@ -51,6 +55,7 @@ false
 -
 95693
 10
+true
 true
 
 Level6
@@ -63,6 +68,7 @@ false
 72084
 10
 true
+true
 
 Level7
 50
@@ -73,6 +79,7 @@ false
 -
 72084
 10
+true
 true
 
 Level8
@@ -85,6 +92,7 @@ false
 72084
 10
 true
+true
 
 Level9
 100
@@ -95,6 +103,7 @@ true
 1,2
 72084
 10
+true
 true
 
 Level10
@@ -107,6 +116,7 @@ true
 72084
 10
 true
+true
 
 Level11
 60
@@ -118,6 +128,7 @@ false
 72084
 10
 false
+true
 
 Level12
 100
@@ -129,6 +140,7 @@ true
 72084
 10
 true
+true
 
 Arcade
 5
@@ -139,4 +151,5 @@ true
 3,3
 0
 10
+true
 true
