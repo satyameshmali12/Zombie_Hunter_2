@@ -201,4 +201,15 @@ public class Basic_Func
             }
         }
     }
+
+    /// <summary>If the given ray is collided It gives the object collider else null</summary>
+    /// <returns>It returns the collider of type Global_Varaible_F_A_T</returns>
+    public Global_Variables_F_A_T getcollider<Thing>(RayCast2D ray) where Thing : class{
+        if(ray.IsColliding()){
+            Global_Variables_F_A_T collider = (Global_Variables_F_A_T)ray.GetCollider();
+            return collider;
+        }
+
+        return null;
+    }
 }

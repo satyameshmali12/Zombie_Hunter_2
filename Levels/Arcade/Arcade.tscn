@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Levels/Arcade/Arcade.cs" type="Script" id=1]
 [ext_resource path="res://Weapons_And_Animation/components/scenes/All_Tiles.tscn" type="PackedScene" id=2]
@@ -6,9 +6,10 @@
 [ext_resource path="res://assets/images/Level_Assets/1_game_background.png" type="Texture" id=4]
 [ext_resource path="res://assets/images/Level_Assets/3_game_background.png" type="Texture" id=5]
 [ext_resource path="res://assets/images/Level_Assets/4_game_background.png" type="Texture" id=6]
+[ext_resource path="res://Drones/Scenes/Shooter_DD.tscn" type="PackedScene" id=7]
 
 [node name="Arcade" type="Node2D"]
-position = Vector2( -10, 130 )
+position = Vector2( 0, -1 )
 script = ExtResource( 1 )
 
 [node name="TileMap" parent="." instance=ExtResource( 2 )]
@@ -60,3 +61,20 @@ position = Vector2( 767, 353 )
 
 [node name="End_Point" type="Position2D" parent="Points"]
 position = Vector2( 8245, 1834 )
+
+[node name="Shooter_DD" parent="." instance=ExtResource( 7 )]
+position = Vector2( -1729, 275 )
+
+[node name="Shooter_DD2" parent="." instance=ExtResource( 7 )]
+
+[node name="Shooter_DD3" parent="." instance=ExtResource( 7 )]
+position = Vector2( 1513, 209 )
+
+[node name="Shooter_DD4" parent="." instance=ExtResource( 7 )]
+position = Vector2( -1208, 132 )
+
+[node name="Shooter_DD5" parent="." instance=ExtResource( 7 )]
+position = Vector2( 1023, 0 )
+
+[node name="Shooter_DD6" parent="." instance=ExtResource( 7 )]
+position = Vector2( 2034, 66 )

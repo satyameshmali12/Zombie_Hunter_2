@@ -33,7 +33,7 @@ public class Basic_Drone : Area2D, Character
     public Basic_Func basf;
 
 
-    AnimatedSprite movements;
+    public AnimatedSprite movements;
     Particles2D death_animation;
     bool is_death = false;
     Data_Manager drone_data;
@@ -98,6 +98,8 @@ public class Basic_Drone : Area2D, Character
 
     public int collision_damage = 10;
 
+    public bool is_map_drop_available = true;
+
 
     public override void _Ready()
     {
@@ -140,6 +142,8 @@ public class Basic_Drone : Area2D, Character
         ground_collision_ray = this.GetNode<RayCast2D>("Ground_Collision_Rays");
 
         vertical_transion_timer = basf.create_timer(2, "Over_Vertical_Transion");
+        
+        collision_damage = Convert.ToInt32(drone_data.get_data("Collision_Damage"));
 
 
     }
@@ -298,6 +302,7 @@ public class Basic_Drone : Area2D, Character
     public virtual void L_R_Ray_Collided()
     {
 
+
     }
 
     public void Remove_Instantly()
@@ -313,4 +318,7 @@ public class Basic_Drone : Area2D, Character
 
     }
 
+    public void perform_move(string move_name){
+        movements.Animation = move_name;
+    }
 }

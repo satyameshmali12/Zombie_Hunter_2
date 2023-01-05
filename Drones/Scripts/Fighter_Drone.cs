@@ -19,6 +19,7 @@ public class Fighter_Drone : Basic_Drone
 
         var points = this.GetParent().GetNode<Node2D>("Points");
 
+        is_map_drop_available = false;
         // spawn_drone(Vector2.Zero, Vector2.Zero, );
 
 

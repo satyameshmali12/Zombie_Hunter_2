@@ -66,13 +66,7 @@ public class Dropper : Basic_Drone
         can_alter_timer = basf.create_timer(2f,"Alter_The_Alter");
 
         this.Monitoring = true;
-        // this.Connect("body_entered",this,"Entered_Some_Block");
-
         
-
-
-
-
 
 
     }
@@ -83,11 +77,11 @@ public class Dropper : Basic_Drone
 
         if (health > 0)
         {
-            // // temporary code just for testing purpose
-            // if (parent == null && basf.global_Variables.character_scene != null)
-            // {
-            //     parent = basf.global_Variables.character_scene as Basic_Character;
-            // }
+            // temporary code just for testing purpose
+            if (parent == null && basf.global_Variables.character_scene != null)
+            {
+                parent = basf.global_Variables.character_scene as Basic_Character;
+            }
 
 
             // if no target character , finding the target character here
@@ -186,6 +180,7 @@ public class Dropper : Basic_Drone
             target_character.Disconnect("child_exiting_tree", this, "Target_Finished");
         }
     }
+
 
     // changing the direction of the drone if collided to any object in between
     public override void L_R_Ray_Collided()

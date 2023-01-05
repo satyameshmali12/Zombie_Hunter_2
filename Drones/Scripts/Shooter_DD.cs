@@ -5,6 +5,7 @@ using System.Collections;
 /*
 
 Until target is not given this drone just basically follows the player with a specific offset
+This drone is one of the most powerfull drone in version 1.0.0
 
 */
 
@@ -43,8 +44,13 @@ public class Shooter_DD : Basic_Drone
 
     bool is_y_speed_changed = false;
 
-    RayCast2D height_checker_ray;
-    
+    RayCast2D height_checker_ray,drone_checker_ray;
+
+    Vector2 offset = Vector2.Zero;
+    bool is_offset_given = false;
+
+    int x_move = 300; // sometimes we need to adjust the shooter_dd drone for getting a definite offset so that collision between different is avoided
+
 
     public override void _Ready()
     {
@@ -70,11 +76,9 @@ public class Shooter_DD : Basic_Drone
 
         height_checker_ray = this.GetNode<RayCast2D>("Height_Checker_Ray");
 
-        
+        drone_checker_ray = this.GetNode<RayCast2D>("Drone_Checker_Ray");
 
-        // temporary code 
-        // parent = basf.global_Variables.character_scene as Basic_Character;
-        // GD.Print("Parent from the shooter_dd is :- ",parent);
+        
 
     }
 
@@ -90,26 +94,29 @@ public class Shooter_DD : Basic_Drone
         }
 
 
-        if (!is_enemy_target_position_given)
+        if (!is_enemy_target_position_given && !basf.global_Variables.is_game_over)
         {
 
-            target_position = basf.global_Variables.character_scene.Position;
+            target_position = basf.global_Variables.character_scene.Position + offset;
             move_to_target_position();
 
         }
 
-        if(!is_transioning_vertically){
+        if (!is_transioning_vertically)
+        {
 
-            if(!height_checker_ray.IsColliding()){
-                speed = new Vector2(speed.x,speed_y);
+            if (!height_checker_ray.IsColliding())
+            {
+                speed = new Vector2(speed.x, speed_y);
                 is_y_speed_changed = true;
             }
-            else if(is_y_speed_changed){
+            else if (is_y_speed_changed)
+            {
                 is_y_speed_changed = false;
-                speed = new Vector2(speed.x,0);
+                speed = new Vector2(speed.x, 0);
             }
 
-            
+
 
 
 
@@ -127,10 +134,26 @@ public class Shooter_DD : Basic_Drone
             }
         }
 
+        if(Math.Abs((Math.Abs(this.Position.x)+offset.x)-Math.Abs(parent.Position.x))>100)
+        {
+            this.movements.FlipH = (speed.x < 0) ? true : false;
+        }
+
+        // d_c_r_Collider stands for drone checker ray collider
+        var d_c_r_collider = basf.getcollider<RayCast2D>(drone_checker_ray);
+        if(d_c_r_collider!=null && !is_offset_given){
+            if(d_c_r_collider._node_type==_Type_of_.Drone){
+                var rand_direction = (int)GD.RandRange(0,2);
+                offset.x += (rand_direction==0)?-x_move:x_move;
+                is_offset_given = true;
+            }
+        }
 
 
 
     }
+
+
 
     public void shoot_bullet(RayCast2D item)
     {
@@ -141,6 +164,8 @@ public class Shooter_DD : Basic_Drone
 
         if (number_of_bullet_used < max_number_of_bullet && can_shoot && item.IsColliding() && type._node_type != _Type_of_.Block && type != parent)
         {
+            perform_move("Attack_" + (int)GD.RandRange(1, 4));
+
             ray_used.Add(item);
             var bullet = bullet_scene.Instance<Shooter_DD_Bullet>();
 
@@ -175,6 +200,7 @@ public class Shooter_DD : Basic_Drone
         {
             reloading_timer.Start();
             is_reloading = true;
+            perform_move("Idle");
         }
 
 

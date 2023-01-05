@@ -285,7 +285,7 @@ region = Rect2( 144, 0, 48, 48 )
 animations = [ {
 "frames": [ SubResource( 12 ), SubResource( 13 ), SubResource( 14 ), SubResource( 15 ), SubResource( 16 ), SubResource( 17 ), SubResource( 18 ), SubResource( 19 ), SubResource( 20 ), SubResource( 21 ), SubResource( 22 ), SubResource( 23 ), SubResource( 24 ), SubResource( 25 ), SubResource( 26 ), SubResource( 27 ) ],
 "loop": true,
-"name": "Attack",
+"name": "Attack_1",
 "speed": 15.0
 }, {
 "frames": [ SubResource( 28 ), SubResource( 29 ), SubResource( 30 ), SubResource( 31 ), SubResource( 32 ), SubResource( 33 ), SubResource( 34 ), SubResource( 35 ), SubResource( 36 ), SubResource( 37 ), SubResource( 38 ), SubResource( 39 ), SubResource( 40 ), SubResource( 41 ), SubResource( 42 ), SubResource( 43 ) ],
@@ -353,8 +353,8 @@ __meta__ = {
 position = Vector2( 5.99994, -4.00005 )
 scale = Vector2( 3.08333, 2.91666 )
 frames = SubResource( 5 )
-animation = "Attack_3"
-frame = 11
+animation = "Idle"
+frame = 3
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -411,7 +411,7 @@ cast_to = Vector2( -164, 680 )
 
 [node name="RayCast2D6" type="RayCast2D" parent="Shooting_Rays"]
 enabled = true
-cast_to = Vector2( -560, 433 )
+cast_to = Vector2( -685, 582 )
 
 [node name="RayCast2D7" type="RayCast2D" parent="Shooting_Rays"]
 enabled = true
@@ -419,21 +419,35 @@ cast_to = Vector2( 10, 695 )
 
 [node name="RayCast2D8" type="RayCast2D" parent="Shooting_Rays"]
 enabled = true
-cast_to = Vector2( 772, 309 )
+cast_to = Vector2( 926, 405 )
 
 [node name="RayCast2D9" type="RayCast2D" parent="Shooting_Rays"]
 enabled = true
-cast_to = Vector2( -677, 254 )
+cast_to = Vector2( -886, 443 )
 
 [node name="RayCast2D10" type="RayCast2D" parent="Shooting_Rays"]
 enabled = true
-cast_to = Vector2( 866, 60 )
+cast_to = Vector2( 881, 64 )
 
 [node name="RayCast2D11" type="RayCast2D" parent="Shooting_Rays"]
 enabled = true
-cast_to = Vector2( -839, 22 )
+cast_to = Vector2( -877, 18 )
+
+[node name="RayCast2D12" type="RayCast2D" parent="Shooting_Rays"]
+enabled = true
+cast_to = Vector2( -888, 242 )
+
+[node name="RayCast2D13" type="RayCast2D" parent="Shooting_Rays"]
+enabled = true
+cast_to = Vector2( 914, 248 )
 
 [node name="Height_Checker_Ray" type="RayCast2D" parent="."]
 enabled = true
 cast_to = Vector2( 17, 629 )
+collide_with_areas = true
+
+[node name="Drone_Checker_Ray" type="RayCast2D" parent="."]
+position = Vector2( -29, 0 )
+enabled = true
+cast_to = Vector2( -1, -139 )
 collide_with_areas = true

@@ -26,7 +26,20 @@ the score is not increased when the zombies are hittet by the bomb
 all the level name should be start from the keyword level
 and they should be in a numeric order mean it no number should be skipped
 if there are 10 levels then the next level name will be level11 and so
+while making any new level or anything make sure to keep the main parent position at 0,0 only in the editor or else the positioning of the elements or components in the game will be get effected
 
 
 caution 
 if you added any character or anything which makes any signal to called make sure to override the disconnect_all_signals function and the removing logic of that particular signal reference of this can be taken from the other characters
+
+
+
+// some testing stuffs
+
+Update_Cost
+Update_Cost_Increment
+Price
+Per_Price
+Is_Unlocked
+Is_To_Display_On_Shop
+No_Of_Drone_Available
