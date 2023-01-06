@@ -44,12 +44,14 @@ public class Shooter_DD : Basic_Drone
 
     bool is_y_speed_changed = false;
 
-    RayCast2D height_checker_ray,drone_checker_ray;
+    RayCast2D height_checker_ray, drone_checker_ray;
 
     Vector2 offset = Vector2.Zero;
     bool is_offset_given = false;
 
     int x_move = 300; // sometimes we need to adjust the shooter_dd drone for getting a definite offset so that collision between different is avoided
+
+    int bullet_damage = 0;
 
 
     public override void _Ready()
@@ -78,7 +80,9 @@ public class Shooter_DD : Basic_Drone
 
         drone_checker_ray = this.GetNode<RayCast2D>("Drone_Checker_Ray");
 
-        
+        bullet_damage = Convert.ToInt32(drone_data.get_data("Damage"));
+
+
 
     }
 
@@ -87,65 +91,65 @@ public class Shooter_DD : Basic_Drone
     {
         base._Process(delta);
 
-        // temporary code just for testing purpose
-        if (parent == null && basf.global_Variables.character_scene != null)
-        {
-            parent = basf.global_Variables.character_scene as Basic_Character;
-        }
-
-
-        if (!is_enemy_target_position_given && !basf.global_Variables.is_game_over)
+        if (!this.IsQueuedForDeletion())
         {
 
-            target_position = basf.global_Variables.character_scene.Position + offset;
-            move_to_target_position();
 
-        }
-
-        if (!is_transioning_vertically)
-        {
-
-            if (!height_checker_ray.IsColliding())
+            if (!is_enemy_target_position_given)
             {
-                speed = new Vector2(speed.x, speed_y);
-                is_y_speed_changed = true;
-            }
-            else if (is_y_speed_changed)
-            {
-                is_y_speed_changed = false;
-                speed = new Vector2(speed.x, 0);
+
+                target_position = basf.global_Variables.character_scene.Position + offset;
+                move_to_target_position();
+
             }
 
-
-
-
-
-        }
-
-        if (!is_reloading)
-        {
-            foreach (RayCast2D item in shooting_rays)
+            if (!is_transioning_vertically)
             {
-                var collider = item.GetCollider();
-                if (item.IsColliding() && !ray_used.Contains(item))
+
+                if (!height_checker_ray.IsColliding())
                 {
-                    shoot_bullet(item);
+                    speed = new Vector2(speed.x, speed_y);
+                    is_y_speed_changed = true;
+                }
+                else if (is_y_speed_changed)
+                {
+                    is_y_speed_changed = false;
+                    speed = new Vector2(speed.x, 0);
+                }
+
+
+
+
+
+            }
+
+            if (!is_reloading)
+            {
+                foreach (RayCast2D item in shooting_rays)
+                {
+                    var collider = item.GetCollider();
+                    if (item.IsColliding() && !ray_used.Contains(item))
+                    {
+                        shoot_bullet(item);
+                    }
                 }
             }
-        }
 
-        if(Math.Abs((Math.Abs(this.Position.x)+offset.x)-Math.Abs(parent.Position.x))>100)
-        {
-            this.movements.FlipH = (speed.x < 0) ? true : false;
-        }
+            if (Math.Abs((Math.Abs(this.Position.x) + offset.x) - Math.Abs(parent.Position.x)) > 100)
+            {
+                this.movements.FlipH = (speed.x < 0) ? true : false;
+            }
 
-        // d_c_r_Collider stands for drone checker ray collider
-        var d_c_r_collider = basf.getcollider<RayCast2D>(drone_checker_ray);
-        if(d_c_r_collider!=null && !is_offset_given){
-            if(d_c_r_collider._node_type==_Type_of_.Drone){
-                var rand_direction = (int)GD.RandRange(0,2);
-                offset.x += (rand_direction==0)?-x_move:x_move;
-                is_offset_given = true;
+            // d_c_r_Collider stands for drone checker ray collider
+            var d_c_r_collider = basf.getcollider<RayCast2D>(drone_checker_ray);
+            if (d_c_r_collider != null && !is_offset_given)
+            {
+                if (d_c_r_collider._node_type == _Type_of_.Drone)
+                {
+                    var rand_direction = (int)GD.RandRange(0, 2);
+                    offset.x += (rand_direction == 0) ? -x_move : x_move;
+                    is_offset_given = true;
+                }
             }
         }
 
@@ -191,6 +195,8 @@ public class Shooter_DD : Basic_Drone
 
 
             this.AddChild(bullet);
+            bullet.damage = bullet_damage;
+            bullet.exclude_list.Add(this);
             number_of_bullet_used++;
             can_shoot = false;
             shoot_bullet_timer.Start();

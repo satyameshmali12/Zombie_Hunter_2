@@ -36,7 +36,7 @@ public class Basic_Drone : Area2D, Character
     public AnimatedSprite movements;
     Particles2D death_animation;
     bool is_death = false;
-    Data_Manager drone_data;
+    public Data_Manager drone_data;
 
     bool is_bomb_restored = true;
 
@@ -48,8 +48,8 @@ public class Basic_Drone : Area2D, Character
     public Vector2 target_position = Vector2.Zero;
 
     // Both of this field will be taken right from the drone_data
-    public float speed_x = 0; // the speed with which the drone will move horizontally
-    public float speed_y = 0; // the speed with which the drone will move vertically
+    public int speed_x = 0; // the speed with which the drone will move horizontally
+    public int speed_y = 0; // the speed with which the drone will move vertically
     public bool have_reached_target_position = false;
 
 
@@ -61,6 +61,8 @@ public class Basic_Drone : Area2D, Character
     public string bomb_name = null;
     public bool is_to_follow_basic_b_d_rules;
     public int max_travelling_distance;
+    public int ini_faller_y_speed;
+
     public int number_of_bursting = 1;
     #endregion
 
@@ -129,6 +131,7 @@ public class Basic_Drone : Area2D, Character
 
         number_of_bursting = Convert.ToInt32(drone_data.get_data("No_Of_Bursting"));
         max_travelling_distance = Convert.ToInt32(drone_data.get_data("Ini_Faller_Range"));
+        ini_faller_y_speed = drone_data.get_interger_data("Ini_Faller_Y_Speed");
 
         bomb_drop_timer = basf.create_timer(bomb_drop_interval, "Bomb_Restored");
         bomb_drop_timer.Start();
@@ -145,6 +148,8 @@ public class Basic_Drone : Area2D, Character
         
         collision_damage = Convert.ToInt32(drone_data.get_data("Collision_Damage"));
 
+        // parent.Connect("child_exiting_tree",this,"Parent_Died_Kill_Drone");
+
 
     }
 
@@ -152,6 +157,16 @@ public class Basic_Drone : Area2D, Character
     {
 
         base._Process(delta);
+
+        // temporary code just for testing purpose
+        if (parent == null && basf.global_Variables.character_scene != null)
+        {
+            parent = basf.global_Variables.character_scene as Basic_Character;
+
+            parent.Connect("tree_exiting",this,"Parent_Died_Kill_Drone");
+
+
+        }
 
         this.Position += speed;
 
@@ -255,7 +270,8 @@ public class Basic_Drone : Area2D, Character
             drone_ini_faller.bomb_name = bomb_name;
             drone_ini_faller.number_of_bursting = number_of_bursting;
             drone_ini_faller.max_travelling_distance = max_travelling_distance;
-            drone_ini_faller.speed = new Vector2(0, Convert.ToInt32(drone_data.get_data("Ini_Faller_Y_Speed")));
+            // drone_ini_faller.speed = new Vector2(0, Convert.ToInt32(drone_data.get_data("Ini_Faller_Y_Speed")));
+            drone_ini_faller.speed = new Vector2(0, ini_faller_y_speed);
 
             drone_ini_faller.Position = this.Position + new Vector2(0, 40);
 
@@ -312,9 +328,29 @@ public class Basic_Drone : Area2D, Character
         death_animation.Emitting = false;
     }
 
+    public void Parent_Died_Kill_Drone()
+    {
+        this.QueueFree();
+        GD.Print("hello world right from the basic drone parnet died kill drone");
+    }
 
+
+
+    
+    // update logic for the all the drones
     public void update_logic(Data_Manager shop_data, Data_Manager user_data, Data_Manager throwable_weapon_dm)
     {
+
+        int new_drone_speed_x = shop_data.get_interger_data("Drone_Speed_X_Increment")+speed_x;
+        int new_drone_speed_y = shop_data.get_interger_data("Drone_Speed_Y_Increment")+speed_y;
+        int new_ini_faller_range = shop_data.get_interger_data("Ini_Faller_Range_Increment")+max_travelling_distance;
+        int new_drone_ini_faller_speed = shop_data.get_interger_data("Ini_Faller_Y_Speed_Increment")+ini_faller_y_speed;
+        int new_collision_damage = shop_data.get_interger_data("Collision_Damage_Increment")+collision_damage;
+
+        string[] settling_field_names = new string[5]{"Drone_Speed_X","Drone_Speed_Y","Ini_Faller_Range","Ini_Faller_Y_Speed","Collision_Damage"};
+        int[] settling_field_values = new int[5]{new_drone_speed_x,new_drone_speed_y,new_ini_faller_range,new_drone_ini_faller_speed,new_collision_damage};
+        shop_data.set_value<int>(settling_field_names,settling_field_values);
+        
 
     }
 

@@ -52,7 +52,7 @@ public class Basic_Throwable_Weapon : Area2D, Character
 
     public ArrayList exclude_list = new ArrayList();
 
-    Node2D parent;
+    public Node2D parent;
 
     public override void _Ready()
     {

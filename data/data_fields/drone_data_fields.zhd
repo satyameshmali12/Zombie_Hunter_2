@@ -3,12 +3,17 @@ data/drone_data.zhd
 Drone_Name
 Bomb_Name
 Drone_Speed_X
+Drone_Speed_X_Increment
 Drone_Speed_Y
+Drone_Speed_Y_Increment
 No_Of_Bursting
 Ini_Faller_Range
 Ini_Faller_Y_Speed
+Ini_Faller_Range_Increment
+Ini_Faller_Y_Speed_Increment
 Is_To_Display_On_Shop
 Collision_Damage
+Collision_Damage_Increment
 NO_Of_Drone_Available
 Damage
 Damage_Increment
@@ -16,3 +21,5 @@ Update_Cost
 Update_Cost_Increment
 Price
 Per_Price
+Current_Level
+Max_Level

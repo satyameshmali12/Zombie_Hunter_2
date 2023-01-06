@@ -193,6 +193,13 @@ public class Data_Manager
 	public string get_data(string field_name)
 	{
 		return all_field_values[all_field_names.IndexOf(field_name)].ToString();
+	}	
+
+	/// <summary>Use this function only the data is an integer which is stored in the form of integer</summary>
+	/// <returns>It returns the integer conversion of the data</returns>
+	public int get_interger_data(string field_name)
+	{
+		return Convert.ToInt32(all_field_values[all_field_names.IndexOf(field_name)].ToString());
 	}
 
 	public int get_incre(string field_name)
@@ -211,14 +218,14 @@ public class Data_Manager
 		return true;
 	}
 
-	public bool set_value(string[] field_names,string[] field_values){
+	public bool set_value<Thing>(string[] field_names,Thing[] field_values){
 
 		for (var i = 0; i < field_names.Length; i++)
 		{
 			if(!all_field_names.Contains(field_names[i])){
 				throw new No_Such_Field_Founded_In_Data("No such field name there in the data..!!");
 			}
-			this.set_value(field_names[i],field_values[i]);
+			this.set_value(field_names[i],field_values[i].ToString());
 		}
 		return true;
 	}

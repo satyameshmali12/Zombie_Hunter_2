@@ -3,6 +3,15 @@ using System;
 using System.Collections;
 
 /*
+Dropper
+
+One of the different drone in version 1.0.0
+this drone makes hangs up its enemy with him
+
+Lefting the parent this drone can pick up any one 
+and after reaching the desired height given to the drone it frees the character as well as drop a pretty cool bomb on it with with a few seconds thrust
+
+
 ones the dropper catched any character in 99% chances the player will die
 1% is the exception case where may the character has usen some kind of spell
 */
@@ -51,10 +60,13 @@ public class Dropper : Basic_Drone
         // giving the drone an initial_random_direction
 
         var random_direction = Convert.ToInt32(GD.RandRange(0, 3));
-        GD.Print("from the dropper .cs haha..!! :-", random_direction);
 
         speed = new Vector2((random_direction == 0) ? speed_x : -speed_x, 0);
 
+
+        /*
+        In case of zombie can_pick_up list will only contain the _Type_of_.player
+        */
         can_pick_up = new ArrayList() { _Type_of_.Player, _Type_of_.Zombie };
 
 
@@ -63,10 +75,10 @@ public class Dropper : Basic_Drone
 
         resettle_timer = basf.create_timer(2f, "Resettle_All_Fields");
 
-        can_alter_timer = basf.create_timer(2f,"Alter_The_Alter");
+        can_alter_timer = basf.create_timer(2f, "Alter_The_Alter");
 
         this.Monitoring = true;
-        
+
 
 
     }
@@ -77,15 +89,12 @@ public class Dropper : Basic_Drone
 
         if (health > 0)
         {
-            // temporary code just for testing purpose
-            if (parent == null && basf.global_Variables.character_scene != null)
-            {
-                parent = basf.global_Variables.character_scene as Basic_Character;
-            }
+
 
 
             // if no target character , finding the target character here
-            if(can_alter){
+            if (can_alter)
+            {
 
                 if (target_character == null)
                 {
@@ -205,7 +214,8 @@ public class Dropper : Basic_Drone
     {
         is_bomb_dropped = false;
 
-        if(target_character!=null){
+        if (target_character != null)
+        {
             target_character.can_move = true;
         }
         target_character = null;
@@ -249,7 +259,7 @@ public class Dropper : Basic_Drone
         {
             Basic_Character collided_one = (Basic_Character)type;
 
-            if (collided_one.can_move && collided_one._node_type==target_character._node_type)
+            if (collided_one.can_move && collided_one._node_type == target_character._node_type)
             {
                 have_captured = true;
                 collided_one.can_move = false;
@@ -261,21 +271,23 @@ public class Dropper : Basic_Drone
         }
 
         // var type = (Global_Variables_F_A_T)node;
-        if(type._node_type==_Type_of_.Block){
+        if (type._node_type == _Type_of_.Block)
+        {
             Resettle_All_Fields();
             can_alter_timer.Start();
             can_alter = false;
-            speed = new Vector2(speed.x,-speed_y);
+            speed = new Vector2(speed.x, -speed_y);
         }
 
     }
 
     // public void Entered_Some_Block(Node node){
 
-        
+
     // }
 
-    public void Alter_The_Alter(){
+    public void Alter_The_Alter()
+    {
         can_alter = true;
         can_alter_timer.Stop();
     }
