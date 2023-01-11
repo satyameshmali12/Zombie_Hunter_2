@@ -1,6 +1,11 @@
 using Godot;
 using System;
 
+
+/// <summary>
+/// To display the entire game in a small box
+/// it displays the main character,enemys i.e zombie
+/// </summary>
 public class Map : Node2D
 {
     public Basic_Func basf;
@@ -19,7 +24,7 @@ public class Map : Node2D
 
     Timer re_render_all_dots_timer;
 
-    
+
 
     float point_render_area_width = 0;
     float point_render_area_height = 0;
@@ -35,7 +40,7 @@ public class Map : Node2D
     public Vector2 adding_position = Vector2.Zero;
 
     Dot pointer_dot;
-        
+
     #endregion
     public override void _Ready()
     {
@@ -74,7 +79,7 @@ public class Map : Node2D
         // var all_points = basf.get_the_node_childrens("Point_Area");
 
 
-        if (is_data_loaded_ones && !is_point_given)
+        if (is_data_loaded_ones)
         {
             if (Input.IsActionJustPressed("Mouse_Pressed"))
             {
@@ -85,15 +90,19 @@ public class Map : Node2D
                     is_point_given = true;
 
                     pointer_dot.Visible = true;
-                    pointer_dot.Position = new Vector2(mouse_x,mouse_y);
+                    pointer_dot.Position = new Vector2(mouse_x, mouse_y);
 
-                    var mouse_x_percent = mouse_x/point_render_area_width*100;
-                    var mouse_y_percent = mouse_y/point_render_area_height*100;
+                    /*
+                    calculating the point adding position of the map with respect to the game scene
+                    so that map drop on desired places can be performed
+                    */
+                    var mouse_x_percent = mouse_x / point_render_area_width * 100;
+                    var mouse_y_percent = mouse_y / point_render_area_height * 100;
 
-                    var adding_x = (mouse_x_percent*size.x)/100;
-                    var adding_y = (mouse_y_percent*size.y)/100;
+                    var adding_x = (mouse_x_percent * size.x) / 100;
+                    var adding_y = (mouse_y_percent * size.y) / 100;
 
-                    adding_position = new Vector2(adding_x,adding_y);
+                    adding_position = new Vector2(adding_x, adding_y);
                 }
 
             }
@@ -107,7 +116,9 @@ public class Map : Node2D
 
     }
 
-    public void add_point(Vector2 map_position,Color dot_color)
+
+    /// <summary>To add the point on the map</summary>
+    public void add_point(Vector2 map_position, Color dot_color)
     {
         size = end_point - start_point;
 
@@ -159,6 +170,11 @@ public class Map : Node2D
 
     }
 
+
+    /// <summary>
+    /// This function basically makes the use of the add_point
+    /// <para>it just adds all the points on the map which are need to be displayed with the help of the add_point() function</para>
+    /// </summary>
     public void Re_Render_All_Dots()
     {
         basf.clear_children_nodes(point_area);
@@ -166,19 +182,25 @@ public class Map : Node2D
 
         foreach (Node2D item in all_zombies)
         {
-            add_point(item.GlobalPosition,new Color(200,192,192));
+            add_point(item.GlobalPosition, new Color(200, 192, 192));
         }
 
         var player_position = basf.global_Variables.character_scene.Position;
-        add_point(player_position,new Color(116,0,255,255));
+        add_point(player_position, new Color(116, 0, 255, 255));
 
 
         is_data_loaded_ones = true;
     }
 
-    public bool reset(){
+    /// <summary>
+    /// This makes all the stuffs of the map to be restart
+    /// <para>It makes the map ready for reusing it...</para>
+    /// </summary>
+    public bool reset()
+    {
         is_point_given = false;
         pointer_dot.Visible = false;
+        adding_position = Vector2.Zero;
         return true;
     }
 }

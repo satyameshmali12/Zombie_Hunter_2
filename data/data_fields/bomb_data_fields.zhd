@@ -1,7 +1,7 @@
 data//bomb_data.zhd
 
 Bomb_Name
-No_Of_Bomb_Available
+Available_Count
 Damage_Increment
 Current_Level
 Max_Level
@@ -12,3 +12,4 @@ Price
 Per_Price
 Is_Unlocked
 Is_To_Display_On_Shop
+Description

@@ -1,9 +1,10 @@
-[gd_scene load_steps=26 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://assets/images/drones/1 Drones/6/Drop.png" type="Texture" id=1]
 [ext_resource path="res://assets/images/drones/1 Drones/6/Capsule.png" type="Texture" id=2]
 [ext_resource path="res://assets/images/drones/1 Drones/6/Walk2.png" type="Texture" id=3]
 [ext_resource path="res://assets/images/drones/1 Drones/6/Walk.png" type="Texture" id=4]
+[ext_resource path="res://assets/images/Hamburger.png" type="Texture" id=5]
 
 [sub_resource type="AtlasTexture" id=8]
 atlas = ExtResource( 2 )
@@ -115,5 +116,10 @@ position = Vector2( 512.688, 374.188 )
 scale = Vector2( 5.51302, 5.82552 )
 frames = SubResource( 1 )
 animation = "Drop"
-frame = 3
+frame = 2
 playing = true
+
+[node name="Thumbnail" type="Sprite" parent="."]
+visible = false
+position = Vector2( -451, 131 )
+texture = ExtResource( 5 )

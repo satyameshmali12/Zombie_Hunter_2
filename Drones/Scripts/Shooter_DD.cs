@@ -57,7 +57,7 @@ public class Shooter_DD : Basic_Drone
     public override void _Ready()
     {
         bomb_drop_interval = 1;
-        drone_name = "Shooter_DD";
+        name = "Shooter_DD";
 
         base._Ready();
 
@@ -91,14 +91,14 @@ public class Shooter_DD : Basic_Drone
     {
         base._Process(delta);
 
-        if (!this.IsQueuedForDeletion())
+        if (!this.IsQueuedForDeletion() && !parent_leaved_scene_true && !basf.global_Variables.is_game_quitted)
         {
 
 
             if (!is_enemy_target_position_given)
             {
-
                 target_position = basf.global_Variables.character_scene.Position + offset;
+
                 move_to_target_position();
 
             }

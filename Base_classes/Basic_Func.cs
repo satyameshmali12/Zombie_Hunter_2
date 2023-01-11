@@ -212,4 +212,44 @@ public class Basic_Func
 
         return null;
     }
+
+    public void nullify_item_in_hand(){
+        global_Variables.item_in_hand = null;
+        global_Variables.item_using_menu_comp = null;
+    }
+
+    public void add_guitickle_button(params Button[] button)
+    {
+        foreach (Button item in button)
+        {
+            this.global_Variables.guiticke_buttons.Add(item);
+        }
+    }
+    
+    public bool is_any_guitickle_button_pressed(){
+
+        foreach (Button gui_button in global_Variables.guiticke_buttons)
+        {
+            if(gui_button.Pressed){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    
+    /// <summary> 
+    /// This helps to clean the stuff i.e the objects when the level is finshed
+    /// <para>This cleaning of the object and the resettling of the varialbes is consider as the clearing of the garbage</para>
+    /// </summary> 
+    public void clear_garbage(){
+        global_Variables.visibility_list.Clear();
+        global_Variables.guiticke_buttons.Clear();
+        nullify_item_in_hand();
+    }
+
+    public Vector2 abs_a_vector(Vector2 point)
+    {
+        return new Vector2(Math.Abs(point.x),Math.Abs(point.y));
+    }
 }

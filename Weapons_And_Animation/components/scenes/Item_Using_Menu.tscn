@@ -1,43 +1,376 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://Weapons_And_Animation/components/Scripts/Item_Using_Menu.cs" type="Script" id=1]
-[ext_resource path="res://assets/images/gui/designs/item_user_bg.jpg" type="Texture" id=2]
+[ext_resource path="res://assets/images/gui/designs/Curve_Bg.png" type="Texture" id=2]
+[ext_resource path="res://assets/images/Hamburger.png" type="Texture" id=3]
+[ext_resource path="res://assets/images/gui/cs_assingnment_11th.jpeg" type="Texture" id=4]
+[ext_resource path="res://assets/images/gui/fire_image.png" type="Texture" id=5]
+[ext_resource path="res://assets/images/gui/background.webp" type="Texture" id=6]
+[ext_resource path="res://Weapons_And_Animation/components/scenes/Map.tscn" type="PackedScene" id=7]
+[ext_resource path="res://assets/fonts/STIXGeneralBolIta.ttf" type="DynamicFontData" id=8]
+
+[sub_resource type="StyleBoxFlat" id=5]
+bg_color = Color( 0.756863, 0.760784, 0.384314, 1 )
+skew = Vector2( 0.1, 0 )
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color( 0.180392, 0.0313726, 0.152941, 1 )
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="StyleBoxFlat" id=6]
+bg_color = Color( 0.4, 0.619608, 0.745098, 1 )
+skew = Vector2( 0.1, 0 )
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color( 0.0509804, 0.0352941, 0.0352941, 1 )
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.858824, 0.623529, 0.623529, 1 )
+skew = Vector2( 0.1, 0 )
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color( 1, 0.462745, 0.462745, 1 )
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="SpriteFrames" id=2]
+animations = [ {
+"frames": [ ExtResource( 3 ), ExtResource( 4 ) ],
+"loop": true,
+"name": "Thumbnail",
+"speed": 5.0
+} ]
+
+[sub_resource type="DynamicFont" id=13]
+font_data = ExtResource( 8 )
+
+[sub_resource type="StyleBoxFlat" id=14]
+bg_color = Color( 0.270588, 0.0470588, 0.0470588, 1 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 0.14902, 0.14902, 0.188235, 1 )
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="DynamicFont" id=11]
+font_data = ExtResource( 8 )
+
+[sub_resource type="StyleBoxFlat" id=12]
+bg_color = Color( 0.784314, 0.65098, 0.0862745, 1 )
+skew = Vector2( 0.1, 0 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 0, 0, 0, 1 )
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="SpriteFrames" id=3]
+animations = [ {
+"frames": [ ExtResource( 5 ) ],
+"loop": true,
+"name": "Thumbnail",
+"speed": 5.0
+} ]
+
+[sub_resource type="SpriteFrames" id=4]
+animations = [ {
+"frames": [ ExtResource( 6 ) ],
+"loop": true,
+"name": "Thumbnail",
+"speed": 5.0
+} ]
+
+[sub_resource type="DynamicFont" id=10]
+font_data = ExtResource( 8 )
+
+[sub_resource type="StyleBoxFlat" id=8]
+bg_color = Color( 0.184314, 0.92549, 0.87451, 1 )
+skew = Vector2( 0.1, 0 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 0, 0, 0, 1 )
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="StyleBoxFlat" id=9]
+bg_color = Color( 0.145098, 0.709804, 0.627451, 1 )
+skew = Vector2( 0.1, 0 )
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color( 0.00392157, 0.00392157, 0.00392157, 1 )
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="StyleBoxFlat" id=7]
+bg_color = Color( 0.0705882, 0.486275, 0.529412, 1 )
+skew = Vector2( 0.1, 0 )
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
 
 [node name="Item_Using_Menu" type="Node2D"]
 position = Vector2( 516, 296 )
 script = ExtResource( 1 )
 
-[node name="ItemUserBg" type="Sprite" parent="."]
-position = Vector2( 4, 3.99999 )
-scale = Vector2( 0.253472, 0.217778 )
-texture = ExtResource( 2 )
-
 [node name="Button" type="Button" parent="."]
-margin_left = 299.0
-margin_top = -177.0
-margin_right = 353.0
-margin_bottom = -140.0
+margin_left = 308.0
+margin_top = -208.0
+margin_right = 362.0
+margin_bottom = -171.0
 text = "Cancel"
 
 [node name="Gui_Buttons" type="Node2D" parent="."]
+position = Vector2( 0, -21 )
 
 [node name="Button" type="Button" parent="Gui_Buttons"]
-margin_left = -325.0
-margin_top = -175.0
-margin_right = -222.0
-margin_bottom = -145.0
+margin_left = -154.0
+margin_top = -195.0
+margin_right = -51.0
+margin_bottom = -165.0
 text = "Health"
 
-[node name="Button2" type="Button" parent="Gui_Buttons"]
-margin_left = -169.0
-margin_top = -174.0
-margin_right = -66.0
-margin_bottom = -144.0
+[node name="0" type="Button" parent="Gui_Buttons"]
+margin_left = -324.0
+margin_top = -179.0
+margin_right = -221.0
+margin_bottom = -149.0
 text = "Drones"
 
 [node name="Button3" type="Button" parent="Gui_Buttons"]
-margin_left = -14.0
-margin_top = -172.0
-margin_right = 89.0
-margin_bottom = -142.0
+margin_left = 12.0
+margin_top = -174.0
+margin_right = 115.0
+margin_bottom = -144.0
 text = "Help"
+
+[node name="Preview_Box" type="Node2D" parent="."]
+
+[node name="0" type="Button" parent="Preview_Box"]
+margin_left = -262.0
+margin_top = -69.0
+margin_right = -126.0
+margin_bottom = 91.0
+custom_styles/hover = SubResource( 5 )
+custom_styles/pressed = SubResource( 6 )
+custom_styles/normal = SubResource( 1 )
+
+[node name="Thumbnail" type="AnimatedSprite" parent="Preview_Box/0"]
+position = Vector2( 64, 49 )
+scale = Vector2( 0.511628, 0.419355 )
+frames = SubResource( 2 )
+animation = "Thumbnail"
+
+[node name="Use" type="Button" parent="Preview_Box/0"]
+margin_left = 19.0
+margin_top = 89.0
+margin_right = 110.0
+margin_bottom = 117.0
+custom_constants/hseparation = 28
+custom_fonts/font = SubResource( 13 )
+custom_styles/normal = SubResource( 14 )
+text = "Use"
+
+[node name="Available_No" type="Label" parent="Preview_Box/0"]
+margin_left = 22.0
+margin_top = -28.0
+margin_right = 118.0
+margin_bottom = -11.0
+text = "10000"
+
+[node name="Map_Drop" type="Button" parent="Preview_Box/0"]
+margin_left = 18.0
+margin_top = 123.0
+margin_right = 109.0
+margin_bottom = 151.0
+text = "Map_Drop"
+
+[node name="Name" type="Label" parent="Preview_Box/0"]
+margin_left = 10.0
+margin_top = -75.0
+margin_right = 146.0
+margin_bottom = -46.0
+custom_fonts/font = SubResource( 11 )
+custom_styles/normal = SubResource( 12 )
+text = "Name"
+align = 1
+
+[node name="1" type="Button" parent="Preview_Box"]
+margin_left = -44.0
+margin_top = -48.0
+margin_right = 92.0
+margin_bottom = 112.0
+custom_styles/normal = SubResource( 1 )
+
+[node name="Thumbnail" type="AnimatedSprite" parent="Preview_Box/1"]
+position = Vector2( 65, 42 )
+scale = Vector2( 0.222, 0.178 )
+frames = SubResource( 3 )
+animation = "Thumbnail"
+
+[node name="Use" type="Button" parent="Preview_Box/1"]
+margin_left = 19.0
+margin_top = 89.0
+margin_right = 110.0
+margin_bottom = 117.0
+text = "Use"
+
+[node name="Available_No" type="Label" parent="Preview_Box/1"]
+margin_left = 22.0
+margin_top = -28.0
+margin_right = 118.0
+margin_bottom = -11.0
+text = "10000"
+
+[node name="Map_Drop" type="Button" parent="Preview_Box/1"]
+margin_left = 18.0
+margin_top = 123.0
+margin_right = 109.0
+margin_bottom = 151.0
+text = "Map_Drop"
+
+[node name="Name" type="Label" parent="Preview_Box/1"]
+margin_left = 10.0
+margin_top = -62.0
+margin_right = 146.0
+margin_bottom = -33.0
+custom_fonts/font = SubResource( 11 )
+custom_styles/normal = SubResource( 12 )
+text = "Name"
+align = 1
+
+[node name="2" type="Button" parent="Preview_Box"]
+margin_left = 166.0
+margin_top = -72.0
+margin_right = 302.0
+margin_bottom = 88.0
+custom_styles/normal = SubResource( 1 )
+
+[node name="Thumbnail" type="AnimatedSprite" parent="Preview_Box/2"]
+position = Vector2( 63.5, 46 )
+scale = Vector2( 0.0638461, 0.101695 )
+frames = SubResource( 4 )
+animation = "Thumbnail"
+
+[node name="Use" type="Button" parent="Preview_Box/2"]
+margin_left = 19.0
+margin_top = 89.0
+margin_right = 110.0
+margin_bottom = 117.0
+text = "Use"
+
+[node name="Available_No" type="Label" parent="Preview_Box/2"]
+margin_left = 22.0
+margin_top = -28.0
+margin_right = 118.0
+margin_bottom = -11.0
+text = "10000"
+
+[node name="Map_Drop" type="Button" parent="Preview_Box/2"]
+margin_left = 18.0
+margin_top = 123.0
+margin_right = 109.0
+margin_bottom = 151.0
+text = "Map_Drop"
+
+[node name="Name" type="Label" parent="Preview_Box/2"]
+margin_left = 14.0
+margin_top = -72.0
+margin_right = 150.0
+margin_bottom = -43.0
+custom_fonts/font = SubResource( 11 )
+custom_styles/normal = SubResource( 12 )
+text = "Name"
+align = 1
+
+[node name="Change_Buttons" type="Node2D" parent="."]
+
+[node name="Right" type="Button" parent="."]
+margin_left = 340.0
+margin_top = -49.0
+margin_right = 417.0
+margin_bottom = 82.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0.278431, 0, 0.960784, 1 )
+custom_colors/font_color_pressed = Color( 1, 1, 1, 1 )
+custom_fonts/font = SubResource( 10 )
+custom_styles/hover = SubResource( 8 )
+custom_styles/pressed = SubResource( 9 )
+custom_styles/normal = SubResource( 7 )
+text = "Right"
+
+[node name="Map_Drop" type="Node2D" parent="."]
+visible = false
+
+[node name="Map" parent="Map_Drop" instance=ExtResource( 7 )]
+position = Vector2( -312, -185 )
+
+[node name="Cancel_Map_Drop" type="Button" parent="Map_Drop"]
+margin_left = 366.0
+margin_top = -230.0
+margin_right = 496.0
+margin_bottom = -172.0
+text = "Cancel"
+
+[node name="Drop_Button" type="Button" parent="Map_Drop"]
+margin_left = 362.0
+margin_top = -154.0
+margin_right = 508.0
+margin_bottom = -91.0
+text = "Drop"
+
+[node name="Left" type="Button" parent="."]
+margin_left = -380.0
+margin_top = -49.0
+margin_right = -303.0
+margin_bottom = 82.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0.278431, 0, 0.960784, 1 )
+custom_colors/font_color_pressed = Color( 1, 1, 1, 1 )
+custom_fonts/font = SubResource( 10 )
+custom_styles/hover = SubResource( 8 )
+custom_styles/pressed = SubResource( 9 )
+custom_styles/normal = SubResource( 7 )
+text = "Left"
+
+[node name="CurveBg" type="Sprite" parent="."]
+modulate = Color( 0.584314, 0.2, 0.2, 1 )
+position = Vector2( 0, 7.99998 )
+scale = Vector2( 3.46875, 2.3125 )
+z_index = -1
+texture = ExtResource( 2 )

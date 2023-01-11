@@ -20,6 +20,10 @@ public class Game_Over_View : Basic_View
 		base._Ready();
 
 		basf = new Basic_Func(this);
+		
+		basf.global_Variables.is_game_quitted = false;
+
+
 		var dm = basf.dm;
 
 		is_next_level_available = false;

@@ -1,4 +1,4 @@
-[gd_scene load_steps=82 format=2]
+[gd_scene load_steps=87 format=2]
 
 [ext_resource path="res://Drones/scripts/Shooter_DD.cs" type="Script" id=1]
 [ext_resource path="res://assets/images/drones/1 Drones/3/Forward.png" type="Texture" id=2]
@@ -342,6 +342,30 @@ scale = 20.0
 scale_curve = SubResource( 82 )
 color = Color( 0.984314, 0.0588235, 0.0588235, 1 )
 
+[sub_resource type="AtlasTexture" id=85]
+atlas = ExtResource( 8 )
+region = Rect2( 0, 0, 48, 48 )
+
+[sub_resource type="AtlasTexture" id=86]
+atlas = ExtResource( 8 )
+region = Rect2( 48, 0, 48, 48 )
+
+[sub_resource type="AtlasTexture" id=87]
+atlas = ExtResource( 8 )
+region = Rect2( 96, 0, 48, 48 )
+
+[sub_resource type="AtlasTexture" id=88]
+atlas = ExtResource( 8 )
+region = Rect2( 144, 0, 48, 48 )
+
+[sub_resource type="SpriteFrames" id=84]
+animations = [ {
+"frames": [ SubResource( 85 ), SubResource( 86 ), SubResource( 87 ), SubResource( 88 ) ],
+"loop": true,
+"name": "Thumbnail",
+"speed": 5.0
+} ]
+
 [node name="Shooter_DD" type="Area2D"]
 position = Vector2( 502, 143 )
 script = ExtResource( 1 )
@@ -354,7 +378,7 @@ position = Vector2( 5.99994, -4.00005 )
 scale = Vector2( 3.08333, 2.91666 )
 frames = SubResource( 5 )
 animation = "Idle"
-frame = 3
+frame = 2
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -451,3 +475,10 @@ position = Vector2( -29, 0 )
 enabled = true
 cast_to = Vector2( -1, -139 )
 collide_with_areas = true
+
+[node name="Thumbnail" type="AnimatedSprite" parent="."]
+visible = false
+position = Vector2( -133.688, -151.77 )
+scale = Vector2( 2.737, 2.11542 )
+frames = SubResource( 84 )
+animation = "Thumbnail"

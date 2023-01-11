@@ -1,0 +1,58 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://assets/fonts/STIXGeneralBolIta.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://assets/images/gui/designs/Frame1.png" type="Texture" id=2]
+[ext_resource path="res://Weapons_And_Animation/components/Scripts/Desc.cs" type="Script" id=3]
+
+[sub_resource type="DynamicFont" id=1]
+size = 20
+outline_color = Color( 0.847059, 0, 0, 1 )
+font_data = ExtResource( 1 )
+
+[sub_resource type="Animation" id=2]
+resource_name = "Show_Description"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath("Description:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 531.75, 882.125 ), Vector2( 530, 339 ) ]
+}
+
+[node name="Desc" type="Node2D"]
+script = ExtResource( 3 )
+
+[node name="Description" type="Sprite" parent="."]
+position = Vector2( 531.75, 882.125 )
+scale = Vector2( 0.651265, 0.66052 )
+z_index = 4096
+texture = ExtResource( 2 )
+
+[node name="Description_Text" type="RichTextLabel" parent="Description"]
+margin_left = -422.0
+margin_top = -217.0
+margin_right = 418.0
+margin_bottom = 219.0
+custom_colors/default_color = Color( 0.831373, 0.0784314, 0.878431, 1 )
+custom_colors/selection_color = Color( 0.870588, 0.0823529, 0.0823529, 1 )
+custom_colors/font_color_selected = Color( 0.172549, 0.0392157, 0.870588, 1 )
+custom_colors/font_color_shadow = Color( 0.545098, 0.392157, 0.564706, 1 )
+custom_fonts/normal_font = SubResource( 1 )
+text = "This is the Description Area
+Hello
+Line3"
+
+[node name="Description_S_P" type="ReferenceRect" parent="Description"]
+margin_left = -519.0
+margin_top = -327.0
+margin_right = 515.0
+margin_bottom = 327.0
+
+[node name="Description_Transition" type="AnimationPlayer" parent="."]
+anims/Show_Description = SubResource( 2 )

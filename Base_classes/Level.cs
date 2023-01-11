@@ -67,9 +67,10 @@ public class Level : Node2D, Global_Variables_F_A_T
 
         basf = new Basic_Func(this);
 
-        basf.global_Variables.visibility_list.Clear();
+        // basf.global_Variables.visibility_list.Clear();
 
         basf.global_Variables.level_scene = this;
+
 
         // setting the metadata of the for the level
         // in other words resetting all the properties of the global variables
@@ -228,6 +229,8 @@ public class Level : Node2D, Global_Variables_F_A_T
 
         if (global_variables.is_game_over || win_condition)
         {
+            
+
             if (!is_data_saved)
             {
                 var game_over_view_label_pack = ResourceLoader.Load<PackedScene>("res://Weapons_And_Animation/components/scenes/Game_Over_Show_View.tscn");
@@ -389,7 +392,10 @@ public class Level : Node2D, Global_Variables_F_A_T
 
     void move_to_game_over_screen()
     {
+        // basf.global_Variables.guiticke_buttons.Clear();
+        basf.clear_garbage();
         GetTree().ChangeScene("res://Views/Scenes/Game_Over_View.tscn");
+
     }
 
     public virtual void update_logic(Data_Manager shop_data, Data_Manager user_data, Data_Manager throwable_weapons_dm)

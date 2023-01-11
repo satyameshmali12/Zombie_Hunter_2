@@ -5,7 +5,7 @@
 [ext_resource path="res://Weapons_And_Animation/components/scenes/Dot.tscn" type="PackedScene" id=3]
 
 [node name="Map" type="Node2D"]
-position = Vector2( 248, 156 )
+position = Vector2( 148, 129 )
 z_index = 10
 script = ExtResource( 2 )
 
@@ -14,12 +14,12 @@ script = ExtResource( 2 )
 [node name="Render_Offset" type="ReferenceRect" parent="."]
 margin_left = 5.0
 margin_top = 3.0
-margin_right = 471.0
-margin_bottom = 271.0
+margin_right = 668.0
+margin_bottom = 390.0
 
 [node name="LightBlack" type="Sprite" parent="."]
-position = Vector2( 240, 139 )
-scale = Vector2( 0.4665, 0.2685 )
+position = Vector2( 337.375, 197.375 )
+scale = Vector2( 0.66125, 0.38525 )
 texture = ExtResource( 1 )
 
 [node name="Pointer_Dot" parent="." instance=ExtResource( 3 )]

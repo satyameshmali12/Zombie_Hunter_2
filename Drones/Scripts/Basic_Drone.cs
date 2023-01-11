@@ -25,13 +25,11 @@ using Godot;
 using System;
 using System.Collections;
 
-public class Basic_Drone : Area2D, Character
+public class Basic_Drone : Item_Using_Menu_Component, Character
 {
 
     public _Type_of_ _node_type { get; set; }
     public int health { set; get; }
-    public Basic_Func basf;
-
 
     public AnimatedSprite movements;
     Particles2D death_animation;
@@ -96,23 +94,24 @@ public class Basic_Drone : Area2D, Character
     public Timer vertical_transion_timer;
     public Timer max_screen_death_remain_timer;
 
-    public string drone_name = null;
+    // public string name = null;
 
     public int collision_damage = 10;
 
-    public bool is_map_drop_available = true;
-
+    public bool parent_leaved_scene_true = false;
+    
 
     public override void _Ready()
     {
         base._Ready();
+
+        thumbnail_url = "res://.import/white_shader.png-91869615b3668e899040d115f94a0fc9.stex";
 
         _node_type = _Type_of_.Drone;
         can_collide_with = new ArrayList() { _Type_of_.Player, _Type_of_.Zombie, _Type_of_.Throwable_Weapon };
         health = 100;
 
 
-        basf = new Basic_Func(this);
 
         this.Monitoring = true;
 
@@ -123,7 +122,10 @@ public class Basic_Drone : Area2D, Character
 
         drone_data = new Data_Manager("data/data_fields/drone_data_fields.zhd");
         // drone_data.load_data(this.Name);
-        drone_data.load_data(drone_name);
+        GD.Print("drone name right from the basic drone is: ",name);
+        drone_data.load_data(name);
+        // setting the item_name to the drone name
+        item_name = name;
 
         speed_x = Convert.ToInt32(drone_data.get_data("Drone_Speed_X"));
         speed_y = Convert.ToInt32(drone_data.get_data("Drone_Speed_Y"));
@@ -273,7 +275,7 @@ public class Basic_Drone : Area2D, Character
             // drone_ini_faller.speed = new Vector2(0, Convert.ToInt32(drone_data.get_data("Ini_Faller_Y_Speed")));
             drone_ini_faller.speed = new Vector2(0, ini_faller_y_speed);
 
-            drone_ini_faller.Position = this.Position + new Vector2(0, 40);
+            drone_ini_faller.Position = this.Position + new Vector2(0, 30);
 
             basf.global_Variables.level_scene.AddChild(drone_ini_faller);
             is_bomb_restored = false;
@@ -308,12 +310,6 @@ public class Basic_Drone : Area2D, Character
     }
 
 
-    public virtual void spawn_drone(Vector2 spawn_position, Vector2 target_position, Basic_Character parent)
-    {
-        this.Position = spawn_position;
-        this.target_position = target_position;
-        this.parent = parent;
-    }
 
     public virtual void L_R_Ray_Collided()
     {
@@ -330,6 +326,7 @@ public class Basic_Drone : Area2D, Character
 
     public void Parent_Died_Kill_Drone()
     {
+        parent_leaved_scene_true = true;
         this.QueueFree();
         GD.Print("hello world right from the basic drone parnet died kill drone");
     }
@@ -357,4 +354,20 @@ public class Basic_Drone : Area2D, Character
     public void perform_move(string move_name){
         movements.Animation = move_name;
     }
+
+    public override void use_item(Item_Using_Menu menu,Basic_Func basf)
+    {
+        base.use_item(menu,basf);
+        menu.Visible = false;
+    }
+
+    public override void spawn_item(Vector2 spawn_position, Vector2 target_position, Basic_Character parent,Basic_Func basf)
+    {
+        base.spawn_item(spawn_position,target_position,parent,basf);
+        
+        this.Position = spawn_position;
+        this.target_position = target_position;
+        this.parent = parent;
+    }
+
 }

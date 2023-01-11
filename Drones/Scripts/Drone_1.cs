@@ -14,20 +14,19 @@ public class Drone_1 : Basic_Drone
 
     public override void _Ready()
     {
+        name = "Drone_1";
 
         bomb_drop_interval = 2;
 
 
         base._Ready();
 
+
         
         is_can_fall_bomb = true;
         
         bomb_name = "Explosion_Gas";
-
-
-        target_position = Vector2.Zero;
-
+        
     }
 
 
@@ -54,10 +53,11 @@ public class Drone_1 : Basic_Drone
         }
     }
 
-    public override void spawn_drone(Vector2 spawn_position, Vector2 target_position,Basic_Character parent)
+    public override void spawn_item(Vector2 spawn_position, Vector2 target_position,Basic_Character parent,Basic_Func basf)
     {
-        base.spawn_drone(spawn_position,target_position,parent);
 
+        spawn_position = basf.global_Variables.level_scene.GetNode("Points").GetNode<Position2D>("Start_Point").GlobalPosition;
+        base.spawn_item(spawn_position,target_position,parent,basf);
     }
 
 

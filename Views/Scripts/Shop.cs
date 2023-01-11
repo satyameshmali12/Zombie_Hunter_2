@@ -24,18 +24,18 @@ public class Shop : Basic_View
     public int weapons_view_index = 3;
 
     // this array is method with respect to the above index🔼
-    string[] specific_data_fields_urls = new string[4] { "data//data_fields/heros_data_field.zhd", "data//data_fields/zombie_data_fields.zhd", "data//data_fields/bomb_data_fields.zhd","data//data_fields/basic_throwable_weapons_data_fields.zhd"};
-    string[] names = new string[4] { "Character_Name", "Zombie_Name", "Bomb_Name","Weapon_Name"};
+    string[] specific_data_fields_urls = new string[5] { "data//data_fields/heros_data_field.zhd", "data//data_fields/zombie_data_fields.zhd", "data//data_fields/bomb_data_fields.zhd", "data//data_fields/basic_throwable_weapons_data_fields.zhd","data//data_fields/drone_data_fields.zhd" };
+    string[] names = new string[5] { "Character_Name", "Zombie_Name", "Bomb_Name", "Weapon_Name","Drone_Name" };
 
     // making all the condition
     // all this arrays are made with respect to the abobe name in a definite or corresponding indexing order
-    public bool[] can_be_buyed_in_numbers = new bool[4]{false,false,true,false};
-    public bool[] can_be_unlocked = new bool[4]{true,false,true,false};
-    public bool[] can_be_equiped = new bool[4]{true,false,false,false};
-    public bool[] can_be_updated = new bool[4]{true,false,true,true};
+    public bool[] can_be_buyed_in_numbers = new bool[5] { false, false, true, false,true };
+    public bool[] can_be_unlocked = new bool[5] { true, false, true, false,false };
+    public bool[] can_be_equiped = new bool[5] { true, false, false, false,false };
+    public bool[] can_be_updated = new bool[5] { true, false, true, true ,true};
 
-    string[] base_urls = new string[4] { "res://Characters/Characters_Scene/Player/", "res://Characters/Characters_Scene/Zombie/", "res://Bomb's/Scenes/" ,"res://Weapons_And_Animation/scenes/Weapons/"};
-    bool is_button_pressed , is_button_pressed_2 = false;
+    string[] base_urls = new string[5] { "res://Characters/Characters_Scene/Player/", "res://Characters/Characters_Scene/Zombie/", "res://Bomb's/Scenes/", "res://Weapons_And_Animation/scenes/Weapons/","res://Drones/Scenes/" };
+    bool is_button_pressed, is_button_pressed_2 = false;
 
     // getting some buttons on the screen
     public TextureButton left_button, right_button;
@@ -44,7 +44,7 @@ public class Shop : Basic_View
 
     public Data_Manager shop_data_manager;
     public Data_Manager user_data_manager;
-    public bool is_shop_data_loaded,is_user_data_loaded = false;
+    public bool is_shop_data_loaded, is_user_data_loaded = false;
 
 
 
@@ -52,7 +52,14 @@ public class Shop : Basic_View
     bool is_current_animation_initialized;
 
     public Node render_char;
+    Desc description_box;
 
+    ArrayList changing_button_nav_names = new ArrayList() { "Characters", "Zombie", "Bomb", "Weapons", "Drones"};
+    // per render is three button but since due to zero base index it setted to 2
+    Button left_change_button, right_change_button;
+    int number_of_button_per_view = 3;
+    int render_num = 0;
+    bool is_r_changing_button_pressed = false;
     public override void _Ready()
     {
         base._Ready();
@@ -70,8 +77,9 @@ public class Shop : Basic_View
             var removal_index = 0;
             for (int j = 0; j < data.Count; j++)
             {
-                var is_to_show_on_shop =  Convert.ToBoolean(is_to_add[j-removal_index].ToString().Trim());
-                if(!is_to_show_on_shop){
+                var is_to_show_on_shop = Convert.ToBoolean(is_to_add[j - removal_index].ToString().Trim());
+                if (!is_to_show_on_shop)
+                {
                     data.Remove(data[j]);
                     removal_index++;
                 }
@@ -87,17 +95,24 @@ public class Shop : Basic_View
         view_index = Convert.ToInt32(basf.user_data.get_data("Specific_Selection"));
 
 
-        add_the_view();
 
         left_button = this.GetNode<TextureButton>("Left_Button");
         right_button = this.GetNode<TextureButton>("Right_Button");
 
         is_current_animation_initialized = false;
 
-        // now loading the user data to get and set some of the requred value e.g money
-        // load_user_data();
 
-        // GD.Print("hey first stage form the shopt view hahah..!!");
+        description_box = this.GetNode<Desc>("Desc");
+        description_box.load_description_box();
+
+
+        var l_r_menu = this.GetNode<Node2D>("L_R_Menu_Button");
+        left_change_button = l_r_menu.GetNode<Button>("Left");
+        right_change_button = l_r_menu.GetNode<Button>("Right");
+
+
+        add_the_view();
+
 
 
     }
@@ -107,10 +122,10 @@ public class Shop : Basic_View
 
         // getting the option_button on screen and thereby setting the animation available in the node
         var option_button = this.GetNode<OptionButton>("OptionButton");
-        current_animation.Animation = option_button.GetItemText(option_button.GetSelectedId()); 
+        current_animation.Animation = option_button.GetItemText(option_button.GetSelectedId());
         current_animation.Playing = this.GetNode<CheckButton>("Animation_Playing").Pressed;
 
-        
+
         // showing the available money on the screen
         this.GetNode<Label>("Money").Text = $"Money : - {user_data_manager.get_data("Money")}";
 
@@ -130,8 +145,8 @@ public class Shop : Basic_View
                 if (new_value >= 0 && new_value < arr.Count)
                 {
                     view_index = new_value;
-                    user_data_manager.set_value("Menu_Selection",$"{menu_selection}");
-                    user_data_manager.set_value("Specific_Selection",$"{view_index}");
+                    user_data_manager.set_value("Menu_Selection", $"{menu_selection}");
+                    user_data_manager.set_value("Specific_Selection", $"{view_index}");
                     user_data_manager.save_data();
                     add_the_view();
                 }
@@ -140,7 +155,7 @@ public class Shop : Basic_View
         else
         {
             is_button_pressed = false;
-        }  
+        }
 
 
         // interating thought the buttons and changing the menu_selection simultaneouly
@@ -148,21 +163,54 @@ public class Shop : Basic_View
         foreach (Container item in containers.GetChildren())
         {
             Button but = (Button)item.GetChildren()[0];
-            if(but.Pressed){
-                if(!is_button_pressed){
+            if (but.Pressed)
+            {
+                if (!is_button_pressed)
+                {
                     view_index = 0;
                     menu_selection = Convert.ToInt32(but.Name);
                     add_the_view();
                 }
                 is_button_pressed_2 = true;
             }
-            else{
+            else
+            {
                 is_button_pressed_2 = false;
             }
         }
 
 
-        
+        var change = (left_change_button.Pressed) ? -1 : (right_change_button.Pressed) ? 1 : 0;
+
+        if (change != 0)
+        {
+
+            if (!is_r_changing_button_pressed)
+            {
+                // first renaming the box all the box so that the box can be renamed again 
+                // as if the same name exist in the node some other characters get added into the node
+                foreach (MarginContainer item in containers.GetChildren())
+                {
+                    item.Name = "no_name";
+                }
+                var button_change_start = render_num + change;
+                render_num = (left_change_button.Pressed && render_num > 0) ? button_change_start : (right_change_button.Pressed && render_num + number_of_button_per_view  < changing_button_nav_names.Count) ? button_change_start : render_num;
+                for (int i = 0; i < number_of_button_per_view; i++)
+                {
+                    var con = containers.GetChildren()[i] as Container;
+                    Button but1 = con.GetChildren()[0] as Button;
+
+                    con.Name = changing_button_nav_names[render_num + i].ToString();
+                    but1.Name = (render_num + i).ToString();
+                    but1.Text = $"     {con.Name}     ";
+                }
+            }
+            is_r_changing_button_pressed = true;
+        }
+        else
+        {
+            is_r_changing_button_pressed = false;
+        }
 
 
 
@@ -172,9 +220,13 @@ public class Shop : Basic_View
     // this function is used to add the view on the screen
     public bool add_the_view()
     {
+
+        description_box.close_desc();
+
         var loading_label = this.GetNode<Label>("Loading");
         loading_label.Visible = true;
-        if(is_current_animation_initialized){
+        if (is_current_animation_initialized)
+        {
             current_animation.Visible = false;
         }
         ArrayList arr = (ArrayList)urls[menu_selection];
@@ -192,11 +244,9 @@ public class Shop : Basic_View
 
             // getting the url to the desired scene
             ArrayList desired_urls = (ArrayList)urls[menu_selection];
-            
+
             specific_name = desired_urls[view_index].ToString();
             var specific_base_url = base_urls[menu_selection].ToString();
-
-;
             reload_scene_features();
 
 
@@ -204,7 +254,7 @@ public class Shop : Basic_View
 
             this.GetNode<Label>("Specific_Name").Text = specific_name;
             var value = names[menu_selection];
-            var start_index = value.Length-"_name".Length;
+            var start_index = value.Length - "_name".Length;
             this.GetNode<Label>("Menu_Name").Text = value.Left(start_index);
 
 
@@ -243,7 +293,7 @@ public class Shop : Basic_View
             // some other setting's to the animation before adding them on the screen
             new_animation.Animation = new_animation.Frames.GetAnimationNames()[0];
             new_animation.Position = adding_position.Position;
-            
+
             new_animation.Scale = animation.Scale;
             new_animation.ZIndex = 0;
             new_animation.Playing = true;
@@ -258,16 +308,22 @@ public class Shop : Basic_View
 
             option_button.Clear();
 
-             
+
             foreach (string item in current_animation.Frames.GetAnimationNames())
             {
-                if(!item.ToLower().Trim().Contains("default")){
+                if (!item.ToLower().Trim().Contains("default"))
+                {
                     option_button.AddItem(item.ToString());
                 }
             }
-            if(menu_selection!=bomb_view_index){
+            if (menu_selection != bomb_view_index)
+            {
 
             }
+
+            var desc = shop_data_manager.get_data("Description");
+            description_box.reload_text(desc);
+
 
         }
         loading_label.Visible = false;
@@ -276,25 +332,31 @@ public class Shop : Basic_View
     }
 
     // function to reload some data and other stuff too..
-    public void reload_scene_features(){
-        
-        if(is_shop_data_loaded){
+    public void reload_scene_features()
+    {
+
+        if (is_shop_data_loaded)
+        {
             shop_data_manager.save_data();
         }
 
         shop_data_manager = new Data_Manager(specific_data_fields_urls[menu_selection].ToString());
         shop_data_manager.load_data(specific_name);
         is_shop_data_loaded = true;
+
         load_user_data();
     }
 
     // function to load the user_data
-    public void load_user_data(){
-        if(is_user_data_loaded){
+    public void load_user_data()
+    {
+        if (is_user_data_loaded)
+        {
             user_data_manager.save_data();
         }
         user_data_manager = new Data_Manager("data//data_fields/user_data_fields.zhd");
         user_data_manager.load_data("Aj");
         is_user_data_loaded = true;
     }
+
 }

@@ -10,9 +10,10 @@ Yellow_Fuse
 200
 true
 true
+Bomb that can be exploded by the player
 
 Skew_Bomb
-13
+3
 4
 1
 3
@@ -23,9 +24,10 @@ Skew_Bomb
 300
 true
 true
+Bomb that can be exploded by the player
 
 Thunder_Blast_2
-98
+86
 8
 3
 3
@@ -36,19 +38,21 @@ Thunder_Blast_2
 400
 true
 true
+Bomb that can be exploded by the player
 
 Thunder_Blast
 0
-14
-1
+16
+3
 3
 1
-3400
+3800
 200
 100
 440
-false
 true
+true
+Bomb that can be exploded by the player
 
 Circle_Explosion
 4
@@ -62,19 +66,21 @@ Circle_Explosion
 440
 false
 false
+Bomb that can't be exploded by the player
 
 Explosion_Gas
 4
-14
-1
+15
+2
 3
 1
-3400
+3600
 200
 100
 440
 true
 true
+Bomb that can be exploded by the player
 
 Two_Explosion
 4
@@ -88,3 +94,4 @@ Two_Explosion
 440
 false
 true
+Bomb that can be exploded by the player

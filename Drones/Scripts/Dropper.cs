@@ -45,7 +45,7 @@ public class Dropper : Basic_Drone
     {
 
 
-        drone_name = "Dropper"; // dorne name
+        name = "Dropper"; // drone name
 
         base._Ready();
 

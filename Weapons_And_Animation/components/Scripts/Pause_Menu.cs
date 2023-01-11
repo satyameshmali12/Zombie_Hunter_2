@@ -21,6 +21,8 @@ public class Pause_Menu : Node2D
         this.PauseMode = PauseModeEnum.Process;
         basf = new Basic_Func(this);
         basf.global_Variables.visibility_list.Add(this);
+
+        basf.add_guitickle_button(resume_button,quit_button);
     }
 
     public override void _Process(float delta)

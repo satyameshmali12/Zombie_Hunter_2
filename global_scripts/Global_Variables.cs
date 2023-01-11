@@ -66,6 +66,17 @@ public class Global_Variables : Node2D
     // public Data_Manager shop_data_manager;
     // public bool is_new_scene_toggled_in_shop = false;
 
+    // this value will be suppllied right from the respective items right from the use item function
+    #region both of this are interrelated to each other i.e the item is hand is the url to the scene whereas the item_using_menu_comp is the scene of that url
+    public string item_in_hand = null;
+    public Item_Using_Menu_Component item_using_menu_comp = null;
+    #endregion
+    // public Button item_cancel_button = null;
+
+    public ArrayList guiticke_buttons = new ArrayList();
+    public bool is_guiticle_button_pressed = false;
+
+    public bool is_game_quitted = false;
 
 
     public override void _Ready()
@@ -99,6 +110,19 @@ public class Global_Variables : Node2D
         if (Input.IsActionJustPressed("Mouse_Pressed") && is_to_play_sound_on_click)
         {
             basf.create_a_sound(click_sound, current_scene, true);
+        }
+
+        // checking whether a guitickle is pressed or not
+        if(!is_game_quitted)
+        {
+            if(!is_guiticle_button_pressed){
+                is_guiticle_button_pressed = basf.is_any_guitickle_button_pressed();
+            }
+            else if(!Input.IsActionPressed("Mouse_Left_Pressed"))
+            {
+                is_guiticle_button_pressed = false;
+            }
+
         }
     }
     
