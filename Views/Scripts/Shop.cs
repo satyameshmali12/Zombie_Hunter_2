@@ -24,17 +24,24 @@ public class Shop : Basic_View
     public int weapons_view_index = 3;
 
     // this array is method with respect to the above index🔼
-    string[] specific_data_fields_urls = new string[5] { "data//data_fields/heros_data_field.zhd", "data//data_fields/zombie_data_fields.zhd", "data//data_fields/bomb_data_fields.zhd", "data//data_fields/basic_throwable_weapons_data_fields.zhd","data//data_fields/drone_data_fields.zhd" };
-    string[] names = new string[5] { "Character_Name", "Zombie_Name", "Bomb_Name", "Weapon_Name","Drone_Name" };
+    string[] specific_data_fields_urls =
+            new string[6] { "data//data_fields/heros_data_field.zhd",
+                "data//data_fields/zombie_data_fields.zhd",
+                "data//data_fields/bomb_data_fields.zhd",
+                "data//data_fields/basic_throwable_weapons_data_fields.zhd",
+                "data//data_fields/drone_data_fields.zhd",
+                "data//data_fields/spell_data_fields.zhd"
+              };
+    string[] names = new string[6] { "Character_Name", "Zombie_Name", "Bomb_Name", "Weapon_Name", "Drone_Name","Spell_Name" };
 
     // making all the condition
     // all this arrays are made with respect to the abobe name in a definite or corresponding indexing order
-    public bool[] can_be_buyed_in_numbers = new bool[5] { false, false, true, false,true };
-    public bool[] can_be_unlocked = new bool[5] { true, false, true, false,false };
-    public bool[] can_be_equiped = new bool[5] { true, false, false, false,false };
-    public bool[] can_be_updated = new bool[5] { true, false, true, true ,true};
+    public bool[] can_be_buyed_in_numbers = new bool[6] { false, false, true, false, true, true };
+    public bool[] can_be_unlocked = new bool[6] { true, false, true, false, false, false };
+    public bool[] can_be_equiped = new bool[6] { true, false, false, false, false, false };
+    public bool[] can_be_updated = new bool[6] { true, false, true, true, true, true };
 
-    string[] base_urls = new string[5] { "res://Characters/Characters_Scene/Player/", "res://Characters/Characters_Scene/Zombie/", "res://Bomb's/Scenes/", "res://Weapons_And_Animation/scenes/Weapons/","res://Drones/Scenes/" };
+    string[] base_urls = new string[6] { "res://Characters/Characters_Scene/Player/", "res://Characters/Characters_Scene/Zombie/", "res://Bomb's/Scenes/", "res://Weapons_And_Animation/scenes/Weapons/", "res://Drones/Scenes/", "res://Spells/Scenes/" };
     bool is_button_pressed, is_button_pressed_2 = false;
 
     // getting some buttons on the screen
@@ -54,12 +61,13 @@ public class Shop : Basic_View
     public Node render_char;
     Desc description_box;
 
-    ArrayList changing_button_nav_names = new ArrayList() { "Characters", "Zombie", "Bomb", "Weapons", "Drones"};
+    ArrayList changing_button_nav_names = new ArrayList() { "Characters", "Zombie", "Bomb", "Weapons", "Drones" ,"Spells"};
     // per render is three button but since due to zero base index it setted to 2
     Button left_change_button, right_change_button;
     int number_of_button_per_view = 3;
     int render_num = 0;
     bool is_r_changing_button_pressed = false;
+    bool is_first_render = true;
     public override void _Ready()
     {
         base._Ready();
@@ -94,6 +102,11 @@ public class Shop : Basic_View
         menu_selection = Convert.ToInt32(basf.user_data.get_data("Menu_Selection"));
         view_index = Convert.ToInt32(basf.user_data.get_data("Specific_Selection"));
 
+        var mx_rend_num = changing_button_nav_names.Count - number_of_button_per_view;
+        render_num = (menu_selection < mx_rend_num) ? menu_selection : mx_rend_num;
+        // render_num = 1;
+
+        GD.Print("Hello world right from the shop.cs haha..!!:- ", menu_selection, " ", mx_rend_num, " ", render_num);
 
 
         left_button = this.GetNode<TextureButton>("Left_Button");
@@ -141,11 +154,10 @@ public class Shop : Basic_View
                 var increment = (left_button.Pressed) ? -1 : 1;
 
                 var new_value = view_index + increment;
-                GD.Print(new_value);
-                if (new_value >= 0 && new_value < arr.Count)
+                // GD.Print(new_value);
+                if (new_value > -1 && new_value < arr.Count)
                 {
                     view_index = new_value;
-                    user_data_manager.set_value("Menu_Selection", $"{menu_selection}");
                     user_data_manager.set_value("Specific_Selection", $"{view_index}");
                     user_data_manager.save_data();
                     add_the_view();
@@ -169,6 +181,8 @@ public class Shop : Basic_View
                 {
                     view_index = 0;
                     menu_selection = Convert.ToInt32(but.Name);
+                    user_data_manager.set_value("Menu_Selection", $"{menu_selection}");
+                    user_data_manager.save_data();
                     add_the_view();
                 }
                 is_button_pressed_2 = true;
@@ -182,7 +196,7 @@ public class Shop : Basic_View
 
         var change = (left_change_button.Pressed) ? -1 : (right_change_button.Pressed) ? 1 : 0;
 
-        if (change != 0)
+        if (change != 0 || is_first_render)
         {
 
             if (!is_r_changing_button_pressed)
@@ -194,7 +208,7 @@ public class Shop : Basic_View
                     item.Name = "no_name";
                 }
                 var button_change_start = render_num + change;
-                render_num = (left_change_button.Pressed && render_num > 0) ? button_change_start : (right_change_button.Pressed && render_num + number_of_button_per_view  < changing_button_nav_names.Count) ? button_change_start : render_num;
+                render_num = (left_change_button.Pressed && render_num > 0) ? button_change_start : (right_change_button.Pressed && render_num + number_of_button_per_view < changing_button_nav_names.Count) ? button_change_start : render_num;
                 for (int i = 0; i < number_of_button_per_view; i++)
                 {
                     var con = containers.GetChildren()[i] as Container;
@@ -204,6 +218,7 @@ public class Shop : Basic_View
                     but1.Name = (render_num + i).ToString();
                     but1.Text = $"     {con.Name}     ";
                 }
+                is_first_render = false;
             }
             is_r_changing_button_pressed = true;
         }

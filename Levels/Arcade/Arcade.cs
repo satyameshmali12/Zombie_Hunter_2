@@ -23,6 +23,7 @@ public class Arcade : Level
 
         diffculty_level_incrementor = basf.create_timer(diffculty_level_increment_time,"Increment_Diffculty_Level");
         diffculty_level_incrementor.Start();
+
     }
 
     public override void _Process(float delta)

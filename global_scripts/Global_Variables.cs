@@ -78,6 +78,12 @@ public class Global_Variables : Node2D
 
     public bool is_game_quitted = false;
 
+    public Item_Using_Menu menu = null;
+    public ArrayList item_in_progression = new ArrayList();
+    // public Notification notification = null;
+
+    /// <summary>This will be given right from the game_gui and will be used in the item using menu</summary>
+
 
     public override void _Ready()
     {

@@ -115,7 +115,7 @@ public class Desc : Node2D
     public void reload_text(string text)
     {
         description_text.Clear();
-        var lines = text.Split("\\n");
+        System.Collections.ArrayList lines = basf.get_format_array_string(text,new System.Collections.ArrayList(){"\\n","//n"},true);
         foreach (string item in lines)
         {
             description_text.AddText(item.Trim());

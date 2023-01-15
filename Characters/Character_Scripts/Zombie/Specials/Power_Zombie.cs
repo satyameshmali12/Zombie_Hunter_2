@@ -22,6 +22,7 @@ public class Powerful_Zombie : Basic_Zombie
     public override void _Ready()
     {
         base._Ready();
+        _node_type = _Type_of_.Zombie;
 
         upward_ray = this.GetNode<RayCast2D>("Upward_Ray");
 

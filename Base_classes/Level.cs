@@ -78,6 +78,7 @@ public class Level : Node2D, Global_Variables_F_A_T
         basf.global_Variables.spell_in_hand = null;
         basf.global_Variables.score = 0;
         basf.global_Variables.had_win_the_game = false;
+        basf.global_Variables.is_game_quitted = false;
 
 
         basf.dm.load_data(this.Name);
@@ -394,6 +395,7 @@ public class Level : Node2D, Global_Variables_F_A_T
     {
         // basf.global_Variables.guiticke_buttons.Clear();
         basf.clear_garbage();
+        basf.global_Variables.is_game_quitted = true;
         GetTree().ChangeScene("res://Views/Scenes/Game_Over_View.tscn");
 
     }

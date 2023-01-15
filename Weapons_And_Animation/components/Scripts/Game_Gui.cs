@@ -23,6 +23,9 @@ public class Game_Gui : Node2D
     Node2D item_in_hand_show;
     Button remove_item_in_hand_button;
 
+    Button item_using_cancel_button;
+
+
 
 
     public override void _Ready()
@@ -34,6 +37,8 @@ public class Game_Gui : Node2D
         item_using_button = this.GetNode<Button>("Item_Using_Button");
         item_using_scene = this.GetNode<Item_Using_Menu>("Item_Using_Menu");
 
+        item_using_cancel_button = item_using_scene.GetNode<Button>("Cancel");
+
         score_label = GetNode<Label>("Score_Label");
 
         pause_button = this.GetNode<Button>("Pause_Button");
@@ -43,13 +48,16 @@ public class Game_Gui : Node2D
 
         item_in_hand_show = this.GetNode<Node2D>("Item_In_Hand");
         remove_item_in_hand_button = item_in_hand_show.GetNode<Button>("Remove_Item_In_Hand");
-        basf.add_guitickle_button(pause_button);
+        basf.add_guitickle_button(pause_button, item_using_button);
+
+
+
 
     }
 
     public override void _Process(float delta)
     {
-
+        
         var score = basf.global_Variables.score;
 
         score_label.Text = $"Sc0re:- {score}";
@@ -67,6 +75,7 @@ public class Game_Gui : Node2D
         var bomb_buttons = basf.get_the_node_childrens("Bomb_Button's");
         foreach (TextureButton item in bomb_buttons)
         {
+            basf.add_guitickle_button(item);
             // reading the data again as to detect the use of the bomb
             basf.dm.read_data();
             // loading the data for a particular bomb
@@ -81,14 +90,21 @@ public class Game_Gui : Node2D
 
 
         // working with the item_using_button
-        if (item_using_button.Pressed)
+        if (item_using_button.Pressed || item_using_cancel_button.Pressed)
+        // item_using_button.Pressed = false;
         {
             if (!is_button_pressed)
             {
                 basf.disvisible_visible_list(item_using_scene);
                 item_using_scene.Visible = (item_using_scene.Visible) ? false : true;
+
+                if(!item_using_scene.Visible)
+                {
+                    item_using_scene.reset_stuffs();
+                }
             }
             is_button_pressed = true;
+
         }
         else
         {

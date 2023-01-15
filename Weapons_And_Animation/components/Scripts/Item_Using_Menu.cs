@@ -50,8 +50,7 @@ public class Item_Using_Menu : Node2D
     ArrayList render_data = new ArrayList()
         {
             new Dictionary<string,string>(){{"base_url","res://Drones/Scenes/"},{"data_field_url","data/data_fields/drone_data_fields.zhd"},{"data_field_identifier","Drone_Name"}},
-            // new Dictionary<string,string>(){{"base_url","res://Drones/Scenes/"},{"data_field","data/data_fields/drone_data_fields.zhd"}},
-            
+            new Dictionary<string,string>(){{"base_url","res://Spells/Scenes/"},{"data_field_url","data/data_fields/spell_data_fields.zhd"},{"data_field_identifier","Spell_Name"}},
         };
 
     ArrayList Item_Using_Menu_Components = new ArrayList();
@@ -85,6 +84,17 @@ public class Item_Using_Menu : Node2D
     Button pressed_button = null;
 
     bool item_can_be_drop = true;
+    string item_in_hand_url = null;
+
+    bool is_to_show_warning = false;
+
+
+    AcceptDialog warning_box;
+
+    Notification notification;
+    // bool is_warning_accepted = false;
+    // bool is_warning_box_fetched = false;
+
     // Timer item_can_be_dropped
     // Button item_cancal_button;
 
@@ -120,6 +130,20 @@ public class Item_Using_Menu : Node2D
         confirm_map_drop_button = map_node.GetNode<Button>("Drop_Button");
         map_drop_cancel_button = map_node.GetNode<Button>("Cancel_Map_Drop");
 
+
+        basf.add_guitickle_button(this.GetNode<Button>("CurverBg"));
+
+        // warning_box = this.GetNode<AcceptDialog>("Warning_Box");
+        // warning_box.Connect("confirmed",this,"Warning_Accepted");
+        // warning_box.ShowOnTop = true;
+        // warning_box.Visible = true;
+        // warning_box.PopupCentered();
+
+        notification = this.GetParent().GetNode<Notification>("Notification");
+
+        basf.global_Variables.menu = this;
+
+
         add_view();
 
 
@@ -130,158 +154,161 @@ public class Item_Using_Menu : Node2D
     {
         // item_cancal_button = basf.global_Variables.item_cancel_button;
 
-        ArrayList items = data[menu_index] as ArrayList;
-        var change = (left_button.Pressed && specific_index > 0) ? -1 : (right_button.Pressed && specific_index + per_view_boxes < items.Count) ? 1 : 0;
-        if (left_button.Pressed || right_button.Pressed)
+
+        if (!basf.global_Variables.is_game_quitted)
         {
-            if (change != 0)
+            Godot.Collections.Array gui_buttons = this.GetNode<Node2D>("Gui_Buttons").GetChildren();
+
+            foreach (Button item in gui_buttons)
             {
-                if (!is_changing_button_pressed)
+                if (item.Pressed)
                 {
-                    specific_index += change;
+                    menu_index = int.Parse(item.Name);
+                    specific_index = 0;
                     add_view();
                 }
             }
-            is_changing_button_pressed = true;
-        }
-        else
-        {
-            is_changing_button_pressed = false;
-        }
 
-        if (pressed_button == null)
-        {
-            foreach (Button item in boxes)
+
+
+
+
+            ArrayList items = data[menu_index] as ArrayList;
+            var change = (left_button.Pressed && specific_index > 0) ? -1 : (right_button.Pressed && specific_index + per_view_boxes < items.Count) ? 1 : 0;
+            if (left_button.Pressed || right_button.Pressed)
             {
-                var index = boxes.IndexOf(item);
-                var use_button = item.GetNode<Button>("Use");
-                var map_drop_button = item.GetNode<Button>("Map_Drop");
-
-                if (use_button.Pressed || map_drop_button.Pressed)
+                if (change != 0)
                 {
-
-                    pressed_button = use_button;
-
-                    var selected_item = (Item_Using_Menu_Component)Item_Using_Menu_Components[index];
-                    basf.global_Variables.item_in_hand = selected_item.rendering_url;
-                    basf.global_Variables.item_using_menu_comp = selected_item;
-
-                    if (use_button.Pressed)
+                    if (!is_changing_button_pressed)
                     {
-                        selected_item.use_item(this, basf);
+                        specific_index += change;
+                        add_view();
                     }
-
-                    is_to_add_instantaneouly = selected_item.is_to_add_instantaneouly;
-
-                    if (map_drop_button.Pressed)
-                    {
-                        pressed_button = map_drop_button;
-                        is_map_drop_availaled = true;
-                        map_node.Visible = true;
-                    }
-
-
                 }
-
+                is_changing_button_pressed = true;
             }
-        }
-        else if (!pressed_button.Pressed)
-        {
-            pressed_button = null;
-        }
-
-
-
-        string item_in_hand_url = basf.global_Variables.item_in_hand;
-       
-
-        /*
-
-        all the things just as normal drop, quick drop or instant_drop as well as the map drop is performed below
-        the difference in this simple i.e the target position
-
-        */
-        bool is_normal_drop = Input.IsActionJustPressed("Mouse_Pressed") && item_in_hand_url != null && pressed_button == null && !basf.global_Variables.is_guiticle_button_pressed && !is_map_drop_availaled; 
-
-        if (is_normal_drop || is_to_add_instantaneouly || is_to_perfrom_map_drop)
-        {
-            if (item_can_be_drop)
+            else
             {
-                var adding_position = this.GetGlobalMousePosition();
-                var new_item = basf.get_the_packed_scene(item_in_hand_url).Instance<Item_Using_Menu_Component>();
-                /*
-                You may notice here that first the node is added and then the spawn_function is called 
-                this is because all the function such as the getnode words only after the object enters in the scene tree
-                thus first we have added it to the scene then and then called the spawn item function
-                */
-                basf.global_Variables.level_scene.AddChild(new_item);
-                
-                // at the time of map drop setting the position as per the map drop
+                is_changing_button_pressed = false;
+            }
 
-                if (is_to_perfrom_map_drop)
+            if (pressed_button == null)
+            {
+                foreach (Button item in boxes)
                 {
-                    adding_position = basf.abs_a_vector(map_drop_adding_position) - basf.abs_a_vector(main_map.start_point);
+                    var index = boxes.IndexOf(item);
+                    var use_button = item.GetNode<Button>("Use");
+                    var map_drop_button = item.GetNode<Button>("Map_Drop");
+
+                    if (use_button.Pressed || map_drop_button.Pressed)
+                    {
+
+                        pressed_button = use_button;
+
+                        var selected_item = (Item_Using_Menu_Component)Item_Using_Menu_Components[index];
+                        basf.global_Variables.item_in_hand = selected_item.rendering_url;
+                        basf.global_Variables.item_using_menu_comp = selected_item;
+
+                        if (use_button.Pressed)
+                        {
+                            selected_item.use_item(this, basf);
+                        }
+
+                        is_to_add_instantaneouly = selected_item.is_to_add_instantaneouly;
+
+                        if (map_drop_button.Pressed)
+                        {
+                            pressed_button = map_drop_button;
+                            is_map_drop_availaled = true;
+                            map_node.Visible = true;
+                        }
+
+                        if (selected_item.is_to_show_warning)
+                        {
+                            notification.pop(selected_item.warning_message);
+                        }
+
+
+                    }
+
                 }
+            }
+            else if (!pressed_button.Pressed)
+            {
+                pressed_button = null;
+            }
 
-                new_item.spawn_item(adding_position, adding_position, basf.global_Variables.character_scene as Basic_Character, basf);
-                var item_dm = basf.global_Variables.item_using_menu_comp.dm;
 
-                /*
-                    resetling the data 
-                */
 
-                var new_available_no = (Convert.ToInt32(item_dm.get_data("Available_Count")) - 1);
-                item_dm.set_value("Available_Count", new_available_no.ToString());
-                item_dm.save_data();
-                item_dm.load_previous_data_again();
-                re_render_view_data();
-
-                if (is_to_add_instantaneouly || is_to_perfrom_map_drop)
-                {
-                    basf.nullify_item_in_hand();
-                    is_to_perfrom_map_drop = false;
-                }
-
+            /* 
+            performed either when the notification is denied or when the the notication is opened the item_using_menu is being toggled(closed or open)
+            */
+            if (notification.is_denied || (!this.Visible && notification.Visible))
+            {
+                basf.nullify_item_in_hand();
+                is_to_perfrom_map_drop = false;
                 is_to_add_instantaneouly = false;
                 item_can_be_drop = false;
-
-
+                notification.reset();
+                reset_stuffs();
             }
-        }
-        else
-        {
-            item_can_be_drop = true;
-        }
+
+            item_in_hand_url = basf.global_Variables.item_in_hand;
 
 
-        /*
-        operation for cancel and confirming the map drop
-        */
-
-        if (is_map_drop_availaled)
-        {
             /*
-            you may notice that in the below condition many of the things are been repeated
-            but just for the sake of readibility it is kept so this
-            */
-            if (confirm_map_drop_button.Pressed && main_map.is_point_given)
-            {
-                is_to_perfrom_map_drop = true;
-                map_drop_adding_position = main_map.adding_position;
-                map_node.Visible = false;
-                is_map_drop_availaled = false;
-                main_map.reset();
-            }
-            else if (map_drop_cancel_button.Pressed)
-            {
-                map_node.Visible = false;
-                is_map_drop_availaled = false;
-                is_to_perfrom_map_drop = false;
-                main_map.reset();
-                basf.nullify_item_in_hand();
-            }
-        }
 
+            all the things just as normal drop, quick drop or instant_drop as well as the map drop is performed below
+            the difference in this simple i.e the target position
+
+            */
+            bool is_normal_drop = Input.IsActionJustPressed("Mouse_Pressed") && item_in_hand_url != null && pressed_button == null && !basf.global_Variables.is_guiticle_button_pressed && !is_map_drop_availaled;
+            
+
+            if ((is_normal_drop || is_to_add_instantaneouly || is_to_perfrom_map_drop) && (!notification.Visible && !notification.is_denied))
+            {
+                if (item_can_be_drop)
+                {
+                    add_item_to_the_scene();
+                }
+            }
+            else
+            {
+                item_can_be_drop = true;
+            }
+
+
+            /*
+            operation for cancel and confirming the map drop
+            */
+
+            if (is_map_drop_availaled)
+            {
+                /*
+                you may notice that in the below condition many of the things are been repeated
+                but just for the sake of readibility it is kept so this
+                */
+                if (confirm_map_drop_button.Pressed && main_map.is_point_given)
+                {
+                    is_to_perfrom_map_drop = true;
+                    map_drop_adding_position = main_map.adding_position;
+                    // map_node.Visible = false;
+                    reset_stuffs();
+                    // is_map_drop_availaled = false;
+                    // main_map.reset();
+                }
+                else if (map_drop_cancel_button.Pressed)
+                {
+                    reset_stuffs();
+                    // map_node.Visible = false;
+                    // is_map_drop_availaled = false;
+                    is_to_perfrom_map_drop = false;
+                    // main_map.reset();
+                    basf.nullify_item_in_hand();
+                }
+            }
+
+        }
 
     }
 
@@ -302,74 +329,235 @@ public class Item_Using_Menu : Node2D
             ArrayList specific_views = data[menu_index] as ArrayList;
 
             Dictionary<string, string> obj = (Dictionary<string, string>)render_data[menu_index];
-            var item_name = specific_views[specific_index + i].ToString();
 
-            var item_url = obj["base_url"].ToString() + item_name + ".tscn";
-            // loading the scene
-            var item_scene = basf.get_the_packed_scene(item_url).Instance<Item_Using_Menu_Component>();
-            // getting the item url
-            var data_field_url = obj["data_field_url"];
-            var dm = new Data_Manager(data_field_url);
-            dm.load_data(item_name);
-            item_scene.dm = dm;
-            item_scene.rendering_url = item_url;
-            item_scene.name = item_scene.Name;
-            // items_scene_o_script.Add(item_scene);
-            Item_Using_Menu_Components.Add(item_scene);
-
-
-            var ani_name = "Thumbnail";
-
-            var preview_thumbnail = box.GetNode<AnimatedSprite>(ani_name);
-            var item_thumbnail = item_scene.GetNode<AnimatedSprite>(ani_name);
-
-            preview_thumbnail.Scale = item_thumbnail.Scale;
-            preview_thumbnail.Frames.Clear(ani_name);
-            for (int j = 0; j < item_thumbnail.Frames.GetFrameCount(ani_name); j++)
+            var item_index = specific_index + i;
+            if (item_index < specific_views.Count)
             {
-                preview_thumbnail.Frames.AddFrame(ani_name, item_thumbnail.Frames.GetFrame(ani_name, j));
+                var item_name = specific_views[item_index].ToString();
+
+                var item_url = obj["base_url"].ToString() + item_name + ".tscn";
+                // loading the scene
+                var item_scene = basf.get_the_packed_scene(item_url).Instance<Item_Using_Menu_Component>();
+
+
+                GD.Print("right from the item using item adding the scene haha..!!");
+
+
+                var data_field_url = obj["data_field_url"];
+                var dm = new Data_Manager(data_field_url);
+                dm.load_data(item_name);
+                item_scene.dm = dm;
+                item_scene.rendering_url = item_url;
+                item_scene.name = item_scene.Name;
+
+
+                GD.Print(item_scene.Name," ",item_scene.name);
+
+                GD.Print(item_scene.restriction_list.Count);
+
+                foreach (Godot.Collections.Dictionary<string, string> item2 in item_scene.restriction_list)
+                {
+                    GD.Print(item2["name"]);
+                }
+
+                GD.Print("end");
+
+
+                // getting the item url
+                // items_scene_o_script.Add(item_scene);
+                Item_Using_Menu_Components.Add(item_scene);
+
+
+                var ani_name = "Thumbnail";
+
+                var preview_thumbnail = box.GetNode<AnimatedSprite>(ani_name);
+                var item_thumbnail = item_scene.GetNode<AnimatedSprite>(ani_name);
+
+                preview_thumbnail.Scale = item_thumbnail.Scale;
+                preview_thumbnail.Frames.Clear(ani_name);
+                for (int j = 0; j < item_thumbnail.Frames.GetFrameCount(ani_name); j++)
+                {
+                    preview_thumbnail.Frames.AddFrame(ani_name, item_thumbnail.Frames.GetFrame(ani_name, j));
+                }
+
+                preview_thumbnail.Play(ani_name);
+                item_scene.preview_thumbnail = preview_thumbnail;
+
             }
 
-            preview_thumbnail.Play(ani_name);
-            item_scene.preview_thumbnail = preview_thumbnail;
-
         }
+        GD.Print("complete end");
         re_render_view_data();
     }
-    
+
     /// <summary>
     /// It renders the all the child present in the boxes using the data present in the item_using_component
     ///</summary>
     public void re_render_view_data()
     {
-
-        foreach (Button item in boxes)
+        if (!basf.global_Variables.is_game_quitted)
         {
-            var index = boxes.IndexOf(item);
-
-            Item_Using_Menu_Component using_item = Item_Using_Menu_Components[index] as Item_Using_Menu_Component;
-            var item_data = using_item.dm;
-            var avai_no = item.GetNode<Label>("Available_No");
-
-
-            var available_count = Convert.ToInt32(item_data.get_data("Available_Count"));
-            var map_drop_button = item.GetNode<Button>("Map_Drop");
-            var use_button = item.GetNode<Button>("Use");
-
-            avai_no.Text = available_count.ToString();
-
-            use_button.Disabled = available_count <= 0;
-            if (using_item == basf.global_Variables.item_using_menu_comp && use_button.Disabled)
+            foreach (Button item in boxes)
             {
-                basf.nullify_item_in_hand();
+                var index = boxes.IndexOf(item);
+                if (index < Item_Using_Menu_Components.Count)
+                {
+                    item.Visible = true;
+                    Item_Using_Menu_Component using_item = Item_Using_Menu_Components[index] as Item_Using_Menu_Component;
+
+
+                    // using_item.is_to_show_warning = false;
+                    var item_data = using_item.dm;
+                    var avai_no = item.GetNode<Label>("Available_No");
+
+
+                    var available_count = Convert.ToInt32(item_data.get_data("Available_Count"));
+                    var map_drop_button = item.GetNode<Button>("Map_Drop");
+                    var use_button = item.GetNode<Button>("Use");
+
+                    int restriction_level = get_restriction_level(using_item);
+
+                    // GD.Print("Restriction level item_using_menu : ", restriction_level);
+
+
+                    avai_no.Text = available_count.ToString();
+
+                    use_button.Disabled = available_count <= 0 || restriction_level == 1;
+                    use_button.HintTooltip = "No tooltip";
+
+                    // if (restriction_level == 0)
+                    // {
+                    //     using_item.is_to_show_warning = true;
+                    // }
+                    using_item.is_to_show_warning = (restriction_level == 0) ? true : false;
+                    // get_restriction_level(using_item);
+
+
+                    // use_button.Text = "hello world";
+
+
+                    if (using_item == basf.global_Variables.item_using_menu_comp && use_button.Disabled)
+                    {
+                        basf.nullify_item_in_hand();
+                    }
+
+                    map_drop_button.Disabled = use_button.Disabled || !using_item.is_map_drop_available;
+
+                    item.GetNode<Label>("Name").Text = item_data.all_field_values[0].ToString();
+                }
+                else
+                {
+                    item.Visible = false;
+                }
+
+
             }
+        }
 
-            map_drop_button.Disabled = use_button.Disabled || !using_item.is_map_drop_available;
 
-            item.GetNode<Label>("Name").Text = item_data.all_field_values[0].ToString();
+    }
 
+    /// <summary>To resettle the stuffs such as map while toggling the node</summary>
+    public void reset_stuffs()
+    {
+
+        main_map.reset();
+        map_node.Visible = false;
+        is_map_drop_availaled = false;
+
+    }
+
+    public void add_item_to_the_scene()
+    {
+        // if(item_can_be_drop){
+
+        var adding_position = this.GetGlobalMousePosition();
+        var new_item = basf.get_the_packed_scene(item_in_hand_url).Instance<Item_Using_Menu_Component>();
+        /*
+        You may notice here that first the node is added and then the spawn_function is called 
+        this is because all the function such as the getnode words only after the object enters in the scene tree
+        thus first we have added it to the scene then and then called the spawn item function
+        */
+
+        /*
+        giving the data to the item from the item_using_menu_component in the hand (it is been stored in the global variables)
+        */
+        new_item.dm = basf.global_Variables.item_using_menu_comp.dm;
+        new_item.name = basf.global_Variables.item_using_menu_comp.name;
+        new_item.parent = basf.global_Variables.character_scene as Basic_Character;
+
+        new_item.add_to_scene(basf);
+        // at the time of map drop setting the position as per the map drop
+
+        if (is_to_perfrom_map_drop)
+        {
+            adding_position = basf.abs_a_vector(map_drop_adding_position) - basf.abs_a_vector(main_map.start_point);
+        }
+
+        new_item.spawn_item(adding_position, adding_position, basf.global_Variables.character_scene as Basic_Character, basf);
+        var item_dm = basf.global_Variables.item_using_menu_comp.dm;
+
+        /*
+            resetling the data 
+        */
+
+        var new_available_no = (Convert.ToInt32(item_dm.get_data("Available_Count")) - 1);
+        item_dm.set_value("Available_Count", new_available_no.ToString());
+        item_dm.save_data();
+        item_dm.load_previous_data_again();
+        re_render_view_data();
+
+        if (is_to_add_instantaneouly || is_to_perfrom_map_drop)
+        {
+            basf.nullify_item_in_hand();
+            is_to_perfrom_map_drop = false;
+        }
+
+        is_to_add_instantaneouly = false;
+        item_can_be_drop = false;
+    }
+
+    public int get_restriction_level(Item_Using_Menu_Component component)
+    {
+        int restriction = -1;
+        // foreach (Godot.Collections.Dictionary<string, string> item in component.restriction_list)
+        // {
+        //     GD.Print(item["name"]);
+        //     GD.Print(component.Name);
+        // }
+        // foreach (Item_Using_Menu_Component item2 in basf.global_Variables.item_in_progression)
+        // { 
+        //     GD.Print(item2.name);
+        // }
+
+        // GD.Print(basf.global_Variables.item_in_progression.Count);
+        foreach (Godot.Collections.Dictionary<string, string> item in component.restriction_list)
+        {
+            string name = item["name"];
+            // GD.Print("identifer :- ",name);
+            foreach (Item_Using_Menu_Component item2 in basf.global_Variables.item_in_progression)
+            {
+                // GD.Print(name);
+                if (item2.name == name)
+                {
+                    // GD.Print("founded :- ",name);
+
+                    var is_completed_restricted = bool.Parse(item["is_completed_restricted"]);
+                    if (is_completed_restricted)
+                    {
+                        return 1;
+                    }
+                    else
+                    {
+                        restriction = 0;
+                    }
+                }
+
+            }
 
         }
 
+        return restriction;
     }
+
 }

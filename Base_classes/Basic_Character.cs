@@ -130,8 +130,9 @@ public class Basic_Character : RigidBody2D, Character
 
     #region All this varaiables are associated with the spell usage
 
+    /// <summary>If is resisted then the health of the character doesn't changes</summary>
     public bool is_resisted = false;
-    public bool is_to_decrease_power = true;
+    public bool is_to_change_power = true;
     public bool can_move = true;
     public bool is_able_to_perform_moves = true;
 
@@ -351,7 +352,8 @@ public class Basic_Character : RigidBody2D, Character
 
         if (health_bar.Value <= 0)
         {
-            perform_move("Death");
+            perform_move("Death", true);
+            // animations.Animation = "Death";
             if (!is_death_sound_played)
             {
                 basf.create_a_sound(death_sound_url, basf.global_Variables.current_scene, true, (is_player) ? 2 : .7f);
@@ -382,7 +384,7 @@ public class Basic_Character : RigidBody2D, Character
             this.QueueFree();
         }
 
-        if (!is_to_decrease_power)
+        if (!is_to_change_power)
         {
             power_available = 100;
         }
@@ -422,18 +424,35 @@ public class Basic_Character : RigidBody2D, Character
 
 
     // if the player has performed the move then the function will return true
-    public bool perform_move(string move_name, bool is_to_make_busy = true)
+    /// <summary>
+    /// To perform any specific move
+    /// <para>Make it perfrom immediately if to avoid all the condition e.g is_able_to_perform_moves</para>
+    ///</summary>
+    public bool perform_move(string move_name, bool is_to_make_busy = true, bool perform_immediately = false)
     {
-        if (available_moves.Contains(move_name.ToLower()) && animations.Animation != move_name && is_able_to_perform_moves)
+        try
         {
-            if (can_perform_move(move_name.ToLower()))
+
+            if (available_moves.Contains(move_name.ToLower()) && animations.Animation != move_name && is_able_to_perform_moves || perform_immediately)
             {
-                is_busy = is_to_make_busy;
-                animations.Animation = move_name;
-                return true;
+                /*
+                even thought perfrom immediately but requires sufficient power
+                */
+                if (can_perform_move(move_name.ToLower()))
+                {
+                    is_busy = is_to_make_busy;
+                    animations.Animation = move_name;
+                    return true;
+                }
             }
+            return false;
         }
-        return false;
+        catch (System.Exception)
+        {
+            // remove this print later on just for the sake of the debugging
+            GD.Print(_node_type, " ", this.Name);
+            throw;
+        }
     }
 
     public virtual void Increase_Power()

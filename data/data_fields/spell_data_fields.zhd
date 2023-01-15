@@ -1,0 +1,17 @@
+data/spell_data.zhd
+
+Spell_Name
+Available_Count
+Per_Price
+Screen_Timing
+Screen_Timing_Increment
+Damage_Increment
+Per_Level_Damage_Increment
+Update_Cost
+Update_Cost_Increment
+Is_Unlocked
+Price
+Current_Level
+Max_Level
+Is_To_Display_On_Shop
+Description

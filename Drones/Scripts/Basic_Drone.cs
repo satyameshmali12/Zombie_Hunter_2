@@ -43,7 +43,6 @@ public class Basic_Drone : Item_Using_Menu_Component, Character
 
     // setting the initial speed to zero
     public Vector2 speed = Vector2.Zero;
-    public Vector2 target_position = Vector2.Zero;
 
     // Both of this field will be taken right from the drone_data
     public int speed_x = 0; // the speed with which the drone will move horizontally
@@ -82,7 +81,6 @@ public class Basic_Drone : Item_Using_Menu_Component, Character
     public ArrayList can_collide_with { get; set; }
 
     // the one who have spawned that will be the parent but not where the drone is been added 
-    public Basic_Character parent = null;
 
 
     // for Movement AI
@@ -99,7 +97,12 @@ public class Basic_Drone : Item_Using_Menu_Component, Character
     public int collision_damage = 10;
 
     public bool parent_leaved_scene_true = false;
-    
+
+    public Basic_Drone()
+    {
+        warning_message = "May adding this now can be fatal for others!";
+    }
+
 
     public override void _Ready()
     {
@@ -120,10 +123,11 @@ public class Basic_Drone : Item_Using_Menu_Component, Character
 
         death_animation = this.GetNode<Particles2D>("Death_Animation");
 
-        drone_data = new Data_Manager("data/data_fields/drone_data_fields.zhd");
+        // drone_data = new Data_Manager("data/data_fields/drone_data_fields.zhd");
+        drone_data = dm;
         // drone_data.load_data(this.Name);
-        GD.Print("drone name right from the basic drone is: ",name);
-        drone_data.load_data(name);
+        // GD.Print("drone name right from the basic drone is: ", name);
+        // drone_data.load_data(name);
         // setting the item_name to the drone name
         item_name = name;
 
@@ -133,7 +137,7 @@ public class Basic_Drone : Item_Using_Menu_Component, Character
 
         number_of_bursting = Convert.ToInt32(drone_data.get_data("No_Of_Bursting"));
         max_travelling_distance = Convert.ToInt32(drone_data.get_data("Ini_Faller_Range"));
-        ini_faller_y_speed = drone_data.get_interger_data("Ini_Faller_Y_Speed");
+        ini_faller_y_speed = drone_data.get_integer_data("Ini_Faller_Y_Speed");
 
         bomb_drop_timer = basf.create_timer(bomb_drop_interval, "Bomb_Restored");
         bomb_drop_timer.Start();
@@ -147,10 +151,10 @@ public class Basic_Drone : Item_Using_Menu_Component, Character
         ground_collision_ray = this.GetNode<RayCast2D>("Ground_Collision_Rays");
 
         vertical_transion_timer = basf.create_timer(2, "Over_Vertical_Transion");
-        
+
         collision_damage = Convert.ToInt32(drone_data.get_data("Collision_Damage"));
 
-        // parent.Connect("child_exiting_tree",this,"Parent_Died_Kill_Drone");
+        parent.Connect("tree_exiting", this, "Parent_Died_Kill_Drone");
 
 
     }
@@ -159,16 +163,6 @@ public class Basic_Drone : Item_Using_Menu_Component, Character
     {
 
         base._Process(delta);
-
-        // temporary code just for testing purpose
-        if (parent == null && basf.global_Variables.character_scene != null)
-        {
-            parent = basf.global_Variables.character_scene as Basic_Character;
-
-            parent.Connect("tree_exiting",this,"Parent_Died_Kill_Drone");
-
-
-        }
 
         this.Position += speed;
 
@@ -333,41 +327,47 @@ public class Basic_Drone : Item_Using_Menu_Component, Character
 
 
 
-    
+
     // update logic for the all the drones
     public void update_logic(Data_Manager shop_data, Data_Manager user_data, Data_Manager throwable_weapon_dm)
     {
 
-        int new_drone_speed_x = shop_data.get_interger_data("Drone_Speed_X_Increment")+speed_x;
-        int new_drone_speed_y = shop_data.get_interger_data("Drone_Speed_Y_Increment")+speed_y;
-        int new_ini_faller_range = shop_data.get_interger_data("Ini_Faller_Range_Increment")+max_travelling_distance;
-        int new_drone_ini_faller_speed = shop_data.get_interger_data("Ini_Faller_Y_Speed_Increment")+ini_faller_y_speed;
-        int new_collision_damage = shop_data.get_interger_data("Collision_Damage_Increment")+collision_damage;
+        int new_drone_speed_x = shop_data.get_integer_data("Drone_Speed_X_Increment") + shop_data.get_integer_data("Drone_Speed_X");
+        int new_drone_speed_y = shop_data.get_integer_data("Drone_Speed_Y_Increment") + shop_data.get_integer_data("Drone_Speed_Y");
+        int new_ini_faller_range = shop_data.get_integer_data("Ini_Faller_Range_Increment") + shop_data.get_integer_data("Ini_Faller_Range");
+        int new_drone_ini_faller_speed = shop_data.get_integer_data("Ini_Faller_Y_Speed_Increment") + shop_data.get_integer_data("Ini_Faller_Y_Speed");
+        int new_collision_damage = shop_data.get_integer_data("Collision_Damage_Increment") + shop_data.get_incre("Collision_Damage");
 
-        string[] settling_field_names = new string[5]{"Drone_Speed_X","Drone_Speed_Y","Ini_Faller_Range","Ini_Faller_Y_Speed","Collision_Damage"};
-        int[] settling_field_values = new int[5]{new_drone_speed_x,new_drone_speed_y,new_ini_faller_range,new_drone_ini_faller_speed,new_collision_damage};
-        shop_data.set_value<int>(settling_field_names,settling_field_values);
-        
+        string[] settling_field_names = new string[5] { "Drone_Speed_X", "Drone_Speed_Y", "Ini_Faller_Range", "Ini_Faller_Y_Speed", "Collision_Damage" };
+        int[] settling_field_values = new int[5] { new_drone_speed_x, new_drone_speed_y, new_ini_faller_range, new_drone_ini_faller_speed, new_collision_damage };
+        shop_data.set_value<int>(settling_field_names, settling_field_values);
+
 
     }
 
-    public void perform_move(string move_name){
+    public void perform_move(string move_name)
+    {
         movements.Animation = move_name;
     }
 
-    public override void use_item(Item_Using_Menu menu,Basic_Func basf)
+    public override void use_item(Item_Using_Menu menu, Basic_Func basf)
     {
-        base.use_item(menu,basf);
+        base.use_item(menu, basf);
         menu.Visible = false;
     }
 
-    public override void spawn_item(Vector2 spawn_position, Vector2 target_position, Basic_Character parent,Basic_Func basf)
+    public override void spawn_item(Vector2 spawn_position, Vector2 target_position, Basic_Character parent, Basic_Func basf)
     {
-        base.spawn_item(spawn_position,target_position,parent,basf);
-        
-        this.Position = spawn_position;
-        this.target_position = target_position;
-        this.parent = parent;
+        base.spawn_item(spawn_position, target_position, parent, basf);
+
+        // this.Position = spawn_position;
+        // this.target_position = target_position;
+        // this.parent = parent;
+    }
+    public override void add_to_scene(Basic_Func basf)
+    {
+        base.add_to_scene(basf);
+        basf.global_Variables.level_scene.AddChild(this);
     }
 
 }

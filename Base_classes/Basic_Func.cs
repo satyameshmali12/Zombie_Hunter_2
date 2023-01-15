@@ -218,17 +218,20 @@ public class Basic_Func
         global_Variables.item_using_menu_comp = null;
     }
 
-    public void add_guitickle_button(params Button[] button)
+    /// <summary>It makes a button a guitickle button</summary>
+    public void add_guitickle_button(params BaseButton[] button)
     {
-        foreach (Button item in button)
+        foreach (BaseButton item in button)
         {
-            this.global_Variables.guiticke_buttons.Add(item);
+            if(!this.global_Variables.guiticke_buttons.Contains(item)){
+                this.global_Variables.guiticke_buttons.Add(item);
+            }
         }
     }
     
     public bool is_any_guitickle_button_pressed(){
 
-        foreach (Button gui_button in global_Variables.guiticke_buttons)
+        foreach (BaseButton gui_button in global_Variables.guiticke_buttons)
         {
             if(gui_button.Pressed){
                 return true;
@@ -252,4 +255,45 @@ public class Basic_Func
     {
         return new Vector2(Math.Abs(point.x),Math.Abs(point.y));
     }
+
+    /// <summary>Splits the string in int into listwith an n (The many identifier you want) number of identifers</summary>
+    public ArrayList get_format_array_string(string sentence,ArrayList identifiers,bool is_to_trim)
+    {
+        ArrayList new_values = new ArrayList();
+        int start_index = 0;
+
+
+        void add_value(string value)
+        {
+            if(value.Length>0){
+                new_values.Add((!is_to_trim)?value:value.Trim());
+            }
+        }
+
+        
+
+        for (int i = 0; i < sentence.Length; i++)
+        {
+            
+            foreach (string identifer in identifiers)
+            {
+                var last_index = ((i + identifer.Length) < sentence.Length) ? (identifer.Length) : sentence.Length - i;
+                var checking_value = sentence.Substring(i, last_index);
+                if (checking_value == identifer)
+                {
+                    add_value(sentence.Substring(start_index, i - start_index));
+                    i += identifer.Length;
+                    start_index = i;
+                    break;
+                }
+            }
+        }
+        if(start_index<sentence.Length)
+        {
+            add_value(sentence.Substring(start_index,sentence.Length-start_index));
+        }
+
+        return new_values;
+    }
+
 }

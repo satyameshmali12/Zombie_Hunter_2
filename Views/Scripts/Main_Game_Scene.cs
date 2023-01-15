@@ -23,6 +23,7 @@ public class Main_Game_Scene : Basic_Game_View
 
         loading_view = this.GetNode<Node2D>("loading_view");
         is_loading_view_queue_free = false;
+        
     }
 
     public override void _Process(float delta)

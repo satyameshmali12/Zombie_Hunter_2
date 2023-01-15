@@ -211,7 +211,8 @@ public class Basic_Player : Basic_Character
         {
             if (Input.IsActionPressed("F") && !is_busy && animations.Animation != "Jump_Attack" && animations.Animation != basic_attack_name)
             {
-                animations.Animation = basic_attack_name;
+                // animations.Animation = basic_attack_name;
+                perform_move(basic_attack_name);
                 is_busy = true;
             }
 

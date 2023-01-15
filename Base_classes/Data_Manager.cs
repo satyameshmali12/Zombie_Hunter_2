@@ -216,7 +216,7 @@ public class Data_Manager
 
     /// <summary>Use this function only the data is an integer which is stored in the form of integer</summary>
     /// <returns>It returns the integer conversion of the data</returns>
-    public int get_interger_data(string field_name)
+    public int get_integer_data(string field_name)
     {
         return Convert.ToInt32(all_field_values[all_field_names.IndexOf(field_name)].ToString());
     }

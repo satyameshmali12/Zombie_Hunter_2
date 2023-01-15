@@ -41,6 +41,17 @@ public class Dropper : Basic_Drone
     Timer can_alter_timer;
 
 
+    public Dropper()
+    {
+
+        restriction_list = new ArrayList()
+        {
+            create_restriction_dic("Dropper",false),
+            create_restriction_dic("Shooter_DD",true)
+        };
+
+    }
+
     public override void _Ready()
     {
 
