@@ -92,11 +92,8 @@ public class Item_Using_Menu : Node2D
     AcceptDialog warning_box;
 
     Notification notification;
-    // bool is_warning_accepted = false;
-    // bool is_warning_box_fetched = false;
 
-    // Timer item_can_be_dropped
-    // Button item_cancal_button;
+
 
     public override void _Ready()
     {
@@ -133,12 +130,6 @@ public class Item_Using_Menu : Node2D
 
         basf.add_guitickle_button(this.GetNode<Button>("CurverBg"));
 
-        // warning_box = this.GetNode<AcceptDialog>("Warning_Box");
-        // warning_box.Connect("confirmed",this,"Warning_Accepted");
-        // warning_box.ShowOnTop = true;
-        // warning_box.Visible = true;
-        // warning_box.PopupCentered();
-
         notification = this.GetParent().GetNode<Notification>("Notification");
 
         basf.global_Variables.menu = this;
@@ -168,7 +159,6 @@ public class Item_Using_Menu : Node2D
                     add_view();
                 }
             }
-
 
 
 
@@ -243,7 +233,8 @@ public class Item_Using_Menu : Node2D
             /* 
             performed either when the notification is denied or when the the notication is opened the item_using_menu is being toggled(closed or open)
             */
-            if (notification.is_denied || (!this.Visible && notification.Visible))
+            // || (!this.Visible && notification.Visible)
+            if (notification.is_denied )
             {
                 basf.nullify_item_in_hand();
                 is_to_perfrom_map_drop = false;
@@ -263,7 +254,7 @@ public class Item_Using_Menu : Node2D
 
             */
             bool is_normal_drop = Input.IsActionJustPressed("Mouse_Pressed") && item_in_hand_url != null && pressed_button == null && !basf.global_Variables.is_guiticle_button_pressed && !is_map_drop_availaled;
-            
+
 
             if ((is_normal_drop || is_to_add_instantaneouly || is_to_perfrom_map_drop) && (!notification.Visible && !notification.is_denied))
             {
@@ -292,18 +283,12 @@ public class Item_Using_Menu : Node2D
                 {
                     is_to_perfrom_map_drop = true;
                     map_drop_adding_position = main_map.adding_position;
-                    // map_node.Visible = false;
                     reset_stuffs();
-                    // is_map_drop_availaled = false;
-                    // main_map.reset();
                 }
                 else if (map_drop_cancel_button.Pressed)
                 {
                     reset_stuffs();
-                    // map_node.Visible = false;
-                    // is_map_drop_availaled = false;
                     is_to_perfrom_map_drop = false;
-                    // main_map.reset();
                     basf.nullify_item_in_hand();
                 }
             }
@@ -339,29 +324,12 @@ public class Item_Using_Menu : Node2D
                 // loading the scene
                 var item_scene = basf.get_the_packed_scene(item_url).Instance<Item_Using_Menu_Component>();
 
-
-                GD.Print("right from the item using item adding the scene haha..!!");
-
-
                 var data_field_url = obj["data_field_url"];
                 var dm = new Data_Manager(data_field_url);
                 dm.load_data(item_name);
                 item_scene.dm = dm;
                 item_scene.rendering_url = item_url;
                 item_scene.name = item_scene.Name;
-
-
-                GD.Print(item_scene.Name," ",item_scene.name);
-
-                GD.Print(item_scene.restriction_list.Count);
-
-                foreach (Godot.Collections.Dictionary<string, string> item2 in item_scene.restriction_list)
-                {
-                    GD.Print(item2["name"]);
-                }
-
-                GD.Print("end");
-
 
                 // getting the item url
                 // items_scene_o_script.Add(item_scene);
@@ -386,7 +354,6 @@ public class Item_Using_Menu : Node2D
             }
 
         }
-        GD.Print("complete end");
         re_render_view_data();
     }
 
@@ -417,7 +384,6 @@ public class Item_Using_Menu : Node2D
 
                     int restriction_level = get_restriction_level(using_item);
 
-                    // GD.Print("Restriction level item_using_menu : ", restriction_level);
 
 
                     avai_no.Text = available_count.ToString();
@@ -425,12 +391,7 @@ public class Item_Using_Menu : Node2D
                     use_button.Disabled = available_count <= 0 || restriction_level == 1;
                     use_button.HintTooltip = "No tooltip";
 
-                    // if (restriction_level == 0)
-                    // {
-                    //     using_item.is_to_show_warning = true;
-                    // }
                     using_item.is_to_show_warning = (restriction_level == 0) ? true : false;
-                    // get_restriction_level(using_item);
 
 
                     // use_button.Text = "hello world";
@@ -453,7 +414,6 @@ public class Item_Using_Menu : Node2D
 
             }
         }
-
 
     }
 
@@ -520,28 +480,15 @@ public class Item_Using_Menu : Node2D
     public int get_restriction_level(Item_Using_Menu_Component component)
     {
         int restriction = -1;
-        // foreach (Godot.Collections.Dictionary<string, string> item in component.restriction_list)
-        // {
-        //     GD.Print(item["name"]);
-        //     GD.Print(component.Name);
-        // }
-        // foreach (Item_Using_Menu_Component item2 in basf.global_Variables.item_in_progression)
-        // { 
-        //     GD.Print(item2.name);
-        // }
 
         // GD.Print(basf.global_Variables.item_in_progression.Count);
         foreach (Godot.Collections.Dictionary<string, string> item in component.restriction_list)
         {
             string name = item["name"];
-            // GD.Print("identifer :- ",name);
             foreach (Item_Using_Menu_Component item2 in basf.global_Variables.item_in_progression)
             {
-                // GD.Print(name);
                 if (item2.name == name)
                 {
-                    // GD.Print("founded :- ",name);
-
                     var is_completed_restricted = bool.Parse(item["is_completed_restricted"]);
                     if (is_completed_restricted)
                     {
