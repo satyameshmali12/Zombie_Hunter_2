@@ -47,6 +47,7 @@ public class Data_Manager
     public bool is_initailized = false;
 
 
+
     public Data_Manager(string data_path = "data//data_fields/level_data_fields.zhd")
     {
         // var all_the_values = System.IO.File.ReadAllLines("data//data_fields/bomb_data_fields.zhd");
@@ -295,4 +296,5 @@ public class Data_Manager
 
         return processed_data;
     }
+
 }

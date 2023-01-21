@@ -2,7 +2,7 @@ using Godot;
 using System.Collections;
 using System;
 
-public class Basic_Func
+public class Basic_Func : Node
 {
     public Node node;
 
@@ -15,6 +15,8 @@ public class Basic_Func
     public string main_game_scene_path = "res://Views/Scenes/Main_Game_Scene.tscn";
     public string home_scene_path = "res://Views/Scenes/Home_View.tscn";
 
+
+
     public Basic_Func(Node node, string data_path = "data//data_fields/level_data_fields.zhd")
     {
         this.node = node;
@@ -22,7 +24,7 @@ public class Basic_Func
         user_data.load_data("Aj");
 
         global_Variables = node.GetNode<Global_Variables>("/root/Global_Variables");
-        
+
         global_paths = node.GetNode<Global_Paths>("/root/Global_Paths");
 
         throwable_weapons_dm = new Data_Manager(global_paths.basic_throwable_weapons_data_fields_Url);
@@ -85,9 +87,10 @@ public class Basic_Func
     {
         // node.GetTree().ChangeScene(path);
         global_Variables.current_scene = node;
-        add_changing_scene(node,path,true,true);
+        add_changing_scene(node, path, true, true);
     }
-    public Changing_Scene add_changing_scene(Node node,string path,bool is_to_reverse,bool is_to_navigate){
+    public Changing_Scene add_changing_scene(Node node, string path, bool is_to_reverse, bool is_to_navigate)
+    {
 
         var scene = this.get_the_packed_scene("res://Weapons_And_Animation/components/scenes/Changing_Scene.tscn");
 
@@ -96,7 +99,7 @@ public class Basic_Func
         changing_Scene.RectPosition = Vector2.Zero;
         changing_Scene.Visible = false;
 
-        changing_Scene.set_values(node,path,is_to_reverse,is_to_navigate);
+        changing_Scene.set_values(node, path, is_to_reverse, is_to_navigate);
 
         node.AddChild(changing_Scene);
         changing_Scene.Visible = true;
@@ -104,10 +107,10 @@ public class Basic_Func
         return changing_Scene;
     }
 
-    
+
     public bool is_any_one_button_pressed(ArrayList button_list)
     {
-        
+
         foreach (BaseButton item in button_list)
         {
             if (item.Pressed)
@@ -164,27 +167,30 @@ public class Basic_Func
     }
 
     // music duration should be given only when if the music is to be played one time
-    public Custom_Audio create_a_sound(string path_of_audio, Node parent, bool is_to_play_one_time, float music_duration = 1,float volume = 1,float pitch_scale = 1)
+    public Custom_Audio create_a_sound(string path_of_audio, Node parent, bool is_to_play_one_time, float music_duration = 1, float volume = 1, float pitch_scale = 1)
     {
         PackedScene scene = ResourceLoader.Load<PackedScene>("res://Weapons_And_Animation/components/scenes/Simple_Audio.tscn");
         Custom_Audio audio = scene.Instance<Custom_Audio>();
-        audio.set_properties(path_of_audio,is_to_play_one_time,music_duration,volume,pitch_scale);
+        audio.set_properties(path_of_audio, is_to_play_one_time, music_duration, volume, pitch_scale);
         parent.AddChild(audio);
         return audio;
     }
 
-    
-    public bool increment_loading_percent(int increment){
 
-        global_Variables.loading_percent+= (global_Variables.loading_percent+increment>100)?(100-global_Variables.loading_percent):increment;
+    public bool increment_loading_percent(int increment)
+    {
+
+        global_Variables.loading_percent += (global_Variables.loading_percent + increment > 100) ? (100 - global_Variables.loading_percent) : increment;
         return true;
     }
 
-    public void pause_tree(Node node,bool is_to_pause = true){
+    public void pause_tree(Node node, bool is_to_pause = true)
+    {
         node.GetTree().Paused = is_to_pause;
     }
 
-    public bool remove_all_childs(){
+    public bool remove_all_childs()
+    {
         var children = node.GetChildren();
         foreach (Node item in children)
         {
@@ -193,10 +199,12 @@ public class Basic_Func
         return true;
     }
 
-    public void disvisible_visible_list(Node2D except = null){
+    public void disvisible_visible_list(Node2D except = null)
+    {
         foreach (Node2D item in global_Variables.visibility_list)
         {
-            if(except!=item){
+            if (except != item)
+            {
                 item.Visible = false;
             }
         }
@@ -204,8 +212,10 @@ public class Basic_Func
 
     /// <summary>If the given ray is collided It gives the object collider else null</summary>
     /// <returns>It returns the collider of type Global_Varaible_F_A_T</returns>
-    public Global_Variables_F_A_T getcollider<Thing>(RayCast2D ray) where Thing : class{
-        if(ray.IsColliding()){
+    public Global_Variables_F_A_T getcollider<Thing>(RayCast2D ray) where Thing : class
+    {
+        if (ray.IsColliding())
+        {
             Global_Variables_F_A_T collider = (Global_Variables_F_A_T)ray.GetCollider();
             return collider;
         }
@@ -213,7 +223,8 @@ public class Basic_Func
         return null;
     }
 
-    public void nullify_item_in_hand(){
+    public void nullify_item_in_hand()
+    {
         global_Variables.item_in_hand = null;
         global_Variables.item_using_menu_comp = null;
     }
@@ -223,29 +234,33 @@ public class Basic_Func
     {
         foreach (BaseButton item in button)
         {
-            if(!this.global_Variables.guiticke_buttons.Contains(item)){
+            if (!this.global_Variables.guiticke_buttons.Contains(item))
+            {
                 this.global_Variables.guiticke_buttons.Add(item);
             }
         }
     }
-    
-    public bool is_any_guitickle_button_pressed(){
+
+    public bool is_any_guitickle_button_pressed()
+    {
 
         foreach (BaseButton gui_button in global_Variables.guiticke_buttons)
         {
-            if(gui_button.Pressed){
+            if (gui_button.Pressed)
+            {
                 return true;
             }
         }
         return false;
     }
 
-    
+
     /// <summary> 
     /// This helps to clean the stuff i.e the objects when the level is finshed
     /// <para>This cleaning of the object and the resettling of the varialbes is consider as the clearing of the garbage</para>
     /// </summary> 
-    public void clear_garbage(){
+    public void clear_garbage()
+    {
         global_Variables.visibility_list.Clear();
         global_Variables.guiticke_buttons.Clear();
         nullify_item_in_hand();
@@ -253,11 +268,11 @@ public class Basic_Func
 
     public Vector2 abs_a_vector(Vector2 point)
     {
-        return new Vector2(Math.Abs(point.x),Math.Abs(point.y));
+        return new Vector2(Math.Abs(point.x), Math.Abs(point.y));
     }
 
     /// <summary>Splits the string in int into listwith an n (The many identifier you want) number of identifers</summary>
-    public ArrayList get_format_array_string(string sentence,ArrayList identifiers,bool is_to_trim)
+    public ArrayList get_format_array_string(string sentence, ArrayList identifiers, bool is_to_trim)
     {
         ArrayList new_values = new ArrayList();
         int start_index = 0;
@@ -265,16 +280,15 @@ public class Basic_Func
 
         void add_value(string value)
         {
-            if(value.Length>0){
-                new_values.Add((!is_to_trim)?value:value.Trim());
+            if (value.Length > 0)
+            {
+                new_values.Add((!is_to_trim) ? value : value.Trim());
             }
         }
 
-        
-
         for (int i = 0; i < sentence.Length; i++)
         {
-            
+
             foreach (string identifer in identifiers)
             {
                 var last_index = ((i + identifer.Length) < sentence.Length) ? (identifer.Length) : sentence.Length - i;
@@ -288,12 +302,98 @@ public class Basic_Func
                 }
             }
         }
-        if(start_index<sentence.Length)
+        if (start_index < sentence.Length)
         {
-            add_value(sentence.Substring(start_index,sentence.Length-start_index));
+            add_value(sentence.Substring(start_index, sentence.Length - start_index));
         }
 
         return new_values;
     }
 
+    public bool is_in_box(Vector2 c_point, Vector2 position, Vector2 size)
+    {
+        if (c_point.x > position.x && c_point.y > position.y && c_point.x < position.x + size.x && c_point.y < position.y + size.y)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    public Godot.Collections.Dictionary<string, string> get_dictionary<Thing>(Thing[] names, Thing[] values)
+    {
+        Godot.Collections.Dictionary<string, string> item = new Godot.Collections.Dictionary<string, string>();
+        for (int i = 0; i < names.Length; i++)
+        {
+            item.Add(names[i].ToString(), values[i].ToString());
+        }
+        return item;
+    }
+
+    public int get_scroller_start_index_change(int render_start_index, int box_per_screen, ArrayList items)
+    {
+        int change = 0;
+        change = (Input.IsActionJustPressed("Move_Up") && (render_start_index > 0)) ? -1 : change;
+        change = (Input.IsActionJustPressed("Move_Down") && (render_start_index + box_per_screen) < items.Count) ? 1 : change;
+
+        return change;
+    }
+
+    public ArrayList get_split_data_in_wdm(string sentence)
+    {
+        // string sentence = "|Drone1:Hey there danger||Drone12:Hey there danger is it joke|";
+        // string sentence = data;
+        int count = 0;
+        ArrayList items = new ArrayList();
+        for (int i = 0; i < sentence.Length && sentence.Trim()!="-"; i++)
+        {
+            if (count < sentence.Length)
+            {
+
+                var character = sentence[count].ToString();
+                if (character == "|")
+                {
+                    var remaining_sentence = sentence.Substring(count, sentence.Length - count);
+                    var next_sl_index = remaining_sentence.Remove(0, 1).IndexOf("|");
+                    /* as the index function returns a zero based index and another 1 as we have remove one character above */
+                    var data = remaining_sentence.Substring(0, next_sl_index + 2);
+                    count += data.Length;
+
+                    data = data.Replace("|", "");
+                    var colon_index = data.IndexOf(":");
+                    var item =
+                        new Godot.Collections.Dictionary<string, string>() 
+                            {
+                                { "name", data.Substring(0, colon_index) },
+                                { "message", data.Substring(colon_index+1, data.Length - colon_index-1)} 
+                            };
+                    items.Add(item);
+
+                }
+                else
+                {
+                    count++;
+                }
+            }
+            else
+            {
+                break;
+            }
+        }
+
+        return items;
+    }
+
+    // public ArrayList get_dictionary_set_of_field_values(ArrayList dics,string field_name)
+    // {
+    //     ArrayList field_values = new ArrayList();
+
+    //     foreach (Godot.Collections.Dictionary<string,string> item in dics)
+    //     {
+    //         field_values.Add(item[field_name]);
+    //     }
+
+    //     return  field_values;
+    // }
 }
+

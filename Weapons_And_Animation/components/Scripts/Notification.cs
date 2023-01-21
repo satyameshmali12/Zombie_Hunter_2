@@ -6,7 +6,7 @@ public class Notification : Node2D
     Basic_Func basf;
 
     Button confirm_button,cancel_button;
-    public bool is_denied = false;
+    public bool is_denied,is_accepted = false;
     RichTextLabel label;
 
     public override void _Ready()
@@ -15,6 +15,7 @@ public class Notification : Node2D
         label = this.GetNode<RichTextLabel>("Message");
         confirm_button = this.GetNode<Button>("Confirm");
         cancel_button = this.GetNode<Button>("Cancel");
+        basf.add_guitickle_button(confirm_button,cancel_button);
     }
 
     public override void _Process(float delta)
@@ -23,6 +24,7 @@ public class Notification : Node2D
         if(confirm_button.Pressed || cancel_button.Pressed)
         {
             is_denied = cancel_button.Pressed;
+            is_accepted = confirm_button.Pressed;
             close();
         }
         
@@ -48,5 +50,6 @@ public class Notification : Node2D
     public void reset()
     {
         is_denied = false;
+        is_accepted = false;
     }
 }

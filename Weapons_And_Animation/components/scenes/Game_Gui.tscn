@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=2]
+[gd_scene load_steps=37 format=2]
 
 [ext_resource path="res://Weapons_And_Animation/components/scenes/Health_Bar.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/fonts/STIXGeneralBolIta.ttf" type="DynamicFontData" id=2]
@@ -15,6 +15,8 @@
 [ext_resource path="res://assets/images/gui/designs/item_using_icon.png" type="Texture" id=13]
 [ext_resource path="res://assets/images/gui/cross.png" type="Texture" id=14]
 [ext_resource path="res://Weapons_And_Animation/components/scenes/Notification.tscn" type="PackedScene" id=15]
+[ext_resource path="res://Weapons_And_Animation/components/scenes/Item_Remover.tscn" type="PackedScene" id=16]
+[ext_resource path="res://assets/images/Icons/Item_Icon.png" type="Texture" id=17]
 
 [sub_resource type="DynamicFont" id=6]
 outline_color = Color( 0.0352941, 0.843137, 1, 1 )
@@ -109,6 +111,10 @@ modulate_color = Color( 0.964706, 0.964706, 0.964706, 1 )
 texture = ExtResource( 14 )
 region_rect = Rect2( 0, 0, 512, 512 )
 modulate_color = Color( 0, 0, 0, 1 )
+
+[sub_resource type="StyleBoxTexture" id=21]
+texture = ExtResource( 17 )
+region_rect = Rect2( 0, 0, 474, 474 )
 
 [node name="Game_Gui" type="Node2D"]
 position = Vector2( -80, 0 )
@@ -326,3 +332,17 @@ custom_styles/normal = SubResource( 18 )
 visible = false
 position = Vector2( 121, -11 )
 z_index = 10
+
+[node name="Item_Remover" parent="." instance=ExtResource( 16 )]
+visible = false
+position = Vector2( 64, 0 )
+
+[node name="Item_Removing_To_But" type="Button" parent="."]
+self_modulate = Color( 0.380392, 0.0235294, 0.0235294, 1 )
+margin_left = 1276.0
+margin_top = -32.0
+margin_right = 1346.0
+margin_bottom = 23.0
+focus_mode = 0
+custom_styles/normal = SubResource( 21 )
+enabled_focus_mode = 0

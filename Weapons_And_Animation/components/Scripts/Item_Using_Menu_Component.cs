@@ -33,13 +33,16 @@ public class Item_Using_Menu_Component : Area2D
 
     public string warning_message = "";
 
+    public bool is_to_display_position = false;
+
 
     public override void _Ready()
     {
         basf = new Basic_Func(this);
         basf.global_Variables.item_in_progression.Add(this);
-        this.Connect("tree_exiting",this,"Removal");
+        this.Connect("tree_exiting", this, "Removal");
         GD.Print("hey their added to the node haha..!!");
+
 
     }
 
@@ -80,18 +83,29 @@ public class Item_Using_Menu_Component : Area2D
 
     }
 
-    public Dictionary<string, string> create_restriction_dic(string name,bool is_completed_restricted)
+    public Dictionary<string, string> create_restriction_dic(string name, bool is_completed_restricted)
     {
         return new Dictionary<string, string>() { { "name", name }, { "is_completed_restricted", is_completed_restricted.ToString() } };
     }
 
+    /// <summary>
+    //  Will call when the item will leave the scene tree
+    /// This method is connected to the tree_exiting signal
+    /// </summary>
     public void Removal()
     {
-        if(basf.global_Variables.item_in_progression.Contains(this))
+        if (basf.global_Variables.item_in_progression.Contains(this))
         {
             GD.Print("hey there it is being rmoved from the noe tree as well as the array it was keeped haha..!!");
             basf.global_Variables.item_in_progression.Remove(this);
             basf.global_Variables.menu.re_render_view_data();
         }
+    }
+
+    /* This method will be used by the item remover to remove the item from the node tree */
+    public virtual void Clear()
+    {
+        // after the the clear function run only 5 second the item can stay on the 
+        basf.create_timer(5, "Removal").Start();
     }
 }

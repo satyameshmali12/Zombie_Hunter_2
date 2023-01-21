@@ -25,6 +25,10 @@ public class Game_Gui : Node2D
 
     Button item_using_cancel_button;
 
+    Node2D item_remover_screen;
+    Button item_rem_sc_to_but;
+    bool is_item_rem_sc_but_pressed = false;
+
 
 
 
@@ -45,10 +49,14 @@ public class Game_Gui : Node2D
 
         pause_Menu = this.GetNode<Pause_Menu>("Pause_Menu");
 
+        item_remover_screen = this.GetNode<Item_Remover>("Item_Remover");
+        item_rem_sc_to_but = this.GetNode<Button>("Item_Removing_To_But");
+
 
         item_in_hand_show = this.GetNode<Node2D>("Item_In_Hand");
         remove_item_in_hand_button = item_in_hand_show.GetNode<Button>("Remove_Item_In_Hand");
-        basf.add_guitickle_button(pause_button, item_using_button);
+        basf.add_guitickle_button(pause_button, item_using_button,item_rem_sc_to_but);
+
 
 
 
@@ -132,6 +140,25 @@ public class Game_Gui : Node2D
         if (remove_item_in_hand_button.Pressed)
         {
             basf.nullify_item_in_hand();
+        }
+
+
+        if(item_rem_sc_to_but.Pressed)
+        {
+            if(!is_item_rem_sc_but_pressed)
+            {
+                basf.disvisible_visible_list(item_remover_screen);
+                item_remover_screen.Visible = !item_remover_screen.Visible;
+                /* nullifying item_in_hand if the item_remover_screen_is_selected */
+                if(item_remover_screen.Visible)
+                {
+                    basf.nullify_item_in_hand();
+                }
+                is_item_rem_sc_but_pressed = true;
+            }
+        }
+        else{
+            is_item_rem_sc_but_pressed = false;
         }
 
 

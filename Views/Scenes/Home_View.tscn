@@ -67,10 +67,10 @@ expand = true
 script = ExtResource( 6 )
 
 [node name="Level_View" type="TextureButton" parent="Navigational_Buttons"]
-margin_left = 458.0
-margin_top = -110.0
-margin_right = 538.0
-margin_bottom = -40.0
+margin_left = 432.0
+margin_top = -107.0
+margin_right = 512.0
+margin_bottom = -37.0
 texture_normal = ExtResource( 7 )
 expand = true
 script = ExtResource( 6 )

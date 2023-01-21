@@ -99,4 +99,10 @@ public class Basic_Spell : Item_Using_Menu_Component,Global_Variables_F_A_T
         return button;
     }
 
+    public override void Clear()
+    {
+        base.Clear();
+        Remove_Spell();
+    }
+
 }

@@ -53,6 +53,14 @@ public class Shooter_DD : Basic_Drone
 
     int bullet_damage = 0;
 
+    public Shooter_DD()
+    {
+        // this restriction is given just for temporary to just test the restriction list remove it later on ones the testing is finished
+        restriction_list = new ArrayList(){
+            // create_restriction_dic("Shooter_DD",false)
+        };
+    }
+
 
     public override void _Ready()
     {

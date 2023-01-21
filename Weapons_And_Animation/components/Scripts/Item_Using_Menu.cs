@@ -4,7 +4,6 @@ using System;
 using System.Collections;
 
 /*
-
 Item can be put at a specific point in the game
 You can perfrom normal drop as well as map drop
 
@@ -16,26 +15,22 @@ pros:-
     Item can be spawned at desired point
 cons:-
     While the item is dropped using the map drop the area around is not check due to which if you spawned any item inside a block it will get spawned over there
-    without checking the space around it and for maximum chances it will get destroyed
-
+    without checking the space around it and for maximum chances it will get destroyed if spawned inside the blocks
 
 Normal_Drop
    :- Requrires the drop mouse right from the left click on the screen
-
 Instant_Drop
    :- Does not requires any target position (it has a specific position in the map)
    :- you may notice for a instant drop position is given.This position is given just as per the syntax but if you see the inner working it has no use in the instant drop since it has no use related to the instant_drop
-
 Map_Drop
    :- It requires a target position
    :- But this position is given right from the map
-    
 
+Dropping Message
+    :- While adding any spell or item there are chances when you may add multiple spell which may don't have any effect 
+        thus we have introduced message availing for the user which will help the user to use the item carefully
+        you also can disable the warning right from the settings page
 */
-
-
-
-
 
 /// <summary>
 /// this class is relative of that of the shop class
@@ -93,12 +88,24 @@ public class Item_Using_Menu : Node2D
 
     Notification notification;
 
+    bool is_urgent_add = false;
+    bool is_td_ext_settting = false;
+    Vector2 last_ms_click_pos = Vector2.Zero;
+    bool is_last_ms_click_pos_given = false;
+
+    bool is_selected_from_use_button = false;
+
+
+    bool can_give_warning_during_game = false;
+
 
 
     public override void _Ready()
     {
 
         basf = new Basic_Func(this);
+
+        can_give_warning_during_game = bool.Parse(basf.user_data.get_data("Can_Given_Warning_During_Match"));
 
 
         basf.global_Variables.visibility_list.Add(this);
@@ -134,6 +141,8 @@ public class Item_Using_Menu : Node2D
 
         basf.global_Variables.menu = this;
 
+        basf.add_guitickle_button(left_button, right_button);
+
 
         add_view();
 
@@ -144,6 +153,26 @@ public class Item_Using_Menu : Node2D
     public override void _Process(float delta)
     {
         // item_cancal_button = basf.global_Variables.item_cancel_button;
+        var item_in_hand = basf.global_Variables.item_using_menu_comp;
+        if (item_in_hand != null && !is_selected_from_use_button && !basf.global_Variables.is_guiticle_button_pressed && can_give_warning_during_game)
+        {
+            var restriction_level = get_restriction_level(item_in_hand);
+
+            if (restriction_level == 0 && Input.IsActionJustPressed("Mouse_Pressed"))
+            {
+                if (!is_last_ms_click_pos_given)
+                {
+                    last_ms_click_pos = this.GetGlobalMousePosition();
+                    is_last_ms_click_pos_given = true;
+                }
+                notification.pop(item_in_hand.warning_message);
+                is_td_ext_settting = true;
+            }
+            else if (restriction_level == 1)
+            {
+                entire_reset();
+            }
+        }
 
 
         if (!basf.global_Variables.is_game_quitted)
@@ -199,8 +228,17 @@ public class Item_Using_Menu : Node2D
                         basf.global_Variables.item_in_hand = selected_item.rendering_url;
                         basf.global_Variables.item_using_menu_comp = selected_item;
 
+                        is_selected_from_use_button = true;
+                        if (is_selected_from_use_button)
+                        {
+                            is_td_ext_settting = false;
+                        }
+
+                        // is_td_ext_settting = false;
+
                         if (use_button.Pressed)
                         {
+                            // is_urgent_add = false;
                             selected_item.use_item(this, basf);
                         }
 
@@ -234,15 +272,34 @@ public class Item_Using_Menu : Node2D
             performed either when the notification is denied or when the the notication is opened the item_using_menu is being toggled(closed or open)
             */
             // || (!this.Visible && notification.Visible)
-            if (notification.is_denied )
+            if (notification.is_denied)
             {
-                basf.nullify_item_in_hand();
-                is_to_perfrom_map_drop = false;
-                is_to_add_instantaneouly = false;
-                item_can_be_drop = false;
-                notification.reset();
-                reset_stuffs();
+                is_last_ms_click_pos_given = false;
+                last_ms_click_pos = Vector2.Zero;
+                is_urgent_add = false;
+                is_td_ext_settting = false;
+                entire_reset();
+
             }
+
+            // when the user it given warning during the selective drop
+            if (notification.is_accepted)
+            {
+                if (is_td_ext_settting)
+                {
+                    is_td_ext_settting = false;
+                    is_urgent_add = true;
+                    is_last_ms_click_pos_given = false;
+                    notification.reset();
+                }
+                else if (is_selected_from_use_button)
+                {
+                    is_selected_from_use_button = false;
+                    notification.reset();
+                    is_last_ms_click_pos_given = false;
+                }
+            }
+
 
             item_in_hand_url = basf.global_Variables.item_in_hand;
 
@@ -256,11 +313,15 @@ public class Item_Using_Menu : Node2D
             bool is_normal_drop = Input.IsActionJustPressed("Mouse_Pressed") && item_in_hand_url != null && pressed_button == null && !basf.global_Variables.is_guiticle_button_pressed && !is_map_drop_availaled;
 
 
-            if ((is_normal_drop || is_to_add_instantaneouly || is_to_perfrom_map_drop) && (!notification.Visible && !notification.is_denied))
+            if (((is_normal_drop || is_to_add_instantaneouly || is_to_perfrom_map_drop) && (!notification.Visible && !notification.is_denied)) || (is_urgent_add && item_in_hand != null))
             {
                 if (item_can_be_drop)
                 {
                     add_item_to_the_scene();
+                    is_urgent_add = false;
+                    is_selected_from_use_button = false;
+                    is_last_ms_click_pos_given = false;
+                    is_td_ext_settting = false;
                 }
             }
             else
@@ -301,7 +362,7 @@ public class Item_Using_Menu : Node2D
     /// <summary>
     /// It fetches the data right from the given url
     /// <para>It takes the value and give it to the boxes present on the item_using_menu</para>
-    /// <para>Simultaneouly it stores all the component so that it can ren rendered</para>
+    /// <para>Simultaneouly it stores all the component so that it's value can be used while dropping the item in the game</para>
     /// </summary>
     public void add_view()
     {
@@ -332,7 +393,6 @@ public class Item_Using_Menu : Node2D
                 item_scene.name = item_scene.Name;
 
                 // getting the item url
-                // items_scene_o_script.Add(item_scene);
                 Item_Using_Menu_Components.Add(item_scene);
 
 
@@ -388,10 +448,11 @@ public class Item_Using_Menu : Node2D
 
                     avai_no.Text = available_count.ToString();
 
-                    use_button.Disabled = available_count <= 0 || restriction_level == 1;
-                    use_button.HintTooltip = "No tooltip";
-
-                    using_item.is_to_show_warning = (restriction_level == 0) ? true : false;
+                    if(can_give_warning_during_game)
+                    {
+                        use_button.Disabled = available_count <= 0 || restriction_level == 1;
+                        using_item.is_to_show_warning = (restriction_level == 0) ? true : false;
+                    }
 
 
                     // use_button.Text = "hello world";
@@ -417,21 +478,18 @@ public class Item_Using_Menu : Node2D
 
     }
 
-    /// <summary>To resettle the stuffs such as map while toggling the node</summary>
-    public void reset_stuffs()
-    {
 
-        main_map.reset();
-        map_node.Visible = false;
-        is_map_drop_availaled = false;
 
-    }
-
+    /// <summary>For adding the item on the scene as per the item in hand url</summary>
     public void add_item_to_the_scene()
     {
         // if(item_can_be_drop){
 
         var adding_position = this.GetGlobalMousePosition();
+        if (is_urgent_add)
+        {
+            adding_position = last_ms_click_pos;
+        }
         var new_item = basf.get_the_packed_scene(item_in_hand_url).Instance<Item_Using_Menu_Component>();
         /*
         You may notice here that first the node is added and then the spawn_function is called 
@@ -477,11 +535,16 @@ public class Item_Using_Menu : Node2D
         item_can_be_drop = false;
     }
 
+    /// <summary>To get the restricition level of the item on the shop
+    /// <para>Three levels -1,0,1</para>
+    /// <para> -1 :- no restriction</para>
+    /// <para> 0 :- Show warning </para>
+    /// <para> 1 :- completely restricted </para> 
+    ///</summary>
     public int get_restriction_level(Item_Using_Menu_Component component)
     {
         int restriction = -1;
 
-        // GD.Print(basf.global_Variables.item_in_progression.Count);
         foreach (Godot.Collections.Dictionary<string, string> item in component.restriction_list)
         {
             string name = item["name"];
@@ -503,8 +566,30 @@ public class Item_Using_Menu : Node2D
             }
 
         }
-
         return restriction;
+    }
+
+
+    /// <summary>To reset all the things related to the droping of the item</summary>
+    public void entire_reset()
+    {
+        basf.nullify_item_in_hand();
+        is_to_perfrom_map_drop = false;
+        is_to_add_instantaneouly = false;
+        item_can_be_drop = false;
+        notification.reset();
+        reset_stuffs();
+    }
+
+    
+    /// <summary>To resettle the stuffs such as map while toggling the node(for map)</summary>
+    public void reset_stuffs()
+    {
+
+        main_map.reset();
+        map_node.Visible = false;
+        is_map_drop_availaled = false;
+
     }
 
 }

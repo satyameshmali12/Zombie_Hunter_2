@@ -1,7 +1,7 @@
 Health_Stopper
-38
+0
 1000
-10
+100
 3
 7
 1
@@ -14,8 +14,9 @@ true
 true
 Hey their its is spell which makes the health to stop a at a particular point my boy hahaha
 
+
 Max_Powerer
-66
+59
 1000
 10
 3
@@ -29,6 +30,7 @@ true
 3
 true
 Hey their its is spell which makes the health to stop a at a particular point my boy hahaha
+-
 
 Move_Stopper
 13
@@ -45,3 +47,4 @@ true
 3
 true
 Hey their its is spell which makes the health to stop a at a particular point my boy hahaha
+

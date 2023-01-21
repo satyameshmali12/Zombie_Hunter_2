@@ -80,6 +80,9 @@ public class Global_Variables : Node2D
 
     public Item_Using_Menu menu = null;
     public ArrayList item_in_progression = new ArrayList();
+
+    public Item_Remover item_removing_screen = null;
+    
     // public Notification notification = null;
 
     /// <summary>This will be given right from the game_gui and will be used in the item using menu</summary>
@@ -122,7 +125,12 @@ public class Global_Variables : Node2D
         if(!is_game_quitted)
         {
             if(!is_guiticle_button_pressed){
-                is_guiticle_button_pressed = basf.is_any_guitickle_button_pressed();
+                var is_mouse_pressed_on_remover_button = false;
+                if(item_removing_screen!=null){
+                    var rect = item_removing_screen.GetNode<ReferenceRect>("Rect");
+                    is_mouse_pressed_on_remover_button = item_removing_screen.Visible && basf.is_in_box(this.GetGlobalMousePosition(),rect.RectGlobalPosition,rect.RectSize);
+                }
+                is_guiticle_button_pressed = basf.is_any_guitickle_button_pressed() || is_mouse_pressed_on_remover_button;
             }
             else if(!Input.IsActionPressed("Mouse_Left_Pressed"))
             {

@@ -493,33 +493,41 @@ public class Basic_Character : RigidBody2D, Character
     // pass all as the collider_name for considering all for the collision
     public bool is_collider_ray_colliding(ArrayList collider_rays, bool is_to_call_colliding_func = false, string collider_name = "all")
     {
-        var is_collided = false;
-        foreach (RayCast2D item in collider_rays)
+        try
         {
-            if (!item.Enabled)
+            var is_collided = false;
+            foreach (RayCast2D item in collider_rays)
             {
-                item.Enabled = true;
-            }
-            else if (item.IsColliding())
-            {
-                Global_Variables_F_A_T collided_item = (Global_Variables_F_A_T)item.GetCollider();
-                if (collided_item._node_type == _Type_of_.Player || collider_name.ToLower() == "all")
+                if (!item.Enabled)
                 {
-                    is_collided = true;
-                    if (is_to_call_colliding_func)
-                    {
-                        collided_with_L_R_ray(item.GetCollider());
-                    }
-                    break;
+                    item.Enabled = true;
                 }
-            }
-            else
-            {
-                is_collided = false;
-            }
+                else if (item.IsColliding())
+                {
+                    Global_Variables_F_A_T collided_item = (Global_Variables_F_A_T)item.GetCollider();
+                    if (collided_item._node_type == _Type_of_.Player || collider_name.ToLower() == "all")
+                    {
+                        is_collided = true;
+                        if (is_to_call_colliding_func)
+                        {
+                            collided_with_L_R_ray(item.GetCollider());
+                        }
+                        break;
+                    }
+                }
+                else
+                {
+                    is_collided = false;
+                }
 
+            }
+            return is_collided;
         }
-        return is_collided;
+        catch (System.Exception)
+        {
+            GD.Print(this.Name);
+            throw;
+        }
     }
 
 

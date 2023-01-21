@@ -156,6 +156,8 @@ public class Basic_Drone : Item_Using_Menu_Component, Character
 
         parent.Connect("tree_exiting", this, "Parent_Died_Kill_Drone");
 
+        is_to_display_position = true;
+
 
     }
 
@@ -368,6 +370,12 @@ public class Basic_Drone : Item_Using_Menu_Component, Character
     {
         base.add_to_scene(basf);
         basf.global_Variables.level_scene.AddChild(this);
+    }
+
+    public override void Clear()
+    {
+        base.Clear();
+        this.health = 0;
     }
 
 }
