@@ -15,7 +15,10 @@ public class Warnnig_Editor : Basic_View
     ArrayList items = new ArrayList(); // all the items
     ArrayList item_data_field_urls = new ArrayList() { "data/data_fields/spell_data_fields.zhd", "data/data_fields/drone_data_fields.zhd" };
 
+
     VBoxContainer items_box;
+
+
     int item_start_index = 0;
     bool can_change = true;
 
@@ -33,6 +36,9 @@ public class Warnnig_Editor : Basic_View
     Data_Manager selected_item_dm;
 
     bool can_delete_items = true;
+
+    Item_Searcher item_Searcher;
+
 
     public override void _Ready()
     {
@@ -59,11 +65,9 @@ public class Warnnig_Editor : Basic_View
 
         can_change_timer = basf.create_timer(.1f, "Can_Change_Toggle");
 
-
-        // re_render_items_data();
-
         inputs = this.GetNode<Control>("Inputs");
 
+        item_Searcher = this.GetNode<Item_Searcher>("Item_Searcher");
     }
 
     public override void _Process(float delta)
@@ -76,15 +80,10 @@ public class Warnnig_Editor : Basic_View
 
         if (items_box.Visible)
         {
-            re_render_items_data();
+            // items_box.set_data(items_box.GetChildCount(),items);
+            // item_start_index = items_box.start_index;
             scroller_effect(items_box.GetChildCount(), items);
-            // int change = basf.get_scroller_start_index_change(item_start_index, items_box.GetChildren().Count, items);
-            // if (can_change && change != 0)
-            // {
-            //     item_start_index += change;
-            //     can_change = false;
-            //     can_change_timer.Start();
-            // }
+            re_render_items_data();
         }
         else
         {
@@ -96,6 +95,26 @@ public class Warnnig_Editor : Basic_View
 
             warning_edit_panel.GetNode<Label>("Item_Name").Text = selected_item["name"];
 
+
+            var no_item_label = warning_edit_panel.GetNode<Label>("No_Item");
+            no_item_label.Visible = (render_warning_item_list.Count<=0);
+
+            var add_button = warning_edit_panel.GetNode<Button>("Add_Button");
+
+            if (add_button.Pressed && !item_Searcher.Visible)
+            {
+                item_Searcher.load_data(new_item_warning_adding_list);
+                item_Searcher.pop();
+            }
+            else if (item_Searcher.is_item_selected)
+            {
+                render_warning_item_list.Add(new Dictionary<string,string>(){{"name",item_Searcher.selected_item},{"message","Don't use it"}});
+                item_Searcher.reset();
+                is_item_warning_data_loaded = false;
+            }
+
+
+
             Button save_data_button = warning_edit_panel.GetNode<Button>("Save_Data");
 
             Button back_button = warning_edit_panel.GetNode<Button>("Back_Button");
@@ -104,6 +123,8 @@ public class Warnnig_Editor : Basic_View
 
 
             scroller_effect(warning_item_boxes.Count, render_warning_item_list);
+
+
 
             if (save_data_button.Pressed)
             {
@@ -114,6 +135,9 @@ public class Warnnig_Editor : Basic_View
                     var specific_message = item["message"];
                     message += $"|{name}:{specific_message}|";
                 }
+                // setting the message to hyphen(-) which means null when the render_warning_item_list length is less than zero
+                message = (render_warning_item_list.Count>0)?message:"-";
+                
                 selected_item_dm.set_value("Warning_List", message);
                 selected_item_dm.save_data();
                 selected_item_dm.load_previous_data_again();
@@ -166,7 +190,7 @@ public class Warnnig_Editor : Basic_View
 
                     // getting whether the remove button is being pressed or not
                     MarginContainer con = warning_item_boxes[i] as MarginContainer;
-                    Button remove_button = con.GetNode<Button>("HBoxContainer/MarginContainer/Button");
+                    Button remove_button = con.GetNode<Button>("HBoxContainer/VBoxContainer/MarginContainer/Button");
                     if (remove_button.Pressed && can_delete_items)
                     {
                         render_warning_item_list.Remove(render_warning_item_list[item_start_index + i]);
@@ -207,6 +231,7 @@ public class Warnnig_Editor : Basic_View
 
                     render_warning_item_list = basf.get_split_data_in_wdm(selected_item_dm.get_data("Warning_List")); // getting the earlier warning_list
                     is_item_warning_data_loaded = false;
+                    reset_new_item_w_add_list();
                 }
             }
             else
@@ -235,13 +260,14 @@ public class Warnnig_Editor : Basic_View
 
         foreach (Godot.Collections.Dictionary<string, string> obj in render_warning_item_list)
         {
-            new_item_warning_adding_list.Add(obj["name"]);
+            // new_item_warning_adding_list.Add(obj["name"]);
+            render_warning_item_name_list.Add(obj["name"]);
         }
 
         foreach (Godot.Collections.Dictionary<string, string> obj in items)
         {
             string name = obj["name"];
-            if (!render_warning_item_name_list.Contains("name"))
+            if (!render_warning_item_name_list.Contains(name))
             {
                 new_item_warning_adding_list.Add(name);
             }
