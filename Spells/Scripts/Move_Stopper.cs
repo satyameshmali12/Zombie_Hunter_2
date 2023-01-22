@@ -11,7 +11,7 @@ public class Move_Stopper : Basic_Spell
         is_to_add_to_character = true;
         restriction_list = new ArrayList()
         {
-            create_restriction_dic("Move_Stopper",false)
+            // create_restriction_dic("Move_Stopper",false)
             // create_restriction_dic("Health_Stopper",true),
             // create_restriction_dic("Max_Powerer",true)
 

@@ -11,12 +11,6 @@ public class Health_Stopper : Basic_Spell
         add_instant_setting();
         is_to_add_to_character = true;
         
-        restriction_list = new ArrayList()
-        {
-            // create_restriction_dic("Health_Stopper",false),
-            // create_restriction_dic("Max_Powerer",false),
-            // create_restriction_dic("Max_Powerer",false)
-        };
 
     }
 

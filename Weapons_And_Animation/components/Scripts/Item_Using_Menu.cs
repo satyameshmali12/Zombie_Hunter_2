@@ -98,6 +98,8 @@ public class Item_Using_Menu : Node2D
 
     bool can_give_warning_during_game = false;
 
+    string restriction_message = null;
+
 
 
     public override void _Ready()
@@ -436,6 +438,7 @@ public class Item_Using_Menu : Node2D
                     // using_item.is_to_show_warning = false;
                     var item_data = using_item.dm;
                     var avai_no = item.GetNode<Label>("Available_No");
+                    using_item.restriction_list = basf.get_split_data_in_wdm(item_data.get_data("Warning_List"));
 
 
                     var available_count = Convert.ToInt32(item_data.get_data("Available_Count"));
@@ -443,8 +446,6 @@ public class Item_Using_Menu : Node2D
                     var use_button = item.GetNode<Button>("Use");
 
                     int restriction_level = get_restriction_level(using_item);
-
-
 
                     avai_no.Text = available_count.ToString();
 
@@ -541,6 +542,8 @@ public class Item_Using_Menu : Node2D
     /// <para> 0 :- Show warning </para>
     /// <para> 1 :- completely restricted </para> 
     ///</summary>
+
+
     public int get_restriction_level(Item_Using_Menu_Component component)
     {
         int restriction = -1;
@@ -552,14 +555,23 @@ public class Item_Using_Menu : Node2D
             {
                 if (item2.name == name)
                 {
-                    var is_completed_restricted = bool.Parse(item["is_completed_restricted"]);
-                    if (is_completed_restricted)
+                    var is_completely_restricted = bool.Parse(item["is_completely_restricted"]);
+                    if (is_completely_restricted)
                     {
                         return 1;
                     }
                     else
                     {
                         restriction = 0;
+
+                        var is_universal_message_their = bool.Parse(component.dm.get_data("Is_Universal_Warning_Given"));
+
+                        /*
+                            setting the item warning which is founded first 
+                            or 
+                            setting the universal message if given 
+                        */
+                        component.warning_message = (is_universal_message_their)?component.dm.get_data("Universal_Warning"):item["message"];
                     }
                 }
 

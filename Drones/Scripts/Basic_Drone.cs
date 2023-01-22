@@ -324,7 +324,6 @@ public class Basic_Drone : Item_Using_Menu_Component, Character
     {
         parent_leaved_scene_true = true;
         this.QueueFree();
-        GD.Print("hello world right from the basic drone parnet died kill drone");
     }
 
 

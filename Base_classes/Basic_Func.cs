@@ -360,13 +360,23 @@ public class Basic_Func : Node
                     count += data.Length;
 
                     data = data.Replace("|", "");
-                    var colon_index = data.IndexOf(":");
+                    // var colon_index = data.IndexOf(":");
+                    var three_data_values = data.Split(":");
+                    // var item =
+                    //     new Godot.Collections.Dictionary<string, string>() 
+                    //         {
+                    //             { "name", data.Substring(0, colon_index) },
+                    //             { "message", data.Substring(colon_index+1, data.Length - colon_index-1)} 
+                    //         };
+                    // items.Add(item);
                     var item =
                         new Godot.Collections.Dictionary<string, string>() 
                             {
-                                { "name", data.Substring(0, colon_index) },
-                                { "message", data.Substring(colon_index+1, data.Length - colon_index-1)} 
+                                { "name", three_data_values[0] },
+                                { "message", three_data_values[1]},
+                                {"is_completely_restricted",three_data_values[2]} 
                             };
+
                     items.Add(item);
 
                 }

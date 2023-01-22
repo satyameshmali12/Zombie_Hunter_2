@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://assets/fonts/STIXGeneralBolIta.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://assets/images/gui/Gravery_Tile_Set/BG.png" type="Texture" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://assets/images/gui/designs/Shop.png" type="Texture" id=5]
 [ext_resource path="res://Weapons_And_Animation/components/Scripts/Navigational_Button.cs" type="Script" id=6]
 [ext_resource path="res://assets/images/gui/designs/Video_Game.png" type="Texture" id=7]
+[ext_resource path="res://assets/images/Hamburger.png" type="Texture" id=8]
 
 [sub_resource type="DynamicFont" id=1]
 size = 50
@@ -72,5 +73,14 @@ margin_top = -107.0
 margin_right = 512.0
 margin_bottom = -37.0
 texture_normal = ExtResource( 7 )
+expand = true
+script = ExtResource( 6 )
+
+[node name="Warning_Editor" type="TextureButton" parent="."]
+margin_left = 859.0
+margin_top = 175.0
+margin_right = 932.0
+margin_bottom = 254.0
+texture_normal = ExtResource( 8 )
 expand = true
 script = ExtResource( 6 )

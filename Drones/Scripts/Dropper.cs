@@ -46,8 +46,8 @@ public class Dropper : Basic_Drone
 
         restriction_list = new ArrayList()
         {
-            create_restriction_dic("Dropper",false),
-            create_restriction_dic("Shooter_DD",true)
+            // create_restriction_dic("Dropper",false),
+            // create_restriction_dic("Shooter_DD",true)
         };
 
     }

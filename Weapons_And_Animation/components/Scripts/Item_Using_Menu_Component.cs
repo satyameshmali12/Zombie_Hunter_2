@@ -35,13 +35,20 @@ public class Item_Using_Menu_Component : Area2D
 
     public bool is_to_display_position = false;
 
+    public Item_Using_Menu_Component()
+    {
+        // GD.Print("name right from the item_usignmenu_component : ",name);
+    }
+
 
     public override void _Ready()
     {
         basf = new Basic_Func(this);
         basf.global_Variables.item_in_progression.Add(this);
         this.Connect("tree_exiting", this, "Removal");
-        GD.Print("hey their added to the node haha..!!");
+        // GD.Print("hey their added to the node haha..!!");
+
+
 
 
     }
@@ -83,9 +90,9 @@ public class Item_Using_Menu_Component : Area2D
 
     }
 
-    public Dictionary<string, string> create_restriction_dic(string name, bool is_completed_restricted)
+    public Dictionary<string, string> create_restriction_dic(string name, bool is_completely_restricted,string message)
     {
-        return new Dictionary<string, string>() { { "name", name }, { "is_completed_restricted", is_completed_restricted.ToString() } };
+        return new Dictionary<string, string>() { { "name", name }, { "is_completely_restricted", is_completely_restricted.ToString() },{"message",message} };
     }
 
     /// <summary>

@@ -9,11 +9,6 @@ public class Max_Powerer : Basic_Spell
         add_instant_setting();
         is_to_add_to_character = true;
         
-        restriction_list = new ArrayList()
-        {
-            // create_restriction_dic("Move_Stopper",true),
-            create_restriction_dic("Max_Powerer",false)
-        };
     }
 
 

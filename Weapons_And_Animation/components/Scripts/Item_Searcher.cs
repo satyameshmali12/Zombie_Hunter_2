@@ -90,6 +90,13 @@ public class Item_Searcher : Control
         string text = search_bar.Text;
         if (text.Length > 0)
         {
+            var per_view_boxes = item_boxes.Count;
+            if (item_start_index + per_view_boxes >= render_items.Count)
+            {
+                var new_index = render_items.Count-per_view_boxes;
+                item_start_index = (new_index<0)?0:new_index;
+            }
+
             render_items.Clear();
             foreach (string item in render_items_copy)
             {
