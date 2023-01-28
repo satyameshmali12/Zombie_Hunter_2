@@ -145,6 +145,8 @@ public class Item_Using_Menu : Node2D
 
         basf.add_guitickle_button(left_button, right_button);
 
+        basf.global_Variables.item_Using_Menu = this;
+
 
         add_view();
 
@@ -183,6 +185,7 @@ public class Item_Using_Menu : Node2D
 
             foreach (Button item in gui_buttons)
             {
+                basf.add_guitickle_button(item);
                 if (item.Pressed)
                 {
                     menu_index = int.Parse(item.Name);

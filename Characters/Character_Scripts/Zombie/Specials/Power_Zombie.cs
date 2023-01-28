@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Collections;
 
 /*
 All powerfull zombie will inherit this script instead of only basic_zombie script 
@@ -15,7 +16,6 @@ public class Powerful_Zombie : Basic_Zombie
     /*
     this list will contain all the types character upon which player can jump onto
     */
-    public _Type_of_[] Can_Jump_On_To;
 
 
 
@@ -23,6 +23,7 @@ public class Powerful_Zombie : Basic_Zombie
     {
         base._Ready();
         _node_type = _Type_of_.Zombie;
+        
 
         upward_ray = this.GetNode<RayCast2D>("Upward_Ray");
 

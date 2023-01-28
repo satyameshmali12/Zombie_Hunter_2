@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://assets/images/Icons/Icon18.png" type="Texture" id=1]
+[ext_resource path="res://Spells/Scripts/Health_Incrementor.cs" type="Script" id=2]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 1 ) ],
+"loop": true,
+"name": "Thumbnail",
+"speed": 5.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=2]
+
+[node name="Health_Incrementor" type="Area2D"]
+script = ExtResource( 2 )
+
+[node name="Thumbnail" type="AnimatedSprite" parent="."]
+visible = false
+position = Vector2( 304, 131 )
+scale = Vector2( 2.04688, 1.60937 )
+frames = SubResource( 1 )
+animation = "Thumbnail"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource( 2 )
+
+[node name="Movements" type="AnimatedSprite" parent="."]
+visible = false
+position = Vector2( 304, 131 )
+scale = Vector2( 2.04688, 1.60937 )
+frames = SubResource( 1 )
+animation = "Thumbnail"

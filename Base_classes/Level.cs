@@ -94,7 +94,8 @@ public class Level : Node2D, Global_Variables_F_A_T
         is_data_saved = false;
 
         // making the zombie_level_list_list
-        zombie_level_list = new ArrayList() { "Male_Zombie", "Female_Zombie", "Female_Zombie_2", "Wild_Zombie", "Female_Zombie", "Male_Zombie_2", "Zombie_Knight_1" };
+        zombie_level_list = new ArrayList() { "Male_Zombie", "Female_Zombie", "Female_Zombie_2", "Wild_Zombie", "Female_Zombie", "Male_Zombie_2", "Zombie_Knight_1",
+        "Zombie_Knight_2","Zombie_Knight_3","Dark_King" };
 
 
 
@@ -293,11 +294,11 @@ public class Level : Node2D, Global_Variables_F_A_T
         if (is_bomb_in_hand && Input.IsActionPressed("Mouse_Pressed") && !basf.is_any_one_button_pressed(global_variables.bomb_Buttons))
         {
             GD.Print(global_variables.spell_in_hand);
-            GD.Print();
-            GD.Print("hey the mouse pressed event is been created..!!");
+            // GD.Print();
+            // GD.Print("hey the mouse pressed event is been created..!!");
             // GD.Print("hello world pressed!!");
             var ini_faller = basf.get_the_packed_scene("res://Bomb's/Scenes/Initial_Faller.tscn").Instance() as Initial_Faller;
-            GD.Print("from the basic level..!!");
+            // GD.Print("from the basic level..!!");
             ini_faller.settle_values(global_variables.spell_in_hand, GetGlobalMousePosition());
             // ini_faller.Position = GetGlobalMousePosition();
             // ini_faller.Emitting = true;
@@ -315,11 +316,22 @@ public class Level : Node2D, Global_Variables_F_A_T
     /*<summaryThis function handles the overall stuff of adding the zombie.Simultaneouly it manipulates all the data in the desired way as per the data given></summary>*/
     public bool spawn_zombie(Node2D zombie_area)
     {
-        var tot_num_of_zom = zombie_area.GetChildCount();
+        // var tot_num_of_zom = zombie_area.GetChildCount();
+
+        var tot_num_of_zom = 0;
+        var all_zombies = zombie_area.GetChildren();
+        foreach (Basic_Zombie zombie in all_zombies)
+        {
+            if(zombie.is_associated_with_main_level)
+            {
+                tot_num_of_zom++;
+            }
+        }
+        
         var is_successfully_added = false;
 
 
-        if (max_zombie_per_screen > tot_num_of_zom && total_zombie > 0 && !is_data_saved)
+        if (tot_num_of_zom<max_zombie_per_screen && total_zombie > 0 && !is_data_saved)
         {
 
             var index = (difficulty_level + 1 > zombie_render_list.Count - 1) ? zombie_render_list.Count : difficulty_level + 1; // getting the index of the zombie
@@ -331,8 +343,8 @@ public class Level : Node2D, Global_Variables_F_A_T
             // if specifed count is given then deducting the number of the specifed zombie
             if (is_specified_count_given)
             {
-                GD.Print("random num is:- ", random_num);
-                GD.Print(zombie_specified_count_list.Count);
+                // GD.Print("random num is:- ", random_num," right from the level.cs haha..!!");
+                // GD.Print(zombie_specified_count_list.Count);
                 var value = Convert.ToInt32(zombie_specified_count_list[random_num]);
                 value--;
                 zombie_specified_count_list[random_num] = value;

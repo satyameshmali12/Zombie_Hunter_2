@@ -123,3 +123,9 @@ scale = Vector2( 8, 6.75 )
 frames = SubResource( 34 )
 animation = "Fire"
 frame = 2
+
+[node name="Movement_Size" type="ReferenceRect" parent="."]
+margin_left = -35.0
+margin_top = -39.0
+margin_right = 43.0
+margin_bottom = 38.0

@@ -38,6 +38,10 @@ public class Basic_Character : RigidBody2D, Character
     // so that the speed can be changed right from the editor
     [Export]
     public int speed_x = 200;  // this will toggle the moving speed
+
+    int speed_x_copy = 0;
+    bool is_speed_x_settled = false;
+
     public Direction moving_direction;// this will give the direction of the player in which the player is confronting
 
     public int power_available;
@@ -59,6 +63,8 @@ public class Basic_Character : RigidBody2D, Character
     // this property will help to make the player fall down with more speed if the player not on the ground
     [Export]
     public int advanced_gravity = 300;
+    public bool is_to_fall_in_gravity_influence = true;
+
     [Export]
     public int jump_intensity = 10000;
 
@@ -87,6 +93,7 @@ public class Basic_Character : RigidBody2D, Character
     public int power_increment_wait_time = 5;
     [Export]
     public int power_increment = 4;
+    
 
 
 
@@ -254,6 +261,17 @@ public class Basic_Character : RigidBody2D, Character
 
     public override void _Process(float delta)
     {
+        
+        /* 
+        speed_x_copy is settled since may the child classes may have configured the the speed_x while adding the node in the scene tree
+        */
+        if(!is_speed_x_settled)
+        {
+            speed_x_copy = speed_x;
+            is_speed_x_settled = true;
+        }
+
+
 
         moving_speed = Vector2.Zero;
 
@@ -278,7 +296,12 @@ public class Basic_Character : RigidBody2D, Character
         // adding the advanced gravity to the player 
         // it will make the user to fall more faster
 
-        moving_speed.y += advanced_gravity;
+        if(is_to_fall_in_gravity_influence)
+        {
+            moving_speed.y += advanced_gravity;
+        }
+
+
         moving_direction = (animations.FlipH) ? Direction.Left : Direction.Right;
 
 
@@ -336,10 +359,13 @@ public class Basic_Character : RigidBody2D, Character
         // both the condition will loop out loop throught each other
         if (health != past_health && !blood_effect.Emitting)
         {
-            blood_effect.Emitting = true;
-            is_to_settle_past_health = true;
+            if(health<past_health)
+            {
+                blood_effect.Emitting = true;
+                is_to_settle_past_health = true;
+                basf.create_a_sound(hurt_sound_url, this, true, .9f, (is_player) ? .5f : .2f, 1);
+            }
             past_health = health;
-            basf.create_a_sound(hurt_sound_url, this, true, .9f, (is_player) ? .5f : .2f, 1);
         }
         if (is_to_settle_past_health && !blood_effect.Emitting)
         {
@@ -436,7 +462,7 @@ public class Basic_Character : RigidBody2D, Character
             if (available_moves.Contains(move_name.ToLower()) && animations.Animation != move_name && is_able_to_perform_moves || perform_immediately)
             {
                 /*
-                even thought perfrom immediately but requires sufficient power
+                even though perfrom immediately but requires sufficient power
                 */
                 if (can_perform_move(move_name.ToLower()))
                 {
@@ -587,9 +613,24 @@ public class Basic_Character : RigidBody2D, Character
         this.LinearVelocity = (can_move) ? this.moving_speed : Vector2.Zero;
     }
 
+    public void set_back_original_speed()
+    {
+        speed_x = speed_x_copy;
+    }
+
+
+
+
     public virtual void update_logic(Data_Manager shop_data, Data_Manager user_data, Data_Manager throwable_weapons_dm)
     {
 
+    }
+
+
+    /// <summary>To get the past health which is a readonly</summary>
+    public int get_past_health()
+    {
+        return past_health;
     }
 
     // this method will  be inherited by the respective child classes of its 

@@ -15,7 +15,6 @@ public class Female_Zombie : Basic_Zombie
 		speed_x += 200;
 
 
-
 		available_moves = new ArrayList() { "attack", "death", "idle", "walk" };
 		available_moves_consumption = new int[4] { 14, 0, 0, 0 };
 		available_moves_damage = new int[4] { 2, 0, 0, 0 };

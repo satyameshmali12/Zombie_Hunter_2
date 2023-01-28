@@ -1,4 +1,4 @@
-using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -14,6 +14,10 @@ public class Basic_View:Control,Global_Variables_F_A_T
 
     Changing_Scene changing_Scene;
     bool is_changing_scene_removed = false;
+
+    Item_Searcher item_searcher;
+
+    public bool is_item_searcher_available = true;
 
     public override void _Ready()
     {
@@ -32,9 +36,31 @@ public class Basic_View:Control,Global_Variables_F_A_T
 
         level_base_url = "res://Levels/Scenes/";
 
+        item_searcher = this.GetNode<Item_Searcher>("Item_Searcher");
+        // item_searcher.render_items = new ArrayList(){"Home_View","Level_View"};
+        item_searcher.load_data(new ArrayList(){"Home_View","Level_View","Shop","Warning_Editor"});
+        item_searcher.render_items_copy.Remove(this.Name);
+        
         
     }
     public override void _Process(float delta){
+
+        if(Input.IsActionJustPressed("Pop_Navigation_Menu"))
+        {
+            if(item_searcher.Visible)
+            {
+                item_searcher.hide();
+            }
+            else{
+                item_searcher.pop();
+            }
+        }
+
+        if(item_searcher.is_item_selected)
+        {
+            item_searcher.reset();
+            basf.navigateTo(this,basf.global_paths.base_view_path+item_searcher.selected_item.Trim()+".tscn");
+        }
 
     }
 

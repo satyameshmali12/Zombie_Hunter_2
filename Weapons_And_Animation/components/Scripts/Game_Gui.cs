@@ -29,6 +29,8 @@ public class Game_Gui : Node2D
     Button item_rem_sc_to_but;
     bool is_item_rem_sc_but_pressed = false;
 
+    Instantaneous_Buyer instantaneous_Buyer;
+
 
 
 
@@ -56,6 +58,8 @@ public class Game_Gui : Node2D
         item_in_hand_show = this.GetNode<Node2D>("Item_In_Hand");
         remove_item_in_hand_button = item_in_hand_show.GetNode<Button>("Remove_Item_In_Hand");
         basf.add_guitickle_button(pause_button, item_using_button,item_rem_sc_to_but);
+
+        instantaneous_Buyer = this.GetNode<Instantaneous_Buyer>("Instantaneous_Buyer");
 
 
 
@@ -160,6 +164,12 @@ public class Game_Gui : Node2D
         else{
             is_item_rem_sc_but_pressed = false;
         }
+
+
+        // if(Input.IsActionJustPressed("Toggle_Instant_Buyer"))
+        // {
+            
+        // }
 
 
 

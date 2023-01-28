@@ -70,6 +70,7 @@ public class Global_Variables : Node2D
     #region both of this are interrelated to each other i.e the item is hand is the url to the scene whereas the item_using_menu_comp is the scene of that url
     public string item_in_hand = null;
     public Item_Using_Menu_Component item_using_menu_comp = null;
+    public Item_Using_Menu item_Using_Menu = null;
     #endregion
     // public Button item_cancel_button = null;
 
@@ -86,6 +87,9 @@ public class Global_Variables : Node2D
     // public Notification notification = null;
 
     /// <summary>This will be given right from the game_gui and will be used in the item using menu</summary>
+
+    public ArrayList item_data_field_urls = new ArrayList() { "data/data_fields/spell_data_fields.zhd", "data/data_fields/drone_data_fields.zhd" };
+
 
 
     public override void _Ready()

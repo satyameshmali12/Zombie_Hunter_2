@@ -1,6 +1,8 @@
 using Godot;
 using System;
 using System.Collections;
+using System.Collections.Generic;
+using Godot.Collections;
 
 public class Item_Searcher : Control
 {
@@ -14,7 +16,7 @@ public class Item_Searcher : Control
     #endregion
 
 
-    ArrayList render_items, render_items_copy = new ArrayList();
+    public ArrayList render_items, render_items_copy = new ArrayList();
     int item_start_index = 0;
 
     Basic_Func basf;
@@ -31,6 +33,19 @@ public class Item_Searcher : Control
 
     TextEdit search_bar;
 
+    Vector2 re_distance = Vector2.Zero;
+    bool is_re_distance_settled = false;
+
+    bool is_double_clicked = false;
+    Timer double_click_timer;
+    bool is_to_make_double_clicked = false;
+    Vector2 original_position;
+    public Godot.Collections.Array item_boxes;
+    public List<BaseButton> gui_tickle_buttons = new List<BaseButton>();
+
+    public bool is_double_pressed_vis_toggled = true;
+
+
     public override void _Ready()
     {
         basf = new Basic_Func(this);
@@ -42,6 +57,12 @@ public class Item_Searcher : Control
 
         search_bar = this.GetNode<TextEdit>("Search_Bar");
 
+        double_click_timer = basf.create_timer(2, "Over_Double_Click");
+        original_position = this.RectPosition;
+
+        item_boxes = this.GetNode<VBoxContainer>("Items").GetChildren();
+
+
     }
 
     public override void _Process(float delta)
@@ -50,7 +71,6 @@ public class Item_Searcher : Control
         selected_item_name.Text = (selected_item != null) ? selected_item : "";
         done_button.Visible = (selected_item != null);
 
-        var item_boxes = this.GetNode<VBoxContainer>("Items").GetChildren();
         var back_button = this.GetNode<Button>("Back");
 
 
@@ -93,8 +113,8 @@ public class Item_Searcher : Control
             var per_view_boxes = item_boxes.Count;
             if (item_start_index + per_view_boxes >= render_items.Count)
             {
-                var new_index = render_items.Count-per_view_boxes;
-                item_start_index = (new_index<0)?0:new_index;
+                var new_index = render_items.Count - per_view_boxes;
+                item_start_index = (new_index < 0) ? 0 : new_index;
             }
 
             render_items.Clear();
@@ -128,7 +148,10 @@ public class Item_Searcher : Control
                 {
                     if (is_instantaneous_click && selected_item == render_items[index + item_start_index].ToString() && last_pressed_button == null)
                     {
-                        this.Visible = false;
+                        if(is_double_pressed_vis_toggled){
+                            GD.Print("hey there right from the item_seracher.cs haha.!!");
+                            this.Visible = false;
+                        }
                         is_item_selected = true;
                     }
                     selected_item = select_button.Text;
@@ -144,8 +167,80 @@ public class Item_Searcher : Control
             }
         }
 
+        if (Input.IsActionJustPressed("Mouse_Pressed"))
+        {
+            if (!is_to_make_double_clicked)
+            {
+                is_to_make_double_clicked = true;
+                double_click_timer.Start();
+            }
+            else
+            {
+                is_double_clicked = true;
+            }
+        }
 
 
+        if (Input.IsActionPressed("Mouse_Pressed"))
+        {
+            {
+                var mouse_pos = this.GetGlobalMousePosition();
+                var mx = mouse_pos.x;
+                var my = mouse_pos.y;
+
+                var rect = this.GetNode<ReferenceRect>("Rect");
+                var rect_pos = rect.RectGlobalPosition;
+
+                if (mx > rect_pos.x && my > rect_pos.y && mx < rect_pos.x + rect.RectSize.x && my < rect_pos.y + rect.RectSize.y)
+                {
+                    if(is_double_pressed_vis_toggled)
+                    {
+                        if (!is_re_distance_settled)
+                        {
+                            is_re_distance_settled = true;
+                            re_distance = basf.abs_a_vector(mouse_pos) - basf.abs_a_vector(this.RectGlobalPosition);
+                        }
+
+                        if (is_double_clicked)
+                        {
+                            this.RectGlobalPosition = mouse_pos - re_distance;
+
+                        }
+                    }
+                }
+                else{
+                    bool is_any_gui_button_pressed =false;
+                    foreach (BaseButton button in gui_tickle_buttons)
+                    {
+                        if(button.Pressed)
+                        {
+                            is_any_gui_button_pressed = true;
+                        }
+                    }
+                    if(!is_any_gui_button_pressed)
+                    {
+                        hide();
+                    }
+                }
+            }
+        }
+
+        else
+        {
+            is_re_distance_settled = false;
+            is_double_clicked = false;
+        }
+
+
+
+
+
+    }
+
+    public void Over_Double_Click()
+    {
+        is_to_make_double_clicked = false;
+        double_click_timer.Stop();
     }
 
     public void Can_Change_Toggle()
@@ -169,6 +264,7 @@ public class Item_Searcher : Control
         this.Visible = true;
         this.selected_item = null;
         is_item_selected = false;
+        this.RectPosition = original_position;
     }
 
 
@@ -183,5 +279,15 @@ public class Item_Searcher : Control
 
         render_items = selective_list;
         render_items_copy = render_items.Clone() as ArrayList;
+    }
+
+    public void add_guitickle_button(params BaseButton[] new_guitickle_buttons)
+    {
+        foreach (BaseButton button in new_guitickle_buttons)
+        {
+            if (!this.gui_tickle_buttons.Contains(button)){
+                this.gui_tickle_buttons.Add(button);
+            }
+        }
     }
 }

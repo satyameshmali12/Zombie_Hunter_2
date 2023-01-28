@@ -12,7 +12,7 @@ Circle_Explosion
 true
 10
 -2
-85
+78
 20
 15
 1
@@ -42,7 +42,7 @@ Circle_Explosion
 true
 10
 -2
-7
+1
 20
 13
 1
@@ -72,7 +72,7 @@ Circle_Explosion
 true
 10
 -2
-79
+15
 20
 14
 1
@@ -102,7 +102,7 @@ Circle_Explosion
 true
 10
 -2
-10
+44
 20
 16
 1
@@ -114,6 +114,6 @@ true
 3
 3
 Powerfull or very weak drone
-|Health_Stopper:Don't use it:False|
-True
+|Fighter_Drone:Hey a fighter drone exists don't it use for now:False|
+False
 Hey don't add this stuff now it could be \n harzordous for us

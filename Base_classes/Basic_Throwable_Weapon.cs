@@ -134,8 +134,11 @@ public class Basic_Throwable_Weapon : Area2D, Character
                 is_collided_to_character = true;
                 if (collided_player.health != 0)
                 {
-                    collided_player.change_health(-(damage + (int)(weapon_speed / 100 * 20)));
-                    basf.global_Variables.increment_score(damage);
+                    var is_health_change = collided_player.change_health(-(damage + (int)(weapon_speed / 100 * 20)));
+                    if(is_health_change)
+                    {
+                        basf.global_Variables.increment_score(damage);
+                    }
                     is_damage_given = true;
                 }
             }
@@ -174,7 +177,17 @@ public class Basic_Throwable_Weapon : Area2D, Character
         if (is_to_adjust)
         {
             // this.Position = position + new Vector2((dir==Direction.Right)?-50:-300,-50);
-            this.Position = position + new Vector2((dir == Direction.Right) ? left_change : right_change, height_change);
+            Vector2 change =  new Vector2((dir == Direction.Right) ? left_change : right_change, height_change);
+            this.Position = position + change;
+
+            Particles2D ani_show = this.GetNode<Particles2D>("Particles2D");
+            ReferenceRect movement_ani_size = this.GetNode<ReferenceRect>("Movement_Size");
+            if(dir==Direction.Left)
+            {
+                ani_show.Position+= new Vector2(movement_ani_size.RectSize.x,0);
+                ani_show.Rotation = 180;
+            }
+
         }
         else
         {
@@ -188,7 +201,7 @@ public class Basic_Throwable_Weapon : Area2D, Character
         }
         else
         {
-            GD.Print("hey their right fomr the basic_throwable_weapon and working for the kunai right now hahah..!!");
+            // GD.Print("hey their right fomr the basic_throwable_weapon and working for the kunai right now hahah..!!");
             bullet_animation.FlipV = (dir == Direction.Right) ? false : true;
         }
         moving_speed = (dir == Direction.Right) ? new Vector2(weapon_speed, 0) : new Vector2(-weapon_speed, 0);

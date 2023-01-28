@@ -1,0 +1,160 @@
+[gd_scene load_steps=20 format=2]
+
+[ext_resource path="res://assets/audio/Bomb's/Bullet_Collision_Sound.mp3" type="AudioStream" id=1]
+[ext_resource path="res://assets/images/Ninjas/Kunoichi/Spine.png" type="Texture" id=2]
+[ext_resource path="res://assets/audio/Bomb's/Gun_Shoot.mp3" type="AudioStream" id=3]
+[ext_resource path="res://Weapons_And_Animation/scripts/Dart.cs" type="Script" id=4]
+
+[sub_resource type="RectangleShape2D" id=35]
+extents = Vector2( 22.5, 7 )
+
+[sub_resource type="AtlasTexture" id=25]
+atlas = ExtResource( 2 )
+region = Rect2( 0, 0, 10, 10 )
+
+[sub_resource type="SpriteFrames" id=26]
+animations = [ {
+"frames": [ SubResource( 25 ) ],
+"loop": true,
+"name": "Fire",
+"speed": 15.0
+} ]
+
+[sub_resource type="Gradient" id=27]
+offsets = PoolRealArray( 0.595238, 0.857143 )
+colors = PoolColorArray( 0.929688, 0.0907898, 0.0907898, 1, 0.945313, 0.559202, 0.0627747, 1 )
+
+[sub_resource type="GradientTexture" id=20]
+gradient = SubResource( 27 )
+
+[sub_resource type="Curve" id=28]
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 0.984293, 0.253143 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=21]
+curve = SubResource( 28 )
+
+[sub_resource type="ParticlesMaterial" id=29]
+emission_shape = 2
+emission_box_extents = Vector3( 2, 1, 1 )
+flag_disable_z = true
+direction = Vector3( -1, 0, 0 )
+spread = 55.09
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 30.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+scale = 9.0
+scale_random = 0.3
+scale_curve = SubResource( 21 )
+color_ramp = SubResource( 20 )
+
+[sub_resource type="Animation" id=30]
+resource_name = "New Anim"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 10, 0 ), Vector2( 100, 0 ) ]
+}
+
+[sub_resource type="Animation" id=31]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ) ]
+}
+
+[sub_resource type="Gradient" id=32]
+offsets = PoolRealArray( 0.14881, 0.363095, 0.702381, 1 )
+colors = PoolColorArray( 0.982548, 0.168875, 0.168875, 1, 0.194653, 0.904195, 0.153605, 1, 0.375311, 0.923954, 0.0505287, 1, 1, 1, 1, 1 )
+
+[sub_resource type="GradientTexture" id=22]
+gradient = SubResource( 32 )
+
+[sub_resource type="Curve" id=33]
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 0.994764, 0.280813 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=23]
+curve = SubResource( 33 )
+
+[sub_resource type="ParticlesMaterial" id=34]
+flag_disable_z = true
+direction = Vector3( 0, 0, 0 )
+spread = 180.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 400.0
+orbit_velocity = 2.0
+orbit_velocity_random = 0.0
+scale = 12.0
+scale_curve = SubResource( 23 )
+color_ramp = SubResource( 22 )
+
+[node name="Dart" type="Area2D"]
+script = ExtResource( 4 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 18.5, 4 )
+z_index = 1
+shape = SubResource( 35 )
+
+[node name="Movements" type="AnimatedSprite" parent="."]
+position = Vector2( 20, 1 )
+scale = Vector2( 4.18768, 8.34062 )
+z_index = 2
+frames = SubResource( 26 )
+animation = "Fire"
+
+[node name="Particles2D" type="Particles2D" parent="."]
+position = Vector2( -1, 6.00027 )
+amount = 60
+lifetime = 1.2
+process_material = SubResource( 29 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+"anims/New Anim" = SubResource( 30 )
+anims/RESET = SubResource( 31 )
+
+[node name="Life_Timer" type="Timer" parent="."]
+wait_time = 10.0
+
+[node name="Collision_Animation" type="Particles2D" parent="."]
+position = Vector2( 36, 0.000274658 )
+emitting = false
+amount = 40
+lifetime = 0.2
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource( 34 )
+
+[node name="Shoot_Sound" type="AudioStreamPlayer2D" parent="."]
+position = Vector2( -590, -310 )
+scale = Vector2( 0.665575, 0.708632 )
+stream = ExtResource( 3 )
+autoplay = true
+
+[node name="Bullet_Collision_Sound" type="AudioStreamPlayer2D" parent="."]
+position = Vector2( -590, -310 )
+scale = Vector2( 0.665575, 0.708632 )
+stream = ExtResource( 1 )
+autoplay = true
+
+[node name="Movement_Size" type="ReferenceRect" parent="."]
+margin_left = -4.0
+margin_top = -3.0
+margin_right = 43.0
+margin_bottom = 12.0

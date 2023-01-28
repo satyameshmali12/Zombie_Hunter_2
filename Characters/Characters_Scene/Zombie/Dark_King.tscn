@@ -45,7 +45,7 @@
 [ext_resource path="res://assets/images/Dark_King/Dying/0_Reaper_Man_Dying_013.png" type="Texture" id=43]
 [ext_resource path="res://assets/images/Dark_King/Dying/0_Reaper_Man_Dying_014.png" type="Texture" id=44]
 [ext_resource path="res://assets/images/Dark_King/Dying/0_Reaper_Man_Dying_012.png" type="Texture" id=45]
-[ext_resource path="res://Characters/Character_Scripts/Zombie/Female_Zombie.cs" type="Script" id=46]
+[ext_resource path="res://Characters/Character_Scripts/Zombie/Dark_King.cs" type="Script" id=46]
 [ext_resource path="res://Weapons_And_Animation/components/scenes/Health_Bar.tscn" type="PackedScene" id=47]
 [ext_resource path="res://assets/images/gui/white_color.png" type="Texture" id=48]
 [ext_resource path="res://assets/images/Dark_King/Dying/0_Reaper_Man_Dying_004.png" type="Texture" id=49]
@@ -325,7 +325,6 @@ mode = 2
 mass = 0.816326
 physics_material_override = SubResource( 3 )
 gravity_scale = 30.0
-custom_integrator = true
 contacts_reported = 10
 contact_monitor = true
 script = ExtResource( 46 )
@@ -341,8 +340,33 @@ scale = Vector2( 0.241, 0.279 )
 z_index = 1
 frames = SubResource( 2 )
 animation = "Run"
-frame = 3
-playing = true
+frame = 9
+
+[node name="Blood_Animation" type="Particles2D" parent="."]
+position = Vector2( -9, 24 )
+emitting = false
+amount = 20
+lifetime = 0.5
+one_shot = true
+explosiveness = 0.4
+process_material = SubResource( 6 )
+texture = ExtResource( 48 )
+
+[node name="Health_Bar" parent="." instance=ExtResource( 47 )]
+modulate = Color( 1, 1, 1, 1 )
+self_modulate = Color( 1, 1, 1, 1 )
+material = SubResource( 8 )
+margin_left = -70.0
+margin_top = -96.0
+margin_right = 40.0
+margin_bottom = -73.0
+theme = SubResource( 9 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_color_shadow = Color( 0.0313726, 1, 0.321569, 1 )
+custom_styles/fg = SubResource( 10 )
+custom_styles/bg = SubResource( 11 )
+
+[node name="Personal" type="Node2D" parent="."]
 
 [node name="Rays" type="Node2D" parent="."]
 position = Vector2( -597, -432 )
@@ -370,90 +394,67 @@ position = Vector2( -600, -449 )
 
 [node name="Left_Collision_Ray_1" type="RayCast2D" parent="Left_Collision_Rays"]
 position = Vector2( 549, 471 )
-cast_to = Vector2( -100, 0 )
+enabled = true
+cast_to = Vector2( -90, 0 )
 
 [node name="Left_Collision_Ray_2" type="RayCast2D" parent="Left_Collision_Rays"]
 position = Vector2( 549, 445 )
-cast_to = Vector2( -100, 0 )
+enabled = true
+cast_to = Vector2( -90, 0 )
 
 [node name="Left_Collision_Ray_3" type="RayCast2D" parent="Left_Collision_Rays"]
 position = Vector2( 549, 495 )
-cast_to = Vector2( -100, 0 )
+enabled = true
+cast_to = Vector2( -90, 0 )
 
 [node name="Right_Collision_Rays" type="Node2D" parent="."]
 position = Vector2( -575, -557 )
 
 [node name="Left_Collision_Ray_1" type="RayCast2D" parent="Right_Collision_Rays"]
-position = Vector2( 606, 554 )
-cast_to = Vector2( 100, 0 )
+position = Vector2( 611, 552 )
+cast_to = Vector2( 90, 1 )
 
 [node name="Left_Collision_Ray_2" type="RayCast2D" parent="Right_Collision_Rays"]
-position = Vector2( 605, 605 )
-cast_to = Vector2( 100, 0 )
+position = Vector2( 610, 603 )
+cast_to = Vector2( 90, 1 )
 
 [node name="Left_Collision_Ray_3" type="RayCast2D" parent="Right_Collision_Rays"]
-position = Vector2( 606, 581 )
-cast_to = Vector2( 100, 0 )
+position = Vector2( 611, 579 )
+cast_to = Vector2( 90, 1 )
 
 [node name="Left_Upward_Ray" type="RayCast2D" parent="."]
 position = Vector2( -44, -37 )
 enabled = true
-cast_to = Vector2( -87, -268 )
+cast_to = Vector2( -52, -125 )
 collide_with_areas = true
 
 [node name="Right_Upward_Ray" type="RayCast2D" parent="."]
 position = Vector2( 20, -40 )
 enabled = true
-cast_to = Vector2( 81, -256 )
+cast_to = Vector2( 40, -119 )
 collide_with_areas = true
 
 [node name="Upward_Ray" type="RayCast2D" parent="."]
 position = Vector2( -13, -54 )
 enabled = true
-cast_to = Vector2( 0, -180 )
+cast_to = Vector2( -4, -118 )
 collide_with_areas = true
 
 [node name="Height_Checker" type="RayCast2D" parent="."]
 position = Vector2( -7, 69 )
 enabled = true
-cast_to = Vector2( 8, 215 )
+cast_to = Vector2( 6, 235 )
 
 [node name="Fall_Down_Left_Rays" type="Node2D" parent="."]
 position = Vector2( -461, -308 )
 
 [node name="Fall_Detection_Left_1" type="RayCast2D" parent="Fall_Down_Left_Rays"]
 position = Vector2( 417, 381 )
-cast_to = Vector2( -55, 219 )
+cast_to = Vector2( -45, 227 )
 
 [node name="Fall_Down_Right_Rays" type="Node2D" parent="."]
 position = Vector2( -490, -251 )
 
 [node name="Fall_Detection_Right_1" type="RayCast2D" parent="Fall_Down_Right_Rays"]
 position = Vector2( 521, 324 )
-cast_to = Vector2( 73, 215 )
-
-[node name="Blood_Animation" type="Particles2D" parent="."]
-position = Vector2( -9, 24 )
-emitting = false
-amount = 20
-lifetime = 0.5
-one_shot = true
-explosiveness = 0.4
-process_material = SubResource( 6 )
-texture = ExtResource( 48 )
-
-[node name="Health_Bar" parent="." instance=ExtResource( 47 )]
-modulate = Color( 1, 1, 1, 1 )
-self_modulate = Color( 1, 1, 1, 1 )
-material = SubResource( 8 )
-margin_left = -70.0
-margin_top = -96.0
-margin_right = 40.0
-margin_bottom = -73.0
-theme = SubResource( 9 )
-custom_colors/font_color = Color( 1, 1, 1, 1 )
-custom_colors/font_color_shadow = Color( 0.0313726, 1, 0.321569, 1 )
-custom_styles/fg = SubResource( 10 )
-custom_styles/bg = SubResource( 11 )
-
-[node name="Personal" type="Node2D" parent="."]
+cast_to = Vector2( 74, 227 )

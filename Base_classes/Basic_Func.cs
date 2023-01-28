@@ -14,6 +14,7 @@ public class Basic_Func : Node
 
     public string main_game_scene_path = "res://Views/Scenes/Main_Game_Scene.tscn";
     public string home_scene_path = "res://Views/Scenes/Home_View.tscn";
+    
 
 
 
@@ -246,6 +247,11 @@ public class Basic_Func : Node
 
         foreach (BaseButton gui_button in global_Variables.guiticke_buttons)
         {
+            if(gui_button==null)
+            {
+               global_Variables.guiticke_buttons.Clear();
+               break; 
+            }
             if (gui_button.Pressed)
             {
                 return true;
@@ -264,6 +270,7 @@ public class Basic_Func : Node
         global_Variables.visibility_list.Clear();
         global_Variables.guiticke_buttons.Clear();
         nullify_item_in_hand();
+        global_Variables.item_Using_Menu = null;
     }
 
     public Vector2 abs_a_vector(Vector2 point)

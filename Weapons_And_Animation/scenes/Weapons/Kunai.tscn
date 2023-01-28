@@ -148,3 +148,9 @@ position = Vector2( -654, -360 )
 scale = Vector2( 0.665575, 0.708632 )
 stream = ExtResource( 3 )
 autoplay = true
+
+[node name="Movement_Size" type="ReferenceRect" parent="."]
+margin_left = -45.0
+margin_top = -17.0
+margin_right = 73.0
+margin_bottom = 11.0

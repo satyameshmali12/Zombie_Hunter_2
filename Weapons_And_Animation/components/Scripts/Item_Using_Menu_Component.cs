@@ -35,6 +35,8 @@ public class Item_Using_Menu_Component : Area2D
 
     public bool is_to_display_position = false;
 
+    public bool is_parent_leaved_scene_tree = false;
+
     public Item_Using_Menu_Component()
     {
         // GD.Print("name right from the item_usignmenu_component : ",name);
@@ -46,11 +48,9 @@ public class Item_Using_Menu_Component : Area2D
         basf = new Basic_Func(this);
         basf.global_Variables.item_in_progression.Add(this);
         this.Connect("tree_exiting", this, "Removal");
-        // GD.Print("hey their added to the node haha..!!");
 
-
-
-
+        parent.Connect("tree_exiting",this,"Parent_Leaved_Scene_Tree");
+        
     }
 
     public override void _Process(float delta)
@@ -90,29 +90,33 @@ public class Item_Using_Menu_Component : Area2D
 
     }
 
-    public Dictionary<string, string> create_restriction_dic(string name, bool is_completely_restricted,string message)
+    public Dictionary<string, string> create_restriction_dic(string name, bool is_completely_restricted, string message)
     {
-        return new Dictionary<string, string>() { { "name", name }, { "is_completely_restricted", is_completely_restricted.ToString() },{"message",message} };
+        return new Dictionary<string, string>() { { "name", name }, { "is_completely_restricted", is_completely_restricted.ToString() }, { "message", message } };
     }
 
-    /// <summary>
-    //  Will call when the item will leave the scene tree
-    /// This method is connected to the tree_exiting signal
-    /// </summary>
-    public void Removal()
-    {
-        if (basf.global_Variables.item_in_progression.Contains(this))
-        {
-            GD.Print("hey there it is being rmoved from the noe tree as well as the array it was keeped haha..!!");
-            basf.global_Variables.item_in_progression.Remove(this);
-            basf.global_Variables.menu.re_render_view_data();
-        }
-    }
-
-    /* This method will be used by the item remover to remove the item from the node tree */
     public virtual void Clear()
     {
         // after the the clear function run only 5 second the item can stay on the 
         basf.create_timer(5, "Removal").Start();
     }
+
+    /* This method will be used by the item remover to remove the item from the node tree */
+    // when the item leaves the scene tree
+    /// <summary>
+    //  Will call when the item will leave the scene tree
+    /// This method is connected to the tree_exiting signal
+    /// </summary>
+    public virtual void Removal()
+    {
+        if (basf.global_Variables.item_in_progression.Contains(this))
+        {
+            basf.global_Variables.item_in_progression.Remove(this);
+            basf.global_Variables.menu.re_render_view_data();
+        }
+    }
+
+    /// <summary>When parent of the item leaves the scene then this func is called</summary>
+    public virtual void Parent_Leaved_Scene_Tree()
+    { }
 }

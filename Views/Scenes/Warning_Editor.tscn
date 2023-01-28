@@ -11,6 +11,93 @@
 [ext_resource path="res://Views/Scripts/Warning_Editor.cs" type="Script" id=9]
 [ext_resource path="res://Weapons_And_Animation/components/Scripts/Navigational_Button.cs" type="Script" id=10]
 
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.313726, 0.501961, 0.0392157, 1 )
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color( 0.368627, 0.239216, 0.313726, 1 )
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+expand_margin_top = 20.0
+expand_margin_bottom = 20.0
+
+[sub_resource type="DynamicFont" id=2]
+size = 21
+font_data = ExtResource( 2 )
+
+[sub_resource type="StyleBoxFlat" id=3]
+content_margin_left = 45.0
+bg_color = Color( 0.109804, 0.180392, 0.313726, 1 )
+
+[sub_resource type="DynamicFont" id=5]
+font_data = ExtResource( 1 )
+
+[sub_resource type="StyleBoxFlat" id=6]
+bg_color = Color( 0.309804, 0.27451, 0.545098, 1 )
+skew = Vector2( 0.1, 0 )
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color( 0.294118, 0.0980392, 0.0980392, 1 )
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+expand_margin_left = 12.0
+expand_margin_right = 12.0
+
+[sub_resource type="StyleBoxFlat" id=8]
+skew = Vector2( 0.1, 0 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+expand_margin_left = 20.0
+expand_margin_right = 20.0
+
+[sub_resource type="StyleBoxFlat" id=7]
+bg_color = Color( 0.67451, 0.623529, 0.623529, 1 )
+skew = Vector2( 0.1, 0 )
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color( 0.258824, 0.027451, 0.027451, 1 )
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+expand_margin_left = 20.0
+expand_margin_right = 20.0
+
+[sub_resource type="DynamicFont" id=44]
+extra_spacing_char = 8
+font_data = ExtResource( 2 )
+
+[sub_resource type="StyleBoxFlat" id=45]
+bg_color = Color( 0.113725, 0.180392, 0.105882, 1 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 0.0431373, 0.00392157, 0.00392157, 1 )
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="DynamicFont" id=46]
+font_data = ExtResource( 1 )
+
 [sub_resource type="DynamicFont" id=9]
 size = 47
 font_data = ExtResource( 2 )
@@ -287,99 +374,13 @@ corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 
-[sub_resource type="StyleBoxFlat" id=1]
-bg_color = Color( 0.313726, 0.501961, 0.0392157, 1 )
-border_width_left = 5
-border_width_top = 5
-border_width_right = 5
-border_width_bottom = 5
-border_color = Color( 0.368627, 0.239216, 0.313726, 1 )
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
-expand_margin_top = 20.0
-expand_margin_bottom = 20.0
-
-[sub_resource type="DynamicFont" id=2]
-size = 21
-font_data = ExtResource( 2 )
-
-[sub_resource type="StyleBoxFlat" id=3]
-content_margin_left = 45.0
-bg_color = Color( 0.109804, 0.180392, 0.313726, 1 )
-
-[sub_resource type="DynamicFont" id=5]
-font_data = ExtResource( 1 )
-
-[sub_resource type="StyleBoxFlat" id=6]
-bg_color = Color( 0.309804, 0.27451, 0.545098, 1 )
-skew = Vector2( 0.1, 0 )
-border_width_left = 3
-border_width_top = 3
-border_width_right = 3
-border_width_bottom = 3
-border_color = Color( 0.294118, 0.0980392, 0.0980392, 1 )
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
-expand_margin_left = 12.0
-expand_margin_right = 12.0
-
-[sub_resource type="StyleBoxFlat" id=8]
-skew = Vector2( 0.1, 0 )
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
-expand_margin_left = 20.0
-expand_margin_right = 20.0
-
-[sub_resource type="StyleBoxFlat" id=7]
-bg_color = Color( 0.67451, 0.623529, 0.623529, 1 )
-skew = Vector2( 0.1, 0 )
-border_width_left = 3
-border_width_top = 3
-border_width_right = 3
-border_width_bottom = 3
-border_color = Color( 0.258824, 0.027451, 0.027451, 1 )
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
-expand_margin_left = 20.0
-expand_margin_right = 20.0
-
-[sub_resource type="DynamicFont" id=44]
-extra_spacing_char = 8
-font_data = ExtResource( 2 )
-
-[sub_resource type="StyleBoxFlat" id=45]
-bg_color = Color( 0.113725, 0.180392, 0.105882, 1 )
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color( 0.0431373, 0.00392157, 0.00392157, 1 )
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
-
-[sub_resource type="DynamicFont" id=46]
-font_data = ExtResource( 1 )
-
 [node name="Warnnig_Editor" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 24.0
 margin_top = 3.0
 margin_right = 16.0
+rect_pivot_offset = Vector2( -624, -387 )
 script = ExtResource( 9 )
 
 [node name="WhiteColor" type="Sprite" parent="."]
@@ -388,8 +389,273 @@ position = Vector2( 478, 307 )
 scale = Vector2( 4.02667, 4.28572 )
 texture = ExtResource( 4 )
 
-[node name="Warning_Edit" type="Node2D" parent="."]
+[node name="Home_View" type="TextureButton" parent="."]
+margin_left = -3.0
+margin_top = 509.0
+margin_right = 69.0
+margin_bottom = 573.0
+texture_normal = ExtResource( 6 )
+expand = true
+script = ExtResource( 10 )
+
+[node name="Items" type="Control" parent="."]
 visible = false
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="Items_Box" type="VBoxContainer" parent="Items"]
+process_priority = 10
+margin_left = 120.0
+margin_top = 101.0
+margin_right = 880.0
+margin_bottom = 541.0
+
+[node name="0" type="MarginContainer" parent="Items/Items_Box"]
+margin_right = 760.0
+margin_bottom = 72.0
+custom_constants/margin_top = 20
+custom_constants/margin_bottom = 20
+
+[node name="Item_Bg" type="Button" parent="Items/Items_Box/0"]
+margin_top = 20.0
+margin_right = 760.0
+margin_bottom = 52.0
+custom_styles/normal = SubResource( 1 )
+
+[node name="Name" type="Label" parent="Items/Items_Box/0"]
+margin_top = 20.0
+margin_right = 760.0
+margin_bottom = 52.0
+custom_fonts/font = SubResource( 2 )
+custom_styles/normal = SubResource( 3 )
+text = "Item_Name"
+valign = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Items/Items_Box/0"]
+margin_top = 20.0
+margin_right = 760.0
+margin_bottom = 52.0
+alignment = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Items/Items_Box/0/HBoxContainer"]
+margin_left = 680.0
+margin_right = 760.0
+margin_bottom = 32.0
+custom_constants/margin_right = 47
+
+[node name="Edit_Button" type="Button" parent="Items/Items_Box/0/HBoxContainer/MarginContainer"]
+margin_right = 33.0
+margin_bottom = 32.0
+custom_colors/font_color = Color( 0.027451, 0.0117647, 0.0117647, 1 )
+custom_colors/font_color_hover = Color( 1, 1, 1, 1 )
+custom_colors/font_color_pressed = Color( 0.576471, 0.231373, 0.231373, 1 )
+custom_fonts/font = SubResource( 5 )
+custom_styles/hover = SubResource( 6 )
+custom_styles/pressed = SubResource( 8 )
+custom_styles/normal = SubResource( 7 )
+text = "Edit"
+
+[node name="1" type="MarginContainer" parent="Items/Items_Box"]
+margin_top = 76.0
+margin_right = 760.0
+margin_bottom = 158.0
+custom_constants/margin_top = 30
+custom_constants/margin_bottom = 20
+
+[node name="Item_Bg" type="Button" parent="Items/Items_Box/1"]
+margin_top = 30.0
+margin_right = 760.0
+margin_bottom = 62.0
+custom_styles/normal = SubResource( 1 )
+
+[node name="Name" type="Label" parent="Items/Items_Box/1"]
+margin_top = 30.0
+margin_right = 760.0
+margin_bottom = 62.0
+custom_fonts/font = SubResource( 2 )
+custom_styles/normal = SubResource( 3 )
+text = "Item_Name"
+valign = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Items/Items_Box/1"]
+margin_top = 30.0
+margin_right = 760.0
+margin_bottom = 62.0
+alignment = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Items/Items_Box/1/HBoxContainer"]
+margin_left = 680.0
+margin_right = 760.0
+margin_bottom = 32.0
+custom_constants/margin_right = 47
+
+[node name="Edit_Button" type="Button" parent="Items/Items_Box/1/HBoxContainer/MarginContainer"]
+margin_right = 33.0
+margin_bottom = 32.0
+custom_colors/font_color = Color( 0.027451, 0.0117647, 0.0117647, 1 )
+custom_colors/font_color_hover = Color( 1, 1, 1, 1 )
+custom_colors/font_color_pressed = Color( 0.576471, 0.231373, 0.231373, 1 )
+custom_fonts/font = SubResource( 5 )
+custom_styles/hover = SubResource( 6 )
+custom_styles/normal = SubResource( 7 )
+text = "Edit"
+
+[node name="2" type="MarginContainer" parent="Items/Items_Box"]
+margin_top = 162.0
+margin_right = 760.0
+margin_bottom = 244.0
+custom_constants/margin_top = 30
+custom_constants/margin_bottom = 20
+
+[node name="Item_Bg" type="Button" parent="Items/Items_Box/2"]
+margin_top = 30.0
+margin_right = 760.0
+margin_bottom = 62.0
+custom_styles/normal = SubResource( 1 )
+
+[node name="Name" type="Label" parent="Items/Items_Box/2"]
+margin_top = 30.0
+margin_right = 760.0
+margin_bottom = 62.0
+custom_fonts/font = SubResource( 2 )
+custom_styles/normal = SubResource( 3 )
+text = "Item_Name"
+valign = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Items/Items_Box/2"]
+margin_top = 30.0
+margin_right = 760.0
+margin_bottom = 62.0
+alignment = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Items/Items_Box/2/HBoxContainer"]
+margin_left = 680.0
+margin_right = 760.0
+margin_bottom = 32.0
+custom_constants/margin_right = 47
+
+[node name="Edit_Button" type="Button" parent="Items/Items_Box/2/HBoxContainer/MarginContainer"]
+margin_right = 33.0
+margin_bottom = 32.0
+custom_colors/font_color = Color( 0.027451, 0.0117647, 0.0117647, 1 )
+custom_colors/font_color_hover = Color( 1, 1, 1, 1 )
+custom_colors/font_color_pressed = Color( 0.576471, 0.231373, 0.231373, 1 )
+custom_fonts/font = SubResource( 5 )
+custom_styles/hover = SubResource( 6 )
+custom_styles/normal = SubResource( 7 )
+text = "Edit"
+
+[node name="3" type="MarginContainer" parent="Items/Items_Box"]
+margin_top = 248.0
+margin_right = 760.0
+margin_bottom = 330.0
+custom_constants/margin_top = 30
+custom_constants/margin_bottom = 20
+
+[node name="Item_Bg" type="Button" parent="Items/Items_Box/3"]
+margin_top = 30.0
+margin_right = 760.0
+margin_bottom = 62.0
+custom_styles/normal = SubResource( 1 )
+
+[node name="Name" type="Label" parent="Items/Items_Box/3"]
+margin_top = 30.0
+margin_right = 760.0
+margin_bottom = 62.0
+custom_fonts/font = SubResource( 2 )
+custom_styles/normal = SubResource( 3 )
+text = "Item_Name"
+valign = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Items/Items_Box/3"]
+margin_top = 30.0
+margin_right = 760.0
+margin_bottom = 62.0
+alignment = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Items/Items_Box/3/HBoxContainer"]
+margin_left = 680.0
+margin_right = 760.0
+margin_bottom = 32.0
+custom_constants/margin_right = 47
+
+[node name="Edit_Button" type="Button" parent="Items/Items_Box/3/HBoxContainer/MarginContainer"]
+margin_right = 33.0
+margin_bottom = 32.0
+custom_colors/font_color = Color( 0.027451, 0.0117647, 0.0117647, 1 )
+custom_colors/font_color_hover = Color( 1, 1, 1, 1 )
+custom_colors/font_color_pressed = Color( 0.576471, 0.231373, 0.231373, 1 )
+custom_fonts/font = SubResource( 5 )
+custom_styles/hover = SubResource( 6 )
+custom_styles/normal = SubResource( 7 )
+text = "Edit"
+
+[node name="4" type="MarginContainer" parent="Items/Items_Box"]
+margin_top = 334.0
+margin_right = 760.0
+margin_bottom = 416.0
+custom_constants/margin_top = 30
+custom_constants/margin_bottom = 20
+
+[node name="Item_Bg" type="Button" parent="Items/Items_Box/4"]
+margin_top = 30.0
+margin_right = 760.0
+margin_bottom = 62.0
+custom_styles/normal = SubResource( 1 )
+
+[node name="Name" type="Label" parent="Items/Items_Box/4"]
+margin_top = 30.0
+margin_right = 760.0
+margin_bottom = 62.0
+custom_fonts/font = SubResource( 2 )
+custom_styles/normal = SubResource( 3 )
+text = "Item_Name"
+valign = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Items/Items_Box/4"]
+margin_top = 30.0
+margin_right = 760.0
+margin_bottom = 62.0
+alignment = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Items/Items_Box/4/HBoxContainer"]
+margin_left = 680.0
+margin_right = 760.0
+margin_bottom = 32.0
+custom_constants/margin_right = 47
+
+[node name="Edit_Button" type="Button" parent="Items/Items_Box/4/HBoxContainer/MarginContainer"]
+margin_right = 33.0
+margin_bottom = 32.0
+custom_colors/font_color = Color( 0.027451, 0.0117647, 0.0117647, 1 )
+custom_colors/font_color_hover = Color( 1, 1, 1, 1 )
+custom_colors/font_color_pressed = Color( 0.576471, 0.231373, 0.231373, 1 )
+custom_fonts/font = SubResource( 5 )
+custom_styles/hover = SubResource( 6 )
+custom_styles/normal = SubResource( 7 )
+text = "Edit"
+
+[node name="Item_Search_Box" type="TextEdit" parent="Items"]
+margin_left = 180.0
+margin_top = 29.0
+margin_right = 780.0
+margin_bottom = 74.0
+custom_fonts/font = SubResource( 44 )
+custom_styles/read_only = SubResource( 45 )
+custom_styles/focus = SubResource( 45 )
+custom_styles/normal = SubResource( 45 )
+
+[node name="Label" type="Label" parent="Items/Item_Search_Box"]
+margin_left = 12.0
+margin_top = 8.0
+margin_right = 588.0
+margin_bottom = 32.0
+custom_fonts/font = SubResource( 46 )
+text = "Search"
+align = 1
+valign = 1
+
+[node name="Warning_Edit" type="Node2D" parent="."]
 
 [node name="Item_Name" type="Label" parent="Warning_Edit"]
 margin_left = 245.0
@@ -439,7 +705,7 @@ __meta__ = {
 margin_left = -11.0
 margin_top = 125.0
 margin_right = 965.0
-margin_bottom = 451.0
+margin_bottom = 493.0
 
 [node name="0" type="MarginContainer" parent="Warning_Edit/VBoxContainer"]
 margin_right = 976.0
@@ -758,13 +1024,12 @@ text = "Universal_Message_Here"
 [node name="Universal_Message_GIven_Toggle" type="CheckButton" parent="Warning_Edit"]
 margin_left = 664.0
 margin_top = 77.0
-margin_right = 893.0
+margin_right = 903.0
 margin_bottom = 117.0
 custom_fonts/font = SubResource( 37 )
 text = "Give Universal Warning"
 
 [node name="Inputs" type="Control" parent="."]
-visible = false
 margin_left = -3.0
 margin_top = 269.0
 margin_right = 973.0
@@ -819,268 +1084,14 @@ custom_styles/completion = SubResource( 42 )
 
 [node name="Item_Searcher" parent="." instance=ExtResource( 8 )]
 visible = false
+margin_left = -33.176
+margin_top = 0.18
+margin_right = -32.92
+margin_bottom = 27.38
 
-[node name="Home_View" type="TextureButton" parent="."]
-margin_left = -3.0
-margin_top = 509.0
-margin_right = 69.0
-margin_bottom = 573.0
-texture_normal = ExtResource( 6 )
-expand = true
-script = ExtResource( 10 )
-
-[node name="Items" type="Control" parent="."]
-margin_right = 40.0
-margin_bottom = 40.0
-
-[node name="Items_Box" type="VBoxContainer" parent="Items"]
-process_priority = 10
-margin_left = 120.0
-margin_top = 101.0
-margin_right = 880.0
-margin_bottom = 541.0
-
-[node name="0" type="MarginContainer" parent="Items/Items_Box"]
-margin_right = 760.0
-margin_bottom = 72.0
-custom_constants/margin_top = 20
-custom_constants/margin_bottom = 20
-
-[node name="Item_Bg" type="Button" parent="Items/Items_Box/0"]
-margin_top = 20.0
-margin_right = 760.0
-margin_bottom = 52.0
-custom_styles/normal = SubResource( 1 )
-
-[node name="Name" type="Label" parent="Items/Items_Box/0"]
-margin_top = 20.0
-margin_right = 760.0
-margin_bottom = 52.0
-custom_fonts/font = SubResource( 2 )
-custom_styles/normal = SubResource( 3 )
-text = "Item_Name"
-valign = 1
-
-[node name="HBoxContainer" type="HBoxContainer" parent="Items/Items_Box/0"]
-margin_top = 20.0
-margin_right = 760.0
-margin_bottom = 52.0
-alignment = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="Items/Items_Box/0/HBoxContainer"]
-margin_left = 680.0
-margin_right = 760.0
-margin_bottom = 32.0
-custom_constants/margin_right = 47
-
-[node name="Edit_Button" type="Button" parent="Items/Items_Box/0/HBoxContainer/MarginContainer"]
-margin_right = 33.0
-margin_bottom = 32.0
-custom_colors/font_color = Color( 0.027451, 0.0117647, 0.0117647, 1 )
-custom_colors/font_color_hover = Color( 1, 1, 1, 1 )
-custom_colors/font_color_pressed = Color( 0.576471, 0.231373, 0.231373, 1 )
-custom_fonts/font = SubResource( 5 )
-custom_styles/hover = SubResource( 6 )
-custom_styles/pressed = SubResource( 8 )
-custom_styles/normal = SubResource( 7 )
-text = "Edit"
-
-[node name="1" type="MarginContainer" parent="Items/Items_Box"]
-margin_top = 76.0
-margin_right = 760.0
-margin_bottom = 158.0
-custom_constants/margin_top = 30
-custom_constants/margin_bottom = 20
-
-[node name="Item_Bg" type="Button" parent="Items/Items_Box/1"]
-margin_top = 30.0
-margin_right = 760.0
-margin_bottom = 62.0
-custom_styles/normal = SubResource( 1 )
-
-[node name="Name" type="Label" parent="Items/Items_Box/1"]
-margin_top = 30.0
-margin_right = 760.0
-margin_bottom = 62.0
-custom_fonts/font = SubResource( 2 )
-custom_styles/normal = SubResource( 3 )
-text = "Item_Name"
-valign = 1
-
-[node name="HBoxContainer" type="HBoxContainer" parent="Items/Items_Box/1"]
-margin_top = 30.0
-margin_right = 760.0
-margin_bottom = 62.0
-alignment = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="Items/Items_Box/1/HBoxContainer"]
-margin_left = 680.0
-margin_right = 760.0
-margin_bottom = 32.0
-custom_constants/margin_right = 47
-
-[node name="Edit_Button" type="Button" parent="Items/Items_Box/1/HBoxContainer/MarginContainer"]
-margin_right = 33.0
-margin_bottom = 32.0
-custom_colors/font_color = Color( 0.027451, 0.0117647, 0.0117647, 1 )
-custom_colors/font_color_hover = Color( 1, 1, 1, 1 )
-custom_colors/font_color_pressed = Color( 0.576471, 0.231373, 0.231373, 1 )
-custom_fonts/font = SubResource( 5 )
-custom_styles/hover = SubResource( 6 )
-custom_styles/normal = SubResource( 7 )
-text = "Edit"
-
-[node name="2" type="MarginContainer" parent="Items/Items_Box"]
-margin_top = 162.0
-margin_right = 760.0
-margin_bottom = 244.0
-custom_constants/margin_top = 30
-custom_constants/margin_bottom = 20
-
-[node name="Item_Bg" type="Button" parent="Items/Items_Box/2"]
-margin_top = 30.0
-margin_right = 760.0
-margin_bottom = 62.0
-custom_styles/normal = SubResource( 1 )
-
-[node name="Name" type="Label" parent="Items/Items_Box/2"]
-margin_top = 30.0
-margin_right = 760.0
-margin_bottom = 62.0
-custom_fonts/font = SubResource( 2 )
-custom_styles/normal = SubResource( 3 )
-text = "Item_Name"
-valign = 1
-
-[node name="HBoxContainer" type="HBoxContainer" parent="Items/Items_Box/2"]
-margin_top = 30.0
-margin_right = 760.0
-margin_bottom = 62.0
-alignment = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="Items/Items_Box/2/HBoxContainer"]
-margin_left = 680.0
-margin_right = 760.0
-margin_bottom = 32.0
-custom_constants/margin_right = 47
-
-[node name="Edit_Button" type="Button" parent="Items/Items_Box/2/HBoxContainer/MarginContainer"]
-margin_right = 33.0
-margin_bottom = 32.0
-custom_colors/font_color = Color( 0.027451, 0.0117647, 0.0117647, 1 )
-custom_colors/font_color_hover = Color( 1, 1, 1, 1 )
-custom_colors/font_color_pressed = Color( 0.576471, 0.231373, 0.231373, 1 )
-custom_fonts/font = SubResource( 5 )
-custom_styles/hover = SubResource( 6 )
-custom_styles/normal = SubResource( 7 )
-text = "Edit"
-
-[node name="3" type="MarginContainer" parent="Items/Items_Box"]
-margin_top = 248.0
-margin_right = 760.0
-margin_bottom = 330.0
-custom_constants/margin_top = 30
-custom_constants/margin_bottom = 20
-
-[node name="Item_Bg" type="Button" parent="Items/Items_Box/3"]
-margin_top = 30.0
-margin_right = 760.0
-margin_bottom = 62.0
-custom_styles/normal = SubResource( 1 )
-
-[node name="Name" type="Label" parent="Items/Items_Box/3"]
-margin_top = 30.0
-margin_right = 760.0
-margin_bottom = 62.0
-custom_fonts/font = SubResource( 2 )
-custom_styles/normal = SubResource( 3 )
-text = "Item_Name"
-valign = 1
-
-[node name="HBoxContainer" type="HBoxContainer" parent="Items/Items_Box/3"]
-margin_top = 30.0
-margin_right = 760.0
-margin_bottom = 62.0
-alignment = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="Items/Items_Box/3/HBoxContainer"]
-margin_left = 680.0
-margin_right = 760.0
-margin_bottom = 32.0
-custom_constants/margin_right = 47
-
-[node name="Edit_Button" type="Button" parent="Items/Items_Box/3/HBoxContainer/MarginContainer"]
-margin_right = 33.0
-margin_bottom = 32.0
-custom_colors/font_color = Color( 0.027451, 0.0117647, 0.0117647, 1 )
-custom_colors/font_color_hover = Color( 1, 1, 1, 1 )
-custom_colors/font_color_pressed = Color( 0.576471, 0.231373, 0.231373, 1 )
-custom_fonts/font = SubResource( 5 )
-custom_styles/hover = SubResource( 6 )
-custom_styles/normal = SubResource( 7 )
-text = "Edit"
-
-[node name="4" type="MarginContainer" parent="Items/Items_Box"]
-margin_top = 334.0
-margin_right = 760.0
-margin_bottom = 416.0
-custom_constants/margin_top = 30
-custom_constants/margin_bottom = 20
-
-[node name="Item_Bg" type="Button" parent="Items/Items_Box/4"]
-margin_top = 30.0
-margin_right = 760.0
-margin_bottom = 62.0
-custom_styles/normal = SubResource( 1 )
-
-[node name="Name" type="Label" parent="Items/Items_Box/4"]
-margin_top = 30.0
-margin_right = 760.0
-margin_bottom = 62.0
-custom_fonts/font = SubResource( 2 )
-custom_styles/normal = SubResource( 3 )
-text = "Item_Name"
-valign = 1
-
-[node name="HBoxContainer" type="HBoxContainer" parent="Items/Items_Box/4"]
-margin_top = 30.0
-margin_right = 760.0
-margin_bottom = 62.0
-alignment = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="Items/Items_Box/4/HBoxContainer"]
-margin_left = 680.0
-margin_right = 760.0
-margin_bottom = 32.0
-custom_constants/margin_right = 47
-
-[node name="Edit_Button" type="Button" parent="Items/Items_Box/4/HBoxContainer/MarginContainer"]
-margin_right = 33.0
-margin_bottom = 32.0
-custom_colors/font_color = Color( 0.027451, 0.0117647, 0.0117647, 1 )
-custom_colors/font_color_hover = Color( 1, 1, 1, 1 )
-custom_colors/font_color_pressed = Color( 0.576471, 0.231373, 0.231373, 1 )
-custom_fonts/font = SubResource( 5 )
-custom_styles/hover = SubResource( 6 )
-custom_styles/normal = SubResource( 7 )
-text = "Edit"
-
-[node name="Item_Search_Box" type="TextEdit" parent="Items"]
-margin_left = 180.0
-margin_top = 29.0
-margin_right = 780.0
-margin_bottom = 74.0
-custom_fonts/font = SubResource( 44 )
-custom_styles/read_only = SubResource( 45 )
-custom_styles/focus = SubResource( 45 )
-custom_styles/normal = SubResource( 45 )
-
-[node name="Label" type="Label" parent="Items/Item_Search_Box"]
-margin_left = 12.0
-margin_top = 8.0
-margin_right = 588.0
-margin_bottom = 32.0
-custom_fonts/font = SubResource( 46 )
-text = "Search"
-align = 1
-valign = 1
+[node name="Warning_Editor_Search_Bar" parent="." instance=ExtResource( 8 )]
+visible = false
+margin_left = -33.176
+margin_top = -6.82
+margin_right = -32.92
+margin_bottom = 20.38

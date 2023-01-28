@@ -16,6 +16,8 @@ plays with the drone ini faller
 Spawn Drone is one one of the important thing
 this function will be runed right from the context where the drone is been used
 
+They does not have any effect or change in health when they come in contact with the bomb
+
 */
 #endregion
 
@@ -154,7 +156,7 @@ public class Basic_Drone : Item_Using_Menu_Component, Character
 
         collision_damage = Convert.ToInt32(drone_data.get_data("Collision_Damage"));
 
-        parent.Connect("tree_exiting", this, "Parent_Died_Kill_Drone");
+
 
         is_to_display_position = true;
 
@@ -320,12 +322,12 @@ public class Basic_Drone : Item_Using_Menu_Component, Character
         death_animation.Emitting = false;
     }
 
-    public void Parent_Died_Kill_Drone()
+    public override void Parent_Leaved_Scene_Tree()
     {
+        base.Removal();
         parent_leaved_scene_true = true;
         this.QueueFree();
     }
-
 
 
 
@@ -377,4 +379,5 @@ public class Basic_Drone : Item_Using_Menu_Component, Character
         this.health = 0;
     }
 
+    
 }

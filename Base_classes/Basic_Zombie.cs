@@ -35,6 +35,8 @@ public class Basic_Zombie : Basic_Character
     // this will be used by the character if there will be any issure regarding the distance between the playe and the specific zombie 
     public int distancing_error;
 
+    public bool is_associated_with_main_level = true;
+
 
 
 
@@ -71,7 +73,7 @@ public class Basic_Zombie : Basic_Character
 
 
         // gettting all the Left and Right Fall down rays which fill help us to detect were the zombie should walk and where not
-        // the stronger the zombie the stronger will be it's range of the Left and Right Fall Down Rays....
+        // the stronger the zombie the greator will be it's range of the Left and Right Fall Down Rays....
         Fall_Down_Left_Rays = basf.get_the_node_childrens("Fall_Down_Left_Rays", true);
         Fall_Down_Right_Rays = basf.get_the_node_childrens("Fall_Down_Right_Rays", true);
 
@@ -230,8 +232,19 @@ public class Basic_Zombie : Basic_Character
                     // is_attacking = true;
 
                     // converting the first character of the string to the upper case
-                var edited_attack_name = $"{random_attack.ToUpper()[0]}{random_attack.Substring(1, random_attack.Length - 1)}";
+                // var edited_attack_name = $"{random_attack.ToUpper()[0]}{random_attack.Substring(1, random_attack.Length - 1)}";
 
+
+                ArrayList splited_name = basf.get_format_array_string(random_attack,new ArrayList(){"_"},false);
+                string edited_attack_name = "";
+                foreach (string item in splited_name)
+                {
+                    edited_attack_name+=(item[0].ToString().ToUpper()+item.Substring(1,item.Length-1))+"_";
+                }
+                if(edited_attack_name.Length>0)
+                {
+                    edited_attack_name = edited_attack_name.Remove(edited_attack_name.Length-1,1);
+                }
                 perform_move(edited_attack_name);
 
                 // }

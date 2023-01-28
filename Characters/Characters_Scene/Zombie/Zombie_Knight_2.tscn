@@ -1,0 +1,510 @@
+[gd_scene load_steps=85 format=2]
+
+[ext_resource path="res://Weapons_And_Animation/components/scenes/Health_Bar.tscn" type="PackedScene" id=1]
+[ext_resource path="res://assets/images/gui/white_color.png" type="Texture" id=2]
+[ext_resource path="res://assets/images/knight/Knight_2/Idle.png" type="Texture" id=3]
+[ext_resource path="res://assets/images/knight/Knight_2/Dead.png" type="Texture" id=4]
+[ext_resource path="res://assets/images/knight/Knight_2/Attack 2.png" type="Texture" id=5]
+[ext_resource path="res://assets/images/knight/Knight_2/Walk.png" type="Texture" id=6]
+[ext_resource path="res://assets/images/knight/Knight_2/Protect.png" type="Texture" id=7]
+[ext_resource path="res://assets/images/knight/Knight_2/Run.png" type="Texture" id=8]
+[ext_resource path="res://assets/images/knight/Knight_2/Attack 1.png" type="Texture" id=9]
+[ext_resource path="res://assets/images/knight/Knight_2/Defend.png" type="Texture" id=10]
+[ext_resource path="res://assets/images/knight/Knight_2/Attack 3.png" type="Texture" id=11]
+[ext_resource path="res://assets/images/knight/Knight_2/Hurt.png" type="Texture" id=12]
+[ext_resource path="res://assets/images/knight/Knight_2/Jump.png" type="Texture" id=13]
+[ext_resource path="res://Characters/Character_Scripts/Zombie/Zombie_Knight.cs" type="Script" id=14]
+
+[sub_resource type="PhysicsMaterial" id=77]
+friction = 0.2
+rough = true
+bounce = 0.1
+
+[sub_resource type="CapsuleShape2D" id=8]
+radius = 40.0
+height = 66.0
+
+[sub_resource type="AtlasTexture" id=9]
+atlas = ExtResource( 9 )
+region = Rect2( 0, 0, 86, 86 )
+
+[sub_resource type="AtlasTexture" id=10]
+atlas = ExtResource( 9 )
+region = Rect2( 86, 0, 86, 86 )
+
+[sub_resource type="AtlasTexture" id=11]
+atlas = ExtResource( 9 )
+region = Rect2( 172, 0, 86, 86 )
+
+[sub_resource type="AtlasTexture" id=12]
+atlas = ExtResource( 9 )
+region = Rect2( 258, 0, 86, 86 )
+
+[sub_resource type="AtlasTexture" id=13]
+atlas = ExtResource( 9 )
+region = Rect2( 344, 0, 86, 86 )
+
+[sub_resource type="AtlasTexture" id=14]
+atlas = ExtResource( 5 )
+region = Rect2( 0, 0, 107, 86 )
+
+[sub_resource type="AtlasTexture" id=15]
+atlas = ExtResource( 5 )
+region = Rect2( 107, 0, 107, 86 )
+
+[sub_resource type="AtlasTexture" id=16]
+atlas = ExtResource( 5 )
+region = Rect2( 214, 0, 107, 86 )
+
+[sub_resource type="AtlasTexture" id=17]
+atlas = ExtResource( 5 )
+region = Rect2( 321, 0, 107, 86 )
+
+[sub_resource type="AtlasTexture" id=18]
+atlas = ExtResource( 11 )
+region = Rect2( 0, 0, 100, 86 )
+
+[sub_resource type="AtlasTexture" id=19]
+atlas = ExtResource( 11 )
+region = Rect2( 100, 0, 100, 86 )
+
+[sub_resource type="AtlasTexture" id=20]
+atlas = ExtResource( 11 )
+region = Rect2( 200, 0, 100, 86 )
+
+[sub_resource type="AtlasTexture" id=21]
+atlas = ExtResource( 11 )
+region = Rect2( 300, 0, 100, 86 )
+
+[sub_resource type="AtlasTexture" id=22]
+atlas = ExtResource( 4 )
+region = Rect2( 0, 0, 80, 86 )
+
+[sub_resource type="AtlasTexture" id=23]
+atlas = ExtResource( 4 )
+region = Rect2( 80, 0, 80, 86 )
+
+[sub_resource type="AtlasTexture" id=24]
+atlas = ExtResource( 4 )
+region = Rect2( 160, 0, 80, 86 )
+
+[sub_resource type="AtlasTexture" id=25]
+atlas = ExtResource( 4 )
+region = Rect2( 240, 0, 80, 86 )
+
+[sub_resource type="AtlasTexture" id=26]
+atlas = ExtResource( 4 )
+region = Rect2( 320, 0, 80, 86 )
+
+[sub_resource type="AtlasTexture" id=27]
+atlas = ExtResource( 4 )
+region = Rect2( 400, 0, 80, 86 )
+
+[sub_resource type="AtlasTexture" id=28]
+atlas = ExtResource( 10 )
+region = Rect2( 0, 0, 80, 86 )
+
+[sub_resource type="AtlasTexture" id=29]
+atlas = ExtResource( 10 )
+region = Rect2( 80, 0, 80, 86 )
+
+[sub_resource type="AtlasTexture" id=30]
+atlas = ExtResource( 10 )
+region = Rect2( 160, 0, 80, 86 )
+
+[sub_resource type="AtlasTexture" id=31]
+atlas = ExtResource( 10 )
+region = Rect2( 240, 0, 80, 86 )
+
+[sub_resource type="AtlasTexture" id=32]
+atlas = ExtResource( 10 )
+region = Rect2( 320, 0, 80, 86 )
+
+[sub_resource type="AtlasTexture" id=33]
+atlas = ExtResource( 12 )
+region = Rect2( 0, 0, 70, 86 )
+
+[sub_resource type="AtlasTexture" id=34]
+atlas = ExtResource( 12 )
+region = Rect2( 70, 0, 70, 86 )
+
+[sub_resource type="AtlasTexture" id=35]
+atlas = ExtResource( 3 )
+region = Rect2( 0, 0, 72, 86 )
+
+[sub_resource type="AtlasTexture" id=36]
+atlas = ExtResource( 3 )
+region = Rect2( 72, 0, 72, 86 )
+
+[sub_resource type="AtlasTexture" id=37]
+atlas = ExtResource( 3 )
+region = Rect2( 144, 0, 72, 86 )
+
+[sub_resource type="AtlasTexture" id=38]
+atlas = ExtResource( 3 )
+region = Rect2( 216, 0, 72, 86 )
+
+[sub_resource type="AtlasTexture" id=39]
+atlas = ExtResource( 13 )
+region = Rect2( 0, 0, 80, 86 )
+
+[sub_resource type="AtlasTexture" id=40]
+atlas = ExtResource( 13 )
+region = Rect2( 80, 0, 80, 86 )
+
+[sub_resource type="AtlasTexture" id=41]
+atlas = ExtResource( 13 )
+region = Rect2( 160, 0, 80, 86 )
+
+[sub_resource type="AtlasTexture" id=42]
+atlas = ExtResource( 13 )
+region = Rect2( 240, 0, 80, 86 )
+
+[sub_resource type="AtlasTexture" id=43]
+atlas = ExtResource( 13 )
+region = Rect2( 320, 0, 80, 86 )
+
+[sub_resource type="AtlasTexture" id=44]
+atlas = ExtResource( 13 )
+region = Rect2( 400, 0, 80, 86 )
+
+[sub_resource type="AtlasTexture" id=45]
+atlas = ExtResource( 7 )
+region = Rect2( 0, 0, 86, 86 )
+
+[sub_resource type="AtlasTexture" id=46]
+atlas = ExtResource( 8 )
+region = Rect2( 0, 0, 71, 86 )
+
+[sub_resource type="AtlasTexture" id=47]
+atlas = ExtResource( 8 )
+region = Rect2( 71, 0, 71, 86 )
+
+[sub_resource type="AtlasTexture" id=48]
+atlas = ExtResource( 8 )
+region = Rect2( 142, 0, 71, 86 )
+
+[sub_resource type="AtlasTexture" id=49]
+atlas = ExtResource( 8 )
+region = Rect2( 213, 0, 71, 86 )
+
+[sub_resource type="AtlasTexture" id=50]
+atlas = ExtResource( 8 )
+region = Rect2( 284, 0, 71, 86 )
+
+[sub_resource type="AtlasTexture" id=51]
+atlas = ExtResource( 8 )
+region = Rect2( 355, 0, 71, 86 )
+
+[sub_resource type="AtlasTexture" id=52]
+atlas = ExtResource( 8 )
+region = Rect2( 426, 0, 71, 86 )
+
+[sub_resource type="AtlasTexture" id=53]
+atlas = ExtResource( 8 )
+region = Rect2( 0, 0, 71, 86 )
+
+[sub_resource type="AtlasTexture" id=54]
+atlas = ExtResource( 8 )
+region = Rect2( 71, 0, 71, 86 )
+
+[sub_resource type="AtlasTexture" id=55]
+atlas = ExtResource( 8 )
+region = Rect2( 142, 0, 71, 86 )
+
+[sub_resource type="AtlasTexture" id=56]
+atlas = ExtResource( 8 )
+region = Rect2( 213, 0, 71, 86 )
+
+[sub_resource type="AtlasTexture" id=57]
+atlas = ExtResource( 8 )
+region = Rect2( 284, 0, 71, 86 )
+
+[sub_resource type="AtlasTexture" id=58]
+atlas = ExtResource( 8 )
+region = Rect2( 355, 0, 71, 86 )
+
+[sub_resource type="AtlasTexture" id=59]
+atlas = ExtResource( 8 )
+region = Rect2( 426, 0, 71, 86 )
+
+[sub_resource type="AtlasTexture" id=60]
+atlas = ExtResource( 6 )
+region = Rect2( 0, 0, 72, 86 )
+
+[sub_resource type="AtlasTexture" id=61]
+atlas = ExtResource( 6 )
+region = Rect2( 72, 0, 72, 86 )
+
+[sub_resource type="AtlasTexture" id=62]
+atlas = ExtResource( 6 )
+region = Rect2( 144, 0, 72, 86 )
+
+[sub_resource type="AtlasTexture" id=63]
+atlas = ExtResource( 6 )
+region = Rect2( 216, 0, 72, 86 )
+
+[sub_resource type="AtlasTexture" id=64]
+atlas = ExtResource( 6 )
+region = Rect2( 288, 0, 72, 86 )
+
+[sub_resource type="AtlasTexture" id=65]
+atlas = ExtResource( 6 )
+region = Rect2( 360, 0, 72, 86 )
+
+[sub_resource type="AtlasTexture" id=66]
+atlas = ExtResource( 6 )
+region = Rect2( 432, 0, 72, 86 )
+
+[sub_resource type="AtlasTexture" id=67]
+atlas = ExtResource( 6 )
+region = Rect2( 504, 0, 72, 86 )
+
+[sub_resource type="SpriteFrames" id=68]
+animations = [ {
+"frames": [ SubResource( 9 ), SubResource( 10 ), SubResource( 11 ), SubResource( 12 ), SubResource( 13 ) ],
+"loop": true,
+"name": "Attack",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 14 ), SubResource( 15 ), SubResource( 16 ), SubResource( 17 ) ],
+"loop": true,
+"name": "Attack_2",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 18 ), SubResource( 19 ), SubResource( 20 ), SubResource( 21 ) ],
+"loop": true,
+"name": "Attack_3",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 22 ), SubResource( 23 ), SubResource( 24 ), SubResource( 25 ), SubResource( 26 ), SubResource( 27 ) ],
+"loop": true,
+"name": "Death",
+"speed": 10.0
+}, {
+"frames": [ SubResource( 28 ), SubResource( 29 ), SubResource( 30 ), SubResource( 31 ), SubResource( 32 ) ],
+"loop": true,
+"name": "Defend",
+"speed": 10.0
+}, {
+"frames": [ SubResource( 33 ), SubResource( 34 ) ],
+"loop": true,
+"name": "Hurt",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 35 ), SubResource( 36 ), SubResource( 37 ), SubResource( 38 ) ],
+"loop": true,
+"name": "Idle",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 39 ), SubResource( 40 ), SubResource( 41 ), SubResource( 42 ), SubResource( 43 ), SubResource( 44 ) ],
+"loop": true,
+"name": "Jump",
+"speed": 10.0
+}, {
+"frames": [ SubResource( 45 ) ],
+"loop": true,
+"name": "Protect",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 46 ), SubResource( 47 ), SubResource( 48 ), SubResource( 49 ), SubResource( 50 ), SubResource( 51 ), SubResource( 52 ) ],
+"loop": true,
+"name": "Run",
+"speed": 10.0
+}, {
+"frames": [ SubResource( 53 ), SubResource( 54 ), SubResource( 55 ), SubResource( 56 ), SubResource( 57 ), SubResource( 58 ), SubResource( 59 ) ],
+"loop": true,
+"name": "Run_Attack",
+"speed": 10.0
+}, {
+"frames": [ SubResource( 60 ), SubResource( 61 ), SubResource( 62 ), SubResource( 63 ), SubResource( 64 ), SubResource( 65 ), SubResource( 66 ), SubResource( 67 ) ],
+"loop": true,
+"name": "Walk",
+"speed": 5.0
+} ]
+
+[sub_resource type="Curve" id=69]
+_data = [ Vector2( 0, 0.271159 ), 0.0, 0.0, 0, 0, Vector2( 0.502488, 0.816613 ), 0.0, 0.0, 0, 0, Vector2( 1, 0.371534 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=76]
+curve = SubResource( 69 )
+
+[sub_resource type="ParticlesMaterial" id=70]
+flag_disable_z = true
+direction = Vector3( 0, -1, 0 )
+spread = 180.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 130.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+scale = 0.08
+scale_curve = SubResource( 76 )
+color = Color( 1, 0.0431373, 0.0431373, 1 )
+
+[sub_resource type="CanvasItemMaterial" id=71]
+
+[sub_resource type="Theme" id=72]
+
+[sub_resource type="StyleBoxFlat" id=73]
+bg_color = Color( 0.913725, 0.196078, 0.141176, 1 )
+
+[sub_resource type="StyleBoxFlat" id=74]
+bg_color = Color( 0.576471, 0.0823529, 0.984314, 1 )
+
+[sub_resource type="ParticlesMaterial" id=75]
+flag_disable_z = true
+gravity = Vector3( 0, 98, 0 )
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+
+[node name="Zombie_Knight_2" type="RigidBody2D"]
+position = Vector2( 506, 259 )
+mode = 2
+mass = 0.816326
+physics_material_override = SubResource( 77 )
+gravity_scale = 30.0
+contacts_reported = 10
+contact_monitor = true
+script = ExtResource( 14 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( -9, 19 )
+z_index = 1
+shape = SubResource( 8 )
+
+[node name="Movements" type="AnimatedSprite" parent="."]
+position = Vector2( 7.49991, -4.50009 )
+scale = Vector2( 1.82558, 2.1279 )
+z_index = 1
+frames = SubResource( 68 )
+animation = "Protect"
+
+[node name="Rays" type="Node2D" parent="."]
+position = Vector2( -597, -432 )
+
+[node name="Jump_Ray_1" type="RayCast2D" parent="Rays"]
+position = Vector2( 590, 501 )
+enabled = true
+cast_to = Vector2( 22, 30 )
+collide_with_areas = true
+
+[node name="Jump_Ray_2" type="RayCast2D" parent="Rays"]
+position = Vector2( 590, 501 )
+enabled = true
+cast_to = Vector2( 0, 30 )
+collide_with_areas = true
+
+[node name="Jump_Ray_3" type="RayCast2D" parent="Rays"]
+position = Vector2( 590, 501 )
+enabled = true
+cast_to = Vector2( -29, 30 )
+collide_with_areas = true
+
+[node name="Left_Collision_Rays" type="Node2D" parent="."]
+position = Vector2( -600, -449 )
+
+[node name="Left_Collision_Ray_1" type="RayCast2D" parent="Left_Collision_Rays"]
+position = Vector2( 549, 471 )
+enabled = true
+cast_to = Vector2( -90, 0 )
+
+[node name="Left_Collision_Ray_2" type="RayCast2D" parent="Left_Collision_Rays"]
+position = Vector2( 549, 445 )
+enabled = true
+cast_to = Vector2( -90, 0 )
+
+[node name="Left_Collision_Ray_3" type="RayCast2D" parent="Left_Collision_Rays"]
+position = Vector2( 549, 495 )
+enabled = true
+cast_to = Vector2( -90, 0 )
+
+[node name="Right_Collision_Rays" type="Node2D" parent="."]
+position = Vector2( -575, -557 )
+
+[node name="Left_Collision_Ray_1" type="RayCast2D" parent="Right_Collision_Rays"]
+position = Vector2( 611, 552 )
+cast_to = Vector2( 90, 1 )
+
+[node name="Left_Collision_Ray_2" type="RayCast2D" parent="Right_Collision_Rays"]
+position = Vector2( 610, 603 )
+cast_to = Vector2( 90, 1 )
+
+[node name="Left_Collision_Ray_3" type="RayCast2D" parent="Right_Collision_Rays"]
+position = Vector2( 611, 579 )
+cast_to = Vector2( 90, 1 )
+
+[node name="Left_Upward_Ray" type="RayCast2D" parent="."]
+position = Vector2( -44, -37 )
+enabled = true
+cast_to = Vector2( -52, -125 )
+collide_with_areas = true
+
+[node name="Right_Upward_Ray" type="RayCast2D" parent="."]
+position = Vector2( 20, -40 )
+enabled = true
+cast_to = Vector2( 40, -119 )
+collide_with_areas = true
+
+[node name="Upward_Ray" type="RayCast2D" parent="."]
+position = Vector2( -13, -54 )
+enabled = true
+cast_to = Vector2( -4, -118 )
+collide_with_areas = true
+
+[node name="Height_Checker" type="RayCast2D" parent="."]
+position = Vector2( -7, 69 )
+enabled = true
+cast_to = Vector2( 6, 235 )
+
+[node name="Fall_Down_Left_Rays" type="Node2D" parent="."]
+position = Vector2( -461, -308 )
+
+[node name="Fall_Detection_Left_1" type="RayCast2D" parent="Fall_Down_Left_Rays"]
+position = Vector2( 417, 381 )
+cast_to = Vector2( -45, 227 )
+
+[node name="Fall_Down_Right_Rays" type="Node2D" parent="."]
+position = Vector2( -490, -251 )
+
+[node name="Fall_Detection_Right_1" type="RayCast2D" parent="Fall_Down_Right_Rays"]
+position = Vector2( 521, 324 )
+cast_to = Vector2( 74, 227 )
+
+[node name="Blood_Animation" type="Particles2D" parent="."]
+position = Vector2( -9, 24 )
+emitting = false
+amount = 20
+lifetime = 0.5
+one_shot = true
+explosiveness = 0.4
+process_material = SubResource( 70 )
+texture = ExtResource( 2 )
+
+[node name="Health_Bar" parent="." instance=ExtResource( 1 )]
+modulate = Color( 1, 1, 1, 1 )
+self_modulate = Color( 1, 1, 1, 1 )
+material = SubResource( 71 )
+margin_left = -70.0
+margin_top = -92.0
+margin_right = 40.0
+margin_bottom = -69.0
+theme = SubResource( 72 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_color_shadow = Color( 0.0313726, 1, 0.321569, 1 )
+custom_styles/fg = SubResource( 73 )
+custom_styles/bg = SubResource( 74 )
+
+[node name="Personals" type="Node2D" parent="."]
+
+[node name="Use_Specail_Power" type="Particles2D" parent="Personals"]
+position = Vector2( -254, -34 )
+emitting = false
+amount = 100
+lifetime = 2.0
+process_material = SubResource( 75 )
+
+[node name="Upper_Detector" type="RayCast2D" parent="Personals"]
+position = Vector2( -12, -56 )
+enabled = true
+cast_to = Vector2( -5, -165 )
+collide_with_areas = true

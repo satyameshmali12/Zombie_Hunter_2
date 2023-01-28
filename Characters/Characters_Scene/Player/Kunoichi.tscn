@@ -393,6 +393,7 @@ scale = Vector2( 2.10156, 2.27409 )
 z_index = 1
 frames = SubResource( 63 )
 animation = "Walk"
+frame = 2
 playing = true
 
 [node name="Rays" type="Node2D" parent="."]
@@ -423,6 +424,7 @@ collide_with_areas = true
 
 [node name="Camera" parent="." instance=ExtResource( 11 )]
 position = Vector2( -32, -200 )
+current = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0, 16 )

@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=2]
+[gd_scene load_steps=38 format=2]
 
 [ext_resource path="res://Weapons_And_Animation/components/scenes/Health_Bar.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/fonts/STIXGeneralBolIta.ttf" type="DynamicFontData" id=2]
@@ -17,6 +17,7 @@
 [ext_resource path="res://Weapons_And_Animation/components/scenes/Notification.tscn" type="PackedScene" id=15]
 [ext_resource path="res://Weapons_And_Animation/components/scenes/Item_Remover.tscn" type="PackedScene" id=16]
 [ext_resource path="res://assets/images/Icons/Item_Icon.png" type="Texture" id=17]
+[ext_resource path="res://Weapons_And_Animation/components/scenes/Instantaneous_Buyer.tscn" type="PackedScene" id=18]
 
 [sub_resource type="DynamicFont" id=6]
 outline_color = Color( 0.0352941, 0.843137, 1, 1 )
@@ -346,3 +347,6 @@ margin_bottom = 23.0
 focus_mode = 0
 custom_styles/normal = SubResource( 21 )
 enabled_focus_mode = 0
+
+[node name="Instantaneous_Buyer" parent="." instance=ExtResource( 18 )]
+position = Vector2( 121, 37 )

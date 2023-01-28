@@ -1,5 +1,5 @@
 Health_Stopper
-75
+18
 1000
 100
 3
@@ -13,17 +13,12 @@ true
 3
 true
 Hey their its is spell which makes the health to stop a at a particular point my boy hahaha
-|Health_Stopper:Don't use it:False||Move_Stopper:Don't use it:False|
-True
+|Drone_1:Don't use it could be mis......:False|
+False
 Don't us their
 
-
-
-
-
-
 Max_Powerer
-51
+100
 1000
 10
 3
@@ -58,4 +53,80 @@ true
 Hey their its is spell which makes the health to stop a at a particular point my boy hahaha
 -
 false
+Don't use it
+
+Health_Incrementor
+31
+1000
+60
+3
+1
+1
+6000
+1000
+true
+1000
+3
+3
+true
+Hey their its is spell which makes the health to stop a at a particular point my boy hahaha
+-
+false
+Don't use it
+
+Tornado
+40
+1000
+20
+3
+0
+1
+6000
+1000
+true
+1000
+3
+3
+true
+Hey their its is spell which makes the health to stop a at a particular point my boy hahaha
+-
+False
+Don't use it
+
+Resist_Remover
+40
+1000
+20
+3
+0
+1
+6000
+1000
+true
+1000
+3
+3
+true
+Hey their its is spell which makes the health to stop a at a particular point my boy hahaha
+-
+False
+Don't use it
+
+Speed_Incrementor
+32
+1000
+20
+3
+0
+1
+6000
+1000
+true
+1000
+3
+3
+true
+Hey their its is spell which makes the health to stop a at a particular point my boy hahaha
+-
+False
 Don't use it

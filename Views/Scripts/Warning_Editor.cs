@@ -14,7 +14,6 @@ public class Warning_Editor : Basic_View
     Godot.Collections.Dictionary<string, string> selected_item = null;
     ArrayList items = new ArrayList(); // all the items
     ArrayList items_copy = new ArrayList();
-    ArrayList item_data_field_urls = new ArrayList() { "data/data_fields/spell_data_fields.zhd", "data/data_fields/drone_data_fields.zhd" };
 
 
     VBoxContainer items_box;
@@ -38,7 +37,7 @@ public class Warning_Editor : Basic_View
 
     bool can_delete_items = true;
 
-    Item_Searcher item_Searcher;
+    Item_Searcher warning_item_searcher;
 
 
     public override void _Ready()
@@ -51,7 +50,7 @@ public class Warning_Editor : Basic_View
 
         // gettings all the items
 
-        foreach (string data_url in item_data_field_urls)
+        foreach (string data_url in basf.global_Variables.item_data_field_urls)
         {
 
             Data_Manager manager = new Data_Manager(data_url);
@@ -71,11 +70,13 @@ public class Warning_Editor : Basic_View
 
         inputs = this.GetNode<Control>("Inputs");
 
-        item_Searcher = this.GetNode<Item_Searcher>("Item_Searcher");
+        warning_item_searcher = this.GetNode<Item_Searcher>("Warning_Editor_Search_Bar");
     }
 
     public override void _Process(float delta)
     {
+
+        base._Process(delta);
 
         var main_item_node = this.GetNode<Control>("Items");
         main_item_node.Visible = (selected_item == null);
@@ -85,6 +86,10 @@ public class Warning_Editor : Basic_View
 
         var item_search_bar = this.GetNode<TextEdit>("Items/Item_Search_Box");
 
+        if(Input.IsActionJustPressed("F"))
+        {
+            warning_item_searcher.pop();
+        }
         if (main_item_node.Visible)
         {
             // items_box.set_data(items_box.GetChildCount(),items);
@@ -134,6 +139,8 @@ public class Warning_Editor : Basic_View
             var no_item_label = warning_edit_panel.GetNode<Label>("No_Item");
             no_item_label.Visible = (render_warning_item_list.Count <= 0);
             var add_button = warning_edit_panel.GetNode<Button>("Add_Button");
+            warning_item_searcher.add_guitickle_button(add_button);
+
 
 
 
@@ -141,22 +148,20 @@ public class Warning_Editor : Basic_View
             var u_message_bx_to = warning_edit_panel.GetNode<CheckButton>("Universal_Message_GIven_Toggle");
 
             universal_message_box.Visible = u_message_bx_to.Pressed;
-
-
-
-
+            
             /*
             adding the new item in the warning_list given by the user
             */
-            if (add_button.Pressed && !item_Searcher.Visible)
+            if (add_button.Pressed && !warning_item_searcher.Visible)
             {
-                item_Searcher.load_data(new_item_warning_adding_list);
-                item_Searcher.pop();
+                warning_item_searcher.load_data(new_item_warning_adding_list);
+                warning_item_searcher.pop();
+                GD.Print("hey there right from the warning_editor trying to pop te noti");
             }
-            else if (item_Searcher.is_item_selected)
+            else if (warning_item_searcher.is_item_selected)
             {
-                render_warning_item_list.Add(new Dictionary<string, string>() { { "name", item_Searcher.selected_item }, { "message", "Don't use it" }, { "is_completely_restricted", "false" } });
-                item_Searcher.reset();
+                render_warning_item_list.Add(new Dictionary<string, string>() { { "name", warning_item_searcher.selected_item }, { "message", "Don't use it" }, { "is_completely_restricted", "false" } });
+                warning_item_searcher.reset();
                 is_item_warning_data_loaded = false;
             }
 

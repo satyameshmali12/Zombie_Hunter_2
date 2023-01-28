@@ -36,6 +36,9 @@ public class Basic_Spell : Item_Using_Menu_Component,Global_Variables_F_A_T
         screen_time = int.Parse(dm.get_data("Screen_Timing"));
 
 
+        GD.Print(screen_time, "basic_spell");
+
+
 
         removal_timer = basf.create_timer(screen_time, "Remove_Spell");
         removal_timer.Start();
@@ -48,7 +51,7 @@ public class Basic_Spell : Item_Using_Menu_Component,Global_Variables_F_A_T
     public override void _Process(float delta)
     {
         base._Process(delta);
-        if (!this.IsQueuedForDeletion())
+        if (!this.IsQueuedForDeletion() && !parent.IsQueuedForDeletion())
         {
             effect();
         }
@@ -94,15 +97,26 @@ public class Basic_Spell : Item_Using_Menu_Component,Global_Variables_F_A_T
         shop_data.set_value("Screen_Timing",new_screen_time.ToString());
     }
 
-    public Thing1 testing<Thing1>(Thing1 button)
-    {
-        return button;
-    }
+    // public Thing1 testing<Thing1>(Thing1 button)
+    // {
+    //     return button;
+    // }
 
     public override void Clear()
     {
         base.Clear();
         Remove_Spell();
+    }
+
+    public override void Removal()
+    {
+        base.Removal();
+    }
+
+    public override void Parent_Leaved_Scene_Tree()
+    {
+        base.Parent_Leaved_Scene_Tree();
+        this.QueueFree();
     }
 
 }
