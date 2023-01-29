@@ -8,6 +8,11 @@ public class Resist_Remover : Basic_Spell
     ArrayList resisted_characters = new ArrayList();
     Timer preview_remover;
     ArrayList can_over_resist;
+
+    public Resist_Remover()
+    {
+        is_to_add_to_character = false;
+    }
     
 
     public override void _Ready()

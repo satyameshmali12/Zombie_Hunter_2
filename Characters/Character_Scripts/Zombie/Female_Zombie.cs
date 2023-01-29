@@ -9,10 +9,10 @@ public class Female_Zombie : Basic_Zombie
 
 	public override void _Ready()
 	{
+		character_name = "Female_Zombie";
+		settle_fields(200,4000);
 		base._Ready();
 
-		character_name = "Female_Zombie";
-		speed_x += 200;
 
 
 		available_moves = new ArrayList() { "attack", "death", "idle", "walk" };

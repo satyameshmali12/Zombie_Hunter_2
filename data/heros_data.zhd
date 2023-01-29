@@ -1,5 +1,7 @@
 Adventure_Girl
 90
+-10
+10
 3
 3
 5
@@ -15,6 +17,8 @@ Adventure_Girl The First Unlocked Character Of The Game \n This character can ha
 
 Ninja
 90
+-10
+10
 3
 3
 5
@@ -30,6 +34,8 @@ Adventure_Girl Significant Character_Of_The_Game \n \n hehee 11
 
 Knight
 90
+-10
+10
 3
 3
 5
@@ -45,6 +51,8 @@ Adventure_Girl  Significant Character_Of_The_Game
 
 Robot
 180
+-10
+10
 3
 3
 5
@@ -61,6 +69,8 @@ Adventure_Girl  Significant Character_Of_The_Game
 
 Jack
 90
+-10
+10
 3
 3
 5
@@ -75,15 +85,17 @@ true
 Adventure_Girl  Significant Character_Of_The_Game
 
 Ninja_Monk
+14
+-10
 4
 3
 3
 5
-17000
+19000
 1000
 100000
 true
-12
+14
 1
 Blade
 true
@@ -91,6 +103,8 @@ Ninja Monk Line Is the one of the most Significant and powerfull character of th
 
 Kunoichi
 4
+-10
+10
 3
 3
 5

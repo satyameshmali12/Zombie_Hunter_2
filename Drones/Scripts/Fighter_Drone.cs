@@ -50,7 +50,7 @@ public class Fighter_Drone : Basic_Drone
         }
     }
 
-    public override void spawn_item(Vector2 spawn_position, Vector2 target_position, Basic_Character parent,Basic_Func basf)
+    public override void spawn_item(Vector2 spawn_position, Vector2 target_position, Basic_Character parent)
     {
         var level_scene = basf.global_Variables.level_scene;
         var points = level_scene.GetNode<Node2D>("Points");
@@ -58,7 +58,7 @@ public class Fighter_Drone : Basic_Drone
         spawn_position = points.GetNode<Position2D>("Start_Point").GlobalPosition;
         target_position = points.GetNode<Position2D>("End_Point").GlobalPosition;
 
-        base.spawn_item(spawn_position, target_position, parent,basf);
+        base.spawn_item(spawn_position, target_position, parent);
 
     }
 

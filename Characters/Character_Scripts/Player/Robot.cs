@@ -30,12 +30,12 @@ public class Robot : Basic_Player
 
     public override void _Ready()
     {
+        this.character_name = "Robot";
+        settle_fields(700, 9000, basic_attack_name: "Melee");
 
         // calling the base class
         base._Ready();
 
-
-        custom_constructor(700, 9000, basic_attack_name: "Melee");
 
 
         is_busy = false;
@@ -43,38 +43,25 @@ public class Robot : Basic_Player
         available_moves_consumption = new int[11] { 0, 0, 0, 10, 15, 10, 0, 10, 8, 0, 10 };
         available_moves_damage = new int[11] { 0, 0, 5, 40, 100, 20, 1, 120, 0, 1, 200 };
         settle_damage_increment_possible_moves(4);
-        // damage_increment_possible_moves = new ArrayList(){"melee"};
 
-
-
-        // bullet_scene = ResourceLoader.Load<PackedScene>("res://Weapons_And_Animation/scenes/Bullet.tscn");
-        // b_rightchange = 100;
-        // b_leftchange = -100;
-        // b_height_change = 0;
-        // can_shoot = true;
         this.load_basic_weapon("Bullet", 0, -10, 100);
 
         bullet_timer = GetNode<Timer>("Bullet_Timer");
 
         laser_bean = GetNode<Laser_Bean>("Laser_Bean");
-        // emitter_setter_timer = create_timer(2,"")
-
-
 
     }
 
 
     public override void _Process(float delta)
     {
-        base._Process(delta);
 
 
         if (!laser_bean.is_animation_performing)
         {
 
+            base._Process(delta);
             basic_animation_changing_condition = !is_busy;
-
-            custom_process(delta);
 
             if (Input.IsActionPressed("F") && !is_on_ground)
             {

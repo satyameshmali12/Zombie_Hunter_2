@@ -83,12 +83,14 @@ public class Global_Variables : Node2D
     public ArrayList item_in_progression = new ArrayList();
 
     public Item_Remover item_removing_screen = null;
+    public Notification notification = null;
     
     // public Notification notification = null;
 
     /// <summary>This will be given right from the game_gui and will be used in the item using menu</summary>
 
     public ArrayList item_data_field_urls = new ArrayList() { "data/data_fields/spell_data_fields.zhd", "data/data_fields/drone_data_fields.zhd" };
+
 
 
 

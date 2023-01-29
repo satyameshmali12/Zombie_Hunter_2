@@ -271,6 +271,7 @@ public class Basic_Func : Node
         global_Variables.guiticke_buttons.Clear();
         nullify_item_in_hand();
         global_Variables.item_Using_Menu = null;
+        global_Variables.notification = null;
     }
 
     public Vector2 abs_a_vector(Vector2 point)

@@ -7,11 +7,12 @@ public class Male_Zombie_2 : Basic_Zombie
 
     public override void _Ready()
     {
+        character_name = "Male_Zombie_2";
+        settle_fields(200,8000);
+
         base._Ready();
 
-
-        character_name = "Male_Zombie_2";
-        speed_x += 200;
+        // speed_x += 200;
 
         power_increment = 10;
 
@@ -20,7 +21,7 @@ public class Male_Zombie_2 : Basic_Zombie
         available_moves_damage = new int[10] { 3, 3, 4, 4, 0, 0, 0, 0, 0, 0 };
 
 
-        jump_intensity = 8000;
+        // jump_intensity = 8000;
 
         attack_move_names = new ArrayList() { "attack", "attack_2", "attack_3", "bite" };
 

@@ -40,20 +40,23 @@ public class Basic_Zombie : Basic_Character
 
 
 
-
     public override void _Ready()
     {
-        base._Ready();
+        this.data_field_url = basf.global_paths.Zombie_Data_Field_Url;
+        
+        base._Ready();        
 
         _node_type = _Type_of_.Zombie;
 
         kill_score_increment = 10;
         colliding_condition = "player";
 
+        can_be_resistance_breaken = true;
+
 
         basf.dm.load_data(basf.global_Variables.current_level_name);
         // GD.Print("the Zombie_Speed_Increment is :- ", basf.dm.get_data("Zombie_Speed_Increment"));
-        speed_x = Convert.ToInt32(basf.dm.get_data("Zombie_Speed_Increment"));
+        speed_x += Convert.ToInt32(basf.dm.get_data("Zombie_Speed_Increment"));
 
         distancing_error = 0;
 

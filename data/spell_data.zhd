@@ -1,5 +1,5 @@
 Health_Stopper
-18
+32
 1000
 100
 3
@@ -18,7 +18,7 @@ False
 Don't us their
 
 Max_Powerer
-100
+96
 1000
 10
 3
@@ -56,7 +56,7 @@ false
 Don't use it
 
 Health_Incrementor
-31
+12
 1000
 60
 3
@@ -75,7 +75,7 @@ false
 Don't use it
 
 Tornado
-40
+7
 1000
 20
 3
@@ -94,7 +94,7 @@ False
 Don't use it
 
 Resist_Remover
-40
+37
 1000
 20
 3
@@ -113,7 +113,7 @@ False
 Don't use it
 
 Speed_Incrementor
-32
+5
 1000
 20
 3

@@ -8,7 +8,7 @@ public class Health_Incrementor : Basic_Spell
     public Health_Incrementor()
     {
         add_instant_setting();
-        is_to_add_to_character = true;
+        // is_to_add_to_character = true;
     }
 
     public override void _Ready()

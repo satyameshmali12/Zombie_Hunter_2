@@ -2,6 +2,8 @@ data//heros_data.zhd
 
 Character_Name
 Damage_Increment
+Health_Deduction_Stopper_Range
+Health_Deduction_Stopper_Power
 Current_Level
 Max_Level
 Per_Level_Damage_Increment

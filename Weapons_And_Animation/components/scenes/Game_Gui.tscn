@@ -349,4 +349,5 @@ custom_styles/normal = SubResource( 21 )
 enabled_focus_mode = 0
 
 [node name="Instantaneous_Buyer" parent="." instance=ExtResource( 18 )]
+visible = false
 position = Vector2( 121, 37 )

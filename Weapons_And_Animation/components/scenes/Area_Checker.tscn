@@ -1,0 +1,48 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Weapons_And_Animation/components/Scripts/Area_Checker.cs" type="Script" id=1]
+
+[node name="Area_Checker" type="Node2D"]
+position = Vector2( 538, 339 )
+script = ExtResource( 1 )
+
+[node name="Rays" type="Node2D" parent="."]
+
+[node name="RayCast2D" type="RayCast2D" parent="Rays"]
+enabled = true
+collide_with_areas = true
+
+[node name="RayCast2D2" type="RayCast2D" parent="Rays"]
+enabled = true
+cast_to = Vector2( 36, -34 )
+collide_with_areas = true
+
+[node name="RayCast2D3" type="RayCast2D" parent="Rays"]
+enabled = true
+cast_to = Vector2( -3, -50 )
+collide_with_areas = true
+
+[node name="RayCast2D4" type="RayCast2D" parent="Rays"]
+enabled = true
+cast_to = Vector2( -48, -12 )
+collide_with_areas = true
+
+[node name="RayCast2D5" type="RayCast2D" parent="Rays"]
+enabled = true
+cast_to = Vector2( -40, 32 )
+collide_with_areas = true
+
+[node name="RayCast2D6" type="RayCast2D" parent="Rays"]
+enabled = true
+cast_to = Vector2( 58, 13 )
+collide_with_areas = true
+
+[node name="RayCast2D7" type="RayCast2D" parent="Rays"]
+enabled = true
+cast_to = Vector2( -28, -39 )
+collide_with_areas = true
+
+[node name="RayCast2D8" type="RayCast2D" parent="Rays"]
+enabled = true
+cast_to = Vector2( 32, 35 )
+collide_with_areas = true

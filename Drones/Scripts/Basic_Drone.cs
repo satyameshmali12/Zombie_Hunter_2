@@ -359,20 +359,6 @@ public class Basic_Drone : Item_Using_Menu_Component, Character
         menu.Visible = false;
     }
 
-    public override void spawn_item(Vector2 spawn_position, Vector2 target_position, Basic_Character parent, Basic_Func basf)
-    {
-        base.spawn_item(spawn_position, target_position, parent, basf);
-
-        // this.Position = spawn_position;
-        // this.target_position = target_position;
-        // this.parent = parent;
-    }
-    public override void add_to_scene(Basic_Func basf)
-    {
-        base.add_to_scene(basf);
-        basf.global_Variables.level_scene.AddChild(this);
-    }
-
     public override void Clear()
     {
         base.Clear();

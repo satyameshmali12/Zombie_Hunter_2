@@ -34,7 +34,8 @@ public class Pause_Menu : Node2D
         else if(quit_button.Pressed){
             this.Visible = false;
             basf.pause_tree(this,false);
-            this.GetParent<Game_Gui>().GetParent<Basic_Player>().change_health(-100);
+            // this.GetParent<Game_Gui>().GetParent<Basic_Player>().change_health(-100);
+            this.GetParent<Game_Gui>().GetParent<Basic_Player>().kill_player();
         }
     }
 }

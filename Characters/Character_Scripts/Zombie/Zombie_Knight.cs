@@ -20,12 +20,11 @@ public class Zombie_Knight : Powerful_Zombie
 
 	public override void _Ready()
 	{
-		base._Ready();
-		
-		
-		
 		character_name = "Male_Zombie";
-		speed_x += 400;
+		settle_fields(400,8000);
+
+		base._Ready();
+
 		
 		available_moves = new ArrayList() { "attack","attack_2","attack_3","death","defend","hurt","idle","jump","protect","run","run_attack","walk"};
 		available_moves_consumption = new int[12]{2,5,8,0,3,0,0,0,3,0,5,0};
@@ -33,7 +32,6 @@ public class Zombie_Knight : Powerful_Zombie
 
 		attack_move_names = new ArrayList() { "attack","attack_2","attack_3","run_attack"};
 
-		jump_intensity = 8000;
 
 		protect_timer = basf.create_timer(protection_time,"Over_Protection");
 

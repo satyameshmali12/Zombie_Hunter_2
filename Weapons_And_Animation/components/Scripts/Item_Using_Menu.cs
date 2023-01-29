@@ -508,7 +508,6 @@ public class Item_Using_Menu : Node2D
         new_item.name = basf.global_Variables.item_using_menu_comp.name;
         new_item.parent = basf.global_Variables.character_scene as Basic_Character;
 
-        new_item.add_to_scene(basf);
         // at the time of map drop setting the position as per the map drop
 
         if (is_to_perfrom_map_drop)
@@ -516,18 +515,8 @@ public class Item_Using_Menu : Node2D
             adding_position = basf.abs_a_vector(map_drop_adding_position) - basf.abs_a_vector(main_map.start_point);
         }
 
-        new_item.spawn_item(adding_position, adding_position, basf.global_Variables.character_scene as Basic_Character, basf);
-        var item_dm = basf.global_Variables.item_using_menu_comp.dm;
+        new_item.add_to_scene(basf,adding_position,adding_position);
 
-        /*
-            resetling the data 
-        */
-
-        var new_available_no = (Convert.ToInt32(item_dm.get_data("Available_Count")) - 1);
-        item_dm.set_value("Available_Count", new_available_no.ToString());
-        item_dm.save_data();
-        item_dm.load_previous_data_again();
-        re_render_view_data();
 
         if (is_to_add_instantaneouly || is_to_perfrom_map_drop)
         {
@@ -539,14 +528,13 @@ public class Item_Using_Menu : Node2D
         item_can_be_drop = false;
     }
 
+
     /// <summary>To get the restricition level of the item on the shop
     /// <para>Three levels -1,0,1</para>
     /// <para> -1 :- no restriction</para>
     /// <para> 0 :- Show warning </para>
     /// <para> 1 :- completely restricted </para> 
     ///</summary>
-
-
     public int get_restriction_level(Item_Using_Menu_Component component)
     {
         int restriction = -1;

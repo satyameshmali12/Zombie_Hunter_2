@@ -8,6 +8,7 @@ public class Jack : Basic_Player
 
 	public override void _Ready()
 	{
+		this.character_name = "Jack";
 		base._Ready();
 
 
@@ -21,8 +22,7 @@ public class Jack : Basic_Player
 
 	public override void _Process(float delta)
 	{
-
-		custom_process(delta);
+		base._Process(delta);
 
 		move();
 

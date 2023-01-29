@@ -6,12 +6,13 @@ public class Wild_Zombie : Basic_Zombie
 {
     public override void _Ready()
     {
+        character_name = "Wild_Zombie";
+        settle_fields(200,6500);
 
         base._Ready();
 
-        character_name = "Wild_Zombie";
 
-        speed_x = 200;
+        // speed_x = 200;
 
         available_moves = new ArrayList() { "attack", "attack_2", "attack_3", "death", "eating", "hurt", "idle", "jump", "run", "walk" };
         available_moves_consumption = new int[10] { 2, 2, 2, 0, 2, 0, 0, 0, 0, 0 };
@@ -20,7 +21,7 @@ public class Wild_Zombie : Basic_Zombie
         attack_move_names = new ArrayList() { "attack", "attack_2", "attack_3", "eating" };
 
 
-        jump_intensity = 6500;
+        // jump_intensity = 6500;
 
     }
 

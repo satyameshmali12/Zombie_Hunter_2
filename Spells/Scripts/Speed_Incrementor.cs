@@ -15,7 +15,8 @@ public class Speed_Incrementor : Basic_Spell
     public Speed_Incrementor()
     {
         add_instant_setting();
-        is_to_add_to_character = true;
+        // is_to_add_to_character = true;
+        // is_add_to_level = true;
     }
 
 

@@ -67,6 +67,14 @@ public class Basic_Bomb : Node2D, Global_Variables_F_A_T
                 Global_Variables_F_A_T type = (Global_Variables_F_A_T)item.GetCollider();
                 if (can_damage_to.Contains(type._node_type))
                 {
+                    if(type._node_type!=_Type_of_.Drone){
+                        // breaking the resistance of the character if can_be_breaken
+                        Basic_Character basic_Character = type as Basic_Character;
+                        if(basic_Character.can_be_resistance_breaken)
+                        {
+                            basic_Character.is_resisted = false;
+                        }
+                    }
                     Character character = item.GetCollider() as Character;
                     character.change_health(-bomb_per_damage);
                     basf.global_Variables.score += bomb_per_damage;

@@ -60,16 +60,13 @@ public class Game_Gui : Node2D
         basf.add_guitickle_button(pause_button, item_using_button,item_rem_sc_to_but);
 
         instantaneous_Buyer = this.GetNode<Instantaneous_Buyer>("Instantaneous_Buyer");
-
-
-
+        basf.global_Variables.notification = this.GetNode<Notification>("Notification");
 
 
     }
 
     public override void _Process(float delta)
     {
-        
         var score = basf.global_Variables.score;
 
         score_label.Text = $"Sc0re:- {score}";

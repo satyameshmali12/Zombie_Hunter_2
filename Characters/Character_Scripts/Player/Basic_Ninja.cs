@@ -15,29 +15,24 @@ public class Basic_Ninja : Basic_Player
 
 	public override void _Ready()
 	{
-		base._Ready();
+		settle_fields(900, 13000);
 
-		custom_constructor(900, 13000);
+		base._Ready();
 
 		is_busy = false;
 	}
 
 	public override void _Process(float delta)
 	{
-		base._Process(delta);
-
 		basic_animation_changing_condition = !is_busy;
 		
-		custom_process(delta);
+		base._Process(delta);
 
-
+		
 		if (Input.IsActionJustPressed("T"))
 		{
 			perform_move("Attack_2");
 		}
-
-		
-
 
 		set_animation_idle("Attack_2");
 		set_animation_idle("Jump");

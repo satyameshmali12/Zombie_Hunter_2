@@ -20,6 +20,7 @@ public class Instantaneous_Buyer : Node2D
     public override void _Ready()
     {
         basf = new Basic_Func(this);
+        // GD.Print("Hey their right from the hided instantaneous buyer .cs haha..!!");
 
         item_searcher = this.GetNode<Item_Searcher>("Item_Searcher");
 
@@ -59,9 +60,11 @@ public class Instantaneous_Buyer : Node2D
             if (item_searcher.Visible)
             {
                 item_searcher.hide();
+                this.Visible = false;
             }
             else
             {
+                this.Visible = true;
                 item_searcher.pop();
             }
         }

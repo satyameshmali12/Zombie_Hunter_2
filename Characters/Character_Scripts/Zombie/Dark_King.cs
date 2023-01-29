@@ -28,10 +28,12 @@ public class Dark_King : Powerful_Zombie
 
     public override void _Ready()
     {
+        character_name = "Dark_King";
+        settle_fields(200,5000);
+        
         base._Ready();
 
-        character_name = "Dark_King";
-        speed_x += 200;
+        // speed_x += 200;
 
         available_moves = new ArrayList() { "attack", "death", "falling_down", "hurt", "idle", "idle_blinking", "jump_attack", "jump_loop", "jump_start", "kick", "run", "run_attack", "run_throwing", "sliding", "throwing", "walk" };
         // available_moves = new ArrayList(){"attack","walk","death","idle","jump","idle_blinking","falling_down"};
@@ -40,7 +42,7 @@ public class Dark_King : Powerful_Zombie
 
         attack_move_names = new ArrayList() { "attack", "run_attack", "kick", "jump_attack" };
 
-        jump_intensity = 5000;
+        // jump_intensity = 5000;
 
         zombie_spawing_timing = basf.create_timer(20, "Add_Kings_Child_Zombie");
         zombie_spawing_timing.Start();

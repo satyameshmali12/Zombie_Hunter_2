@@ -5,17 +5,15 @@ using System.Collections;
 public class Knight : Basic_Player
 {
 
-	// bool is_busy;
-	
-	// [Export]
-	// public int slide_speed_increment;
-
 
 	public override void _Ready()
 	{
+		this.character_name = "Knight";
+
+		settle_fields(700,11000);
+		
 		base._Ready();
 
-		custom_constructor(700,11000);
 
 		available_moves = new ArrayList(){"attack","death","idle","jump","jump_attack","run","walk"};
 		available_moves_consumption = new int[7]{0,0,0,0,10,0,0};
@@ -29,7 +27,7 @@ public class Knight : Basic_Player
 
 		basic_animation_changing_condition = !is_busy;
 
-		custom_process(delta);
+		// custom_process(delta);
 
 
 		if(Input.IsActionJustPressed("Jump_Attack") && !is_on_ground){

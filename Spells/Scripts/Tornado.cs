@@ -19,6 +19,12 @@ public class Tornado : Basic_Spell
     Timer damage_troop_recovery_timer;
 
 
+    public Tornado()
+    {
+        is_to_add_to_character = false;
+    }
+
+
 
 
     public override void _Ready()

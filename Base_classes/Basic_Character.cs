@@ -25,9 +25,14 @@ public class Basic_Character : RigidBody2D, Character
     // [Export]
     public _Type_of_ _node_type { get; set; }
 
+    public string character_name = null;
+    public string data_field_url = null;
+
     public int health { get; set; } // the health of a basic player
 
-    public string character_name = null; // the name of the character as per the node name of the following player
+    int health_deduction_stopper_range = 0;
+    int health_deduction_stopper_power = 0;
+
 
 
 
@@ -40,7 +45,7 @@ public class Basic_Character : RigidBody2D, Character
     public int speed_x = 200;  // this will toggle the moving speed
 
     int speed_x_copy = 0;
-    bool is_speed_x_settled = false;
+    bool is_essense_values_configured = false;
 
     public Direction moving_direction;// this will give the direction of the player in which the player is confronting
 
@@ -93,7 +98,7 @@ public class Basic_Character : RigidBody2D, Character
     public int power_increment_wait_time = 5;
     [Export]
     public int power_increment = 4;
-    
+
 
 
 
@@ -139,6 +144,7 @@ public class Basic_Character : RigidBody2D, Character
 
     /// <summary>If is resisted then the health of the character doesn't changes</summary>
     public bool is_resisted = false;
+    public bool can_be_resistance_breaken = false;
     public bool is_to_change_power = true;
     public bool can_move = true;
     public bool is_able_to_perform_moves = true;
@@ -162,23 +168,33 @@ public class Basic_Character : RigidBody2D, Character
 
 
     public ArrayList can_collide_with { get; set; }
+    Data_Manager character_data;
 
 
 
 
+    public virtual void settle_fields(int speed_x, int jump_intensity, string basic_attack_name = "Attack")
+    {
+        this.speed_x = speed_x;
+        this.jump_intensity = jump_intensity;
+        basf = new Basic_Func(this);
+    }
 
     public override void _Ready()
     {
 
-        // global_Variables = GetNode<Global_Variables>("./root/Global_Varaibles");
-
-        // GD.Print("hey there I am right from the basic_character not the basic player..");
         _node_type = _Type_of_.Nothing;
 
         basf = new Basic_Func(this);
 
         can_collide_with = new ArrayList();
 
+
+        character_data = new Data_Manager(this.data_field_url);
+        character_data.load_data(this.character_name);
+
+        health_deduction_stopper_range = int.Parse(character_data.get_data("Health_Deduction_Stopper_Range"));
+        health_deduction_stopper_power = int.Parse(character_data.get_data("Health_Deduction_Stopper_Power"));
 
         power_available = 100;
         health = 100;
@@ -248,6 +264,7 @@ public class Basic_Character : RigidBody2D, Character
         is_death_sound_played = false;
 
 
+
         // sound_available_move_names = new ArrayList();
         // available_sound_urls = new ArrayList();
         // GD.Print("Initailizing first..!!");
@@ -261,14 +278,14 @@ public class Basic_Character : RigidBody2D, Character
 
     public override void _Process(float delta)
     {
-        
+
         /* 
         speed_x_copy is settled since may the child classes may have configured the the speed_x while adding the node in the scene tree
         */
-        if(!is_speed_x_settled)
+        if (!is_essense_values_configured)
         {
             speed_x_copy = speed_x;
-            is_speed_x_settled = true;
+            is_essense_values_configured = true;
         }
 
 
@@ -296,7 +313,7 @@ public class Basic_Character : RigidBody2D, Character
         // adding the advanced gravity to the player 
         // it will make the user to fall more faster
 
-        if(is_to_fall_in_gravity_influence)
+        if (is_to_fall_in_gravity_influence)
         {
             moving_speed.y += advanced_gravity;
         }
@@ -359,7 +376,7 @@ public class Basic_Character : RigidBody2D, Character
         // both the condition will loop out loop throught each other
         if (health != past_health && !blood_effect.Emitting)
         {
-            if(health<past_health)
+            if (health < past_health)
             {
                 blood_effect.Emitting = true;
                 is_to_settle_past_health = true;
@@ -551,6 +568,7 @@ public class Basic_Character : RigidBody2D, Character
         }
         catch (System.Exception)
         {
+
             GD.Print(this.Name);
             throw;
         }
@@ -581,6 +599,11 @@ public class Basic_Character : RigidBody2D, Character
     {
         if (!is_resisted)
         {
+            if (change < health_deduction_stopper_range)
+            {
+                int new_change = change + health_deduction_stopper_power;
+                change = (new_change < 0) ? change : 0;
+            }
             health += change;
             return true;
         }
@@ -617,6 +640,14 @@ public class Basic_Character : RigidBody2D, Character
     {
         speed_x = speed_x_copy;
     }
+
+    // public void settle_deduction(Data_Manager data_Manager)
+    // {
+
+    //     health_deduction_stopper_range = int.Parse(data_Manager.get_data("Health_Deduction_Stopper_Range"));
+    //     health_deduction_stopper_power = int.Parse(data_Manager.get_data("Health_Deduction_Stopper_Power"));
+
+    // }
 
 
 

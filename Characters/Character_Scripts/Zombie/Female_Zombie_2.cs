@@ -7,10 +7,9 @@ public class Female_Zombie_2 : Basic_Zombie
 
     public override void _Ready()
     {
-        base._Ready();
-
         character_name = "Female_Zombie";
-        speed_x += 200;
+        settle_fields(200,4600);
+        base._Ready();
 
         available_moves = new ArrayList() { "attack", "attack_2", "attack_3", "death", "hurt", "idle", "jump", "walk", "run", "scream", "walk" };
         available_moves_consumption = new int[11] { 4, 4, 4, 0, 0, 0, 0, 0, 0, 10, 0 };
@@ -18,7 +17,6 @@ public class Female_Zombie_2 : Basic_Zombie
 
         attack_move_names = new ArrayList() { "attack", "attack_2", "attack_3", "scream" };
 
-        jump_intensity = 4600;
 
     }
 

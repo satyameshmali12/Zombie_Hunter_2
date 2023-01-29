@@ -16,7 +16,10 @@ public class Ninja_Monk : Basic_Ninja
 
     public override void _Ready()
     {
+        this.character_name = "Ninja_Monk";
+
         base._Ready();
+        
         this.load_basic_weapon("Blade", 0, -100, 100);
         available_moves = new ArrayList() { "attack", "attack_2", "cast", "shoot", "death", "hurt", "idle", "jump", "run", "walk" };
         /* 

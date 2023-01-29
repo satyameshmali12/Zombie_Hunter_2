@@ -18,6 +18,7 @@ public class Global_Paths:Node
     public string Weapons_Base_Url = "res://Weapons_And_Animation/scenes/Weapons/";
     public string basic_throwable_weapons_data_fields_Url = "data/data_fields/basic_throwable_weapons_data_fields.zhd";
     public string Heros_Data_Field_Url = "data/data_fields/heros_data_field.zhd";
+    public string Zombie_Data_Field_Url = "data/data_fields/zombie_data_fields.zhd";
     public string User_Data_Field_Url = "data/data_fields/user_data_fields.zhd";
     public string Level_Scenes_Directory_Url = "Levels\\Scenes";
 

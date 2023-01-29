@@ -6,7 +6,10 @@ public class Kunoichi : Basic_Ninja
 {
     public override void _Ready()
     {
+        this.character_name = "Kunoichi";
+        
         base._Ready();
+
 
         this.load_basic_weapon("Blade", 0, -100, 100);
         available_moves = new ArrayList() { "attack", "attack_2", "death", "eat", "hurt", "idle", "jump", "run", "shoot", "walk" };

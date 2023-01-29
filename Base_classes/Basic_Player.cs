@@ -57,15 +57,20 @@ public class Basic_Player : Basic_Character
     int number_of_hits = 0;
     public int max_number_hits = 1;
 
-
-
-
-    public void custom_constructor(int speed, int jump_intensity, int health = 100, string basic_attack_name = "Attack")
+    public override void settle_fields(int speed_x, int jump_intensity, string basic_attack_name = "Attack")
     {
+        base.settle_fields(speed_x, jump_intensity, basic_attack_name);
+        this.basic_attack_name = basic_attack_name;
+    }
+
+    public override void _Ready()
+    {
+        this.data_field_url = basf.global_paths.Heros_Data_Field_Url;
+
+        base._Ready();
+
 
         _node_type = _Type_of_.Player;
-
-        this.basic_attack_name = basic_attack_name;
 
         var game_gui = GetNode<Node2D>("Game_Gui");
 
@@ -84,8 +89,6 @@ public class Basic_Player : Basic_Character
         animations.Animation = "Idle"; // setting the initial animation to idle
         animations.Playing = true; // running the animation
 
-        this.speed_x = speed;
-        this.jump_intensity = jump_intensity;
 
         is_on_ground = true;
 
@@ -116,19 +119,20 @@ public class Basic_Player : Basic_Character
         dm.load_data(this.Name);
         damage_increment = Convert.ToInt32(dm.get_data("Damage_Increment"));
         max_number_hits = Convert.ToInt32(dm.get_data("Max_No_Of_Hits"));
-        GD.Print("max number of hits from the basic player ..:: ", max_number_hits);
+        // settle_deduction(dm);
 
 
         damage_increment_possible_moves = new ArrayList();
-        
-        can_collide_with = new ArrayList(){_Type_of_.Zombie,_Type_of_.Drone};
+
+        can_collide_with = new ArrayList() { _Type_of_.Zombie, _Type_of_.Drone };
+
 
 
     }
 
-    // this function will work as the _Process as in the Godot node's
-    public void custom_process(float delta)
+    public override void _Process(float delta)
     {
+        base._Process(delta);
 
         if (Input.IsActionPressed("move_left"))
         {
@@ -242,6 +246,8 @@ public class Basic_Player : Basic_Character
     }
 
 
+
+
     // to get the whether any movement is a basic movement or not
     public bool get_w_is_basic_movement(string move_name)
     {
@@ -280,7 +286,7 @@ public class Basic_Player : Basic_Character
 
         Global_Variables_F_A_T collided_one = collided_obj as Global_Variables_F_A_T;
         // if (collided_one._node_type == _Type_of_.Zombie)
-        if(can_collide_with.Contains(collided_one._node_type))
+        if (can_collide_with.Contains(collided_one._node_type))
         {
             if (number_of_hits < max_number_hits)
             {
@@ -349,9 +355,9 @@ public class Basic_Player : Basic_Character
     }
 
     // use this function only when a player can have a weapon with him
-    public bool load_basic_weapon(string weapon_name,int b_height_change,int b_leftchange,int b_rightchange)
+    public bool load_basic_weapon(string weapon_name, int b_height_change, int b_leftchange, int b_rightchange)
     {
-        
+
         bullet_scene = ResourceLoader.Load<PackedScene>($"{basf.global_paths.Weapons_Base_Url}/{weapon_name}.tscn");
         this.b_rightchange = 100;
         this.b_leftchange = -100;
@@ -360,13 +366,22 @@ public class Basic_Player : Basic_Character
         return true;
     }
 
-    public override void update_logic(Data_Manager shop_data,Data_Manager user_data,Data_Manager throwable_weapons_dm)
+    public override void update_logic(Data_Manager shop_data, Data_Manager user_data, Data_Manager throwable_weapons_dm)
     {
-        base.update_logic(shop_data,user_data,throwable_weapons_dm);
+        base.update_logic(shop_data, user_data, throwable_weapons_dm);
         var max_number_of_hits = Convert.ToInt32(shop_data.get_data("Max_No_Of_Hits"));
         var max_number_of_hits_increment = Convert.ToInt32(shop_data.get_data("Hits_Increment_Per_Update"));
         shop_data.set_value("Max_No_Of_Hits", (max_number_of_hits + max_number_of_hits_increment).ToString());
-        
+
+    }
+
+    /// <summary>
+    ///<para>This is called to kill the player by avoiding the deduction range and deduction power</para>
+    /// <para>In this context we have called this function right from the pause_menu when the user quits the game manually</para>
+    ///</summary>
+    public virtual void kill_player()
+    {
+        this.health = 0;
     }
 
 

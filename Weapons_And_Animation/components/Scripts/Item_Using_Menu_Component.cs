@@ -36,6 +36,8 @@ public class Item_Using_Menu_Component : Area2D
     public bool is_to_display_position = false;
 
     public bool is_parent_leaved_scene_tree = false;
+    public bool is_to_add_to_character = false;
+
 
     public Item_Using_Menu_Component()
     {
@@ -49,8 +51,8 @@ public class Item_Using_Menu_Component : Area2D
         basf.global_Variables.item_in_progression.Add(this);
         this.Connect("tree_exiting", this, "Removal");
 
-        parent.Connect("tree_exiting",this,"Parent_Leaved_Scene_Tree");
-        
+        parent.Connect("tree_exiting", this, "Parent_Leaved_Scene_Tree");
+
     }
 
     public override void _Process(float delta)
@@ -69,18 +71,25 @@ public class Item_Using_Menu_Component : Area2D
 
     // spawn item will be called at the time of adding the item to the spawn
     /// <summary>To give the initial values to the spells</summary>
-    public virtual void spawn_item(Vector2 spawn_position, Vector2 target_position, Basic_Character parent, Basic_Func basf)
+    public virtual void spawn_item(Vector2 spawn_position, Vector2 target_position, Basic_Character parent)
     {
         this.Position = spawn_position;
         this.target_position = target_position;
         this.parent = parent;
     }
+    
     // use_item will be called as the item is selected
     /// <summary>It will be called as the item is selected i.e used</summary>
     public virtual void use_item(Item_Using_Menu menu, Basic_Func basf) { }
 
     /// <summary>To add the items in their respective node</summary>
-    public virtual void add_to_scene(Basic_Func basf) { }
+    public virtual void add_to_scene(Basic_Func basf, Vector2 spawn_position, Vector2 target_position)
+    {
+        Area_Checker area_Checker = basf.get_the_packed_scene("res://Weapons_And_Animation/components/scenes/Area_Checker.tscn").Instance<Area_Checker>();
+        area_Checker.load_fields(spawn_position, target_position, this);
+        area_Checker.GlobalPosition = spawn_position;
+        basf.global_Variables.level_scene.AddChild(area_Checker);
+    }
 
     /// <summary>Use when need to add the item instantly as used</summary>
     public virtual void add_instant_setting()
@@ -119,4 +128,17 @@ public class Item_Using_Menu_Component : Area2D
     /// <summary>When parent of the item leaves the scene then this func is called</summary>
     public virtual void Parent_Leaved_Scene_Tree()
     { }
+
+
+    /// <summary>
+    /// This will run properly only when all the fields target position,adding_position and parent are being initialised
+    ///<para>In this part we have given all this data right from the item_using_menu_componenet</para>
+    ///</summary>
+
+    // public virtual void add_area_checker()
+    // {
+
+    //     // area_Checker.sett
+
+    // }
 }
