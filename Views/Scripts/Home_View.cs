@@ -4,13 +4,10 @@ using System;
 public class Home_View : Basic_View
 {
 	Button but1;
-
 	Button arcade_button;
-	// Basic_Func basf;
 	public override void _Ready()
 	{
 		base._Ready();
-		GD.Print(System.IO.Directory.GetCurrentDirectory());
 
 		but1 = GetNode("Start_Button") as Button;
 		basf = new Basic_Func(this);

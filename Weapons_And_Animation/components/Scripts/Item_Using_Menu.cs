@@ -13,10 +13,7 @@ whereas in the normal drop a map will be toggled just simply select your target 
 map drop has its own pros and cons
 pros:-
     Item can be spawned at desired point
-cons:-
-    While the item is dropped using the map drop the area around is not check due to which if you spawned any item inside a block it will get spawned over there
-    without checking the space around it and for maximum chances it will get destroyed if spawned inside the blocks
-
+    
 Normal_Drop
    :- Requrires the drop mouse right from the left click on the screen
 Instant_Drop
@@ -145,7 +142,6 @@ public class Item_Using_Menu : Node2D
 
         basf.add_guitickle_button(left_button, right_button);
 
-        basf.global_Variables.item_Using_Menu = this;
 
 
         add_view();
@@ -156,6 +152,12 @@ public class Item_Using_Menu : Node2D
 
     public override void _Process(float delta)
     {
+        
+        if (basf.global_Variables.item_Using_Menu != this)
+        {
+            basf.global_Variables.item_Using_Menu = this;
+        }
+
         // item_cancal_button = basf.global_Variables.item_cancel_button;
         var item_in_hand = basf.global_Variables.item_using_menu_comp;
         if (item_in_hand != null && !is_selected_from_use_button && !basf.global_Variables.is_guiticle_button_pressed && can_give_warning_during_game)
@@ -452,7 +454,7 @@ public class Item_Using_Menu : Node2D
 
                     avai_no.Text = available_count.ToString();
 
-                    if(can_give_warning_during_game)
+                    if (can_give_warning_during_game)
                     {
                         use_button.Disabled = available_count <= 0 || restriction_level == 1;
                         using_item.is_to_show_warning = (restriction_level == 0) ? true : false;
@@ -515,7 +517,7 @@ public class Item_Using_Menu : Node2D
             adding_position = basf.abs_a_vector(map_drop_adding_position) - basf.abs_a_vector(main_map.start_point);
         }
 
-        new_item.add_to_scene(basf,adding_position,adding_position);
+        new_item.add_to_scene(basf, adding_position, adding_position);
 
 
         if (is_to_add_instantaneouly || is_to_perfrom_map_drop)
@@ -562,7 +564,7 @@ public class Item_Using_Menu : Node2D
                             or 
                             setting the universal message if given 
                         */
-                        component.warning_message = (is_universal_message_their)?component.dm.get_data("Universal_Warning"):item["message"];
+                        component.warning_message = (is_universal_message_their) ? component.dm.get_data("Universal_Warning") : item["message"];
                     }
                 }
 
@@ -584,7 +586,7 @@ public class Item_Using_Menu : Node2D
         reset_stuffs();
     }
 
-    
+
     /// <summary>To resettle the stuffs such as map while toggling the node(for map)</summary>
     public void reset_stuffs()
     {

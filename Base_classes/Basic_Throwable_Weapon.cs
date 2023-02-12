@@ -176,7 +176,6 @@ public class Basic_Throwable_Weapon : Area2D, Character
     {
         if (is_to_adjust)
         {
-            // this.Position = position + new Vector2((dir==Direction.Right)?-50:-300,-50);
             Vector2 change =  new Vector2((dir == Direction.Right) ? left_change : right_change, height_change);
             this.Position = position + change;
 
@@ -217,7 +216,6 @@ public class Basic_Throwable_Weapon : Area2D, Character
 
     public bool change_health(int change)
     {
-
         return true;
     }
 

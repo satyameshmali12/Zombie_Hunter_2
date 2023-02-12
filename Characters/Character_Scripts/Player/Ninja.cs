@@ -40,9 +40,10 @@ public class Ninja : Basic_Player
 
         is_gliding = false;
 
-        available_moves = new ArrayList() { "attack", "climb", "death", "glide", "idle", "jump", "jump_attack", "run", "slide", "shoot" };
-        available_moves_consumption = new int[10] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 };
-        available_moves_damage = new int[10] { 20, 0, 0, 5, 0, 5, 50, 0, 3, 100 };
+        available_moves = new ArrayList() { "attack", "climb", "damaged", "death", "glide", "hurt", "idle", "jump", "jump_attack", "run", "slide", "shoot", "damaged" };
+        available_moves_consumption = new int[13] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0 };
+        available_moves_damage = new int[13] { 20, 0, 0, 0, 5, 0, 0, 5, 50, 0, 3, 100, 0 };
+        attack_move_names = new ArrayList(){"attack","jump_attack"};
         settle_damage_increment_possible_moves(2);
 
 
@@ -55,9 +56,14 @@ public class Ninja : Basic_Player
 
     public override void _Process(float delta)
     {
-        base._Process(delta);
-
         basic_animation_changing_condition = !is_busy;
+        
+        base._Process(delta);
+    }
+
+    public override void custom_movements()
+    {
+        base.custom_movements();
 
 
         // jump attack move of the ninja
@@ -123,7 +129,6 @@ public class Ninja : Basic_Player
         set_animation_idle("Jump");
         set_animation_idle("Shoot");
 
-        move();
     }
 
     public override void collided_with_body(Node body)

@@ -14,7 +14,6 @@ public class Custom_Audio : AudioStreamPlayer2D
         basf = new Basic_Func(this);
         Autoplay = false;
         if(is_to_play_one_time){
-            // GD.Print("hey there buddy");
             var timer = basf.create_timer(music_duration,"Queue_Free_The_Music");
             timer.Start();
         }
@@ -26,7 +25,6 @@ public class Custom_Audio : AudioStreamPlayer2D
         base._Process(delta);
         
         if(!this.Playing){
-            // GD.Print("hey the music has been removed..!!");
             Queue_Free_The_Music();
         }
     }
@@ -42,7 +40,6 @@ public class Custom_Audio : AudioStreamPlayer2D
         this.music_duration = music_duration;
         this.Autoplay = !is_to_play_one_time; // autoplay is settled to true if not user wanted to run one time
         this.Stream = ResourceLoader.Load<AudioStream>(path_of_audio);
-        // this.Playing = true;
         this.Play();
         this.VolumeDb = volume;
         this.PitchScale = pitch_scale;

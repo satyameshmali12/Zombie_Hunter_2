@@ -7,7 +7,7 @@ public class Wild_Zombie : Basic_Zombie
     public override void _Ready()
     {
         character_name = "Wild_Zombie";
-        settle_fields(200,6500);
+        settle_fields(200,9000);
 
         base._Ready();
 

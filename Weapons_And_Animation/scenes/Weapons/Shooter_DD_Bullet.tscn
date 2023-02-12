@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=2]
 
-[ext_resource path="res://Weapons_And_Animation/components/scripts/Shooter_DD_Bullet.cs" type="Script" id=1]
+[ext_resource path="res://Weapons_And_Animation/scripts/Shooter_DD_Bullet.cs" type="Script" id=1]
 [ext_resource path="res://assets/audio/Bomb's/Gun_Shoot.mp3" type="AudioStream" id=2]
 [ext_resource path="res://assets/audio/Bomb's/Bullet_Collision_Sound.mp3" type="AudioStream" id=3]
 [ext_resource path="res://assets/images/drones/Bomb/star_image-removebg-preview.png" type="Texture" id=4]

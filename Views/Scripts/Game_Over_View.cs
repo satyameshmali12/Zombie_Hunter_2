@@ -8,18 +8,15 @@ public class Game_Over_View : Basic_View
 	TextureButton restart_button, home_button,next_level_button;
 	
 	public bool is_to_stop; // to stop all the processes and to renavigate somewhere else
-
 	public bool is_next_level_available; // storign the value of whether is next level is available or not
-
 	public int new_level_count; // this available only when the next level exits
-
-
 
 	public override void _Ready()
 	{
 		base._Ready();
 
 		basf = new Basic_Func(this);
+		basf.clear_garbage();
 		
 		basf.global_Variables.is_game_quitted = false;
 
@@ -40,19 +37,13 @@ public class Game_Over_View : Basic_View
 		next_level_button.Visible = false; // initially making the level_button invisible
 
 		if(basf.global_Variables.custom_url==null){
-			GD.Print(basf.global_Variables.current_level_name);
 			var level_num = Convert.ToInt32(basf.global_Variables.current_level_name.Remove(0,"Level".Length)); // extracting the level number from the name 
-			GD.Print("right from he gmae-over_view.cs..haha..!!");
-			GD.Print(dm.get_set_of_field_values("Name").Count);
 			if(level_num<dm.get_set_of_field_values("Name").Count){
-				GD.Print(level_num);
 				new_level_count = level_num+1;
-				GD.Print(new_level_count);
 				if(dm.is_level_unlocked($"Level{new_level_count}")){
 					is_next_level_available = true;
 				}
 			}
-			GD.Print(is_next_level_available);
 			if(is_next_level_available){
 				next_level_button.Disabled = false;
 				next_level_button.Visible = true;

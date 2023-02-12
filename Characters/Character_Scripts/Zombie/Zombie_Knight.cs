@@ -52,7 +52,6 @@ public class Zombie_Knight : Powerful_Zombie
 		if(Math.Abs(past_health-health)>10 && protect_timer.IsStopped())
 		{
 			perform_move("Protect");
-			GD.Print("first stage from the zombie_knight .cs haha..!!");
 			this.is_resisted = true;
 			protect_timer.Start();
 		}

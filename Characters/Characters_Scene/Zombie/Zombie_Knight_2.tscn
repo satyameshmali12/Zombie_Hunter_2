@@ -1,4 +1,4 @@
-[gd_scene load_steps=85 format=2]
+[gd_scene load_steps=87 format=2]
 
 [ext_resource path="res://Weapons_And_Animation/components/scenes/Health_Bar.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/images/gui/white_color.png" type="Texture" id=2]
@@ -75,6 +75,14 @@ region = Rect2( 200, 0, 100, 86 )
 [sub_resource type="AtlasTexture" id=21]
 atlas = ExtResource( 11 )
 region = Rect2( 300, 0, 100, 86 )
+
+[sub_resource type="AtlasTexture" id=78]
+atlas = ExtResource( 4 )
+region = Rect2( 0, 0, 80, 86 )
+
+[sub_resource type="AtlasTexture" id=79]
+atlas = ExtResource( 4 )
+region = Rect2( 80, 0, 80, 86 )
 
 [sub_resource type="AtlasTexture" id=22]
 atlas = ExtResource( 4 )
@@ -277,6 +285,11 @@ animations = [ {
 "name": "Attack_3",
 "speed": 5.0
 }, {
+"frames": [ SubResource( 78 ), SubResource( 79 ) ],
+"loop": true,
+"name": "Damaged",
+"speed": 5.0
+}, {
 "frames": [ SubResource( 22 ), SubResource( 23 ), SubResource( 24 ), SubResource( 25 ), SubResource( 26 ), SubResource( 27 ) ],
 "loop": true,
 "name": "Death",
@@ -290,7 +303,7 @@ animations = [ {
 "frames": [ SubResource( 33 ), SubResource( 34 ) ],
 "loop": true,
 "name": "Hurt",
-"speed": 5.0
+"speed": 2.0
 }, {
 "frames": [ SubResource( 35 ), SubResource( 36 ), SubResource( 37 ), SubResource( 38 ) ],
 "loop": true,
@@ -377,7 +390,8 @@ position = Vector2( 7.49991, -4.50009 )
 scale = Vector2( 1.82558, 2.1279 )
 z_index = 1
 frames = SubResource( 68 )
-animation = "Protect"
+animation = "Damaged"
+playing = true
 
 [node name="Rays" type="Node2D" parent="."]
 position = Vector2( -597, -432 )

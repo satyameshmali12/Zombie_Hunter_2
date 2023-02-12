@@ -10,6 +10,7 @@ public interface Global_Variables_F_A_T
     void update_logic(Data_Manager shop_data, Data_Manager user_data, Data_Manager throwable_weapon_dm);
 }
 
+
 // this is the child class of the Global_Varaible_F_A_T
 // this class will be inherited by all the classes which are associated with some action related stuff in the game
 public interface Character : Global_Variables_F_A_T

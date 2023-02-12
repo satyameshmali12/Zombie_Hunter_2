@@ -60,10 +60,20 @@ animations = [ {
 "name": "Attack",
 "speed": 12.0
 }, {
+"frames": [ ExtResource( 42 ), ExtResource( 44 ), ExtResource( 41 ), ExtResource( 30 ), ExtResource( 33 ) ],
+"loop": true,
+"name": "Damaged",
+"speed": 5.0
+}, {
 "frames": [ ExtResource( 42 ), ExtResource( 44 ), ExtResource( 41 ), ExtResource( 30 ), ExtResource( 33 ), ExtResource( 31 ), ExtResource( 32 ), ExtResource( 34 ), ExtResource( 36 ), ExtResource( 35 ), ExtResource( 37 ), ExtResource( 38 ) ],
 "loop": true,
 "name": "Death",
 "speed": 10.0
+}, {
+"frames": [ ExtResource( 39 ), ExtResource( 40 ), ExtResource( 43 ), ExtResource( 45 ), ExtResource( 18 ), ExtResource( 9 ), ExtResource( 10 ), ExtResource( 24 ), ExtResource( 25 ), ExtResource( 11 ), ExtResource( 26 ), ExtResource( 17 ), ExtResource( 27 ), ExtResource( 13 ), ExtResource( 19 ) ],
+"loop": true,
+"name": "Hurt",
+"speed": 5.0
 }, {
 "frames": [ ExtResource( 39 ), ExtResource( 40 ), ExtResource( 43 ), ExtResource( 45 ), ExtResource( 18 ), ExtResource( 9 ), ExtResource( 10 ), ExtResource( 24 ), ExtResource( 25 ), ExtResource( 11 ), ExtResource( 26 ), ExtResource( 17 ), ExtResource( 27 ), ExtResource( 13 ), ExtResource( 19 ) ],
 "loop": true,
@@ -126,9 +136,7 @@ position = Vector2( -2, 4 )
 scale = Vector2( 0.240698, 0.278902 )
 z_index = 1
 frames = SubResource( 2 )
-animation = "Walk"
-frame = 1
-playing = true
+animation = "Damaged"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( -6, 13 )

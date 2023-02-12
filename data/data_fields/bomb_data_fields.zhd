@@ -2,6 +2,10 @@ data//bomb_data.zhd
 
 Bomb_Name
 Available_Count
+X_Throw_Intensity
+Y_Throw_Intensity
+X_Intensity_Increment_Per_Update
+Y_Intensity_Increment_Per_Update
 Damage_Increment
 Current_Level
 Max_Level

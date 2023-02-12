@@ -76,9 +76,9 @@ public class Shop : Basic_View
         basf = new Basic_Func(this);
         var dm = basf.dm;
 
+        // making the rendering list of the items to be displayed on the shop
         for (var i = 0; i < names.Length; i++)
         {
-            GD.Print(i);
             dm = new Data_Manager(specific_data_fields_urls[i]);
             var data = dm.get_set_of_field_values(names[i]);
             var is_to_add = dm.get_set_of_field_values("Is_To_Display_On_Shop");
@@ -104,30 +104,20 @@ public class Shop : Basic_View
 
         var mx_rend_num = changing_button_nav_names.Count - number_of_button_per_view;
         render_num = (menu_selection < mx_rend_num) ? menu_selection : mx_rend_num;
-        // render_num = 1;
-
-        GD.Print("Hello world right from the shop.cs haha..!!:- ", menu_selection, " ", mx_rend_num, " ", render_num);
-
 
         left_button = this.GetNode<TextureButton>("Left_Button");
         right_button = this.GetNode<TextureButton>("Right_Button");
 
         is_current_animation_initialized = false;
 
-
         description_box = this.GetNode<Desc>("Desc");
         description_box.load_description_box();
-
 
         var l_r_menu = this.GetNode<Node2D>("L_R_Menu_Button");
         left_change_button = l_r_menu.GetNode<Button>("Left");
         right_change_button = l_r_menu.GetNode<Button>("Right");
 
-
         add_the_view();
-
-
-
     }
 
     public override void _Process(float delta)
@@ -135,6 +125,7 @@ public class Shop : Basic_View
 
         // getting the option_button on screen and thereby setting the animation available in the node
         var option_button = this.GetNode<OptionButton>("OptionButton");
+
         current_animation.Animation = option_button.GetItemText(option_button.GetSelectedId());
         current_animation.Playing = this.GetNode<CheckButton>("Animation_Playing").Pressed;
 
@@ -142,16 +133,21 @@ public class Shop : Basic_View
         // showing the available money on the screen
         this.GetNode<Label>("Money").Text = $"Money : - {user_data_manager.get_data("Money")}";
 
+
+        left_button.Visible = view_index!=0;
+        var items = urls[menu_selection] as ArrayList;
+        right_button.Visible = view_index+1<items.Count;
+
         // make the character and zombie to be separated for the shop render so that concern been seperated
         // Caution🔺
         base._Process(delta);
-        if (left_button.Pressed || right_button.Pressed)
+        if (left_button.Pressed || right_button.Pressed || Input.IsActionJustPressed("move_left") || Input.IsActionJustPressed("move_right"))
         {
             if (!is_button_pressed)
             {
                 ArrayList arr = (ArrayList)urls[menu_selection];
                 is_button_pressed = true;
-                var increment = (left_button.Pressed) ? -1 : 1;
+                var increment = (left_button.Pressed || Input.IsActionJustPressed("move_left")) ? -1 : 1;
 
                 var new_value = view_index + increment;
                 // GD.Print(new_value);
@@ -226,9 +222,6 @@ public class Shop : Basic_View
         {
             is_r_changing_button_pressed = false;
         }
-
-
-
 
     }
 
@@ -331,6 +324,9 @@ public class Shop : Basic_View
                     option_button.AddItem(item.ToString());
                 }
             }
+
+            option_button.Visible = (current_animation.Frames.GetAnimationNames().Length-1)>1;
+
             if (menu_selection != bomb_view_index)
             {
 

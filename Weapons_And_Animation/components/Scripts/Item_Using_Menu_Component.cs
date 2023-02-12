@@ -130,15 +130,4 @@ public class Item_Using_Menu_Component : Area2D
     { }
 
 
-    /// <summary>
-    /// This will run properly only when all the fields target position,adding_position and parent are being initialised
-    ///<para>In this part we have given all this data right from the item_using_menu_componenet</para>
-    ///</summary>
-
-    // public virtual void add_area_checker()
-    // {
-
-    //     // area_Checker.sett
-
-    // }
 }

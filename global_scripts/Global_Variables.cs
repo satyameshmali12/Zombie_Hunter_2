@@ -91,8 +91,13 @@ public class Global_Variables : Node2D
 
     public ArrayList item_data_field_urls = new ArrayList() { "data/data_fields/spell_data_fields.zhd", "data/data_fields/drone_data_fields.zhd" };
 
+    public Position2D falling_range = null;
+
+    public Level_Type current_level_type = Level_Type.Normal_Level;
+    public Node2D herosArea = null;  // area were the player(Basic Controlable Player) wiil be added
 
 
+    public ArrayList multi_ai_character_details = new ArrayList();
 
     public override void _Ready()
     {
@@ -111,8 +116,6 @@ public class Global_Variables : Node2D
 
         click_sound = navigation_sound_url;
 
-        // shop_data_manager = new Data_Manager();
-
     }
 
 
@@ -124,23 +127,31 @@ public class Global_Variables : Node2D
         // this sound will not be played during the navigation
         if (Input.IsActionJustPressed("Mouse_Pressed") && is_to_play_sound_on_click)
         {
-            basf.create_a_sound(click_sound, current_scene, true);
+            Node sound_adding_scene = (!is_game_quitted && character_scene!=null)?character_scene:current_scene;
+            basf.create_a_sound(click_sound, sound_adding_scene, true);
         }
 
         // checking whether a guitickle is pressed or not
         if(!is_game_quitted)
         {
-            if(!is_guiticle_button_pressed){
-                var is_mouse_pressed_on_remover_button = false;
-                if(item_removing_screen!=null){
-                    var rect = item_removing_screen.GetNode<ReferenceRect>("Rect");
-                    is_mouse_pressed_on_remover_button = item_removing_screen.Visible && basf.is_in_box(this.GetGlobalMousePosition(),rect.RectGlobalPosition,rect.RectSize);
-                }
-                is_guiticle_button_pressed = basf.is_any_guitickle_button_pressed() || is_mouse_pressed_on_remover_button;
-            }
-            else if(!Input.IsActionPressed("Mouse_Left_Pressed"))
+            try
             {
-                is_guiticle_button_pressed = false;
+                if(!is_guiticle_button_pressed){
+                    var is_mouse_pressed_on_remover_button = false;
+                    if(item_removing_screen!=null){
+                        var rect = item_removing_screen.GetNode<ReferenceRect>("Rect");
+                        is_mouse_pressed_on_remover_button = item_removing_screen.Visible && basf.is_in_box(this.GetGlobalMousePosition(),rect.RectGlobalPosition,rect.RectSize);
+                    }
+                    is_guiticle_button_pressed = basf.is_any_guitickle_button_pressed() || is_mouse_pressed_on_remover_button;
+                }
+                else if(!Input.IsActionPressed("Mouse_Left_Pressed"))
+                {
+                    is_guiticle_button_pressed = false;
+                }
+            }
+            catch (System.Exception)
+            {
+                basf.moveToErrorPage();
             }
 
         }

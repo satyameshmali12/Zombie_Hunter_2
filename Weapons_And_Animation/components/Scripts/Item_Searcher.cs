@@ -148,8 +148,8 @@ public class Item_Searcher : Control
                 {
                     if (is_instantaneous_click && selected_item == render_items[index + item_start_index].ToString() && last_pressed_button == null)
                     {
-                        if(is_double_pressed_vis_toggled){
-                            GD.Print("hey there right from the item_seracher.cs haha.!!");
+                        if (is_double_pressed_vis_toggled)
+                        {
                             this.Visible = false;
                         }
                         is_item_selected = true;
@@ -193,7 +193,7 @@ public class Item_Searcher : Control
 
                 if (mx > rect_pos.x && my > rect_pos.y && mx < rect_pos.x + rect.RectSize.x && my < rect_pos.y + rect.RectSize.y)
                 {
-                    if(is_double_pressed_vis_toggled)
+                    if (is_double_pressed_vis_toggled)
                     {
                         if (!is_re_distance_settled)
                         {
@@ -208,16 +208,17 @@ public class Item_Searcher : Control
                         }
                     }
                 }
-                else{
-                    bool is_any_gui_button_pressed =false;
+                else
+                {
+                    bool is_any_gui_button_pressed = false;
                     foreach (BaseButton button in gui_tickle_buttons)
                     {
-                        if(button.Pressed)
+                        if (button.Pressed)
                         {
                             is_any_gui_button_pressed = true;
                         }
                     }
-                    if(!is_any_gui_button_pressed)
+                    if (!is_any_gui_button_pressed)
                     {
                         hide();
                     }
@@ -285,7 +286,8 @@ public class Item_Searcher : Control
     {
         foreach (BaseButton button in new_guitickle_buttons)
         {
-            if (!this.gui_tickle_buttons.Contains(button)){
+            if (!this.gui_tickle_buttons.Contains(button))
+            {
                 this.gui_tickle_buttons.Add(button);
             }
         }

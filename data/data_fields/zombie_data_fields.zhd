@@ -4,4 +4,8 @@ Zombie_Name
 Health_Deduction_Stopper_Range
 Health_Deduction_Stopper_Power
 Is_To_Display_On_Shop
+Paralysing_Overing_Time
+Damage_Count_Resettling_Time
+Max_Damage_Count
+Max_Damage_Count_Increment
 Description

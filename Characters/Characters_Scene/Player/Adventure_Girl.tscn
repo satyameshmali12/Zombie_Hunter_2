@@ -1,4 +1,4 @@
-[gd_scene load_steps=63 format=2]
+[gd_scene load_steps=70 format=2]
 
 [ext_resource path="res://assets/images/Adventure_Girl/Idle/Idle (7).png" type="Texture" id=1]
 [ext_resource path="res://assets/images/Adventure_Girl/Idle/Idle (10).png" type="Texture" id=2]
@@ -56,6 +56,8 @@
 [ext_resource path="res://assets/images/Adventure_Girl/Dead/Dead (4).png" type="Texture" id=54]
 [ext_resource path="res://assets/images/Adventure_Girl/Dead/Dead (7).png" type="Texture" id=55]
 [ext_resource path="res://assets/images/Adventure_Girl/Dead/Dead (10).png" type="Texture" id=56]
+[ext_resource path="res://Weapons_And_Animation/components/scenes/Health_Bar.tscn" type="PackedScene" id=57]
+[ext_resource path="res://Characters/Character_Scripts/Player/AI_Player.cs" type="Script" id=58]
 
 [sub_resource type="PhysicsMaterial" id=3]
 friction = 0.2
@@ -66,12 +68,26 @@ bounce = 0.1
 radius = 38.0
 height = 100.0
 
+[sub_resource type="AtlasTexture" id=92]
+atlas = ExtResource( 50 )
+region = Rect2( 0, 0, 605, 604 )
+
 [sub_resource type="SpriteFrames" id=2]
 animations = [ {
+"frames": [ ExtResource( 50 ), ExtResource( 47 ) ],
+"loop": true,
+"name": "Damaged",
+"speed": 5.0
+}, {
 "frames": [ ExtResource( 50 ), ExtResource( 47 ), ExtResource( 48 ), ExtResource( 54 ), ExtResource( 53 ), ExtResource( 51 ), ExtResource( 55 ), ExtResource( 49 ), ExtResource( 52 ), ExtResource( 56 ) ],
 "loop": true,
 "name": "Death",
 "speed": 8.0
+}, {
+"frames": [ SubResource( 92 ) ],
+"loop": true,
+"name": "Hurt",
+"speed": 5.0
 }, {
 "frames": [ ExtResource( 9 ), ExtResource( 6 ), ExtResource( 4 ), ExtResource( 3 ), ExtResource( 8 ), ExtResource( 10 ), ExtResource( 1 ), ExtResource( 5 ), ExtResource( 7 ), ExtResource( 2 ) ],
 "loop": true,
@@ -121,6 +137,16 @@ scale = 15.0
 scale_curve = SubResource( 89 )
 color = Color( 0.52549, 0.0588235, 0.537255, 1 )
 
+[sub_resource type="CanvasItemMaterial" id=93]
+
+[sub_resource type="Theme" id=94]
+
+[sub_resource type="StyleBoxFlat" id=95]
+bg_color = Color( 0.913725, 0.196078, 0.141176, 1 )
+
+[sub_resource type="StyleBoxFlat" id=96]
+bg_color = Color( 0.576471, 0.0823529, 0.984314, 1 )
+
 [node name="Adventure_Girl" type="RigidBody2D"]
 position = Vector2( 528, 461 )
 mode = 2
@@ -141,8 +167,8 @@ position = Vector2( 3.43311, 6.26196 )
 scale = Vector2( 0.226, 0.322 )
 z_index = 1
 frames = SubResource( 2 )
-animation = "Idle"
-frame = 9
+animation = "Damaged"
+frame = 1
 playing = true
 
 [node name="Rays" type="Node2D" parent="."]
@@ -222,7 +248,34 @@ one_shot = true
 explosiveness = 0.4
 process_material = SubResource( 91 )
 
-[node name="Bullet_Adding_Pos" type="RayCast2D" parent="."]
-position = Vector2( -8, -104 )
-cast_to = Vector2( 1, 45 )
+[node name="AI" type="Node2D" parent="."]
+position = Vector2( 2, -6 )
+script = ExtResource( 58 )
+
+[node name="Health_Bar" parent="AI" instance=ExtResource( 57 )]
+modulate = Color( 1, 1, 1, 1 )
+self_modulate = Color( 1, 1, 1, 1 )
+material = SubResource( 93 )
+margin_left = -58.0
+margin_top = -121.0
+margin_right = 52.0
+margin_bottom = -98.0
+theme = SubResource( 94 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_color_shadow = Color( 0.0313726, 1, 0.321569, 1 )
+custom_styles/fg = SubResource( 95 )
+custom_styles/bg = SubResource( 96 )
+
+[node name="Zombie_Detection_Rays" type="Node2D" parent="AI"]
+
+[node name="RayCast2D" type="RayCast2D" parent="AI/Zombie_Detection_Rays"]
+position = Vector2( 45, 49 )
+enabled = true
+cast_to = Vector2( 415, 0 )
+collide_with_areas = true
+
+[node name="RayCast2D2" type="RayCast2D" parent="AI/Zombie_Detection_Rays"]
+position = Vector2( -64, 51 )
+enabled = true
+cast_to = Vector2( -374, -4 )
 collide_with_areas = true

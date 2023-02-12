@@ -2,6 +2,8 @@ using Godot;
 using System.Collections;
 using System;
 
+
+/// <summary>It contains all the basic_function that all the classes will be likely to integrate in their code</summary>
 public class Basic_Func : Node
 {
     public Node node;
@@ -14,7 +16,7 @@ public class Basic_Func : Node
 
     public string main_game_scene_path = "res://Views/Scenes/Main_Game_Scene.tscn";
     public string home_scene_path = "res://Views/Scenes/Home_View.tscn";
-    
+
 
 
 
@@ -30,6 +32,7 @@ public class Basic_Func : Node
 
         throwable_weapons_dm = new Data_Manager(global_paths.basic_throwable_weapons_data_fields_Url);
     }
+
 
     public Timer create_timer(float wait_time, string signal_func_name)
     {
@@ -72,7 +75,8 @@ public class Basic_Func : Node
         }
         catch (System.Exception)
         {
-            throw new System.InvalidCastException("Check for you node type may it differs..!!");
+            moveToErrorPage();
+            return false;
         }
     }
 
@@ -84,12 +88,14 @@ public class Basic_Func : Node
         }
         return true;
     }
+
     public void navigateTo(Node node, string path)
     {
         // node.GetTree().ChangeScene(path);
         global_Variables.current_scene = node;
         add_changing_scene(node, path, true, true);
     }
+
     public Changing_Scene add_changing_scene(Node node, string path, bool is_to_reverse, bool is_to_navigate)
     {
 
@@ -132,7 +138,8 @@ public class Basic_Func : Node
 
         catch (System.IO.FileNotFoundException)
         {
-            throw new System.IO.FileNotFoundException("Hey no such file exits..!!");
+            moveToErrorPage();
+            return null;
         }
 
     }
@@ -140,7 +147,6 @@ public class Basic_Func : Node
     {
         for (var i = 0; i < arr.Length; i++)
         {
-            GD.Print(arr[i], value.ToString());
             if (arr[i].ToString().Trim() == value.ToString().Trim())
             {
                 return i;
@@ -244,17 +250,23 @@ public class Basic_Func : Node
 
     public bool is_any_guitickle_button_pressed()
     {
-
         foreach (BaseButton gui_button in global_Variables.guiticke_buttons)
         {
-            if(gui_button==null)
+            try
             {
-               global_Variables.guiticke_buttons.Clear();
-               break; 
+                if (gui_button == null)
+                {
+                    global_Variables.guiticke_buttons.Clear();
+                    break;
+                }
+                if (gui_button.Pressed)
+                {
+                    return true;
+                }
             }
-            if (gui_button.Pressed)
+            catch (System.Exception)
             {
-                return true;
+                moveToErrorPage();
             }
         }
         return false;
@@ -272,6 +284,8 @@ public class Basic_Func : Node
         nullify_item_in_hand();
         global_Variables.item_Using_Menu = null;
         global_Variables.notification = null;
+        global_Variables.falling_range = null;
+        global_Variables.character_scene = null;
     }
 
     public Vector2 abs_a_vector(Vector2 point)
@@ -349,69 +363,72 @@ public class Basic_Func : Node
 
     public ArrayList get_split_data_in_wdm(string sentence)
     {
-        // string sentence = "|Drone1:Hey there danger||Drone12:Hey there danger is it joke|";
-        // string sentence = data;
         int count = 0;
         ArrayList items = new ArrayList();
-        for (int i = 0; i < sentence.Length && sentence.Trim()!="-"; i++)
+        try
         {
-            if (count < sentence.Length)
+            for (int i = 0; i < sentence.Length && sentence.Trim() != "-"; i++)
             {
-
-                var character = sentence[count].ToString();
-                if (character == "|")
+                if (count < sentence.Length)
                 {
-                    var remaining_sentence = sentence.Substring(count, sentence.Length - count);
-                    var next_sl_index = remaining_sentence.Remove(0, 1).IndexOf("|");
-                    /* as the index function returns a zero based index and another 1 as we have remove one character above */
-                    var data = remaining_sentence.Substring(0, next_sl_index + 2);
-                    count += data.Length;
 
-                    data = data.Replace("|", "");
-                    // var colon_index = data.IndexOf(":");
-                    var three_data_values = data.Split(":");
-                    // var item =
-                    //     new Godot.Collections.Dictionary<string, string>() 
-                    //         {
-                    //             { "name", data.Substring(0, colon_index) },
-                    //             { "message", data.Substring(colon_index+1, data.Length - colon_index-1)} 
-                    //         };
-                    // items.Add(item);
-                    var item =
-                        new Godot.Collections.Dictionary<string, string>() 
-                            {
+                    var character = sentence[count].ToString();
+                    if (character == "|")
+                    {
+                        var remaining_sentence = sentence.Substring(count, sentence.Length - count);
+                        var next_sl_index = remaining_sentence.Remove(0, 1).IndexOf("|");
+                        /* as the index function returns a zero based index and another 1 as we have remove one character above */
+                        var data = remaining_sentence.Substring(0, next_sl_index + 2);
+                        count += data.Length;
+
+                        data = data.Replace("|", "");
+                        var three_data_values = data.Split(":");
+                        var item =
+                            new Godot.Collections.Dictionary<string, string>()
+                                {
                                 { "name", three_data_values[0] },
                                 { "message", three_data_values[1]},
-                                {"is_completely_restricted",three_data_values[2]} 
-                            };
+                                {"is_completely_restricted",three_data_values[2]}
+                                };
 
-                    items.Add(item);
+                        items.Add(item);
 
+                    }
+                    else
+                    {
+                        count++;
+                    }
                 }
                 else
                 {
-                    count++;
+                    break;
                 }
             }
-            else
-            {
-                break;
-            }
         }
-
+        catch (System.Exception)
+        {
+            moveToErrorPage();
+        }
         return items;
     }
 
-    // public ArrayList get_dictionary_set_of_field_values(ArrayList dics,string field_name)
-    // {
-    //     ArrayList field_values = new ArrayList();
 
-    //     foreach (Godot.Collections.Dictionary<string,string> item in dics)
-    //     {
-    //         field_values.Add(item[field_name]);
-    //     }
+    public float abs_subtraction(params float[] numbers)
+    {
+        float result = 0;
+        foreach (int num in numbers)
+        {
+            result -= Math.Abs(num);
+        }
 
-    //     return  field_values;
-    // }
+        return Math.Abs(result);
+
+    }
+
+    public void moveToErrorPage()
+    {
+        navigateTo(node, "res://Views/Scenes/__Error__.tscn");
+    }
+
 }
 

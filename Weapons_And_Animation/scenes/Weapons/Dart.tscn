@@ -1,20 +1,20 @@
 [gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://assets/audio/Bomb's/Bullet_Collision_Sound.mp3" type="AudioStream" id=1]
-[ext_resource path="res://assets/images/Ninjas/Kunoichi/Spine.png" type="Texture" id=2]
+[ext_resource path="res://assets/images/Ninjas/Ninja_Peasant/Dart.png" type="Texture" id=2]
 [ext_resource path="res://assets/audio/Bomb's/Gun_Shoot.mp3" type="AudioStream" id=3]
 [ext_resource path="res://Weapons_And_Animation/scripts/Dart.cs" type="Script" id=4]
 
 [sub_resource type="RectangleShape2D" id=35]
 extents = Vector2( 22.5, 7 )
 
-[sub_resource type="AtlasTexture" id=25]
+[sub_resource type="AtlasTexture" id=36]
 atlas = ExtResource( 2 )
-region = Rect2( 0, 0, 10, 10 )
+region = Rect2( 0, 0, 6, 4 )
 
 [sub_resource type="SpriteFrames" id=26]
 animations = [ {
-"frames": [ SubResource( 25 ) ],
+"frames": [ SubResource( 36 ) ],
 "loop": true,
 "name": "Fire",
 "speed": 15.0
@@ -113,8 +113,8 @@ z_index = 1
 shape = SubResource( 35 )
 
 [node name="Movements" type="AnimatedSprite" parent="."]
-position = Vector2( 20, 1 )
-scale = Vector2( 4.18768, 8.34062 )
+position = Vector2( 19.5, 1.99999 )
+scale = Vector2( 7.5, 4.92031 )
 z_index = 2
 frames = SubResource( 26 )
 animation = "Fire"

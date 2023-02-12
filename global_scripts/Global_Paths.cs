@@ -5,6 +5,7 @@ public class Global_Paths:Node
 {
 
     public string main_directory_path = System.IO.Directory.GetCurrentDirectory();
+    public string Game_Gui_Path = "res://Weapons_And_Animation/components/scenes/Game_Gui.tscn";
     public string base_view_path = "res://Views/Scenes/";
     public string Main_Game_Scene_Path = "res://Views/Scenes/Main_Game_Scene.tscn";
     public string Home_Path = "res://Views/Scenes/Game_Over_View.tscn";
@@ -21,6 +22,7 @@ public class Global_Paths:Node
     public string Zombie_Data_Field_Url = "data/data_fields/zombie_data_fields.zhd";
     public string User_Data_Field_Url = "data/data_fields/user_data_fields.zhd";
     public string Level_Scenes_Directory_Url = "Levels\\Scenes";
+    public string Character_Scenes_Base_Url = "res://Characters/Characters_Scene";
 
     public string Drone_Ini_Faller_Url = "res://Bomb's/Scenes/Drone_Ini_Faller.tscn";
 

@@ -35,10 +35,10 @@ public class Dark_King : Powerful_Zombie
 
         // speed_x += 200;
 
-        available_moves = new ArrayList() { "attack", "death", "falling_down", "hurt", "idle", "idle_blinking", "jump_attack", "jump_loop", "jump_start", "kick", "run", "run_attack", "run_throwing", "sliding", "throwing", "walk" };
+        available_moves = new ArrayList() { "attack", "death", "falling_down", "hurt", "idle", "idle_blinking", "jump_attack", "jump_loop", "jump_start", "kick", "run", "run_attack", "run_throwing", "sliding", "throwing", "walk" ,"damaged"};
         // available_moves = new ArrayList(){"attack","walk","death","idle","jump","idle_blinking","falling_down"};
-        available_moves_consumption = new int[16] { 0, 0, 0, 0, 0, 0, 1, 5, 5, 4, 4, 3, 5, 0, 5, 0 };
-        available_moves_damage = new int[16] { 2, 0, 0, 0, 0, 0, 3, 0, 0, 2, 0, 3, 2, 0, 0, 0 };
+        available_moves_consumption = new int[17] { 0, 0, 0, 0, 0, 0, 1, 5, 5, 4, 4, 3, 5, 0, 5, 0 ,0 };
+        available_moves_damage = new int[17] { 2, 0, 0, 0, 0, 0, 3, 0, 0, 2, 0, 3, 2, 0, 0, 0 , 0 };
 
         attack_move_names = new ArrayList() { "attack", "run_attack", "kick", "jump_attack" };
 

@@ -1,47 +1,90 @@
 Male_Zombie
--10
-10
+-25
+5
 true
-Stupid ombie with stupid powers
+4
+4
+20
+0
+Male Zombie \n \n It is the weakest zombie of the entire game
 
 Female_Zombie
--10
-10
+-23
+3
 true
-Stupid ombie with stupid powers
+4
+4
+20
+0
+Female_Zombie \n \n Not very powerful but stronger than that of the Male Zombie
 
 Female_Zombie_2
--10
-10
+-20
+6
 true
-Stupid ombie with stupid powers
+3
+3
+22
+0
+Female_Zombie_2 \n \n Bit powerful \n Have a better more than enough AI
 
 Male_Zombie_2
--10
-10
+-17
+6
 true
-Stupid ombie with stupid powers
+3
+3
+24
+0
+Male_Zombie_2 \n \n Better more than enought Powerful \n It also have a configured AI
 
 Wild_Zombie
--10
-10
+-17
+7
 true
-Stupid ombie with stupid powers
+3
+2
+26
+0
+Wild_Zombie \n \n It has one of the Strongest AI
 
 Zombie_Knight_1
--10
-10
+-15
+6
 true
-Stupid ombie with stupid powers
+3
+1
+28
+0
+Zombie_Knight_1 \n \n Good AI \n \n It is has the shielding Power which makes it the king killer zombie of the Game
 
 Zombie_Knight_2
--10
-10
+-13
+4
 true
-Stupid ombie with stupid powers
+3
+1
+29
+0
+Zombie_Knight_1 \n \n Good AI \n \n It is has the shielding Power which makes it the king killer zombie 2 of the Game
 
 Zombie_Knight_3
--10
-10
+-12
+7
 true
-Stupid ombie with stupid powers
+2
+1
+30
+0
+Zombie_Knight_1 \n \n Good AI \n \n It is has the shielding Power which makes it the king killer zombie 3 of the Game
+
+
+Dark_King
+-12
+7
+true
+3
+1
+20
+0
+Dark_King \n \n It has many interesting attacks \n \n But it's biggest power is to spawn the child zombies

@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Levels/Arcade/Arcade.cs" type="Script" id=1]
 [ext_resource path="res://Weapons_And_Animation/components/scenes/All_Tiles.tscn" type="PackedScene" id=2]
@@ -6,6 +6,8 @@
 [ext_resource path="res://assets/images/Level_Assets/1_game_background.png" type="Texture" id=4]
 [ext_resource path="res://assets/images/Level_Assets/3_game_background.png" type="Texture" id=5]
 [ext_resource path="res://assets/images/Level_Assets/4_game_background.png" type="Texture" id=6]
+[ext_resource path="res://Weapons_And_Animation/components/scenes/Collision_Asteriod.tscn" type="PackedScene" id=7]
+[ext_resource path="res://assets/images/Level_Assets/sky3.jpg" type="Texture" id=8]
 
 [node name="Arcade" type="Node2D"]
 position = Vector2( 0, -1 )
@@ -32,6 +34,11 @@ texture = ExtResource( 5 )
 [node name="4GameBackground" type="Sprite" parent="featured_images"]
 position = Vector2( -3424, 336 )
 texture = ExtResource( 6 )
+
+[node name="Sky3" type="Sprite" parent="featured_images"]
+position = Vector2( -259, -1049 )
+scale = Vector2( 11.2678, 2.36667 )
+texture = ExtResource( 8 )
 
 [node name="Zombie_Spawn_Points" type="Node2D" parent="."]
 
@@ -60,3 +67,37 @@ position = Vector2( 767, 353 )
 
 [node name="End_Point" type="Position2D" parent="Points"]
 position = Vector2( 8245, 1834 )
+
+[node name="Boundaries" type="Node2D" parent="."]
+
+[node name="Collision_Asteriod" parent="Boundaries" instance=ExtResource( 7 )]
+position = Vector2( -6092, -353 )
+
+[node name="Collision_Asteriod2" parent="Boundaries" instance=ExtResource( 7 )]
+position = Vector2( -5694, 227 )
+
+[node name="Collision_Asteriod3" parent="Boundaries" instance=ExtResource( 7 )]
+position = Vector2( -5694, 876 )
+
+[node name="Collision_Asteriod4" parent="Boundaries" instance=ExtResource( 7 )]
+position = Vector2( -4239, 1532 )
+
+[node name="Collision_Asteriod5" parent="Boundaries" instance=ExtResource( 7 )]
+position = Vector2( -2223, 1906 )
+
+[node name="Collision_Asteriod6" parent="Boundaries" instance=ExtResource( 7 )]
+position = Vector2( 0, 1794 )
+
+[node name="Collision_Asteriod7" parent="Boundaries" instance=ExtResource( 7 )]
+position = Vector2( 2857, 2050 )
+
+[node name="Collision_Asteriod8" parent="Boundaries" instance=ExtResource( 7 )]
+position = Vector2( 4127, 1020 )
+
+[node name="Collision_Asteriod9" parent="Boundaries" instance=ExtResource( 7 )]
+position = Vector2( 4127, -353 )
+
+[node name="Falling_Range" type="Position2D" parent="."]
+position = Vector2( 359, 3009 )
+
+[node name="Heros_Area" type="Node2D" parent="."]

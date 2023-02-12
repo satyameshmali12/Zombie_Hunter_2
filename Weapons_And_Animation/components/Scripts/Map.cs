@@ -76,8 +76,6 @@ public class Map : Node2D
     public override void _Process(float delta)
     {
 
-        // var all_points = basf.get_the_node_childrens("Point_Area");
-
 
         if (is_data_loaded_ones)
         {

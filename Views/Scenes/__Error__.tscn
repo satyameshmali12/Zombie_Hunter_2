@@ -1,0 +1,89 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://assets/images/gui/white_color.png" type="Texture" id=1]
+[ext_resource path="res://assets/fonts/MAGNETOB.TTF" type="DynamicFontData" id=2]
+[ext_resource path="res://assets/fonts/SecularOne-Regular.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://Views/Scripts/__Error__.cs" type="Script" id=4]
+[ext_resource path="res://Weapons_And_Animation/components/scenes/Item_Searcher.tscn" type="PackedScene" id=5]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.431373, 0.396078, 0.145098, 1 )
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 2
+border_color = Color( 0.0509804, 0.0235294, 0.0235294, 1 )
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="DynamicFont" id=2]
+size = 30
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 15
+font_data = ExtResource( 3 )
+
+[sub_resource type="DynamicFont" id=4]
+size = 30
+font_data = ExtResource( 3 )
+
+[node name="__Error__" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 4 )
+
+[node name="BG" type="Sprite" parent="."]
+modulate = Color( 0.137255, 0.360784, 0.231373, 1 )
+position = Vector2( 513, 300 )
+scale = Vector2( 3.40667, 3.57143 )
+texture = ExtResource( 1 )
+
+[node name="Button" type="Button" parent="."]
+margin_left = 35.0
+margin_top = 45.0
+margin_right = 986.0
+margin_bottom = 549.0
+custom_styles/disabled = SubResource( 1 )
+disabled = true
+
+[node name="Title" type="Label" parent="."]
+margin_left = 276.0
+margin_top = 80.0
+margin_right = 374.0
+margin_bottom = 111.0
+custom_fonts/font = SubResource( 2 )
+text = "Ooops"
+
+[node name="Message" type="Label" parent="."]
+margin_left = 184.0
+margin_top = 168.0
+margin_right = 805.0
+margin_bottom = 243.0
+custom_fonts/font = SubResource( 3 )
+text = "Sorry for inconvienice
+
+In order to fix this error please do let us know at what point of the game you get navigated to this page 
+
+You can contact us through Github ,
+Or 
+By mailing us on satyameshmalimern123@gmail.com
+"
+autowrap = true
+
+[node name="Title2" type="Label" parent="."]
+margin_left = 392.0
+margin_top = 98.0
+margin_right = 759.0
+margin_bottom = 142.0
+custom_fonts/font = SubResource( 4 )
+text = "Some Error Occurred"
+
+[node name="Item_Searcher" parent="." instance=ExtResource( 5 )]
+visible = false
+margin_left = -26.264
+margin_top = 18.0
+margin_right = -26.0081
+margin_bottom = 45.2

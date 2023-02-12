@@ -1,8 +1,12 @@
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Godot;
+
+
+
+/*
+Controls for Basic View
+press ctrl+p (to popup navigation bar)
+*/
 
 public class Basic_View:Control,Global_Variables_F_A_T
 {
@@ -37,14 +41,14 @@ public class Basic_View:Control,Global_Variables_F_A_T
         level_base_url = "res://Levels/Scenes/";
 
         item_searcher = this.GetNode<Item_Searcher>("Item_Searcher");
-        // item_searcher.render_items = new ArrayList(){"Home_View","Level_View"};
-        item_searcher.load_data(new ArrayList(){"Home_View","Level_View","Shop","Warning_Editor"});
+        item_searcher.load_data(new ArrayList(){"Home_View","Level_View","Shop","Warning_Editor","Multi_AI_Match_Gui"});
         item_searcher.render_items_copy.Remove(this.Name);
         
         
     }
     public override void _Process(float delta){
 
+        // to popup navigation bar
         if(Input.IsActionJustPressed("Pop_Navigation_Menu"))
         {
             if(item_searcher.Visible)
@@ -72,7 +76,6 @@ public class Basic_View:Control,Global_Variables_F_A_T
     public void initialize_view(){
 
     }
-    
 
     public virtual void update_logic(Data_Manager shop_data,Data_Manager user_data,Data_Manager throwable_weapons_dm){
         

@@ -1,5 +1,4 @@
 using Godot;
-using System;
 using System.Collections;
 
 public class Scroller_Effect : VBoxContainer
@@ -15,7 +14,6 @@ public class Scroller_Effect : VBoxContainer
         base._Ready();
         basf = new Basic_Func(this);
         can_change_timer =  basf.create_timer(.1f,"Can_Change_Toggle");
-        GD.Print("Hey there the scroller effect is been loaded..!!");
     }
 
     public override void _Process(float delta)
@@ -25,8 +23,6 @@ public class Scroller_Effect : VBoxContainer
 
         if(change!=0 && can_change)
         {
-            // GD.Print("hey I am here..!!");
-            // GD.Print(change);
             start_index+=change;
             can_change = false;
             can_change_timer.Start();

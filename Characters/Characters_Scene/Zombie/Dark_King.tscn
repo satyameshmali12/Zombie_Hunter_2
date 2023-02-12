@@ -215,6 +215,11 @@ animations = [ {
 "name": "Attack",
 "speed": 20.0
 }, {
+"frames": [ ExtResource( 52 ), ExtResource( 50 ), ExtResource( 56 ), ExtResource( 51 ), ExtResource( 53 ), ExtResource( 49 ), ExtResource( 54 ), ExtResource( 59 ) ],
+"loop": true,
+"name": "Damaged",
+"speed": 6.0
+}, {
 "frames": [ ExtResource( 52 ), ExtResource( 56 ), ExtResource( 51 ), ExtResource( 53 ), ExtResource( 49 ), ExtResource( 54 ), ExtResource( 50 ), ExtResource( 55 ), ExtResource( 59 ), ExtResource( 57 ), ExtResource( 58 ), ExtResource( 60 ), ExtResource( 45 ), ExtResource( 43 ), ExtResource( 44 ) ],
 "loop": true,
 "name": "Death",
@@ -339,8 +344,8 @@ position = Vector2( -7, 11 )
 scale = Vector2( 0.241, 0.279 )
 z_index = 1
 frames = SubResource( 2 )
-animation = "Run"
-frame = 9
+animation = "Damaged"
+frame = 5
 
 [node name="Blood_Animation" type="Particles2D" parent="."]
 position = Vector2( -9, 24 )
@@ -356,10 +361,10 @@ texture = ExtResource( 48 )
 modulate = Color( 1, 1, 1, 1 )
 self_modulate = Color( 1, 1, 1, 1 )
 material = SubResource( 8 )
-margin_left = -70.0
-margin_top = -96.0
-margin_right = 40.0
-margin_bottom = -73.0
+margin_left = -64.0
+margin_top = -120.0
+margin_right = 46.0
+margin_bottom = -97.0
 theme = SubResource( 9 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_colors/font_color_shadow = Color( 0.0313726, 1, 0.321569, 1 )

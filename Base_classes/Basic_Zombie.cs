@@ -2,18 +2,19 @@ using Godot;
 using System;
 using System.Collections;
 
-
+/*
+Containing the AI for the Zombie
+*/
 
 public class Basic_Zombie : Basic_Character
 {
-    
+
 
     // this will help us know all the attack a zombie have 
     // as different zombies will have their respective attack (attack_name)
 
     public bool is_obstruction_in_between;
 
-    public ArrayList attack_move_names;
 
 
     // to check the left and right upward collision 
@@ -43,8 +44,8 @@ public class Basic_Zombie : Basic_Character
     public override void _Ready()
     {
         this.data_field_url = basf.global_paths.Zombie_Data_Field_Url;
-        
-        base._Ready();        
+
+        base._Ready();
 
         _node_type = _Type_of_.Zombie;
 
@@ -70,7 +71,6 @@ public class Basic_Zombie : Basic_Character
 
         is_obstruction_in_between = false;
 
-        jump_intensity = 2000;
 
         colliding_condition = "all";
 
@@ -100,7 +100,7 @@ public class Basic_Zombie : Basic_Character
 
         this.hurt_sound_url = "res://assets/audio/Zombie/Zombie_Hurt.mp3";
 
-        can_collide_with = new ArrayList(){_Type_of_.Player,_Type_of_.Drone};
+        can_collide_with = new ArrayList() { _Type_of_.Player, _Type_of_.Drone };
     }
 
 
@@ -108,13 +108,6 @@ public class Basic_Zombie : Basic_Character
     {
 
         base._Process(delta);
-
-        // for (var i = 0; i < Left_Collision_Rays.Count; i++)
-        // {
-        //     RayCast2D ray = Left_Collision_Rays[i] as RayCast2D;
-        //     ray.ForceRaycastUpdate();
-        // }
-
 
         // this is the position of the defender of the game
         // on which our zombie will attack
@@ -150,8 +143,6 @@ public class Basic_Zombie : Basic_Character
 
             }
         }
-
-
 
         if (!L_R_Colliding && moving_speed.x < 0 || !R_R_Collding && moving_speed.x > 0)
         {
@@ -215,59 +206,39 @@ public class Basic_Zombie : Basic_Character
             }
         }
 
-
         if (collided_one._node_type == _Type_of_.Block)
         {
-            // GD.Print("hey there I am collide..!!");
             is_obstruction_in_between = true;
         }
 
+
         if (!is_busy)
         {
-            // if (collided_one._node_type == _Type_of_.Player && !is_on_edge)
-            if(can_collide_with.Contains(collided_one._node_type) && !is_on_edge)
+            if (can_collide_with.Contains(collided_one._node_type) && !is_on_edge)
             {
-
                 string random_attack = (string)attack_move_names[Convert.ToInt32(GD.RandRange(0, attack_move_names.Count - 1))];
 
-                // if (can_perform_move(random_attack,false))
-                // {
-                    // is_attacking = true;
-
-                    // converting the first character of the string to the upper case
-                // var edited_attack_name = $"{random_attack.ToUpper()[0]}{random_attack.Substring(1, random_attack.Length - 1)}";
-
-
-                ArrayList splited_name = basf.get_format_array_string(random_attack,new ArrayList(){"_"},false);
+                ArrayList splited_name = basf.get_format_array_string(random_attack, new ArrayList() { "_" }, false);
                 string edited_attack_name = "";
                 foreach (string item in splited_name)
                 {
-                    edited_attack_name+=(item[0].ToString().ToUpper()+item.Substring(1,item.Length-1))+"_";
+                    edited_attack_name += (item[0].ToString().ToUpper() + item.Substring(1, item.Length - 1)) + "_";
                 }
-                if(edited_attack_name.Length>0)
+                if (edited_attack_name.Length > 0)
                 {
-                    edited_attack_name = edited_attack_name.Remove(edited_attack_name.Length-1,1);
+                    edited_attack_name = edited_attack_name.Remove(edited_attack_name.Length - 1, 1);
                 }
                 perform_move(edited_attack_name);
-
-                // }
             }
         }
-
-        else
+        else if (!is_hitted)
         {
-            if (!is_hitted)
+            if (can_collide_with.Contains(collided_one._node_type))
             {
-                // if (collided_one._node_type == _Type_of_.Player)
-                if(can_collide_with.Contains(collided_one._node_type))
-                {
-                    Character character = collided_obj as Character;
-                    character.change_health(-available_moves_damage[available_moves.IndexOf(this.animations.Animation.ToLower())]);
-                    // character.health -= available_moves_damage[available_moves.IndexOf(this.animations.Animation.ToLower())];
-                    is_hitted = true;
-                }
+                Character character = collided_obj as Character;
+                character.change_health(-available_moves_damage[available_moves.IndexOf(this.animations.Animation.ToLower())]);
+                is_hitted = true;
             }
-
         }
     }
 }

@@ -1,4 +1,4 @@
-[gd_scene load_steps=131 format=2]
+[gd_scene load_steps=150 format=2]
 
 [ext_resource path="res://assets/images/Ninja/attack/spritesheet.png" type="Texture" id=1]
 [ext_resource path="res://assets/images/Ninja/climb/spritesheet.png" type="Texture" id=2]
@@ -12,6 +12,8 @@
 [ext_resource path="res://assets/images/Ninja/jump/spritesheet.png" type="Texture" id=10]
 [ext_resource path="res://assets/images/Ninja/run/spritesheet.png" type="Texture" id=11]
 [ext_resource path="res://Characters/Character_Scripts/Player/Ninja.cs" type="Script" id=12]
+[ext_resource path="res://Weapons_And_Animation/components/scenes/Health_Bar.tscn" type="PackedScene" id=13]
+[ext_resource path="res://Characters/Character_Scripts/Player/AI_Player.cs" type="Script" id=14]
 [ext_resource path="res://Weapons_And_Animation/components/scenes/Camera.tscn" type="PackedScene" id=113]
 [ext_resource path="res://Weapons_And_Animation/components/scenes/Game_Gui.tscn" type="PackedScene" id=115]
 
@@ -100,6 +102,18 @@ region = Rect2( 2256, 0, 282, 464 )
 atlas = ExtResource( 2 )
 region = Rect2( 2538, 0, 282, 464 )
 
+[sub_resource type="AtlasTexture" id=128]
+atlas = ExtResource( 3 )
+region = Rect2( 0, 0, 482, 498 )
+
+[sub_resource type="AtlasTexture" id=129]
+atlas = ExtResource( 3 )
+region = Rect2( 2410, 0, 482, 498 )
+
+[sub_resource type="AtlasTexture" id=130]
+atlas = ExtResource( 3 )
+region = Rect2( 2892, 0, 482, 498 )
+
 [sub_resource type="AtlasTexture" id=24]
 atlas = ExtResource( 3 )
 region = Rect2( 0, 0, 482, 498 )
@@ -179,6 +193,46 @@ region = Rect2( 3544, 0, 443, 454 )
 [sub_resource type="AtlasTexture" id=43]
 atlas = ExtResource( 6 )
 region = Rect2( 3987, 0, 443, 454 )
+
+[sub_resource type="AtlasTexture" id=118]
+atlas = ExtResource( 5 )
+region = Rect2( 0, 0, 232, 439 )
+
+[sub_resource type="AtlasTexture" id=119]
+atlas = ExtResource( 5 )
+region = Rect2( 232, 0, 232, 439 )
+
+[sub_resource type="AtlasTexture" id=120]
+atlas = ExtResource( 5 )
+region = Rect2( 464, 0, 232, 439 )
+
+[sub_resource type="AtlasTexture" id=121]
+atlas = ExtResource( 5 )
+region = Rect2( 696, 0, 232, 439 )
+
+[sub_resource type="AtlasTexture" id=122]
+atlas = ExtResource( 5 )
+region = Rect2( 928, 0, 232, 439 )
+
+[sub_resource type="AtlasTexture" id=123]
+atlas = ExtResource( 5 )
+region = Rect2( 1160, 0, 232, 439 )
+
+[sub_resource type="AtlasTexture" id=124]
+atlas = ExtResource( 5 )
+region = Rect2( 1392, 0, 232, 439 )
+
+[sub_resource type="AtlasTexture" id=125]
+atlas = ExtResource( 5 )
+region = Rect2( 1624, 0, 232, 439 )
+
+[sub_resource type="AtlasTexture" id=126]
+atlas = ExtResource( 5 )
+region = Rect2( 1856, 0, 232, 439 )
+
+[sub_resource type="AtlasTexture" id=127]
+atlas = ExtResource( 5 )
+region = Rect2( 2088, 0, 232, 439 )
 
 [sub_resource type="AtlasTexture" id=44]
 atlas = ExtResource( 5 )
@@ -472,6 +526,11 @@ animations = [ {
 "name": "Climb",
 "speed": 20.0
 }, {
+"frames": [ SubResource( 128 ), SubResource( 129 ), SubResource( 130 ) ],
+"loop": true,
+"name": "Damaged",
+"speed": 5.0
+}, {
 "frames": [ SubResource( 24 ), SubResource( 25 ), SubResource( 26 ), SubResource( 27 ), SubResource( 28 ), SubResource( 29 ), SubResource( 30 ), SubResource( 31 ), SubResource( 32 ), SubResource( 33 ) ],
 "loop": true,
 "name": "Death",
@@ -481,6 +540,11 @@ animations = [ {
 "loop": true,
 "name": "Glide",
 "speed": 15.0
+}, {
+"frames": [ SubResource( 118 ), SubResource( 119 ), SubResource( 120 ), SubResource( 121 ), SubResource( 122 ), SubResource( 123 ), SubResource( 124 ), SubResource( 125 ), SubResource( 126 ), SubResource( 127 ) ],
+"loop": true,
+"name": "Hurt",
+"speed": 5.0
 }, {
 "frames": [ SubResource( 44 ), SubResource( 45 ), SubResource( 46 ), SubResource( 47 ), SubResource( 48 ), SubResource( 49 ), SubResource( 50 ), SubResource( 51 ), SubResource( 52 ), SubResource( 53 ) ],
 "loop": true,
@@ -539,6 +603,16 @@ scale = 10.0
 scale_curve = SubResource( 117 )
 color = Color( 0.933333, 0, 1, 1 )
 
+[sub_resource type="CanvasItemMaterial" id=131]
+
+[sub_resource type="Theme" id=132]
+
+[sub_resource type="StyleBoxFlat" id=133]
+bg_color = Color( 0.913725, 0.196078, 0.141176, 1 )
+
+[sub_resource type="StyleBoxFlat" id=134]
+bg_color = Color( 0.576471, 0.0823529, 0.984314, 1 )
+
 [node name="Ninja" type="RigidBody2D"]
 position = Vector2( 507, 452 )
 mode = 2
@@ -560,7 +634,7 @@ position = Vector2( -3, 40.0001 )
 scale = Vector2( 0.225746, 0.321717 )
 z_index = 1
 frames = SubResource( 1 )
-animation = "Idle"
+animation = "Hurt"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( -3, 38 )
@@ -598,7 +672,7 @@ enabled = true
 cast_to = Vector2( -4, 398 )
 
 [node name="Game_Gui" parent="." instance=ExtResource( 115 )]
-position = Vector2( -618, -515 )
+position = Vector2( -645, -559 )
 
 [node name="Left_Collision_Rays" type="Node2D" parent="."]
 position = Vector2( -366, -230 )
@@ -652,3 +726,35 @@ amount = 50
 lifetime = 0.4
 explosiveness = 0.4
 process_material = SubResource( 116 )
+
+[node name="AI" type="Node2D" parent="."]
+visible = false
+script = ExtResource( 14 )
+
+[node name="Health_Bar" parent="AI" instance=ExtResource( 13 )]
+modulate = Color( 1, 1, 1, 1 )
+self_modulate = Color( 1, 1, 1, 1 )
+material = SubResource( 131 )
+margin_left = -58.0
+margin_top = -121.0
+margin_right = 52.0
+margin_bottom = -98.0
+theme = SubResource( 132 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_color_shadow = Color( 0.0313726, 1, 0.321569, 1 )
+custom_styles/fg = SubResource( 133 )
+custom_styles/bg = SubResource( 134 )
+
+[node name="Zombie_Detection_Rays" type="Node2D" parent="AI"]
+
+[node name="RayCast2D" type="RayCast2D" parent="AI/Zombie_Detection_Rays"]
+position = Vector2( 51, 78 )
+enabled = true
+cast_to = Vector2( 523, 0 )
+collide_with_areas = true
+
+[node name="RayCast2D2" type="RayCast2D" parent="AI/Zombie_Detection_Rays"]
+position = Vector2( -58, 80 )
+enabled = true
+cast_to = Vector2( -482, 3 )
+collide_with_areas = true

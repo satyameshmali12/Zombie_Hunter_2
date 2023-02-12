@@ -24,10 +24,15 @@ public class Basic_Ninja : Basic_Player
 
 	public override void _Process(float delta)
 	{
-		basic_animation_changing_condition = !is_busy;
+        basic_animation_changing_condition = !is_busy;
 		
 		base._Process(delta);
+		
+	}
 
+	public override void custom_movements()
+	{
+		base.custom_movements();
 		
 		if (Input.IsActionJustPressed("T"))
 		{
@@ -38,10 +43,9 @@ public class Basic_Ninja : Basic_Player
 		set_animation_idle("Jump");
 		set_animation_idle("Shoot");
 		set_animation_idle("Run");
-
-
 		move();
-		
+
+
 	}
 
 	

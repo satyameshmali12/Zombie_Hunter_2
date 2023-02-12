@@ -65,10 +65,20 @@ animations = [ {
 "name": "Attack",
 "speed": 12.0
 }, {
+"frames": [ ExtResource( 7 ), ExtResource( 17 ), ExtResource( 11 ), ExtResource( 6 ), ExtResource( 12 ) ],
+"loop": true,
+"name": "Damaged",
+"speed": 10.0
+}, {
 "frames": [ ExtResource( 7 ), ExtResource( 17 ), ExtResource( 11 ), ExtResource( 6 ), ExtResource( 12 ), ExtResource( 15 ), ExtResource( 18 ), ExtResource( 5 ), ExtResource( 1 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 2 ) ],
 "loop": true,
 "name": "Death",
 "speed": 10.0
+}, {
+"frames": [ ExtResource( 45 ), ExtResource( 31 ), ExtResource( 32 ), ExtResource( 36 ), ExtResource( 37 ), ExtResource( 44 ), ExtResource( 43 ), ExtResource( 41 ), ExtResource( 33 ), ExtResource( 34 ), ExtResource( 35 ), ExtResource( 38 ), ExtResource( 40 ), ExtResource( 39 ), ExtResource( 42 ) ],
+"loop": true,
+"name": "Hurt",
+"speed": 6.0
 }, {
 "frames": [ ExtResource( 45 ), ExtResource( 31 ), ExtResource( 32 ), ExtResource( 36 ), ExtResource( 37 ), ExtResource( 44 ), ExtResource( 43 ), ExtResource( 41 ), ExtResource( 33 ), ExtResource( 34 ), ExtResource( 35 ), ExtResource( 38 ), ExtResource( 40 ), ExtResource( 39 ), ExtResource( 42 ) ],
 "loop": true,
@@ -130,8 +140,8 @@ position = Vector2( -7, 9 )
 scale = Vector2( 0.241, 0.279 )
 z_index = 1
 frames = SubResource( 2 )
-animation = "Idle"
-frame = 2
+animation = "Damaged"
+frame = 1
 
 [node name="Rays" type="Node2D" parent="."]
 position = Vector2( -597, -432 )

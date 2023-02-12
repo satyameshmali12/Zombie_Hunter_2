@@ -7,13 +7,12 @@
 #endregion
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-// using Godot;
-using System.IO;
 using Godot;
 using System.Collections;
+
+/*
+To deal the entire data of the Game
+*/
 
 
 [Serializable]
@@ -50,7 +49,6 @@ public class Data_Manager
 
     public Data_Manager(string data_path = "data//data_fields/level_data_fields.zhd")
     {
-        // var all_the_values = System.IO.File.ReadAllLines("data//data_fields/bomb_data_fields.zhd");
         reload_data(data_path);
     }
 
@@ -78,7 +76,6 @@ public class Data_Manager
         string[] all_the_values = System.IO.File.ReadAllLines(data_path);
 
         this.data_path = all_the_values[0].ToString().Trim();
-        // get_all_the_data_fields(all_the_values);
 
         all_field_names = get_all_the_data_fields(all_the_values);
         all_field_values = new ArrayList();
@@ -93,13 +90,12 @@ public class Data_Manager
 
     public void read_data()
     {
-        // loadding the data 
+        // loading the data 
         data = System.IO.File.ReadAllLines(this.data_path);
     }
 
     public void load_data(string identifier)
     {
-        // GD.Print(identifier);
         previous_identifier = identifier;
         all_field_values.Clear();
         for (var i = 0; i < data.Length; i++)
@@ -119,13 +115,8 @@ public class Data_Manager
 
         if (data_start_index == -1)
         {
-            throw new System.Exception("Hey No Such Level Founded Have a look to you data as well as directory..!!");
+            
         }
-
-
-        // GD.Print("start index ", data_start_index);
-
-
 
         for (var i = 0; i < all_field_names.Count; i++)
         {
@@ -134,6 +125,7 @@ public class Data_Manager
         }
 
     }
+    
     // this function only for the level data
     public bool is_level_unlocked(string current_level_name)
     {
@@ -143,8 +135,6 @@ public class Data_Manager
             if (data[i] == current_level_name)
             {
                 is_unlocked = Convert.ToBoolean(data[i + get_incre("Is_Level_Unlocked")]);
-                // remove this below line later on
-                // is_unlocked = Convert.ToBoolean(get_data("Is_Level_Unlocked"));
                 break;
             }
         }
@@ -185,9 +175,7 @@ public class Data_Manager
         save_data();
         var new_level = current_level_name;
         var present_level = Convert.ToInt32(current_level_name.Remove(0, "Level".Length).TrimStart().TrimEnd());
-        // var total_number_of_levels = System.IO.Directory.GetFiles("C:\\Users\\hp\\OneDrive\\Desktop\\Zombie Hunter 2\\Levels\\Scenes").Length;
         var total_number_of_levels = System.IO.Directory.GetFiles("Levels\\Scenes").Length;
-        GD.Print("hey their I am right from the data-manager.cshahah..!!");
 
 
         if (present_level < total_number_of_levels)
@@ -212,7 +200,6 @@ public class Data_Manager
 
     public string get_data(string field_name)
     {
-        // GD.Print(field_name," from the dm.cs haha.>!!");
         return all_field_values[all_field_names.IndexOf(field_name)].ToString();
     }
 

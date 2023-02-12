@@ -41,26 +41,18 @@ public class Item_Remover : Node2D
     public override void _Process(float delta)
     {
         re_render_box_data();
-        // int change = 0;
-        // change = (Input.IsActionJustPressed("Move_Up") && (render_start_index > 0)) ? -1 : change;
-        // change = (Input.IsActionJustPressed("Move_Down") && (render_start_index + item_boxes.Count) < items.Count) ? 1 : change;
+
         int change = basf.get_scroller_start_index_change(render_start_index,item_boxes.Count,items);
 
         if (can_change && change!=0)
         {
             render_start_index += change;
-            // render_start_index = basf.get_scroller_start_index(render_start_index,item_boxes.Count,item_boxes);
             can_change = false;
             can_change_timer.Start();
         }
 
 
         this.GetNode<Label>("No_Item").Visible = (items.Count==0);
-
-
-
-
-
     }
 
     public void re_render_box_data()

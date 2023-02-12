@@ -20,12 +20,13 @@ public class Instantaneous_Buyer : Node2D
     public override void _Ready()
     {
         basf = new Basic_Func(this);
-        // GD.Print("Hey their right from the hided instantaneous buyer .cs haha..!!");
 
         item_searcher = this.GetNode<Item_Searcher>("Item_Searcher");
 
         ArrayList all_item_names = new ArrayList();
-        foreach (string data_url in basf.global_Variables.item_data_field_urls)
+        var item_urls = basf.global_Variables.item_data_field_urls.Clone() as ArrayList;
+        item_urls.Add("data/data_fields/bomb_data_fields.zhd");
+        foreach (string data_url in item_urls)
         {
 
             Data_Manager manager = new Data_Manager(data_url);
@@ -86,9 +87,6 @@ public class Instantaneous_Buyer : Node2D
 
                 Button buying_button = buying_button_container.GetNode<Button>("Button");
                 Data_Manager item_dm = null;
-
-                // int item_price = 0;
-                // int available_money = 0;
 
                 int item_price  = 0;
                 int available_money =int.Parse(user_data.get_data("Money"));;

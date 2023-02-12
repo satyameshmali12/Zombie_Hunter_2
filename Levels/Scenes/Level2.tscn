@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://assets/images/Level_Assets/game_background_1.png" type="Texture" id=1]
 [ext_resource path="res://Weapons_And_Animation/components/scenes/All_Tiles.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Base_classes/Level.cs" type="Script" id=3]
 [ext_resource path="res://assets/images/Level_Assets/game_background_2.png" type="Texture" id=4]
-[ext_resource path="res://Drones/Scenes/Shooter_DD.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Weapons_And_Animation/components/scenes/Collision_Asteriod.tscn" type="PackedScene" id=5]
+[ext_resource path="res://assets/images/Level_Assets/sky1.jpg" type="Texture" id=6]
 
 [node name="Level2" type="Node2D"]
 script = ExtResource( 3 )
@@ -15,14 +16,19 @@ tile_data = PoolIntArray( -1114135, 0, 0, -1114134, 0, 0, -1048600, 0, 0, -10485
 [node name="featured_images" type="Node2D" parent="."]
 z_index = -1
 
+[node name="Sky1" type="Sprite" parent="featured_images"]
+position = Vector2( 1902, -1190.76 )
+scale = Vector2( 8.30427, 2.72712 )
+texture = ExtResource( 6 )
+
 [node name="GameBackground2" type="Sprite" parent="featured_images"]
-position = Vector2( 4115.5, -63 )
-scale = Vector2( 1.16068, 1.02315 )
+position = Vector2( 3693.5, 359.501 )
+scale = Vector2( 0.940887, 0.631945 )
 texture = ExtResource( 4 )
 
 [node name="GameBackground1" type="Sprite" parent="featured_images"]
-position = Vector2( -18, -43 )
-scale = Vector2( 1, 1.02315 )
+position = Vector2( 67.9999, 369.501 )
+scale = Vector2( 0.955208, 0.641205 )
 texture = ExtResource( 1 )
 
 [node name="Zombie_Spawn_Points" type="Node2D" parent="."]
@@ -39,4 +45,48 @@ position = Vector2( 3924, -913 )
 [node name="Zombie_Area" type="Node2D" parent="."]
 position = Vector2( 0, 6 )
 
-[node name="Shooter_DD" parent="." instance=ExtResource( 5 )]
+[node name="Points" type="Node2D" parent="."]
+unique_name_in_owner = true
+position = Vector2( -4632, -353 )
+__meta__ = {
+"_editor_description_": "Points will be accessed right form the map component"
+}
+
+[node name="Start_Point" type="Position2D" parent="Points"]
+position = Vector2( 3239, -999 )
+
+[node name="End_Point" type="Position2D" parent="Points"]
+position = Vector2( 10283, 1415 )
+
+[node name="Boundaries" type="Node2D" parent="."]
+position = Vector2( 2643, -209 )
+
+[node name="Collision_Asteriod" parent="Boundaries" instance=ExtResource( 5 )]
+position = Vector2( -6092, -353 )
+
+[node name="Collision_Asteriod2" parent="Boundaries" instance=ExtResource( 5 )]
+position = Vector2( -5694, 227 )
+
+[node name="Collision_Asteriod3" parent="Boundaries" instance=ExtResource( 5 )]
+position = Vector2( -5694, 876 )
+
+[node name="Collision_Asteriod4" parent="Boundaries" instance=ExtResource( 5 )]
+position = Vector2( -4239, 1532 )
+
+[node name="Collision_Asteriod5" parent="Boundaries" instance=ExtResource( 5 )]
+position = Vector2( -2223, 1906 )
+
+[node name="Collision_Asteriod6" parent="Boundaries" instance=ExtResource( 5 )]
+position = Vector2( 0, 1794 )
+
+[node name="Collision_Asteriod7" parent="Boundaries" instance=ExtResource( 5 )]
+position = Vector2( 2857, 2050 )
+
+[node name="Collision_Asteriod8" parent="Boundaries" instance=ExtResource( 5 )]
+position = Vector2( 4127, 1020 )
+
+[node name="Collision_Asteriod9" parent="Boundaries" instance=ExtResource( 5 )]
+position = Vector2( 4127, -353 )
+
+[node name="Falling_Range" type="Position2D" parent="."]
+position = Vector2( 2643, 2948 )

@@ -1,7 +1,6 @@
 #region description
 /*
 This will help to make the game pause
-and this node will be added to all the characters so that the game can be paused
 */
     
 #endregion
@@ -34,8 +33,10 @@ public class Pause_Menu : Node2D
         else if(quit_button.Pressed){
             this.Visible = false;
             basf.pause_tree(this,false);
-            // this.GetParent<Game_Gui>().GetParent<Basic_Player>().change_health(-100);
-            this.GetParent<Game_Gui>().GetParent<Basic_Player>().kill_player();
+            foreach (Basic_Player hero in basf.global_Variables.herosArea.GetChildren())
+            {
+                hero.perform_move("Death");
+            }
         }
     }
 }

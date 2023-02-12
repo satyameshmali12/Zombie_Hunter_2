@@ -16,6 +16,7 @@ public class Jack : Basic_Player
         available_moves = new ArrayList(){"death","idle","jump","melee","run","shoot","slide"};
         available_moves_consumption = new int[7]{0,0,2,2,0,0,0};
         available_moves_damage = new int[7]{0,0,5,25,1,1,3};
+		attack_move_names = new ArrayList(){"melee"};
         settle_damage_increment_possible_moves(3);
         
 	}

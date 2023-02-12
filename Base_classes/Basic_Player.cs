@@ -10,39 +10,24 @@
 using Godot;
 using System;
 using System.Collections;
-using System.Collections.Generic;
-// using System.Collections
 
 
 public class Basic_Player : Basic_Character
 {
 
-
     public string basic_attack_name;
-
 
     [Export]
     public int slide_speed_increment = 200;
 
-
-
     // basic properties of a basic character
     ArrayList Basic_Movements;
 
-
-
-
-
-
     public bool basic_animation_changing_condition;
-
-    // int health; // health of the player
 
     // getting the components 
     ProgressBar power_bar;
-
     int damage_increment;
-
     public ArrayList damage_increment_possible_moves;
 
 
@@ -57,10 +42,20 @@ public class Basic_Player : Basic_Character
     int number_of_hits = 0;
     public int max_number_hits = 1;
 
-    public override void settle_fields(int speed_x, int jump_intensity, string basic_attack_name = "Attack")
+    public Camera2D camera;
+    public bool is_AI = false;
+    public bool is_main_character = false;   // the main character is the character which is been controlled by the user 
+
+    Vector2 game_gui_position = Vector2.Zero;
+
+    Node2D AI_Stuff;
+    Timer AI_Jump_Timer;
+
+    public override void settle_fields(int speed_x, int jump_intensity, string basic_attack_name = "Attack", string hurt_move_name = "hurt")
     {
         base.settle_fields(speed_x, jump_intensity, basic_attack_name);
         this.basic_attack_name = basic_attack_name;
+        this.hurt_move_name = hurt_move_name;
     }
 
     public override void _Ready()
@@ -69,19 +64,23 @@ public class Basic_Player : Basic_Character
 
         base._Ready();
 
+        AI_Jump_Timer = basf.create_timer(2, "Avail_AI_Jump");
+
 
         _node_type = _Type_of_.Player;
 
-        var game_gui = GetNode<Node2D>("Game_Gui");
+        this.health = health;// setting the health of the player which is by default hundred but for powerfull character it could be more....
+
+        setPowerBars();
+
+        camera = this.GetNode<Camera2D>("Camera");
 
 
-        power_bar = game_gui.GetNode<ProgressBar>("Power_Bar");
 
         // Dead changed to Death
         Basic_Movements = new ArrayList() { "Idle", "Run", "Walk", "Jump", "Death" };
 
 
-        this.health = health;// setting the health of the player which is by default hundred but for powerfull character it could be more....
 
 
 
@@ -99,12 +98,6 @@ public class Basic_Player : Basic_Character
         basic_animation_changing_condition = true;
 
 
-
-
-        health_bar = game_gui.GetNode<ProgressBar>("Health_Bar");
-        health_bar.Value = 100;
-
-
         moving_direction = Direction.Right;
 
         colliding_condition = "all";
@@ -116,7 +109,7 @@ public class Basic_Player : Basic_Character
         // loading the data of the player
         var dm = basf.dm;
         dm = new Data_Manager("data//data_fields/heros_data_field.zhd");
-        dm.load_data(this.Name);
+        dm.load_data(this.character_name);
         damage_increment = Convert.ToInt32(dm.get_data("Damage_Increment"));
         max_number_hits = Convert.ToInt32(dm.get_data("Max_No_Of_Hits"));
         // settle_deduction(dm);
@@ -127,29 +120,116 @@ public class Basic_Player : Basic_Character
         can_collide_with = new ArrayList() { _Type_of_.Zombie, _Type_of_.Drone };
 
 
-
     }
 
     public override void _Process(float delta)
     {
+
         base._Process(delta);
-
-        if (Input.IsActionPressed("move_left"))
+        // basic_animation_changing_condition = !is_busy;
+        if (!animations.Playing && !is_paralyzed())
         {
-            moving_speed.x = -speed_x;
-        }
-
-        else if (Input.IsActionPressed("move_right"))
-        {
-            moving_speed.x = speed_x;
+            animations.Animation = "Idle";
+            animations.Play();
+            is_busy = false;
         }
 
 
-        if (Input.IsActionJustPressed("Jump") && is_on_ground)
+        if (is_main_character && !camera.Current)
         {
-            moving_speed.y = -jump_intensity;// making the player to jump
+            camera.Current = true;
         }
 
+        if (!is_AI)
+        {
+            // performing the basic attack
+            if (available_moves.Contains(basic_attack_name.ToLower()))
+            {
+                if (Input.IsActionPressed("F") && animations.Animation != basic_attack_name)
+                {
+                    perform_move("Attack");
+                    is_busy = true;
+                }
+                // setting the moving speed to zero if the the player is attacking
+                if (animations.Animation == basic_attack_name)
+                {
+                    moving_speed = new Vector2(0, moving_speed.y);
+                }
+            }
+
+            if (Input.IsActionPressed("move_left"))
+            {
+                moving_speed.x = -speed_x;
+            }
+
+            else if (Input.IsActionPressed("move_right"))
+            {
+                moving_speed.x = speed_x;
+            }
+
+
+            if (Input.IsActionJustPressed("Jump") && is_on_ground)
+            {
+                moving_speed.y = -jump_intensity;// making the player to jump
+            }
+
+
+            // performing the slide movement
+            // it is not a basic movement
+            // a character may or may not have the slide movement
+            if (Input.IsActionPressed("Slide") && is_on_ground && available_moves.Contains("Slide".ToLower()))
+            {
+                is_busy = true;
+                perform_move("Slide");
+                var speed_x = moving_speed.x;
+                moving_speed.x = (speed_x < 0) ? speed_x - slide_speed_increment : speed_x + slide_speed_increment;
+            }
+            else if (animations.Animation == "Slide")
+            {
+                perform_move("Idle");
+                is_busy = false;
+            }
+
+
+
+            /* Logic for adding bullet on the screen*/
+            if (can_shoot)
+            {
+
+                shoot_pressed = Input.IsActionPressed("S");
+                shooting_condition = animations.Animation != "Shoot" && animations.Animation != "Jump_Shoot" && animations.Animation != "Run_Shoot";
+
+                if (shoot_pressed & shooting_condition)
+                {
+                    fire_bullet();
+                }
+
+            }
+
+
+            custom_movements();
+
+
+            health_bar.Value = health;
+            power_bar.Value = power_available;
+
+
+            #region data_transfer to the global script
+            // passing the data of the player to the player or global script
+            // to perform all the other logics
+            // make sure data is being transfered only when the player is not an AI one
+            global_variables.player_position = this.Position + this.GetNode<AnimatedSprite>("Movements").Position;
+            #endregion
+
+        }
+
+        else
+        {
+            this.GetNode<AI_Player>("AI").AI_FUNC();
+        }
+
+
+        move();
 
         if (moving_speed.x != 0)
         {
@@ -157,91 +237,22 @@ public class Basic_Player : Basic_Character
         }
 
 
-        if (basic_animation_changing_condition)
+        if ((basic_animation_changing_condition && !is_AI) || (is_AI && !is_busy))
         {
+            bool is_to_make_busy = !is_AI;
             if (!is_on_ground)
             {
-                perform_move("Jump");
+                perform_move("Jump", is_to_make_busy);
             }
             else if (moving_speed.x != 0)
             {
-                perform_move("Run");
+                perform_move("Run", is_to_make_busy);
             }
             else
             {
-                perform_move("Idle");
+                perform_move("Idle", is_to_make_busy);
             }
         }
-
-
-        // performing the slide movement
-        // it is not a basic movement
-        // a character may or may not have the slide movement
-        if (Input.IsActionPressed("Slide") && is_on_ground && available_moves.Contains("Slide".ToLower()))
-        {
-            is_busy = true;
-            perform_move("Slide");
-            var speed_x = moving_speed.x;
-            moving_speed.x = (speed_x < 0) ? speed_x - slide_speed_increment : speed_x + slide_speed_increment;
-        }
-        else
-        {
-            if (animations.Animation == "Slide")
-            {
-                perform_move("Idle");
-                is_busy = false;
-            }
-        }
-
-
-        /* Logic for adding bullet on the screen*/
-        if (can_shoot)
-        {
-
-            shoot_pressed = Input.IsActionPressed("S");
-            shooting_condition = animations.Animation != "Shoot" && animations.Animation != "Jump_Shoot" && animations.Animation != "Run_Shoot";
-
-            if (shoot_pressed & shooting_condition)
-            {
-                fire_bullet();
-            }
-
-        }
-
-
-
-        // performing the basic attack
-        if (available_moves.Contains(basic_attack_name.ToLower()))
-        {
-            if (Input.IsActionPressed("F") && !is_busy && animations.Animation != "Jump_Attack" && animations.Animation != basic_attack_name)
-            {
-                // animations.Animation = basic_attack_name;
-                perform_move(basic_attack_name);
-                is_busy = true;
-            }
-
-            set_animation_idle(basic_attack_name);
-
-            // setting the moving speed to zero if the the player is attacking
-            if (animations.Animation == basic_attack_name)
-            {
-                moving_speed = new Vector2(0, moving_speed.y);
-            }
-        }
-
-
-        health_bar.Value = health;
-        power_bar.Value = power_available;
-
-
-
-        #region data_transfer to the global script
-        // passing the data of the player to the player or global script
-        // to perform all the other logics
-        global_variables.player_position = this.Position + this.GetNode<AnimatedSprite>("Movements").Position;
-        #endregion
-
-
 
     }
 
@@ -285,20 +296,34 @@ public class Basic_Player : Basic_Character
     {
 
         Global_Variables_F_A_T collided_one = collided_obj as Global_Variables_F_A_T;
-        // if (collided_one._node_type == _Type_of_.Zombie)
-        if (can_collide_with.Contains(collided_one._node_type))
+        if (!is_AI)
         {
-            if (number_of_hits < max_number_hits)
+            if (can_collide_with.Contains(collided_one._node_type))
             {
-                Character collided_char = (Character)collided_one;
-                var current_move = animations.Animation.ToLower();
-                var damage = get_moves_damage(current_move) + (damage_increment_possible_moves.Contains(current_move) ? damage_increment : 0);
-                collided_char.change_health(-damage);
-                basf.global_Variables.score += damage;
-                is_hitted = true;
-                number_of_hits++;
+                if (number_of_hits < max_number_hits)
+                {
+                    Character collided_char = (Character)collided_one;
+                    var current_move = animations.Animation.ToLower();
+                    var damage = get_moves_damage(current_move) + (damage_increment_possible_moves.Contains(current_move) ? damage_increment : 0);
+                    collided_char.change_health(-damage);
+                    basf.global_Variables.score += damage;
+                    is_hitted = true;
+                    number_of_hits++;
+                }
             }
         }
+        else if (collided_one._node_type == _Type_of_.Block && is_on_ground && AI_Jump_Timer.IsStopped())
+        {
+            jump();
+            AI_Jump_Timer.Start();
+        }
+        else
+        {
+            perform_randomize_attack(collided_one, true);
+        }
+
+
+
     }
 
 
@@ -322,9 +347,8 @@ public class Basic_Player : Basic_Character
             var bullet = (Basic_Throwable_Weapon)bullet_scene.Instance();
             bullet.weapon_speed = (is_on_ground) ? 15 : 30;
             bullet.weapon_speed += speed_increment;
-            bullet.spawn_weapon(this.Position, moving_direction, b_rightchange, b_leftchange, b_height_change);
+            bullet.spawn_weapon(this.Position, moving_direction, b_rightchange, b_leftchange, (basf.global_Variables.current_level_type == Level_Type.Multi_AI) ? b_height_change : 0);
             bullet.weapon_name = bullet.Name;
-            // GD.Print("hey there the bullet name is right from the basic_player..!! ", bullet.weapon_name);
             this.AddChild(bullet);
         }
     }
@@ -361,7 +385,7 @@ public class Basic_Player : Basic_Character
         bullet_scene = ResourceLoader.Load<PackedScene>($"{basf.global_paths.Weapons_Base_Url}/{weapon_name}.tscn");
         this.b_rightchange = 100;
         this.b_leftchange = -100;
-        this.b_height_change = 0;
+        this.b_height_change = b_height_change;
         can_shoot = true;
         return true;
     }
@@ -369,9 +393,16 @@ public class Basic_Player : Basic_Character
     public override void update_logic(Data_Manager shop_data, Data_Manager user_data, Data_Manager throwable_weapons_dm)
     {
         base.update_logic(shop_data, user_data, throwable_weapons_dm);
+
         var max_number_of_hits = Convert.ToInt32(shop_data.get_data("Max_No_Of_Hits"));
         var max_number_of_hits_increment = Convert.ToInt32(shop_data.get_data("Hits_Increment_Per_Update"));
-        shop_data.set_value("Max_No_Of_Hits", (max_number_of_hits + max_number_of_hits_increment).ToString());
+        var new_max_number_of_hits = max_number_of_hits + max_number_of_hits_increment;
+
+        var max_damage_count = shop_data.get_integer_data("Max_Damage_Count");
+        var max_damage_count_increment = shop_data.get_integer_data("Max_Damage_Count_Increment");
+        var new_max_damage_count = max_damage_count + max_damage_count_increment;
+
+        shop_data.set_value<int>(new string[2] { "Max_No_Of_Hits", "Max_Damage_Count" }, new int[2] { new_max_number_of_hits, new_max_damage_count });
 
     }
 
@@ -383,6 +414,78 @@ public class Basic_Player : Basic_Character
     {
         this.health = 0;
     }
+
+    public void MakeConPlayer()
+    {
+        // Game_Gui gui = this.GetNode<Game_Gui>("Game_Gui");
+
+        // checking whether their is an existing gui exist or not
+        Game_Gui gui = null;
+        foreach (Node item in this.GetChildren())
+        {
+            if (item.Name == "Game_Gui")
+            {
+                gui = item as Game_Gui;
+                break;
+            }
+        }
+        if (gui == null)
+        {
+            Game_Gui new_gui = basf.get_the_packed_scene(basf.global_paths.Game_Gui_Path).Instance<Game_Gui>();
+            new_gui.Name = "Game_Gui";
+            this.AddChild(new_gui);
+            new_gui.Position = game_gui_position;
+        }
+
+        is_AI = false;
+
+        setPowerBars();
+
+        this.is_main_character = true;
+
+    }
+
+    public void MakeAIPlayer()
+    {
+        Game_Gui gui = null;
+        foreach (Node item in this.GetChildren())
+        {
+            if (item.Name == "Game_Gui")
+            {
+                gui = item as Game_Gui;
+                break;
+            }
+        }
+
+        if (gui != null)
+        {
+            this.RemoveChild(gui);
+        }
+
+        is_AI = true;
+
+        this.is_main_character = false;
+    }
+
+    public void setPowerBars()
+    {
+        var game_gui = GetNode<Node2D>("Game_Gui");
+        game_gui_position = game_gui.Position;
+
+        power_bar = game_gui.GetNode<ProgressBar>("Power_Bar");
+
+        health_bar = game_gui.GetNode<ProgressBar>("Health_Bar");
+        health_bar.Value = 100;
+    }
+
+    public void Avail_AI_Jump()
+    {
+        AI_Jump_Timer.Stop();
+    }
+
+
+
+    public virtual void custom_movements() { }
 
 
 

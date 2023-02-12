@@ -8,7 +8,6 @@ public class Initial_Faller : Particles2D
     public bool is_bombermant_started;
     public string bomb_name;
     Basic_Func basf;
-    // int data_start_index;
 
     ArrayList side_collision_rays;
     RayCast2D ground_checker;
@@ -67,13 +66,10 @@ public class Initial_Faller : Particles2D
 
         if (is_bombermant_started && !this.Emitting)
         {
-            GD.Print("hey there buddy the node is been added..!!");
             PackedScene bomb_scene = basf.get_the_packed_scene($"{bomb_scene_path}/{bomb_name}.tscn");
             Basic_Bomb bomb = bomb_scene.Instance() as Basic_Bomb;
             bomb.Position = collision_point;
             bomb.bomb_name = bomb_name;
-            GD.Print(collision_point);
-            GD.Print(basf.global_Variables.player_position);
             this.GetParent().AddChild(bomb);
             this.QueueFree();
         }

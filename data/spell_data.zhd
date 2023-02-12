@@ -1,5 +1,5 @@
 Health_Stopper
-32
+11
 1000
 100
 3
@@ -13,12 +13,12 @@ true
 3
 true
 Hey their its is spell which makes the health to stop a at a particular point my boy hahaha
-|Drone_1:Don't use it could be mis......:False|
+-
 False
 Don't us their
 
 Max_Powerer
-96
+77
 1000
 10
 3
@@ -56,7 +56,7 @@ false
 Don't use it
 
 Health_Incrementor
-12
+-1
 1000
 60
 3
@@ -75,7 +75,7 @@ false
 Don't use it
 
 Tornado
-7
+24
 1000
 20
 3
@@ -89,12 +89,12 @@ true
 3
 true
 Hey their its is spell which makes the health to stop a at a particular point my boy hahaha
--
+|Tornado:Don't use one more tornado:False|
 False
 Don't use it
 
 Resist_Remover
-37
+2
 1000
 20
 3
@@ -113,7 +113,26 @@ False
 Don't use it
 
 Speed_Incrementor
-5
+20
+1000
+20
+3
+0
+1
+6000
+1000
+true
+1000
+3
+3
+true
+Hey their its is spell which makes the health to stop a at a particular point my boy hahaha
+-
+False
+Don't use it
+
+Paralyze_Stopper
+17
 1000
 20
 3

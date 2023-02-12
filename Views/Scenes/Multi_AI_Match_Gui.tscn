@@ -1,0 +1,483 @@
+[gd_scene load_steps=20 format=2]
+
+[ext_resource path="res://Weapons_And_Animation/components/scenes/Item_Searcher.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Views/Scripts/Multi_AI_Match_Gui.cs" type="Script" id=2]
+[ext_resource path="res://assets/images/gui/white_color.png" type="Texture" id=3]
+[ext_resource path="res://assets/images/gui/designs/multi_ai_game_bg.png" type="Texture" id=4]
+[ext_resource path="res://assets/fonts/STIXGeneralBolIta.ttf" type="DynamicFontData" id=5]
+
+[sub_resource type="DynamicFont" id=1]
+size = 20
+extra_spacing_top = 20
+extra_spacing_bottom = 20
+extra_spacing_char = 4
+extra_spacing_space = 5
+font_data = ExtResource( 5 )
+
+[sub_resource type="StyleBoxFlat" id=3]
+bg_color = Color( 0.313726, 0.8, 0.65098, 1 )
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color( 0.0980392, 0.00392157, 0.00392157, 1 )
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+expand_margin_left = 4.0
+expand_margin_right = 4.0
+expand_margin_top = 4.0
+expand_margin_bottom = 4.0
+
+[sub_resource type="StyleBoxFlat" id=4]
+bg_color = Color( 0.184314, 0.52549, 0.705882, 1 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 0.0980392, 0.00392157, 0.00392157, 1 )
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+expand_margin_left = 4.0
+expand_margin_right = 4.0
+expand_margin_top = 4.0
+expand_margin_bottom = 4.0
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0.0901961, 0.192157, 0.34902, 1 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 0.0980392, 0.00392157, 0.00392157, 1 )
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+expand_margin_left = 4.0
+expand_margin_right = 4.0
+expand_margin_top = 4.0
+expand_margin_bottom = 4.0
+
+[sub_resource type="DynamicFont" id=5]
+size = 20
+extra_spacing_top = 10
+extra_spacing_bottom = 10
+font_data = ExtResource( 5 )
+
+[sub_resource type="StyleBoxFlat" id=6]
+bg_color = Color( 0.337255, 0.388235, 0.470588, 1 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 0.0980392, 0.00392157, 0.00392157, 1 )
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+expand_margin_left = 2.0
+expand_margin_right = 2.0
+expand_margin_top = 2.0
+expand_margin_bottom = 2.0
+
+[sub_resource type="DynamicFont" id=8]
+font_data = ExtResource( 5 )
+
+[sub_resource type="StyleBoxFlat" id=10]
+bg_color = Color( 0.54902, 0.266667, 0.266667, 1 )
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color( 0.101961, 0.0313726, 0.0313726, 1 )
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 100
+
+[sub_resource type="StyleBoxFlat" id=11]
+bg_color = Color( 0.752941, 0.517647, 0.517647, 1 )
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color( 0.101961, 0.0313726, 0.0313726, 1 )
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 100
+
+[sub_resource type="StyleBoxFlat" id=9]
+bg_color = Color( 0.752941, 0.517647, 0.517647, 1 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 0.101961, 0.0313726, 0.0313726, 1 )
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 100
+
+[sub_resource type="DynamicFont" id=7]
+size = 25
+extra_spacing_char = 3
+extra_spacing_space = 5
+font_data = ExtResource( 5 )
+
+[sub_resource type="DynamicFont" id=14]
+font_data = ExtResource( 5 )
+
+[sub_resource type="StyleBoxFlat" id=13]
+bg_color = Color( 0.552941, 0.462745, 0.462745, 1 )
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color( 0.0156863, 0, 0, 1 )
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id=12]
+bg_color = Color( 0.552941, 0.462745, 0.462745, 1 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 0.0156863, 0, 0, 1 )
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[node name="Multi_AI_Match_Gui" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 2 )
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="MultiAiGameBg" type="Sprite" parent="."]
+position = Vector2( 532, 323 )
+scale = Vector2( 2.38397, 2.72932 )
+texture = ExtResource( 4 )
+
+[node name="Character_Selector" type="Control" parent="."]
+margin_right = 1026.0
+margin_bottom = 617.0
+
+[node name="P_Con" type="VBoxContainer" parent="Character_Selector"]
+margin_left = 121.0
+margin_top = 49.0
+margin_right = 805.0
+margin_bottom = 376.0
+custom_constants/separation = 40
+
+[node name="0" type="HBoxContainer" parent="Character_Selector/P_Con"]
+margin_right = 684.0
+margin_bottom = 76.0
+custom_constants/separation = 100
+
+[node name="m_0" type="MarginContainer" parent="Character_Selector/P_Con/0"]
+margin_right = 155.0
+margin_bottom = 76.0
+
+[node name="Button" type="Button" parent="Character_Selector/P_Con/0/m_0"]
+margin_right = 155.0
+margin_bottom = 76.0
+custom_colors/font_color = Color( 0.980392, 0.980392, 0.980392, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0.360784, 0, 0.580392, 1 )
+custom_fonts/font = SubResource( 1 )
+custom_styles/hover = SubResource( 3 )
+custom_styles/pressed = SubResource( 4 )
+custom_styles/normal = SubResource( 2 )
+text = "Normal Text"
+
+[node name="m_1" type="MarginContainer" parent="Character_Selector/P_Con/0"]
+margin_left = 255.0
+margin_right = 410.0
+margin_bottom = 76.0
+
+[node name="Button" type="Button" parent="Character_Selector/P_Con/0/m_1"]
+margin_right = 155.0
+margin_bottom = 76.0
+custom_colors/font_color = Color( 0.980392, 0.980392, 0.980392, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0.360784, 0, 0.580392, 1 )
+custom_fonts/font = SubResource( 1 )
+custom_styles/hover = SubResource( 3 )
+custom_styles/pressed = SubResource( 4 )
+custom_styles/normal = SubResource( 2 )
+text = "Normal Text"
+
+[node name="m_2" type="MarginContainer" parent="Character_Selector/P_Con/0"]
+margin_left = 510.0
+margin_right = 665.0
+margin_bottom = 76.0
+
+[node name="Button" type="Button" parent="Character_Selector/P_Con/0/m_2"]
+margin_right = 155.0
+margin_bottom = 76.0
+custom_colors/font_color = Color( 0.980392, 0.980392, 0.980392, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0.360784, 0, 0.580392, 1 )
+custom_fonts/font = SubResource( 1 )
+custom_styles/hover = SubResource( 3 )
+custom_styles/pressed = SubResource( 4 )
+custom_styles/normal = SubResource( 2 )
+text = "Normal Text"
+
+[node name="1" type="HBoxContainer" parent="Character_Selector/P_Con"]
+margin_top = 116.0
+margin_right = 684.0
+margin_bottom = 192.0
+custom_constants/separation = 100
+
+[node name="m_0" type="MarginContainer" parent="Character_Selector/P_Con/1"]
+margin_right = 155.0
+margin_bottom = 76.0
+
+[node name="Button" type="Button" parent="Character_Selector/P_Con/1/m_0"]
+margin_right = 155.0
+margin_bottom = 76.0
+custom_colors/font_color = Color( 0.980392, 0.980392, 0.980392, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0.360784, 0, 0.580392, 1 )
+custom_fonts/font = SubResource( 1 )
+custom_styles/hover = SubResource( 3 )
+custom_styles/pressed = SubResource( 4 )
+custom_styles/normal = SubResource( 2 )
+text = "Normal Text"
+
+[node name="m_1" type="MarginContainer" parent="Character_Selector/P_Con/1"]
+margin_left = 255.0
+margin_right = 410.0
+margin_bottom = 76.0
+
+[node name="Button" type="Button" parent="Character_Selector/P_Con/1/m_1"]
+margin_right = 155.0
+margin_bottom = 76.0
+custom_colors/font_color = Color( 0.980392, 0.980392, 0.980392, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0.360784, 0, 0.580392, 1 )
+custom_fonts/font = SubResource( 1 )
+custom_styles/hover = SubResource( 3 )
+custom_styles/pressed = SubResource( 4 )
+custom_styles/normal = SubResource( 2 )
+text = "Normal Text"
+
+[node name="m_2" type="MarginContainer" parent="Character_Selector/P_Con/1"]
+margin_left = 510.0
+margin_right = 665.0
+margin_bottom = 76.0
+
+[node name="Button" type="Button" parent="Character_Selector/P_Con/1/m_2"]
+margin_right = 155.0
+margin_bottom = 76.0
+custom_colors/font_color = Color( 0.980392, 0.980392, 0.980392, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0.360784, 0, 0.580392, 1 )
+custom_fonts/font = SubResource( 1 )
+custom_styles/hover = SubResource( 3 )
+custom_styles/pressed = SubResource( 4 )
+custom_styles/normal = SubResource( 2 )
+text = "Normal Text"
+
+[node name="2" type="HBoxContainer" parent="Character_Selector/P_Con"]
+margin_top = 232.0
+margin_right = 684.0
+margin_bottom = 308.0
+custom_constants/separation = 100
+
+[node name="m_0" type="MarginContainer" parent="Character_Selector/P_Con/2"]
+margin_right = 155.0
+margin_bottom = 76.0
+
+[node name="Button" type="Button" parent="Character_Selector/P_Con/2/m_0"]
+margin_right = 155.0
+margin_bottom = 76.0
+custom_colors/font_color = Color( 0.980392, 0.980392, 0.980392, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0.360784, 0, 0.580392, 1 )
+custom_fonts/font = SubResource( 1 )
+custom_styles/hover = SubResource( 3 )
+custom_styles/pressed = SubResource( 4 )
+custom_styles/normal = SubResource( 2 )
+text = "Normal Text"
+
+[node name="m_1" type="MarginContainer" parent="Character_Selector/P_Con/2"]
+margin_left = 255.0
+margin_right = 410.0
+margin_bottom = 76.0
+
+[node name="Button" type="Button" parent="Character_Selector/P_Con/2/m_1"]
+margin_right = 155.0
+margin_bottom = 76.0
+custom_colors/font_color = Color( 0.980392, 0.980392, 0.980392, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0.360784, 0, 0.580392, 1 )
+custom_fonts/font = SubResource( 1 )
+custom_styles/hover = SubResource( 3 )
+custom_styles/pressed = SubResource( 4 )
+custom_styles/normal = SubResource( 2 )
+text = "Normal Text"
+
+[node name="m_2" type="MarginContainer" parent="Character_Selector/P_Con/2"]
+margin_left = 510.0
+margin_right = 665.0
+margin_bottom = 76.0
+
+[node name="Button" type="Button" parent="Character_Selector/P_Con/2/m_2"]
+margin_right = 155.0
+margin_bottom = 76.0
+custom_colors/font_color = Color( 0.980392, 0.980392, 0.980392, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0.360784, 0, 0.580392, 1 )
+custom_fonts/font = SubResource( 1 )
+custom_styles/hover = SubResource( 3 )
+custom_styles/pressed = SubResource( 4 )
+custom_styles/normal = SubResource( 2 )
+text = "Normal Text"
+
+[node name="Selected_Characters" type="HBoxContainer" parent="Character_Selector"]
+margin_left = -29.0
+margin_top = 476.0
+margin_right = 930.0
+margin_bottom = 585.0
+custom_constants/separation = 61
+alignment = 1
+
+[node name="m_0" type="MarginContainer" parent="Character_Selector/Selected_Characters"]
+margin_left = 168.0
+margin_right = 278.0
+margin_bottom = 109.0
+
+[node name="Button" type="Button" parent="Character_Selector/Selected_Characters/m_0"]
+margin_right = 110.0
+margin_bottom = 109.0
+custom_colors/font_color = Color( 0.980392, 0.980392, 0.980392, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0.360784, 0, 0.580392, 1 )
+custom_fonts/font = SubResource( 5 )
+custom_styles/hover = SubResource( 3 )
+custom_styles/pressed = SubResource( 4 )
+custom_styles/normal = SubResource( 6 )
+text = "Normal Text"
+
+[node name="m_1" type="MarginContainer" parent="Character_Selector/Selected_Characters"]
+margin_left = 339.0
+margin_right = 449.0
+margin_bottom = 109.0
+
+[node name="Button" type="Button" parent="Character_Selector/Selected_Characters/m_1"]
+margin_right = 110.0
+margin_bottom = 109.0
+custom_colors/font_color = Color( 0.980392, 0.980392, 0.980392, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0.360784, 0, 0.580392, 1 )
+custom_fonts/font = SubResource( 5 )
+custom_styles/hover = SubResource( 3 )
+custom_styles/pressed = SubResource( 4 )
+custom_styles/normal = SubResource( 6 )
+text = "Normal Text"
+
+[node name="m_2" type="MarginContainer" parent="Character_Selector/Selected_Characters"]
+margin_left = 510.0
+margin_right = 620.0
+margin_bottom = 109.0
+
+[node name="Button" type="Button" parent="Character_Selector/Selected_Characters/m_2"]
+margin_right = 110.0
+margin_bottom = 109.0
+custom_colors/font_color = Color( 0.980392, 0.980392, 0.980392, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0.360784, 0, 0.580392, 1 )
+custom_fonts/font = SubResource( 5 )
+custom_styles/hover = SubResource( 3 )
+custom_styles/pressed = SubResource( 4 )
+custom_styles/normal = SubResource( 6 )
+text = "Normal Text"
+
+[node name="m_3" type="MarginContainer" parent="Character_Selector/Selected_Characters"]
+margin_left = 681.0
+margin_right = 791.0
+margin_bottom = 109.0
+
+[node name="Button" type="Button" parent="Character_Selector/Selected_Characters/m_3"]
+margin_right = 110.0
+margin_bottom = 109.0
+custom_colors/font_color = Color( 0.980392, 0.980392, 0.980392, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0.360784, 0, 0.580392, 1 )
+custom_fonts/font = SubResource( 5 )
+custom_styles/hover = SubResource( 3 )
+custom_styles/pressed = SubResource( 4 )
+custom_styles/normal = SubResource( 6 )
+text = "Normal Text"
+
+[node name="Start_Match" type="Button" parent="."]
+margin_left = 830.0
+margin_top = 30.0
+margin_right = 989.0
+margin_bottom = 83.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 1, 1, 1, 1 )
+custom_fonts/font = SubResource( 8 )
+custom_styles/hover = SubResource( 10 )
+custom_styles/pressed = SubResource( 11 )
+custom_styles/normal = SubResource( 9 )
+text = "Start_Match"
+
+[node name="Can\'t_Play_View" type="Control" parent="."]
+visible = false
+margin_right = 1027.0
+margin_bottom = 584.0
+
+[node name="Label" type="Label" parent="Can\'t_Play_View"]
+margin_left = 269.0
+margin_top = 194.0
+margin_right = 812.0
+margin_bottom = 304.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 7 )
+text = "Can't player No sufficient Characters Unlocked To Play This One"
+autowrap = true
+
+[node name="Light2D" type="Light2D" parent="Can\'t_Play_View"]
+position = Vector2( 544, 266 )
+scale = Vector2( 2.39667, 1.625 )
+texture = ExtResource( 3 )
+
+[node name="Item_Searcher" parent="." instance=ExtResource( 1 )]
+visible = false
+margin_left = 581.736
+margin_top = 161.0
+margin_right = 527.736
+margin_bottom = 150.0
+
+[node name="Hero_Choicer" type="OptionButton" parent="."]
+margin_left = 809.0
+margin_top = 187.0
+margin_right = 1008.0
+margin_bottom = 232.0
+custom_colors/font_color_disabled = Color( 0, 0, 0, 1 )
+custom_colors/font_color_focus = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 14 )
+custom_styles/hover = SubResource( 13 )
+custom_styles/pressed = SubResource( 12 )
+custom_styles/focus = SubResource( 12 )
+custom_styles/disabled = SubResource( 12 )
+custom_styles/normal = SubResource( 12 )
+text = "Playing_Character"
+align = 1

@@ -345,7 +345,7 @@ public class Warning_Editor : Basic_View
             render_warning_item_name_list.Add(obj["name"]);
         }
 
-        foreach (Godot.Collections.Dictionary<string, string> obj in items)
+        foreach (Godot.Collections.Dictionary<string, string> obj in items_copy)
         {
             string name = obj["name"];
             if (!render_warning_item_name_list.Contains(name))

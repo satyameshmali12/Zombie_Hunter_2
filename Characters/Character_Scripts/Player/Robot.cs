@@ -26,6 +26,8 @@ public class Robot : Basic_Player
     bool is_can_shoot;
     Laser_Bean laser_bean;
 
+    float delta = 0;
+
     // Timer emitter_setter_timer;
 
     public override void _Ready()
@@ -39,9 +41,11 @@ public class Robot : Basic_Player
 
 
         is_busy = false;
-        available_moves = new ArrayList() { "death", "idle", "jump", "jump_melee", "jump_shoot", "melee", "run", "run_shoot", "shoot", "slide", "laser_beam" };
-        available_moves_consumption = new int[11] { 0, 0, 0, 10, 15, 10, 0, 10, 8, 0, 10 };
-        available_moves_damage = new int[11] { 0, 0, 5, 40, 100, 20, 1, 120, 0, 1, 200 };
+        available_moves = new ArrayList() { "damaged", "death", "hurt", "idle", "jump", "jump_melee", "jump_shoot", "melee", "run", "run_shoot", "shoot", "slide", "laser_beam" };
+        available_moves_consumption = new int[13] { 0, 0, 0, 0, 0, 10, 15, 2, 0, 10, 8, 0, 10 };
+        available_moves_damage = new int[13] { 0, 0, 0, 0, 5, 40, 100, 20, 1, 120, 0, 1, 200 };
+
+        attack_move_names = new ArrayList(){"jump_melee","melee"};
         settle_damage_increment_possible_moves(4);
 
         this.load_basic_weapon("Bullet", 0, -10, 100);
@@ -55,14 +59,23 @@ public class Robot : Basic_Player
 
     public override void _Process(float delta)
     {
+        basic_animation_changing_condition = !is_busy;
 
+
+        if(!laser_bean.is_animation_performing)
+          {
+             base._Process(delta);
+          }
+
+
+    }
+
+    public override void custom_movements()
+    {
+        base.custom_movements();
 
         if (!laser_bean.is_animation_performing)
         {
-
-            base._Process(delta);
-            basic_animation_changing_condition = !is_busy;
-
             if (Input.IsActionPressed("F") && !is_on_ground)
             {
                 perform_move("Jump_Melee");
@@ -94,8 +107,8 @@ public class Robot : Basic_Player
             set_animation_idle("Run_Shoot");
             set_animation_idle("Jump_Melee");
 
-            move();
         }
+
 
     }
 
@@ -106,11 +119,6 @@ public class Robot : Basic_Player
         base.collided_with_body(body);
 
         Global_Variables_F_A_T old_tile = (Global_Variables_F_A_T)body;
-
-        // if (old_tile._node_type == "block")
-        // {
-        // GD.Print(old_tile._node_type);
-        // }
     }
 
     public override void fire_bullet()

@@ -1,13 +1,16 @@
 using System;
 using System.Collections;
 using Godot;
-using System.IO;
+
+/*
+
+Basic Level for dealing with all the matches
+
+*/
 
 public class Level : Node2D, Global_Variables_F_A_T
 {
     public Basic_Func basf;
-    // Data_Manager user_data;
-
 
     public _Type_of_ _node_type { get; set; }
 
@@ -32,7 +35,7 @@ public class Level : Node2D, Global_Variables_F_A_T
 
     bool is_data_saved;
 
-    Basic_Player player;
+    public Basic_Player player = null;
 
     int game_over_timing;
 
@@ -56,6 +59,9 @@ public class Level : Node2D, Global_Variables_F_A_T
     bool is_specified_count_given;
 
 
+    public Node2D heros_area;
+
+
 
 
     public override void _Ready()
@@ -67,9 +73,9 @@ public class Level : Node2D, Global_Variables_F_A_T
 
         basf = new Basic_Func(this);
 
-        // basf.global_Variables.visibility_list.Clear();
-
         basf.global_Variables.level_scene = this;
+
+        basf.global_Variables.falling_range = this.GetNode<Position2D>("Falling_Range");
 
 
         // setting the metadata of the for the level
@@ -79,6 +85,10 @@ public class Level : Node2D, Global_Variables_F_A_T
         basf.global_Variables.score = 0;
         basf.global_Variables.had_win_the_game = false;
         basf.global_Variables.is_game_quitted = false;
+        setLevelType(Level_Type.Normal_Level); // setting the level_type to normal_level initially
+
+        heros_area = this.GetNode<Node2D>("Heros_Area");
+        basf.global_Variables.herosArea = heros_area;
 
 
         basf.dm.load_data(this.Name);
@@ -142,7 +152,7 @@ public class Level : Node2D, Global_Variables_F_A_T
 
             if (zombie_specified_count_list.Count != zombie_render_list.Count)
             {
-                GD.Print("hey there buddy their is some problem occur we are gonna throught the error if this thing take place again so just keep that in you mind oky hahah..!! right from the level.cs haha..!!");
+                basf.moveToErrorPage();
             }
 
 
@@ -177,33 +187,20 @@ public class Level : Node2D, Global_Variables_F_A_T
 
         }
 
-
-
-
-
-
         zombie_spawn_points = basf.get_the_node_childrens("Zombie_Spawn_Points");
         player_spawn_point = this.GetNode<Position2D>("Player_Spawn_Point");
 
 
-        var character_name = basf.user_data.get_data("Current_Character");
-        player_scene = ResourceLoader.Load<PackedScene>($"res://Characters/Characters_Scene/Player/{character_name}.tscn");
-
-        player = player_scene.Instance<Basic_Player>();
-        player.Position = player_spawn_point.Position;
-        this.AddChild(player);
-
-
         // sending the data to the global_variables i.e the player scene
-        basf.global_Variables.character_scene = player;
-        basf.global_Variables.level_tiles = this.GetNode<TileMap>("TileMap");
-
-        basf.increment_loading_percent(20);
 
 
         global_variables = GetNode<Global_Variables>("/root/Global_Variables");
-        global_variables._main_character_name = player.Name;
 
+        addCharacters();
+
+        basf.global_Variables.level_tiles = this.GetNode<TileMap>("TileMap");
+
+        basf.increment_loading_percent(20);
 
         background_Music = basf.create_a_sound("res://assets/audio/Zombie/Zombie_Entire_Background.mp3", this, false, 1, .2f, .2f);
 
@@ -212,26 +209,38 @@ public class Level : Node2D, Global_Variables_F_A_T
         pause_button = game_gui.GetNode<Button>("Pause_Button");
 
         basf.increment_loading_percent(20);
-        GD.Print("hey the loading is done");
 
     }
 
     public override void _Process(float delta)
     {
 
-        // if (!is_data_saved && !global_variables.is_game_over)
-        // {
-            
-        // }
         var zombie_area = GetNode<Node2D>("Zombie_Area");
         spawn_zombie(zombie_area);
         var win_condition = total_zombie == 0 && zombie_area.GetChildren().Count == 0;
 
 
 
-        if (global_variables.is_game_over || win_condition)
+        if ((global_variables.is_game_over || win_condition))
         {
-            
+
+            if (heros_area.GetChildCount() !=0 && basf.global_Variables.current_level_type==Level_Type.Multi_AI)
+            {
+                is_data_saved = true;
+                int char_count = heros_area.GetChildCount();
+                Basic_Player new_player = null;
+                if (char_count > 1)
+                {
+                    new_player = heros_area.GetChildren()[Convert.ToInt32(GD.RandRange(0, char_count))] as Basic_Player;
+                }
+                else
+                {
+                    new_player = heros_area.GetChildren()[0] as Basic_Player;
+                }
+                setMainPlayer(new_player);
+                global_variables.is_game_over = false;
+                return;
+            }
 
             if (!is_data_saved)
             {
@@ -241,6 +250,7 @@ public class Level : Node2D, Global_Variables_F_A_T
                 global_variables.is_game_over = false;
 
                 background_Music.Stop();
+
                 // unlocking the next level
                 // the complete description can be founded in the respective classes
                 if (win_condition)
@@ -277,7 +287,9 @@ public class Level : Node2D, Global_Variables_F_A_T
 
                 game_over_view_label.set_w_l(win_condition);
             }
-            is_data_saved = true;
+            // else
+            // {
+            // }
         }
 
         if (Input.IsActionJustPressed("Move_To_GOS") || game_over_timing == max_time_time_on_screen)
@@ -293,15 +305,8 @@ public class Level : Node2D, Global_Variables_F_A_T
         var is_bomb_in_hand = basf.global_Variables.spell_in_hand != null;
         if (is_bomb_in_hand && Input.IsActionPressed("Mouse_Pressed") && !basf.is_any_one_button_pressed(global_variables.bomb_Buttons))
         {
-            GD.Print(global_variables.spell_in_hand);
-            // GD.Print();
-            // GD.Print("hey the mouse pressed event is been created..!!");
-            // GD.Print("hello world pressed!!");
             var ini_faller = basf.get_the_packed_scene("res://Bomb's/Scenes/Initial_Faller.tscn").Instance() as Initial_Faller;
-            // GD.Print("from the basic level..!!");
             ini_faller.settle_values(global_variables.spell_in_hand, GetGlobalMousePosition());
-            // ini_faller.Position = GetGlobalMousePosition();
-            // ini_faller.Emitting = true;
             this.AddChild(ini_faller);
             global_variables.spell_in_hand = null;
         }
@@ -322,20 +327,20 @@ public class Level : Node2D, Global_Variables_F_A_T
         var all_zombies = zombie_area.GetChildren();
         foreach (Basic_Zombie zombie in all_zombies)
         {
-            if(zombie.is_associated_with_main_level)
+            if (zombie.is_associated_with_main_level)
             {
                 tot_num_of_zom++;
             }
         }
-        
+
         var is_successfully_added = false;
 
 
-        if (tot_num_of_zom<max_zombie_per_screen && total_zombie > 0 && !is_data_saved)
+        if (tot_num_of_zom < max_zombie_per_screen && total_zombie > 0 && !is_data_saved)
         {
 
             var index = (difficulty_level + 1 > zombie_render_list.Count - 1) ? zombie_render_list.Count : difficulty_level + 1; // getting the index of the zombie
-             
+
             var random_num = (int)GD.RandRange(0, (index)); // generating a rand number for getting a random zombie from the zombie_render_list
             var random_selection = zombie_render_list[random_num]; // taking out the render_zombie
 
@@ -343,8 +348,6 @@ public class Level : Node2D, Global_Variables_F_A_T
             // if specifed count is given then deducting the number of the specifed zombie
             if (is_specified_count_given)
             {
-                // GD.Print("random num is:- ", random_num," right from the level.cs haha..!!");
-                // GD.Print(zombie_specified_count_list.Count);
                 var value = Convert.ToInt32(zombie_specified_count_list[random_num]);
                 value--;
                 zombie_specified_count_list[random_num] = value;
@@ -405,16 +408,43 @@ public class Level : Node2D, Global_Variables_F_A_T
 
     void move_to_game_over_screen()
     {
-        // basf.global_Variables.guiticke_buttons.Clear();
         basf.clear_garbage();
         basf.global_Variables.is_game_quitted = true;
         GetTree().ChangeScene("res://Views/Scenes/Game_Over_View.tscn");
 
     }
 
+    public virtual void addCharacters()
+    {
+        var character_name = basf.user_data.get_data("Current_Character");
+        player_scene = ResourceLoader.Load<PackedScene>($"res://Characters/Characters_Scene/Player/{character_name}.tscn");
+        // adding the character to the basic_level 
+        player = player_scene.Instance<Basic_Player>();
+        player.Position = player_spawn_point.Position;
+        heros_area.AddChild(player);
+        setMainPlayer(player);
+    }
+
+    public void setMainPlayer(Basic_Player _player)
+    {
+        this.player = _player;
+        player.MakeConPlayer(); // making the _player as controlable player
+        player.is_main_character = true;
+        basf.global_Variables.character_scene = player;
+        basf.global_Variables._main_character_name = player.Name;
+        player.camera.Current = true;
+    }
+
+
+    public void setLevelType(Level_Type lev_t)
+    {
+        basf.global_Variables.current_level_type = lev_t;
+    }
+
+
     public virtual void update_logic(Data_Manager shop_data, Data_Manager user_data, Data_Manager throwable_weapons_dm)
     {
-
+        // no update logic for level
     }
 
 
