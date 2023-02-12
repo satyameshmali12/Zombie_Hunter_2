@@ -99,3 +99,5 @@ position = Vector2( 4748, -394 )
 
 [node name="Falling_Range" type="Position2D" parent="."]
 position = Vector2( 237, 2779 )
+
+[node name="Heros_Area" type="Node2D" parent="."]

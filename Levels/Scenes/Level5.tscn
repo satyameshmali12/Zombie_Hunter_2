@@ -107,3 +107,5 @@ position = Vector2( 1571, 3990 )
 position = Vector2( 1363, -6177 )
 scale = Vector2( 28.585, 6.06803 )
 texture = ExtResource( 7 )
+
+[node name="Heros_Area" type="Node2D" parent="."]
