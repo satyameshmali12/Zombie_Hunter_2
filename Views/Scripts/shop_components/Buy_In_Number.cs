@@ -10,11 +10,14 @@ public class Buy_In_Number : Buy
     public int per_price = 0;
 
 
+    Counter counter;
+
 
 
     public override void _Ready()
     {
         base._Ready();
+        counter = this.GetNode<Counter>("Counter");
 
     }
 
@@ -27,10 +30,16 @@ public class Buy_In_Number : Buy
     {
         base.data_change_logic();
 
-        if (available_count < max_bomb_count_in_inventory && available_money >= per_price)
+        int buyCount = counter.getCurrentCount();
+        if (available_count < max_bomb_count_in_inventory)
         {
-            available_count++;
-            settle_data(per_price, "Available_Count", $"{available_count}");
+            if(buyCount<=0)
+            {
+                toggle_warninig_message("Can't Buy Zero Items!!!");
+                return;
+            }
+            available_count+=buyCount;
+            settle_data(buyCount*per_price, "Available_Count", $"{available_count}");
         }
         else
         {
@@ -49,8 +58,16 @@ public class Buy_In_Number : Buy
             this.Visible = is_unlocked;
             per_price = Convert.ToInt32(shop_data.get_data("Per_Price"));
             available_count = Convert.ToInt32(shop_data.get_data("Available_Count"));
-            this.GetNode<Label>("Money").Text = $"{per_price}$";
+            this.GetNode<Label>("Money").Text = $"{per_price * counter.getCurrentCount()}$";
             this.GetNode<Label>("No_Item").Text = $"Available : - {available_count.ToString()}";
+
+            int itemPosBuyNUm = Convert.ToInt32(available_money/per_price);
+            int remainingItemSpace = max_bomb_count_in_inventory-available_count;
+
+            int maxCount = (itemPosBuyNUm<remainingItemSpace)?itemPosBuyNUm:remainingItemSpace;
+
+            counter.setMinMax(maxCount,0);
+
         }
         else
         {

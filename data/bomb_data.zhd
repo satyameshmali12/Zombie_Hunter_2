@@ -1,5 +1,5 @@
 Yellow_Fuse
-0
+1
 1000
 1000
 -100
@@ -17,7 +17,7 @@ true
 Yellow_Fuse \n Bommmm..................
 
 Skew_Bomb
-0
+1
 1200
 1200
 -100
@@ -35,7 +35,7 @@ true
 Skew_Bomb \n Bommmm.................. down
 
 Thunder_Blast_2
-0
+1
 2000
 2000
 -100
@@ -53,7 +53,7 @@ true
 Thunder_Blast_2 \n Bommmm.............. .... ... down
 
 Thunder_Blast
-59
+1
 1600
 1600
 -100
@@ -102,7 +102,7 @@ Explosion_Gas
 12000
 100
 25000
-false
+true
 false
 Not made for normal use
 

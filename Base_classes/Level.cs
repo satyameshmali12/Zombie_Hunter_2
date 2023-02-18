@@ -51,8 +51,6 @@ public class Level : Node2D, Global_Variables_F_A_T
     public Button pause_button;
     public Node2D game_gui;
 
-    // this boolean will be overrided from the aracde script of the game
-    public bool is_arcade;
 
     bool is_level_specified;
 
@@ -108,9 +106,16 @@ public class Level : Node2D, Global_Variables_F_A_T
 
         is_data_saved = false;
 
+
+
+
         // making the zombie_level_list_list
+        // it is used for the overall rendering of the zombies
+        // they arrange in the increasing order of their power
         zombie_level_list = new ArrayList() { "Male_Zombie", "Female_Zombie", "Female_Zombie_2", "Wild_Zombie", "Female_Zombie", "Male_Zombie_2", "Zombie_Knight_1",
         "Zombie_Knight_2","Zombie_Knight_3","Dark_King" };
+
+
 
 
 
@@ -226,21 +231,21 @@ public class Level : Node2D, Global_Variables_F_A_T
         bool isAllZombieDeath = true;
         foreach (Basic_Zombie zombie in zombie_area.GetChildren())
         {
-            if(!zombie.is_death)
+            if (!zombie.is_death)
             {
                 isAllZombieDeath = false;
                 break;
             }
         }
         // var win_condition = total_zombie == 0 && zombie_area.GetChildren().Count == 0;
-        bool win_condition = (total_zombie==0 && isAllZombieDeath);
+        bool win_condition = (total_zombie == 0 && isAllZombieDeath);
 
 
 
         if ((global_variables.is_game_over || win_condition))
         {
 
-            if (heros_area.GetChildCount() !=0 && basf.global_Variables.current_level_type==Level_Type.Multi_AI)
+            if (heros_area.GetChildCount() != 0 && basf.global_Variables.current_level_type == Level_Type.Multi_AI)
             {
                 is_data_saved = true;
                 int char_count = heros_area.GetChildCount();
@@ -269,19 +274,22 @@ public class Level : Node2D, Global_Variables_F_A_T
 
                 zombie_Catcher.saveData();
 
+                // saving the data for the current level
+                // if the player win's then setting the score
+                var score = global_variables.score;
+                var dm = basf.dm;
+                if (score > Convert.ToInt32(dm.get_data("Score")) && (win_condition || getLevelType()!=Level_Type.Normal_Level))
+                {
+                    dm.set_value("Score", score.ToString());
+                    dm.save_data();
+                    global_variables.isHighScore = true;
+                }
+                
                 // unlocking the next level
                 // the complete description can be founded in the respective classes
                 if (win_condition)
                 {
-                    // saving the data for the current level
-                    // if the player win's then setting the score
-                    var score = global_variables.score;
-                    var dm = basf.dm;
-                    if (score > Convert.ToInt32(dm.get_data("Score")))
-                    {
-                        dm.set_value("Score", score.ToString());
-                        dm.save_data();
-                    }
+
 
                     // supplying the data to the global_variables
                     global_variables.had_win_the_game = true;
@@ -305,12 +313,9 @@ public class Level : Node2D, Global_Variables_F_A_T
 
                 game_over_view_label.set_w_l(win_condition);
             }
-            // else
-            // {
-            // }
         }
 
-        if (Input.IsActionJustPressed("Move_To_GOS") || (game_over_timing >= max_time_time_on_screen && zombie_area.GetChildCount()==0))
+        if (Input.IsActionJustPressed("Move_To_GOS") || (game_over_timing >= max_time_time_on_screen && zombie_area.GetChildCount() == 0))
         {
             if (is_data_saved)
             {
@@ -387,7 +392,7 @@ public class Level : Node2D, Global_Variables_F_A_T
 
             is_successfully_added = true;
 
-            if (!is_arcade)
+            if (getLevelType() == Level_Type.Normal_Level)
             {
                 total_zombie--;
             }
@@ -404,7 +409,7 @@ public class Level : Node2D, Global_Variables_F_A_T
     </summary>*/
     public void remove_zero_left_zombie()
     {
-        if (is_specified_count_given && !is_arcade)
+        if (is_specified_count_given && getLevelType() == Level_Type.Normal_Level)
         {
             var removal_indexes = new ArrayList();
             for (int i = 0; i < zombie_render_list.Count; i++)
@@ -457,6 +462,11 @@ public class Level : Node2D, Global_Variables_F_A_T
     public void setLevelType(Level_Type lev_t)
     {
         basf.global_Variables.current_level_type = lev_t;
+    }
+
+    public Level_Type getLevelType()
+    {
+        return basf.global_Variables.current_level_type;
     }
 
 

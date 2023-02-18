@@ -1,5 +1,5 @@
 Health_Stopper
-8
+1
 1000
 100
 3
@@ -12,13 +12,13 @@ true
 3
 3
 true
-Hey their its is spell which makes the health to stop a at a particular point my boy hahaha
+It Makes The Player Health to be stopped for a period of Time
 -
 False
 Don't us their
 
 Max_Powerer
-75
+1
 1000
 10
 3
@@ -31,13 +31,13 @@ true
 3
 3
 true
-Hey their its is spell which makes the health to stop a at a particular point my boy hahaha
+It makes the player Powerer unfinishable
 -
 false
 Don't use it
 
 Move_Stopper
-12
+1
 1000
 10
 3
@@ -50,13 +50,13 @@ true
 3
 3
 true
-Hey their its is spell which makes the health to stop a at a particular point my boy hahaha
+Makes the player useless ,    Danger Spell Just Made For Fun
 -
 false
 Don't use it
 
 Health_Incrementor
-5
+1
 1000
 60
 3
@@ -69,13 +69,13 @@ true
 3
 3
 true
-Hey their its is spell which makes the health to stop a at a particular point my boy hahaha
+It Increment the health of the player with some interval of time
 -
 false
 Don't use it
 
 Tornado
-24
+1
 1000
 20
 3
@@ -88,13 +88,13 @@ true
 3
 3
 true
-Hey their its is spell which makes the health to stop a at a particular point my boy hahaha
+Creates a tornado around the area in which it is dropped
 |Tornado:Don't use one more tornado:False|
 False
 Don't use it
 
 Resist_Remover
-2
+1
 1000
 20
 3
@@ -107,13 +107,13 @@ true
 3
 3
 true
-Hey their its is spell which makes the health to stop a at a particular point my boy hahaha
+Helpfull for removing the resistance from the characters especially from the Zombie_Knights
 -
 False
 Don't use it
 
 Speed_Incrementor
-20
+1
 1000
 20
 3
@@ -126,13 +126,13 @@ true
 3
 3
 true
-Hey their its is spell which makes the health to stop a at a particular point my boy hahaha
+The more you use it the more the speed of the Character increases
 -
 False
 Don't use it
 
 Paralyze_Stopper
-17
+1
 1000
 20
 3
@@ -145,7 +145,7 @@ true
 3
 3
 true
-Hey their its is spell which makes the health to stop a at a particular point my boy hahaha
+Makes the character to be Paralyzed free so that it can attack continously
 -
 False
 Don't use it

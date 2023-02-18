@@ -1,0 +1,24 @@
+1>Weapon_Name
+ Name of the weapon
+2>Associated_With
+ Name of the character to which the weapon is Associated
+3>Current_Level
+ Current level of the Weapon
+4>Max level
+ Max level of the weapon
+5>Update_Cost
+ Update cost of the weapon
+6>Update_Cost_Increment
+ Increment to the update cost
+7>Damage_Increment
+ Increment to the damage given by the weapon
+8>Per_Level_Damage_Increment
+ Increment to the Damage_Increment per update
+9>Max_No_Of_Hits
+ The number of hit it can give per attack
+10>Hits_Increment_Per_Update
+ Increment to the Max_No_Of_Hits
+11>Is_To_Display_On_Shop
+ Whether to display on shop or not
+10>Description
+ 

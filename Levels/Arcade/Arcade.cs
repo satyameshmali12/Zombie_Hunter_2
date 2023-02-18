@@ -14,7 +14,8 @@ public class Arcade : Level
     public override void _Ready()
     {
         base._Ready();
-        is_arcade = true;
+
+        setLevelType(Level_Type.Arcade);
 
         difficulty_level = 1;
 
@@ -23,6 +24,7 @@ public class Arcade : Level
 
         diffculty_level_incrementor = basf.create_timer(diffculty_level_increment_time,"Increment_Diffculty_Level");
         diffculty_level_incrementor.Start();
+
 
     }
 

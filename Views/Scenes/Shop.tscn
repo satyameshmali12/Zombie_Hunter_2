@@ -1,4 +1,4 @@
-[gd_scene load_steps=53 format=2]
+[gd_scene load_steps=54 format=2]
 
 [ext_resource path="res://Views/Scripts/Shop.cs" type="Script" id=1]
 [ext_resource path="res://assets/images/gui/designs/Right_Arrow.png" type="Texture" id=2]
@@ -15,6 +15,7 @@
 [ext_resource path="res://Views/Scripts/shop_components/Equipe.cs" type="Script" id=13]
 [ext_resource path="res://Weapons_And_Animation/components/scenes/Desc.tscn" type="PackedScene" id=14]
 [ext_resource path="res://Weapons_And_Animation/components/scenes/Item_Searcher.tscn" type="PackedScene" id=15]
+[ext_resource path="res://Weapons_And_Animation/components/scenes/Counter.tscn" type="PackedScene" id=16]
 
 [sub_resource type="CanvasItemMaterial" id=1]
 
@@ -559,6 +560,12 @@ text = "    Buy 1  "
 __meta__ = {
 "_editor_description_": "Here name 0(Zero) is given with respect to the code in order to change or toggle some values so make sure to not change until not required.."
 }
+
+[node name="Counter" parent="Buy/Buy_In_Number" instance=ExtResource( 16 )]
+margin_left = 79.0
+margin_top = 17.0
+margin_right = 79.0
+margin_bottom = 17.0
 
 [node name="Update" type="Control" parent="Buy"]
 margin_left = 30.0

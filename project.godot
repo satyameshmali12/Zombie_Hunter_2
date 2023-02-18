@@ -11,8 +11,11 @@ config_version=4
 [application]
 
 config/name="Zombie_Hunter_2"
+config/description="A 2d Zombie Game ,Called Zombie Hunter 2.
+
+What you have to do is to catch the zombie and sell it in the market to earn, "
 run/main_scene="res://Views/Scenes/Home_View.tscn"
-config/icon="res://icon.png"
+config/icon="res://assets/images/Game_Icon/Icon.png"
 
 [autoload]
 
@@ -35,6 +38,7 @@ restore=false
 tag=false
 tab=false
 icon=false
+reci=false
 
 [gui]
 

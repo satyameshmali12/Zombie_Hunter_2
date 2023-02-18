@@ -50,6 +50,7 @@ public class Global_Variables : Node2D
     public Node current_scene;
 
     public bool had_win_the_game = false;
+    public bool isHighScore = false;
 
 
     #region Related to play sound on the mouse pressed event

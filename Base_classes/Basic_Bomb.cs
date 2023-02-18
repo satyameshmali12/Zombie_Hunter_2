@@ -28,6 +28,8 @@ public class Basic_Bomb : Node2D, Global_Variables_F_A_T
     int x_t_p = 1000;
     int y_t_p = 1000;
 
+    ArrayList scoreIncrementingTypes = new ArrayList(){_Type_of_.Zombie};
+
 
     public override void _Ready()
     {
@@ -90,8 +92,11 @@ public class Basic_Bomb : Node2D, Global_Variables_F_A_T
                         basic_Character.move(true);
                     }
                     Character character = item.GetCollider() as Character;
-                    character.change_health(-bomb_per_damage);
-                    basf.global_Variables.score += bomb_per_damage;
+                    int change = character.change_health(-bomb_per_damage);
+                    if(scoreIncrementingTypes.Contains(type._node_type))
+                    {
+                        basf.global_Variables.score += Math.Abs(change);
+                    }
                 }
             }
         }

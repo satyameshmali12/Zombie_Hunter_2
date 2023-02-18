@@ -249,6 +249,7 @@ public class Basic_Character : RigidBody2D, Character
     public override void _Process(float delta)
     {
 
+
         Position2D falling_range = this.basf.global_Variables.falling_range;
         if (falling_range != null)
         {
@@ -611,10 +612,8 @@ public class Basic_Character : RigidBody2D, Character
                 int new_change = change + health_deduction_stopper_power;
                 change = (new_change < 0) ? change : 0;
             }
-            health += change;
-            // return true;
+            health = (health+change<0)?0:health+change;
         }
-        // return false;
         return health-past_health;
     }
 

@@ -63,6 +63,9 @@ public class Game_Over_View : Basic_View
 		set_text_o_label("Win_Label", (basf.global_Variables.had_win_the_game) ? "Hey YOu W!n" : "yOu L0se,");
 		set_text_o_label("Catched_Zombie_Count_Label",$"{basf.global_Variables.catchZombieCount} Zombie Catched");
 
+		this.GetNode<Label>("High_Score_Label").Visible = basf.global_Variables.isHighScore;
+		basf.global_Variables.isHighScore = false;
+
 	}
 
 
