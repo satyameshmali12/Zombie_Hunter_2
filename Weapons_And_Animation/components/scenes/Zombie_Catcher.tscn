@@ -1,0 +1,189 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Weapons_And_Animation/components/scripts/Zombie_Catcher.cs" type="Script" id=1]
+[ext_resource path="res://assets/images/Space_Ship/Space_Ship.png" type="Texture" id=2]
+
+[node name="Zombie_Catcher" type="Node2D"]
+position = Vector2( 540, 287 )
+script = ExtResource( 1 )
+
+[node name="SpaceShip" type="Sprite" parent="."]
+position = Vector2( -3.00003, -5.00001 )
+scale = Vector2( 0.85, 0.72 )
+texture = ExtResource( 2 )
+
+[node name="Catcher_Rays" type="Node2D" parent="."]
+
+[node name="Catcher_Ray_1" type="RayCast2D" parent="Catcher_Rays"]
+position = Vector2( 92, -10 )
+enabled = true
+cast_to = Vector2( 486, 1062 )
+collision_mask = 3
+
+[node name="Catcher_Ray_2" type="RayCast2D" parent="Catcher_Rays"]
+position = Vector2( 92, -10 )
+enabled = true
+cast_to = Vector2( -607, 881 )
+collision_mask = 3
+
+[node name="Catcher_Ray_3" type="RayCast2D" parent="Catcher_Rays"]
+position = Vector2( 92, -10 )
+enabled = true
+cast_to = Vector2( 318, 1080 )
+collision_mask = 3
+
+[node name="Catcher_Ray_4" type="RayCast2D" parent="Catcher_Rays"]
+position = Vector2( 92, -10 )
+enabled = true
+cast_to = Vector2( -490, 934 )
+collision_mask = 3
+
+[node name="Catcher_Ray_5" type="RayCast2D" parent="Catcher_Rays"]
+position = Vector2( 92, -10 )
+enabled = true
+cast_to = Vector2( -394, 1066 )
+collision_mask = 3
+
+[node name="Catcher_Ray_6" type="RayCast2D" parent="Catcher_Rays"]
+position = Vector2( 92, -10 )
+enabled = true
+cast_to = Vector2( -262, 1041 )
+collision_mask = 3
+
+[node name="Catcher_Ray_7" type="RayCast2D" parent="Catcher_Rays"]
+position = Vector2( 92, -10 )
+enabled = true
+cast_to = Vector2( -116, 1069 )
+collision_mask = 3
+
+[node name="Catcher_Ray_8" type="RayCast2D" parent="Catcher_Rays"]
+position = Vector2( 92, -10 )
+enabled = true
+cast_to = Vector2( 91, 1091 )
+collision_mask = 3
+
+[node name="Catcher_Ray_9" type="RayCast2D" parent="Catcher_Rays"]
+position = Vector2( 92, -10 )
+enabled = true
+cast_to = Vector2( -9, 1101 )
+collision_mask = 3
+
+[node name="Catcher_Ray_10" type="RayCast2D" parent="Catcher_Rays"]
+position = Vector2( 92, -10 )
+enabled = true
+cast_to = Vector2( 237, 1126 )
+collision_mask = 3
+
+[node name="Catcher_Ray_11" type="RayCast2D" parent="Catcher_Rays"]
+position = Vector2( -125, 18 )
+enabled = true
+cast_to = Vector2( 486, 1062 )
+collision_mask = 3
+
+[node name="Catcher_Ray_12" type="RayCast2D" parent="Catcher_Rays"]
+position = Vector2( -125, 18 )
+enabled = true
+cast_to = Vector2( -607, 881 )
+collision_mask = 3
+
+[node name="Catcher_Ray_13" type="RayCast2D" parent="Catcher_Rays"]
+position = Vector2( -125, 18 )
+enabled = true
+cast_to = Vector2( 318, 1080 )
+collision_mask = 3
+
+[node name="Catcher_Ray_14" type="RayCast2D" parent="Catcher_Rays"]
+position = Vector2( -125, 18 )
+enabled = true
+cast_to = Vector2( -490, 934 )
+collision_mask = 3
+
+[node name="Catcher_Ray_15" type="RayCast2D" parent="Catcher_Rays"]
+position = Vector2( -125, 18 )
+enabled = true
+cast_to = Vector2( -394, 1066 )
+collision_mask = 3
+
+[node name="Catcher_Ray_16" type="RayCast2D" parent="Catcher_Rays"]
+position = Vector2( -125, 18 )
+enabled = true
+cast_to = Vector2( -262, 1041 )
+collision_mask = 3
+
+[node name="Catcher_Ray_17" type="RayCast2D" parent="Catcher_Rays"]
+position = Vector2( -125, 18 )
+enabled = true
+cast_to = Vector2( -116, 1069 )
+collision_mask = 3
+
+[node name="Catcher_Ray_18" type="RayCast2D" parent="Catcher_Rays"]
+position = Vector2( -125, 18 )
+enabled = true
+cast_to = Vector2( 91, 1091 )
+collision_mask = 3
+
+[node name="Catcher_Ray_19" type="RayCast2D" parent="Catcher_Rays"]
+position = Vector2( -125, 18 )
+enabled = true
+cast_to = Vector2( -9, 1101 )
+collision_mask = 3
+
+[node name="Catcher_Ray_20" type="RayCast2D" parent="Catcher_Rays"]
+position = Vector2( -125, 18 )
+enabled = true
+cast_to = Vector2( 237, 1126 )
+collision_mask = 3
+
+[node name="Movement_Rays" type="Node2D" parent="."]
+position = Vector2( -3, -5 )
+scale = Vector2( 0.85, 0.72 )
+
+[node name="Left_Ray" type="RayCast2D" parent="Movement_Rays"]
+enabled = true
+cast_to = Vector2( -314.118, 19.4445 )
+
+[node name="Right_Ray" type="RayCast2D" parent="Movement_Rays"]
+enabled = true
+cast_to = Vector2( 372.941, 25 )
+
+[node name="Down_Ray" type="RayCast2D" parent="Movement_Rays"]
+enabled = true
+cast_to = Vector2( 1.17651, 162.5 )
+
+[node name="Up_Ray" type="RayCast2D" parent="Movement_Rays"]
+enabled = true
+cast_to = Vector2( -3.52942, -202.778 )
+
+[node name="Killer_Rays" type="Node2D" parent="."]
+
+[node name="Killer_Ray_1" type="RayCast2D" parent="Killer_Rays"]
+cast_to = Vector2( 148, -5 )
+collision_mask = 3
+
+[node name="Killer_Ray_2" type="RayCast2D" parent="Killer_Rays"]
+cast_to = Vector2( 79, -44 )
+collision_mask = 3
+
+[node name="Killer_Ray_3" type="RayCast2D" parent="Killer_Rays"]
+cast_to = Vector2( 37, -67 )
+collision_mask = 3
+
+[node name="Killer_Ray_4" type="RayCast2D" parent="Killer_Rays"]
+cast_to = Vector2( 121, 42 )
+collision_mask = 3
+
+[node name="Killer_Ray_5" type="RayCast2D" parent="Killer_Rays"]
+cast_to = Vector2( 1, 50 )
+collision_mask = 3
+
+[node name="Killer_Ray_6" type="RayCast2D" parent="Killer_Rays"]
+cast_to = Vector2( -171, 10 )
+collision_mask = 3
+
+[node name="Killer_Ray_7" type="RayCast2D" parent="Killer_Rays"]
+cast_to = Vector2( -73, -50 )
+collision_mask = 3
+
+[node name="Killer_Ray_8" type="RayCast2D" parent="Killer_Rays"]
+cast_to = Vector2( -100, 45 )
+collision_mask = 3

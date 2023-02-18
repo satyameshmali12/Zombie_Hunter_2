@@ -389,7 +389,6 @@ scale = Vector2( 1.82558, 2.1279 )
 z_index = 1
 frames = SubResource( 2 )
 animation = "Damaged"
-frame = 1
 playing = true
 
 [node name="Rays" type="Node2D" parent="."]
@@ -521,3 +520,9 @@ position = Vector2( -12, -56 )
 enabled = true
 cast_to = Vector2( -5, -165 )
 collide_with_areas = true
+
+[node name="Name" type="Label" parent="."]
+visible = false
+margin_right = 40.0
+margin_bottom = 14.0
+text = "Zombie_Knight_1"

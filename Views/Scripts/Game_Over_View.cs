@@ -55,23 +55,14 @@ public class Game_Over_View : Basic_View
 			// make the level_changer button i.e back and forward button on the game_over_screen
 		}
 
-		// loading the user_data
-		dm = new Data_Manager("data/data_fields/user_data_fields.zhd");
-		dm.load_data("Aj");
 
 		is_to_stop = false;
 
-
-
 		// setting the text of the label on the screen
-		var money = basf.global_Variables.score * 4;
 		set_text_o_label("Score_Label", $"Score :- {basf.global_Variables.score}");
-		set_text_o_label("Earn_Label", $"Earned :- {basf.global_Variables.score * 4} $");
 		set_text_o_label("Win_Label", (basf.global_Variables.had_win_the_game) ? "Hey YOu W!n" : "yOu L0se,");
+		set_text_o_label("Catched_Zombie_Count_Label",$"{basf.global_Variables.catchZombieCount} Zombie Catched");
 
-		// saving the data of the user
-		dm.set_value("Money", $"{Convert.ToInt32(dm.get_data("Money")) + money}");
-		dm.save_data();
 	}
 
 
@@ -96,7 +87,6 @@ public class Game_Over_View : Basic_View
 			}
 
 			else if(next_level_button.Pressed){
-				GD.Print("Hey there navigated to the main_game_scene_path from the game_over_view");
 				terminate_all_task();
 				basf.global_Variables.level_name = $"Level{new_level_count}";
 				basf.navigateTo(this,basf.main_game_scene_path);

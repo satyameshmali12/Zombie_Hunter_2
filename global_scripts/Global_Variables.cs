@@ -99,6 +99,8 @@ public class Global_Variables : Node2D
 
     public ArrayList multi_ai_character_details = new ArrayList();
 
+    public int catchZombieCount = 0;
+
     public override void _Ready()
     {
 

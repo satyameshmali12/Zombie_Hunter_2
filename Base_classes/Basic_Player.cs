@@ -305,8 +305,9 @@ public class Basic_Player : Basic_Character
                     Character collided_char = (Character)collided_one;
                     var current_move = animations.Animation.ToLower();
                     var damage = get_moves_damage(current_move) + (damage_increment_possible_moves.Contains(current_move) ? damage_increment : 0);
-                    collided_char.change_health(-damage);
-                    basf.global_Variables.score += damage;
+                    int healthChanged = collided_char.change_health(-damage);
+                    // basf.global_Variables.score += damage;
+                    basf.global_Variables.increment_score(Math.Abs(healthChanged));
                     is_hitted = true;
                     number_of_hits++;
                 }
@@ -486,6 +487,13 @@ public class Basic_Player : Basic_Character
 
 
     public virtual void custom_movements() { }
+
+    public override void killCharacter()
+    {
+        base.killCharacter();
+        this.QueueFree();
+        
+    }
 
 
 

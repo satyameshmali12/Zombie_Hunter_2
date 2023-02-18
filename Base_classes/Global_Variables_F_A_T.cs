@@ -16,6 +16,6 @@ public interface Global_Variables_F_A_T
 public interface Character : Global_Variables_F_A_T
 {
     int health{get;set;} // health of the character
-    bool change_health(int change); // function for changing the health
+    int change_health(int change); // function for changing the health
     ArrayList can_collide_with{get;set;} // all the types to whom the character if collided can cause change in the health
 }

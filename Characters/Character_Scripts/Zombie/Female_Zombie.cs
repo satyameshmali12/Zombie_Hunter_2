@@ -29,6 +29,5 @@ public class Female_Zombie : Basic_Zombie
 	{
 		base._Process(delta);
 		
-		move();
 	}
 }

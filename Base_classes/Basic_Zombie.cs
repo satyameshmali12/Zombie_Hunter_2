@@ -38,6 +38,8 @@ public class Basic_Zombie : Basic_Character
 
     public bool is_associated_with_main_level = true;
 
+    public bool isToAvoidBaseLogic = false;
+
 
 
 
@@ -106,80 +108,95 @@ public class Basic_Zombie : Basic_Character
 
     public override void _Process(float delta)
     {
-
-        base._Process(delta);
-
-        // this is the position of the defender of the game
-        // on which our zombie will attack
-
-        var player_global_position = global_variables.player_position;
-
-        var player_x = player_global_position.x;
-
-        var is_left_rays_colliding = this.is_collider_ray_colliding(Left_Collision_Rays);
-        var is_right_rays_colliding = this.is_collider_ray_colliding(Right_Collision_Rays);
-
-        var player_configured_position = player_x - distancing_error;
-        if (Math.Abs(player_configured_position - this.Position.x) > 10)
+        if(!isToAvoidBaseLogic)
         {
-            this.animations.FlipH = player_configured_position < this.Position.x;
-
-            moving_speed.x = (moving_direction == Direction.Right) ? speed_x : -speed_x; // moving the zombie in the direction's
+            base._Process(delta);
         }
 
-        if (is_obstruction_in_between)
+        if (!is_death)
         {
-            var is_left_upward_ray_colliding = Left_Upward_Ray.IsColliding();
 
-            var is_right_upward_ray_colliding = Right_Upward_Ray.IsColliding();
+            // this is the position of the defender of the game
+            // on which our zombie will attack
 
+            var player_global_position = global_variables.player_position;
 
-            if (!is_left_upward_ray_colliding && moving_speed.x < 0 || !is_right_upward_ray_colliding && moving_speed.x > 0)
+            var player_x = player_global_position.x;
+
+            var is_left_rays_colliding = this.is_collider_ray_colliding(Left_Collision_Rays);
+            var is_right_rays_colliding = this.is_collider_ray_colliding(Right_Collision_Rays);
+
+            var player_configured_position = player_x - distancing_error;
+            if (Math.Abs(player_configured_position - this.Position.x) > 10)
             {
-                if (is_on_ground)
+                this.animations.FlipH = player_configured_position < this.Position.x;
+
+                moving_speed.x = (moving_direction == Direction.Right) ? speed_x : -speed_x; // moving the zombie in the direction's
+            }
+
+            if (is_obstruction_in_between)
+            {
+                var is_left_upward_ray_colliding = Left_Upward_Ray.IsColliding();
+
+                var is_right_upward_ray_colliding = Right_Upward_Ray.IsColliding();
+
+
+                if (!is_left_upward_ray_colliding && moving_speed.x < 0 || !is_right_upward_ray_colliding && moving_speed.x > 0)
                 {
-                    moving_speed.y = -jump_intensity;
+                    if (is_on_ground)
+                    {
+                        moving_speed.y = -jump_intensity;
+                    }
+
                 }
-
             }
+
+            if (!L_R_Colliding && moving_speed.x < 0 || !R_R_Collding && moving_speed.x > 0)
+            {
+                if (is_obstruction_in_between && !is_on_ground)
+                {
+                    is_obstruction_in_between = false;
+                }
+            }
+
+
+            // checking whether the zombie is on the edge or not
+            // this will help the zombie to make itselt safe to that of the fall damage
+
+            var is_left_fall_ray_colliding = is_collider_ray_colliding(Fall_Down_Left_Rays);
+            var is_right_fall_ray_colliding = is_collider_ray_colliding(Fall_Down_Right_Rays);
+
+            is_on_edge = !is_left_fall_ray_colliding && moving_speed.x < 0 || !is_right_fall_ray_colliding && moving_speed.x > 0;
+
+            moving_speed.x = (is_on_edge) ? 0 : moving_speed.x;
+
+
+
+            // making the zombie to be idle if it can't move forward
+            // Idle and Walk are the one which doesn't make's the is_busy to true
+            if (!is_busy)
+            {
+                if (moving_speed.x == 0)
+                {
+                    perform_move("Idle");
+                }
+                else
+                {
+                    perform_move("Walk");
+                }
+                is_busy = false;
+            }
+
+
         }
 
-        if (!L_R_Colliding && moving_speed.x < 0 || !R_R_Collding && moving_speed.x > 0)
-        {
-            if (is_obstruction_in_between && !is_on_ground)
-            {
-                is_obstruction_in_between = false;
-            }
-        }
+        move();
 
 
-        // checking whether the zombie is on the edge or not
-        // this will help the zombie to make itselt safe to that of the fall damage
+    }
 
-        var is_left_fall_ray_colliding = is_collider_ray_colliding(Fall_Down_Left_Rays);
-        var is_right_fall_ray_colliding = is_collider_ray_colliding(Fall_Down_Right_Rays);
-
-        is_on_edge = !is_left_fall_ray_colliding && moving_speed.x < 0 || !is_right_fall_ray_colliding && moving_speed.x > 0;
-
-        moving_speed.x = (is_on_edge) ? 0 : moving_speed.x;
-
-
-
-        // making the zombie to be idle if it can't move forward
-        // Idle and Walk are the one which doesn't make's the is_busy to true
-        if (!is_busy)
-        {
-            if (moving_speed.x == 0)
-            {
-                perform_move("Idle");
-            }
-            else
-            {
-                perform_move("Walk");
-            }
-            is_busy = false;
-        }
-
+    public virtual void customAI()
+    {
 
     }
 
@@ -241,4 +258,15 @@ public class Basic_Zombie : Basic_Character
             }
         }
     }
+
+    public override void killCharacter()
+    {
+        base.killCharacter();
+        animations.Stop();
+        this.CollisionLayer = 2;
+        this.LinearVelocity = Vector2.Zero;
+        is_death = true;
+        moving_speed = Vector2.Zero;
+    }
+
 }

@@ -1,5 +1,5 @@
 Health_Stopper
-10
+8
 1000
 100
 3
@@ -18,7 +18,7 @@ False
 Don't us their
 
 Max_Powerer
-77
+75
 1000
 10
 3
@@ -56,7 +56,7 @@ false
 Don't use it
 
 Health_Incrementor
--1
+5
 1000
 60
 3

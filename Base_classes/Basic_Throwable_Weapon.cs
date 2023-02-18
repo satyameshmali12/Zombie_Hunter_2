@@ -134,10 +134,10 @@ public class Basic_Throwable_Weapon : Area2D, Character
                 is_collided_to_character = true;
                 if (collided_player.health != 0)
                 {
-                    var is_health_change = collided_player.change_health(-(damage + (int)(weapon_speed / 100 * 20)));
-                    if(is_health_change)
+                    var healthChanged = collided_player.change_health(-(damage + (int)(weapon_speed / 100 * 20)));
+                    if(healthChanged != 0)
                     {
-                        basf.global_Variables.increment_score(damage);
+                        basf.global_Variables.increment_score(Math.Abs(healthChanged));
                     }
                     is_damage_given = true;
                 }
@@ -200,7 +200,6 @@ public class Basic_Throwable_Weapon : Area2D, Character
         }
         else
         {
-            // GD.Print("hey their right fomr the basic_throwable_weapon and working for the kunai right now hahah..!!");
             bullet_animation.FlipV = (dir == Direction.Right) ? false : true;
         }
         moving_speed = (dir == Direction.Right) ? new Vector2(weapon_speed, 0) : new Vector2(-weapon_speed, 0);
@@ -214,9 +213,9 @@ public class Basic_Throwable_Weapon : Area2D, Character
         shop_data.set_value("Max_No_Of_Hits", (max_number_of_hits + max_number_of_hits_increment).ToString());
     }
 
-    public bool change_health(int change)
+    public int change_health(int change)
     {
-        return true;
+        return 0;
     }
 
 }

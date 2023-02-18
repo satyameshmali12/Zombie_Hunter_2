@@ -474,6 +474,7 @@ margin_right = 973.0
 margin_bottom = 187.0
 
 [node name="Unlock" type="Control" parent="Buy"]
+visible = false
 margin_right = 40.0
 margin_bottom = 40.0
 script = ExtResource( 6 )
@@ -513,7 +514,6 @@ texture = ExtResource( 11 )
 color = Color( 0.376471, 0.164706, 0.843137, 1 )
 
 [node name="Buy_In_Number" type="Control" parent="Buy"]
-visible = false
 margin_left = -10.0
 margin_right = 41.0
 margin_bottom = 45.0
@@ -545,10 +545,10 @@ align = 1
 autowrap = true
 
 [node name="Buy_Button" type="Button" parent="Buy/Buy_In_Number"]
-margin_left = 91.0
-margin_top = 30.0
-margin_right = 192.0
-margin_bottom = 82.0
+margin_left = 89.0
+margin_top = 57.0
+margin_right = 190.0
+margin_bottom = 109.0
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
 custom_colors/font_color_pressed = Color( 0.0745098, 0.992157, 0.0470588, 1 )

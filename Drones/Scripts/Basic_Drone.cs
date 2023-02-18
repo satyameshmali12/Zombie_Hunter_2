@@ -294,10 +294,11 @@ public class Basic_Drone : Item_Using_Menu_Component, Character
     }
 
 
-    public bool change_health(int change)
+    public int change_health(int change)
     {
+        int pastHealth = 0;
         health += change;
-        return true;
+        return health-pastHealth;
     }
 
     public void Over_Vertical_Transion()

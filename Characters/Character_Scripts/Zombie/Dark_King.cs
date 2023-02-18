@@ -55,7 +55,6 @@ public class Dark_King : Powerful_Zombie
     public override void _Process(float delta)
     {
         base._Process(delta);
-        move();
     }
 
     void Add_Kings_Child_Zombie()

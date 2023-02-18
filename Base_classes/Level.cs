@@ -61,7 +61,7 @@ public class Level : Node2D, Global_Variables_F_A_T
 
     public Node2D heros_area;
 
-
+    Zombie_Catcher zombie_Catcher;
 
 
     public override void _Ready()
@@ -78,6 +78,7 @@ public class Level : Node2D, Global_Variables_F_A_T
         basf.global_Variables.falling_range = this.GetNode<Position2D>("Falling_Range");
 
 
+
         // setting the metadata of the for the level
         // in other words resetting all the properties of the global variables
         basf.global_Variables.current_level_name = this.Name;  // passing the current level name to the global script
@@ -86,6 +87,10 @@ public class Level : Node2D, Global_Variables_F_A_T
         basf.global_Variables.had_win_the_game = false;
         basf.global_Variables.is_game_quitted = false;
         setLevelType(Level_Type.Normal_Level); // setting the level_type to normal_level initially
+
+        zombie_Catcher = basf.get_the_packed_scene("res://Weapons_And_Animation/components/scenes/Zombie_Catcher.tscn").Instance<Zombie_Catcher>();
+        zombie_Catcher.GlobalPosition = this.GetNode<Position2D>("Points/Start_Point").GlobalPosition;
+        this.AddChild(zombie_Catcher);
 
         heros_area = this.GetNode<Node2D>("Heros_Area");
         basf.global_Variables.herosArea = heros_area;
@@ -217,7 +222,18 @@ public class Level : Node2D, Global_Variables_F_A_T
 
         var zombie_area = GetNode<Node2D>("Zombie_Area");
         spawn_zombie(zombie_area);
-        var win_condition = total_zombie == 0 && zombie_area.GetChildren().Count == 0;
+
+        bool isAllZombieDeath = true;
+        foreach (Basic_Zombie zombie in zombie_area.GetChildren())
+        {
+            if(!zombie.is_death)
+            {
+                isAllZombieDeath = false;
+                break;
+            }
+        }
+        // var win_condition = total_zombie == 0 && zombie_area.GetChildren().Count == 0;
+        bool win_condition = (total_zombie==0 && isAllZombieDeath);
 
 
 
@@ -250,6 +266,8 @@ public class Level : Node2D, Global_Variables_F_A_T
                 global_variables.is_game_over = false;
 
                 background_Music.Stop();
+
+                zombie_Catcher.saveData();
 
                 // unlocking the next level
                 // the complete description can be founded in the respective classes
@@ -292,7 +310,7 @@ public class Level : Node2D, Global_Variables_F_A_T
             // }
         }
 
-        if (Input.IsActionJustPressed("Move_To_GOS") || game_over_timing == max_time_time_on_screen)
+        if (Input.IsActionJustPressed("Move_To_GOS") || (game_over_timing >= max_time_time_on_screen && zombie_area.GetChildCount()==0))
         {
             if (is_data_saved)
             {
@@ -327,7 +345,7 @@ public class Level : Node2D, Global_Variables_F_A_T
         var all_zombies = zombie_area.GetChildren();
         foreach (Basic_Zombie zombie in all_zombies)
         {
-            if (zombie.is_associated_with_main_level)
+            if (zombie.is_associated_with_main_level && !zombie.is_death)
             {
                 tot_num_of_zom++;
             }

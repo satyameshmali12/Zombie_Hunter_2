@@ -108,6 +108,8 @@ public class Basic_Character : RigidBody2D, Character
     public bool is_to_give_fall_damage;  // it will help us to determine whether to give the fall damage but also to play the animation at the time of the fall damage
     public int no_of_seconds;  // to check for how much time the player was in the sky it will help us to manage the intensity of the fall damage
 
+    public bool is_death = false;
+
     public ProgressBar health_bar;
 
     #region All this varaiables are associated with the spell usage
@@ -124,6 +126,7 @@ public class Basic_Character : RigidBody2D, Character
 
     public string death_sound_url;
     bool is_death_sound_played;
+    bool isDeathScoreIncremented = false;
 
     public string hurt_sound_url; // url of the sound , that to be played if character get hurted
 
@@ -152,6 +155,8 @@ public class Basic_Character : RigidBody2D, Character
     int max_damage_count = 20; // the count which if the exceed the character is paralyzed
     Timer damage_count_reducer;
     public bool can_paralyze = true;
+
+    
     #endregion
 
 
@@ -402,13 +407,18 @@ public class Basic_Character : RigidBody2D, Character
             if (this._node_type == _Type_of_.Zombie)
             {
                 Basic_Zombie died_zombie = this as Basic_Zombie;
-
                 // this is the default score increment
                 // that means if the player wins then it is the minimum score
-                global_variables.score += died_zombie.kill_score_increment;
+                if(!isDeathScoreIncremented)
+                {
+                    global_variables.score += died_zombie.kill_score_increment;
+                    isDeathScoreIncremented = true;
+                }
+                
             }
 
-            this.QueueFree();
+            killCharacter();
+            is_death = true;
         }
 
         if (!is_to_change_power)
@@ -591,8 +601,9 @@ public class Basic_Character : RigidBody2D, Character
         return true;
     }
 
-    public bool change_health(int change)
+    public int change_health(int change)
     {
+        int pastHealth = health;
         if (!is_resisted)
         {
             if (change < health_deduction_stopper_range)
@@ -601,9 +612,10 @@ public class Basic_Character : RigidBody2D, Character
                 change = (new_change < 0) ? change : 0;
             }
             health += change;
-            return true;
+            // return true;
         }
-        return false;
+        // return false;
+        return health-past_health;
     }
 
 
@@ -703,6 +715,8 @@ public class Basic_Character : RigidBody2D, Character
 
         return false;
     }
+
+    public virtual void killCharacter(){}
 
 
 

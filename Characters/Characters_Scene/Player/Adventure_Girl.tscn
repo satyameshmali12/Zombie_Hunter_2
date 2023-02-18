@@ -168,7 +168,6 @@ scale = Vector2( 0.226, 0.322 )
 z_index = 1
 frames = SubResource( 2 )
 animation = "Damaged"
-frame = 1
 playing = true
 
 [node name="Rays" type="Node2D" parent="."]

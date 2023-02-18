@@ -41,7 +41,7 @@ public class Basic_View:Control,Global_Variables_F_A_T
         level_base_url = "res://Levels/Scenes/";
 
         item_searcher = this.GetNode<Item_Searcher>("Item_Searcher");
-        item_searcher.load_data(new ArrayList(){"Home_View","Level_View","Shop","Warning_Editor","Multi_AI_Match_Gui"});
+        item_searcher.load_data(new ArrayList(){"Home_View","Level_View","Shop","Warning_Editor","Multi_AI_Match_Gui","Sell_Zombies"});
         item_searcher.render_items_copy.Remove(this.Name);
         
         
